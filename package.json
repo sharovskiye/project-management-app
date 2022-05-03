@@ -24,7 +24,9 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint": "eslint ./ --ext .ts,.tsx --color",
+    "lint:styles": "stylelint **/src/**/*.scss"
   },
   "eslintConfig": {
     "extends": [
@@ -54,8 +56,15 @@
     "gh-pages": "^3.2.3",
     "husky": "^7.0.4",
     "lint-staged": "^12.4.1",
+    "postcss-scss": "^4.0.4",
     "prettier": "^2.6.2",
-    "sass": "^1.51.0"
+    "sass": "^1.51.0",
+    "stylelint": "^14.8.1",
+    "stylelint-config-css-modules": "^4.1.0",
+    "stylelint-config-prettier-scss": "^0.0.1",
+    "stylelint-config-recess-order": "^3.0.0",
+    "stylelint-config-standard-scss": "^3.0.0",
+    "stylelint-scss": "^4.2.0"
   },
   "config": {
     "commit-message-validator": {
