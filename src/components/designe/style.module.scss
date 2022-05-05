@@ -2,24 +2,15 @@ $main-bg-light: #ECE0D6;
 $main-bg-dark: #1F2132;
 $container-width-big: 90vw;
 $container-width-medium: 85vw;
-$icon-color: #1B1D21;
-$title-color: #171717;
+$title-color-dark: #1B1D21;
+$title-color-light: #ECE0D6;
 $text-color: #403D3C;
 $text-column-color: #6B6867;
 $link-text-size: 20px;
+$footer-link-text-size: 16px;
 
-body {
-    margin: 0;
-}
-
-.wrapper {
-    &__light {
-        background-color: $main-bg-light;
-    }
-
-    &__dark {
-        background-color: $main-bg-dark;
-    }
+section {
+    margin-bottom: 50px;
 }
 
 .container {
@@ -34,63 +25,54 @@ body {
     &__medium {
         max-width: $container-width-medium;
     }
+}
 
+.line {
+    position: absolute;
+    bottom: 0;
+    display: block;
+    width: 100%;
+    height: 2px;
+    content: '';
+}
+
+.header {
+    font-size: $link-text-size;
+}
+ 
+.footer {
+    font-size: $footer-link-text-size;
+
+    &_githubBlock {
+        display: flex;
+    }
 }
 
 .header, .footer {
-    height: 100px;
-}
-
-.header .container {
     position: relative;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    font-weight: bold;
 
-    &::after {
-        position: absolute;
-        bottom: 0;
+    &_link {
         display: block;
-        width: 100%;
-        height: 2px;
-        content: '';
-        background-color: $icon-color;
-    }
-
-    & .link {
-        display: block;
-        font-size: $link-text-size;
-        font-weight: bold;
-        color: $icon-color;
-        text-decoration: none;
+        padding-right: 10px;
+        text-decoration: none !important;
         cursor: pointer;
         transition: 0.5s;
-        
 
         &:hover {
-            color: $text-column-color;
+            color: $text-column-color  !important;
         }
 
         &:active {
-            text-decoration: underline;
-        }
-
-        &:first-child {
-            padding-right: 20px;
-            line-height: 56px;
-            border-right: solid 2px $icon-color;
-            
-        }
-
-        &:nth-child(2) {
-            padding-left: 20px;
-            margin-right: auto;
-        }
-
-        &:nth-child(3) {
-            margin-right: 30px;
+            text-decoration: underline  !important;
         }
     }
 }
+
 
 .main {
     height: calc(100vh - 200px)
@@ -100,13 +82,81 @@ body {
     margin-left: 20px;
     
     &_select {
-        color: $icon-color !important;
+        min-width: 69.42px;
+        max-height: 36.63px;
+        color: $title-color-dark !important;
         border-radius: 5px !important;
 
         & fieldset {
-            border-color: $icon-color !important;
-            border-width: 2px !important;
-            
+            border-color: $title-color-dark !important;
+            border-width: 2px !important;  
         }
     }
 }
+
+.lightTheme {
+    background-color: $main-bg-light;
+    
+    & .footer {
+        color: $title-color-dark;
+    }
+
+    & .line {
+        background-color: $title-color-dark;
+    }
+
+    & .link {
+        color: $title-color-dark !important;
+    }
+
+    & .button {
+        color: $title-color-dark !important;
+        border-color: $title-color-dark !important;
+    }
+
+    & .form {
+        &_select {
+            color: $title-color-dark !important;
+    
+            & fieldset {
+                border-color: $title-color-dark !important;                
+            }
+        }
+    }
+}
+
+.darkTheme {
+    background-color: $main-bg-dark;
+
+    & .footer {
+        color: $title-color-light;
+    }
+    
+    & .line {
+        background-color: $title-color-light;
+    }
+
+    & .link {
+        color: $title-color-light !important;
+    }
+
+    & .button {
+        color: $title-color-light !important;
+        border-color: $title-color-light !important;
+    }
+
+    & .form {
+        &_select {
+            color: $title-color-light !important;
+        
+            & fieldset {
+                border-color: $title-color-light !important;                
+            }
+
+            & svg {
+                fill: $title-color-light !important;
+            }
+        }
+    }
+}
+
