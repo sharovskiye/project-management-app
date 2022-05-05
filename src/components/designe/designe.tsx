@@ -2,6 +2,7 @@ import React from 'react';
 import { Select, MenuItem, SelectChangeEvent, FormControl, Link, Button } from '@mui/material';
 import { useState } from 'react';
 import style from './style.module.scss';
+import { Column } from './Column';
 
 export const Designe = () => {
   const [age, setAge] = useState('RU');
@@ -31,7 +32,9 @@ export const Designe = () => {
         </header>
 
         <main className={`${style.lightTheme}`}>
-          <div className={`${style.container} ${style.container__medium}  ${style.main}`}></div>
+          <div className={`${style.container} ${style.container__medium}  ${style.main}`}>
+            <Column />
+          </div>
         </main>
 
         <footer className={`${style.darkTheme}`}>
@@ -70,7 +73,9 @@ export const Designe = () => {
         </header>
 
         <main className={`${style.darkTheme}`}>
-          <div className={`${style.container} ${style.container__medium}  ${style.main}`}></div>
+          <div className={`${style.container} ${style.container__medium}  ${style.main}`}>
+            <Column />
+          </div>
         </main>
 
         <footer className={`${style.lightTheme}`}>
