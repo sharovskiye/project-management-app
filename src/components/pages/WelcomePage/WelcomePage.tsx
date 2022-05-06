@@ -1,4 +1,4 @@
-import { AboutCours } from './AboutCours';
+import { AboutCourse } from './AboutCourse';
 import { AboutProject } from './AboutProject';
 import { AboutTeam } from './AboutTeam';
 import { LogIn } from './LogIn';
@@ -21,7 +21,7 @@ export const WelcomePage = () => {
       <main>
         <AboutProject />
         <AboutTeam />
-        <AboutCours />
+        <AboutCourse />
       </main>
       <footer></footer>
     </div>

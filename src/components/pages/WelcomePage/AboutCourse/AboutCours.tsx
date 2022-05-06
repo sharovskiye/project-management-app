@@ -2,7 +2,7 @@ import styles from './styles.module.scss';
 
 const { title, subTitle } = styles;
 
-export const AboutCours = () => {
+export const AboutCourse = () => {
   return (
     <>
       <h3 className={title}>About Cours</h3>
