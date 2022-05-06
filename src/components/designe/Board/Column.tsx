@@ -1,6 +1,8 @@
 import { Tooltip } from '@mui/material';
 import { useCallback, useState } from 'react';
-import style from './style.module.scss';
+import { CustomButton } from '../Buttons/CustomButton';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import style from '../style.module.scss';
 
 export const Column = () => {
   const [open, setOpen] = useState(false);
@@ -22,24 +24,29 @@ export const Column = () => {
         {open && (
           <form className={style.column_form}>
             <div className={style.column_buttons}>
-              <button
-                type="submit"
+              <CustomButton
+                textContent="SUBMIT"
+                itemType="submit"
                 className={`${style.columnButton} ${style.columnButton__submit}`}
-              >
-                SUBMIT
-              </button>
-              <button
-                type="button"
+              />
+              <CustomButton
+                textContent="CANCEL"
+                itemType="button"
                 className={`${style.columnButton} ${style.columnButton__cancel}`}
                 onClick={isOpen}
-              >
-                CANCEL
-              </button>
+              />
             </div>
             <input className={style.column_input} type="text" />
           </form>
         )}
       </div>
+      <CustomButton
+        typeof="button"
+        textContent="Add task"
+        className={`${style.columnButton} ${style.columnButton__icon}`}
+        style={{ height: '37px' }}
+        icon={<AddCircleOutlineOutlinedIcon className={style.icon__add} />}
+      />
       <div></div>
     </div>
   );

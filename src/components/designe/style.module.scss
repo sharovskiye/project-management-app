@@ -5,14 +5,20 @@ $container-width-medium: 85vw;
 $title-color-dark: #1B1D21;
 $title-color-light: #ECE0D6; 
 $text-color: #403D3C;
-$text-column-color: #6B6867;
-$link-text-size: 20px;
-$footer-link-text-size: 16px;
-$background-cancel: #F3758B;
-$background-submit: #6DCCCC;
+$text-column-color: rgb(107 104 103);
+$color-column-button: rgba(107 104 103 / 50%);
+$color-text-white: #ffffff;
+$font-size-large: 20px;
+$font-size-medium: 16px;
+$font-size-small: 14px;
+$color-cancel: #F3758B;
+$color-submit: #6DCCCC;
+$color-add: #007E5B;
+$color-delete: #ff0000;
 
 section {
     margin-bottom: 50px;
+    
 }
 
 .container {
@@ -40,12 +46,12 @@ section {
 
 .header {
     height: 100px;
-    font-size: $link-text-size;
+    font-size: $font-size-large;
 }
  
 .footer {
     height: 80px;
-    font-size: $footer-link-text-size;
+    font-size: $font-size-medium;
 
     &_githubBlock {
         display: flex;
@@ -67,7 +73,7 @@ section {
         transition: 0.5s;
 
         &:hover {
-            color: $text-column-color  !important;
+            color: $color-column-button  !important;
         }
 
         &:active {
@@ -77,10 +83,12 @@ section {
 }
 
 
+
 .main {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     height: calc(100vh - 200px);
+    padding: 40px 0;
 }
 
 .form {
@@ -99,6 +107,41 @@ section {
     }
 }
 
+.columnButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-text-white;
+    cursor: pointer;
+    background-color: $color-column-button;
+    border: none;
+    border-radius: 5px;
+    transition: 0.5s;
+
+    
+    &__submit {
+        &:hover {
+            color: $color-submit ;
+        }
+    }
+
+    &__cancel {
+        &:hover {
+            color: $color-cancel ;
+        }
+    }
+
+    &__icon {
+        width: 100%;
+        font-size: $font-size-large;
+
+        &:hover {
+            color: $color-submit ;
+        }
+
+    }
+}
+
 .column {
     width: 350px;
     height: 90%;
@@ -111,7 +154,8 @@ section {
 
     &_header {
         height: 50px;
-        font-size: $footer-link-text-size;
+        margin-bottom: 10px;
+        font-size: $font-size-small;
         font-weight: bold;
         color: $title-color-dark;
         border-radius: 5px;
@@ -124,7 +168,7 @@ section {
         width: 100%;
         height: 100%;
         cursor: pointer;
-        background-color: #ffffff;
+        background-color: $color-text-white;
         border-radius: 3px;
         transition: 0.5s;
     }
@@ -151,22 +195,16 @@ section {
 
     & .columnButton {
         height: 47%;
-        cursor: pointer;
-        border: #ffffff 2px solid;
-        border-radius: 5px;
-        transition: 0.5s;
-        
-        &__submit {
-            &:hover {
-                color: $background-submit ;
-            }
-        }
+    }
 
-        &__cancel {
-            &:hover {
-                color: $background-cancel ;
-            }
-        }
+}
+
+
+.icon {
+    &__add {
+        max-height: $font-size-large;
+        padding-top: 4px;
+        padding-right: 10px;
     }
 }
 
