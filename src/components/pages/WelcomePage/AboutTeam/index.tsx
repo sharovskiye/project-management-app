@@ -1,5 +1,5 @@
 import { Person } from '../Person';
-import { IPerson } from '../Person/Person';
+import { IPerson } from '../Person';
 import { teamMembers } from './const';
 
 import styles from './styles.module.scss';

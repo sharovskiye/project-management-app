@@ -1,5 +1,3 @@
-import React from 'react';
-
 import styles from './styles.module.scss';
 
 const { image, title } = styles;
@@ -10,7 +8,7 @@ export type IPerson = {
   description: string;
 };
 
-export const Person: React.FC<IPerson> = ({ src, name, description }) => {
+export const Person = ({ src, name, description }: IPerson) => {
   return (
     <div>
       <img

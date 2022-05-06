@@ -1,1 +1,0 @@
-export { AboutTeam } from './AboutTeam';
