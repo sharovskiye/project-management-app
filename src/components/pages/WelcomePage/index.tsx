@@ -1,3 +1,4 @@
+import { Footer } from '../Footer';
 import { AboutCourse } from './AboutCourse';
 import { AboutProject } from './AboutProject';
 import { AboutTeam } from './AboutTeam';
@@ -23,7 +24,7 @@ export const WelcomePage = () => {
         <AboutTeam />
         <AboutCourse />
       </main>
-      <footer></footer>
+      <Footer />
     </div>
   );
 };
