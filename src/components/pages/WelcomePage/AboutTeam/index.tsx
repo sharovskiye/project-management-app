@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Person } from '../Person';
 import { IPerson } from '../Person';
 import { teamMembers } from './const';
@@ -9,9 +10,11 @@ export const AboutTeam = () => {
     <>
       <h2 className={styles.title}>About team</h2>
       <div className={styles.wrapper}>
-        {teamMembers.map((items: IPerson) => {
-          return <Person {...items} key={items.name} />;
-        })}
+        {useMemo(() => {
+          return teamMembers.map((items: IPerson) => {
+            return <Person {...items} key={items.name} />;
+          });
+        }, [])}
       </div>
     </>
   );
