@@ -4,13 +4,11 @@ import { teamMembers } from './const';
 
 import styles from './styles.module.scss';
 
-const { wrapper, title } = styles;
-
 export const AboutTeam = () => {
   return (
     <>
-      <h2 className={title}>About team</h2>
-      <div className={wrapper}>
+      <h2 className={styles.title}>About team</h2>
+      <div className={styles.wrapper}>
         {teamMembers.map((items: IPerson) => {
           return <Person {...items} key={items.name} />;
         })}

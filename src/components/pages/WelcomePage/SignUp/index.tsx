@@ -1,7 +1,5 @@
 import styles from './styles.module.scss';
 
-const { signUpBtn } = styles;
-
 export const SignUp = () => {
-  return <button className={signUpBtn}>Sign up</button>;
+  return <button className={styles.signUpBtn}>Sign up</button>;
 };

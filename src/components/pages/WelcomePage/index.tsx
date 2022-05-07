@@ -7,14 +7,12 @@ import { SignUp } from './SignUp';
 
 import styles from './styles.module.scss';
 
-const { wrapper, regContainer } = styles;
-
 export const WelcomePage = () => {
   return (
-    <div className={wrapper}>
+    <div className={styles.wrapper}>
       <header>
         <h1 className="title">Project Management System</h1>
-        <div className={regContainer}>
+        <div className={styles.regContainer}>
           <LogIn />
           <SignUp />
         </div>
