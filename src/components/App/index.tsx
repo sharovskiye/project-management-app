@@ -1,9 +1,9 @@
-import styles from './styles.module.scss';
+import { WelcomePage } from '../pages/WelcomePage';
 
 export function App() {
   return (
     <>
-      <h1 className={styles.testClass}>project-management-app</h1>
+      <WelcomePage />
     </>
   );
 }
