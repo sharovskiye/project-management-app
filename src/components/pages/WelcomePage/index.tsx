@@ -11,8 +11,7 @@ export const WelcomePage = () => {
   return (
     <div className={styles.wrapper}>
       <header>
-        {/* <h1 className="title">Project Management System</h1> */}
-        <h1 className="title">Test autodeploy</h1>
+        <h1 className="title">Project Management System</h1>
         <div className={styles.regContainer}>
           <LogIn />
           <SignUp />
