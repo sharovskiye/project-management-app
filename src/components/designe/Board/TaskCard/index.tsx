@@ -1,31 +1,34 @@
 import styles from './styles.module.scss';
 import EditIcon from '@mui/icons-material/Edit';
 import { ModalWindow } from '../../Modal';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { CustomButton } from '../../Buttons';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import { ConfirmModalWindow } from '../../Modal/ConfirmModal';
 
 export const TaskCard = () => {
   const [openModal, setOpenModal] = useState(false);
-  const handleOpen = () => setOpenModal(true);
-  const handleClose = () => setOpenModal(false);
-
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
-  const handleOpenConfirm = () => setOpenConfirmModal(true);
-  const handleCloseConfirm = () => setOpenConfirmModal(false);
+
+  const isOpenModal = useCallback(() => {
+    setOpenModal((prevValue) => !prevValue);
+  }, []);
+
+  const isOpenConfirmModal = useCallback(() => {
+    setOpenConfirmModal((prevValue) => !prevValue);
+  }, []);
 
   return (
     <div className={styles.task}>
       <div className={styles.task_title}>
         <p>I`m task title</p>
         <div className={`${styles.column_buttons} ${styles.task_buttons}`}>
-          <CustomButton icon={<EditIcon />} itemType="button" submit={true} onClick={handleOpen} />
+          <CustomButton icon={<EditIcon />} itemType="button" submit={true} onClick={isOpenModal} />
           <CustomButton
             icon={<ClearOutlinedIcon />}
             itemType="button"
             cancel={true}
-            onClick={handleOpenConfirm}
+            onClick={isOpenConfirmModal}
           />
         </div>
       </div>
@@ -38,10 +41,10 @@ export const TaskCard = () => {
           ></textarea>
         }
         open={openModal}
-        handleClose={handleClose}
+        handleClose={isOpenModal}
         nameButton="Edit"
       />
-      <ConfirmModalWindow open={openConfirmModal} handleClose={handleCloseConfirm} />
+      <ConfirmModalWindow open={openConfirmModal} handleClose={isOpenConfirmModal} />
     </div>
   );
 };

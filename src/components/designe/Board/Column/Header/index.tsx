@@ -8,13 +8,15 @@ import { ConfirmModalWindow } from '../../../Modal/ConfirmModal';
 
 export const ColumnHeader = () => {
   const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+
   const isOpen = useCallback(() => {
     setOpen((prevValue) => !prevValue);
   }, []);
 
-  const [openModal, setOpenModal] = useState(false);
-  const handleOpen = () => setOpenModal(true);
-  const handleClose = () => setOpenModal(false);
+  const isOpenModal = useCallback(() => {
+    setOpenModal((prevValue) => !prevValue);
+  }, []);
 
   return (
     <>
@@ -31,11 +33,11 @@ export const ColumnHeader = () => {
                 icon={<ClearOutlinedIcon />}
                 itemType="button"
                 cancel={true}
-                onClick={handleOpen}
+                onClick={isOpenModal}
               />
             </div>
           </Tooltip>
-          <ConfirmModalWindow open={openModal} handleClose={handleClose} />
+          <ConfirmModalWindow open={openModal} handleClose={isOpenModal} />
         </div>
       )}
       {open && (

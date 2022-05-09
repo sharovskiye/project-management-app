@@ -17,8 +17,9 @@ export const Column = () => {
     }
   }, []);
   const [openModal, setOpenModal] = useState(false);
-  const handleOpen = () => setOpenModal(true);
-  const handleClose = () => setOpenModal(false);
+  const isOpenModal = useCallback(() => {
+    setOpenModal((prevValue) => !prevValue);
+  }, []);
 
   useEffect(() => {
     const heightColumnPercent = 0.74;
@@ -63,7 +64,7 @@ export const Column = () => {
           textContent="Add task"
           style={{ height: '37px' }}
           icon={<AddCircleOutlineOutlinedIcon className={styles.icon__add} />}
-          onClick={handleOpen}
+          onClick={isOpenModal}
         />
 
         <ModalWindow
@@ -75,7 +76,7 @@ export const Column = () => {
             ></textarea>
           }
           open={openModal}
-          handleClose={handleClose}
+          handleClose={isOpenModal}
           nameButton="Add task"
         />
       </div>
