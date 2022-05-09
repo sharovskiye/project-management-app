@@ -58,4 +58,35 @@ $padding-base: 10px;
         font-size: $font-size-large;
         text-align: center;
     }
+
+    &_title {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        &::after {
+            width: 100%;
+            height: 1px;
+            content: '';
+            background-color: $text-column-color;
+        }
+    }
+
+    &_buttonDelete {
+        width: 100%;
+        height: 30px;
+        margin-right: $padding-base;
+        color: $color-text-white;
+        cursor: pointer;
+        background-color: #b04632;
+        filter: contrast(0.8);
+        border: none;
+        border-radius: 3px;
+        transition: 0.5s;
+
+        &:hover {
+            filter: contrast(1);
+        }
+    }
   };

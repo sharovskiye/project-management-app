@@ -1,6 +1,5 @@
 import Modal from '@mui/material/Modal/Modal';
 import styles from '../styles.module.scss';
-import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import { CustomButton } from '../../Buttons';
 
 export type ConfirmModalType = {
@@ -10,24 +9,25 @@ export type ConfirmModalType = {
 
 export const ConfirmModalWindow = ({ open, handleClose }: ConfirmModalType) => {
   return (
-    <Modal open={open} onClose={handleClose} hideBackdrop>
-      <form className={styles.modal_form}>
-        <div className={styles.modal_textContent}>
-          Confirm item deletion. Cancellation is not possible.
+    <Modal open={open}>
+      <form className={`${styles.modal_form}`}>
+        <div className={styles.modal_title}>
+          <div className={styles.modal_textContent}>Confirm item deletion.</div>
         </div>
+
+        <div className={styles.modal_textContent}>Cancellation is not possible.</div>
         <div className={styles.modal_buttons}>
           <CustomButton
             itemType="button"
-            submit={true}
+            className={`${styles.modal_buttonDelete}`}
             textContent="Delete"
             onClick={() => {
               console.log('Написать функцию удаления элемента');
             }}
           />
           <CustomButton
-            icon={<ClearOutlinedIcon />}
-            itemType="button"
-            cancel={true}
+            /* icon={<ClearOutlinedIcon />} */ itemType="button"
+            textContent="Cancel"
             onClick={handleClose}
           />
         </div>

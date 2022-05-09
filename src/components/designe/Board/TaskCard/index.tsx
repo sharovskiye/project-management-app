@@ -4,11 +4,16 @@ import { ModalWindow } from '../../Modal';
 import { useState } from 'react';
 import { CustomButton } from '../../Buttons';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
+import { ConfirmModalWindow } from '../../Modal/ConfirmModal';
 
 export const TaskCard = () => {
   const [openModal, setOpenModal] = useState(false);
   const handleOpen = () => setOpenModal(true);
   const handleClose = () => setOpenModal(false);
+
+  const [openConfirmModal, setOpenConfirmModal] = useState(false);
+  const handleOpenConfirm = () => setOpenConfirmModal(true);
+  const handleCloseConfirm = () => setOpenConfirmModal(false);
 
   return (
     <div className={styles.task}>
@@ -20,10 +25,7 @@ export const TaskCard = () => {
             icon={<ClearOutlinedIcon />}
             itemType="button"
             cancel={true}
-            onClick={() => {
-              console.log('функция для удаления таски');
-              handleClose;
-            }}
+            onClick={handleOpenConfirm}
           />
         </div>
       </div>
@@ -39,6 +41,7 @@ export const TaskCard = () => {
         handleClose={handleClose}
         nameButton="Edit"
       />
+      <ConfirmModalWindow open={openConfirmModal} handleClose={handleCloseConfirm} />
     </div>
   );
 };
