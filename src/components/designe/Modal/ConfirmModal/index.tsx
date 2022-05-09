@@ -21,9 +21,6 @@ export const ConfirmModalWindow = ({ open, handleClose }: ConfirmModalType) => {
             itemType="button"
             className={`${styles.modal_buttonDelete}`}
             textContent="Delete"
-            onClick={() => {
-              console.log('Написать функцию удаления элемента');
-            }}
           />
           <CustomButton
             /* icon={<ClearOutlinedIcon />} */ itemType="button"
