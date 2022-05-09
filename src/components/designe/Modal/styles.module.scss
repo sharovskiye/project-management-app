@@ -1,0 +1,61 @@
+$main-bg-light: #ECE0D6;
+$main-bg-dark: #1F2132;
+$container-width-big: 90vw;
+$container-width-medium: 85vw;
+$title-color-dark: #1B1D21;
+$title-color-light: #ECE0D6; 
+$text-color: #403D3C;
+$text-column-color: rgb(107 104 103);
+$color-column-button: rgba(107 104 103 / 50%);
+$color-text-white: #ffffff;
+$font-size-large: 20px;
+$font-size-medium: 16px;
+$font-size-small: 14px;
+$color-cancel: #F3758B;
+$color-submit: #6DCCCC;
+$color-add: #007E5B;
+$color-delete: #ff0000;
+$width-column: 350px;
+$padding-base: 10px;
+
+.modal {
+    &_form {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        width: $width-column;
+        height: 150px;
+        padding: $padding-base;
+        background-color: $color-text-white;
+        border: 2px solid #000000;
+        box-shadow: rgb(38 57 77) 0 20px 30px -10px;
+        transform: translate(-50%, -50%);
+    }
+
+    &_input {
+        width: calc(100% - #{$padding-base * 2});
+        min-height: 100px;
+        padding: 0;
+    }
+
+    &_buttons {
+        display: flex;
+        justify-content: space-between;
+        width: calc(100% - #{$padding-base * 2});
+
+    }
+
+    &_textButton {
+        width: 100%;
+    }
+
+    &_textContent {
+        padding: $padding-base;
+        font-size: $font-size-large;
+        text-align: center;
+    }
+  };

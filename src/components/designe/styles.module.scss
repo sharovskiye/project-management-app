@@ -1,0 +1,188 @@
+$main-bg-light: #ECE0D6;
+$main-bg-dark: #1F2132;
+$container-width-big: 90vw;
+$container-width-medium: 85vw;
+$title-color-dark: #1B1D21;
+$title-color-light: #ECE0D6; 
+$text-color: #403D3C;
+$text-column-color: rgb(107 104 103);
+$color-column-button: rgba(107 104 103 / 50%);
+$color-text-white: #ffffff;
+$font-size-large: 20px;
+$font-size-medium: 16px;
+$font-size-small: 14px;
+$color-cancel: #F3758B;
+$color-submit: #6DCCCC;
+$color-add: #007E5B;
+$color-delete: #ff0000;
+$width-column: 350px;
+$padding-base: 10px;
+
+section {
+    margin-bottom: 50px;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+
+    &__big {
+        max-width: $container-width-big;
+    }
+
+    &__medium {
+        max-width: $container-width-medium;
+    }
+}
+
+.line {
+    position: absolute;
+    bottom: 0;
+    display: block;
+    width: 100%;
+    height: 2px;
+    content: '';
+}
+
+.header {
+    height: 100px;
+    font-size: $font-size-large;
+}
+ 
+.footer {
+    height: 80px;
+    font-size: $font-size-medium;
+
+    &_githubBlock {
+        display: flex;
+    }
+}
+
+
+.main {
+    display: flex;
+    align-items: flex-start;
+    height: calc(100vh - 200px - 60px);
+    padding: 40px 0;
+}
+
+.form {
+    margin-left: 20px;
+    
+    &_select {
+        min-width: 69.42px;
+        max-height: 36.63px;
+        color: $title-color-dark !important;
+        border-radius: 5px !important;
+
+        & fieldset {
+            border-color: $title-color-dark !important;
+            border-width: 2px !important;  
+        }
+    }
+}
+
+.header, .footer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+
+    &_link {
+        display: block;
+        padding: $padding-base;
+        text-decoration: none !important;
+        cursor: pointer;
+        border: none;
+        border-radius: 3px;
+        transition: 0.5s;
+
+        &:hover {
+            background-color: $color-column-button !important;
+        }
+
+        &:active {
+            background-color: $text-column-color  !important;
+        }
+    }
+}
+
+.darkTheme {
+    background-color: $main-bg-dark;
+
+    & .footer {
+        color: $title-color-light;
+    }
+    
+    & .line {
+        background-color: $title-color-light;
+    }
+
+    & .link {
+        color: $title-color-light !important;
+
+    }
+
+    & .button {
+        color: $title-color-light !important;
+        border-color: $title-color-light !important;
+    }
+
+    & .form {
+        &_select {
+            color: $title-color-light !important;
+        
+            & fieldset {
+                border-color: $title-color-light !important;                
+            }
+
+            & svg {
+                fill: $title-color-light !important;
+            }
+        }
+    }
+
+    & .column{
+        background-color: $main-bg-light;
+    }
+}
+
+.lightTheme {
+    background-color: $main-bg-light;
+    
+    & .footer {
+        color: $title-color-dark;
+    }
+
+    & .line {
+        background-color: $title-color-dark;
+    }
+
+    & .link {
+        color: $title-color-dark !important;
+    }
+
+    & .button {
+        color: $title-color-dark !important;
+        border-color: $title-color-dark !important;
+    }
+
+    & .form {
+        &_select {
+            color: $title-color-dark !important;
+    
+            & fieldset {
+                border-color: $title-color-dark !important;                
+            }
+        }
+    }
+
+    & .column{
+        background-color: $main-bg-dark;
+    }
+}
+
+
+
