@@ -1,4 +1,4 @@
-import { Footer } from '../Footer';
+import { Footer } from '../../Footer';
 import { AboutCourse } from './AboutCourse';
 import { AboutProject } from './AboutProject';
 import { AboutTeam } from './AboutTeam';
