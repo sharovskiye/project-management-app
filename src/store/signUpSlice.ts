@@ -43,13 +43,13 @@ export const signUpSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (bulder) => {
-    bulder
-      .addCase(fetchSignUp.pending, (state) => {
-        state.loading = 'pending';
-      })
-      .addCase(fetchSignUp.fulfilled, (state, action: PayloadAction<IGetPerson>) => {
-        state.userData = action.payload;
-      });
+    // bulder
+    //   .addCase(fetchSignUp.pending, (state) => {
+    //     state.loading = 'pending';
+    //   })
+    //   .addCase(fetchSignUp.fulfilled, (state, action: PayloadAction<IGetPerson>) => {
+    //     state.userData = action.payload;
+    //   });
   },
 });
 
