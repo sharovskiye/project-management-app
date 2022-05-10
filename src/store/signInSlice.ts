@@ -5,10 +5,15 @@ import { ISignInInitState } from './type';
 
 const initialState: ISignInInitState = {
   token: null,
+  userData: {
+    name: '',
+    login: '',
+    password: '',
+  },
   loading: 'idle',
 };
 
-const fetchSignIn = createAsyncThunk<IGetToken, IPerson>(
+export const fetchSignIn = createAsyncThunk<IGetToken, IPerson>(
   'signUp/fetchSignUp',
   async (payload, { rejectWithValue }) => {
     const res = await createNewPerson(payload);
@@ -31,8 +36,8 @@ export const signInSlice = createSlice({
   name: 'signIn',
   initialState,
   reducers: {},
-  extraReducers: (bulder) => {
-    bulder
+  extraReducers: (builder) => {
+    builder
       .addCase(fetchSignIn.pending, (state) => {
         state.loading = 'pending';
       })

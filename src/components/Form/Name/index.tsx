@@ -21,18 +21,16 @@ type IName = {
 
 export const Name = ({ onChange, name, value, error }: IName) => {
   return (
-    <>
-      <TextField
-        id="outlined-basic"
-        label="Name"
-        variant="outlined"
-        type="text"
-        name={name}
-        onChange={onChange}
-        value={value}
-        error={Boolean(error.name)}
-        helperText={error.name ? <div>{error.name}</div> : null}
-      />
-    </>
+    <TextField
+      id="outlined-basic"
+      label="Name"
+      variant="outlined"
+      type="text"
+      name={name}
+      onChange={onChange}
+      value={value}
+      error={Boolean(error.name)}
+      helperText={error.name ? <div>{error.name}</div> : null}
+    />
   );
 };

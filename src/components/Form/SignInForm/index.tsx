@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -7,7 +8,6 @@ import { Password } from '../Password';
 import styles from './styles.module.scss';
 
 const signUpSchema = Yup.object().shape({
-  name: Yup.string().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
   login: Yup.string().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
   password: Yup.string().min(5, 'Too Short!').max(15, 'Too Long!').required('required'),
 });
@@ -40,7 +40,9 @@ export const SignInForm = () => {
           value={formik.values.password}
           error={formik.errors}
         />
-        <input type="submit" value="Submit" disabled={!formik.isValid || !formik.dirty} />
+        <Button type="submit" variant="outlined" disabled={!formik.isValid || !formik.dirty}>
+          Submit
+        </Button>
       </form>
     </>
   );

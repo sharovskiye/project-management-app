@@ -6,6 +6,13 @@ import { Login } from '../Login';
 import { Password } from '../Password';
 
 import styles from './styles.module.scss';
+import { Button } from '@mui/material';
+import { IPerson } from '../../../services/type';
+import { fetchSignUp } from '../../../store/signUpSlice';
+import { useEffect } from 'react';
+import { fetchSignIn } from '../../../store/signInSlice';
+import { getDataUserSelector } from '../../../store/selectors';
+import { useAppSelector } from '../../../store/hook';
 
 const signUpSchema = Yup.object().shape({
   name: Yup.string().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
@@ -14,14 +21,21 @@ const signUpSchema = Yup.object().shape({
 });
 
 export const SignUpForm = () => {
+  const { login, password } = useAppSelector(getDataUserSelector);
+
+  useEffect(() => {
+    fetchSignIn({ login, password });
+    console.log(login, password);
+  }, [login, password]);
+
   const formik = useFormik({
     initialValues: {
       name: '',
       login: '',
       password: '',
     },
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: (values: IPerson) => {
+      fetchSignUp(values);
       formik.resetForm();
     },
     validationSchema: signUpSchema,
@@ -48,7 +62,9 @@ export const SignUpForm = () => {
           value={formik.values.password}
           error={formik.errors}
         />
-        <input type="submit" value="Submit" disabled={!formik.isValid || !formik.dirty} />
+        <Button type="submit" variant="outlined" disabled={!formik.isValid || !formik.dirty}>
+          Submit
+        </Button>
       </form>
     </>
   );

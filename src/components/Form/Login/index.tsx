@@ -21,18 +21,16 @@ type ILogin = {
 
 export const Login = ({ onChange, name, value, error }: ILogin) => {
   return (
-    <>
-      <TextField
-        id="outlined-basic"
-        label="Login"
-        variant="outlined"
-        type="text"
-        name={name}
-        onChange={onChange}
-        value={value}
-        error={Boolean(error.login)}
-        helperText={error.login ? <div>{error.login}</div> : null}
-      />
-    </>
+    <TextField
+      id="outlined-basic"
+      label="Login"
+      variant="outlined"
+      type="text"
+      name={name}
+      onChange={onChange}
+      value={value}
+      error={Boolean(error.login)}
+      helperText={error.login ? <div>{error.login}</div> : null}
+    />
   );
 };

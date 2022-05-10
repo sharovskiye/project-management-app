@@ -4,11 +4,15 @@ import { IGetPerson, IPerson } from '../services/type';
 import { ISignUpInitState } from './type';
 
 const initialState: ISignUpInitState = {
-  userData: null,
+  userData: {
+    id: '',
+    name: '',
+    login: '',
+  },
   loading: 'idle',
 };
 
-const fetchSignUp = createAsyncThunk<IGetPerson, IPerson>(
+export const fetchSignUp = createAsyncThunk<IGetPerson, IPerson>(
   'signUp/fetchSignUp',
   async (payload, { rejectWithValue }) => {
     const res = await createNewPerson(payload);
@@ -31,14 +35,15 @@ export const signUpSlice = createSlice({
   name: 'signUp',
   initialState,
   reducers: {},
-  extraReducers: (bulder) => {
-    bulder
+  extraReducers: (builder) => {
+    builder
       .addCase(fetchSignUp.pending, (state) => {
         state.loading = 'pending';
       })
       .addCase(fetchSignUp.fulfilled, (state, action: PayloadAction<IGetPerson>) => {
         state.userData = action.payload;
         state.loading = 'succeeded';
+        console.log(state);
       })
       .addCase(fetchSignUp.rejected, (state) => {
         state.loading = 'failed';

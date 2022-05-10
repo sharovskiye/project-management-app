@@ -21,18 +21,16 @@ type IPassword = {
 
 export const Password = ({ onChange, name, value, error }: IPassword) => {
   return (
-    <>
-      <TextField
-        id="outlined-basic"
-        label="Password"
-        variant="outlined"
-        type="text"
-        name={name}
-        onChange={onChange}
-        value={value}
-        error={Boolean(error.password)}
-        helperText={error.password ? <div>{error.password}</div> : null}
-      />
-    </>
+    <TextField
+      id="outlined-basic"
+      label="Password"
+      variant="outlined"
+      type="password"
+      name={name}
+      onChange={onChange}
+      value={value}
+      error={Boolean(error.password)}
+      helperText={error.password ? <div>{error.password}</div> : null}
+    />
   );
 };
