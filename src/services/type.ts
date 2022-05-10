@@ -9,3 +9,7 @@ export type IGetPerson = {
   name: string;
   login: string;
 };
+
+export type IGetToken = {
+  token: string;
+};

@@ -16,7 +16,6 @@ export const createNewPerson = async (body: IPerson) => {
 
 export const signIn = async (body: IPerson) => {
   const res = await fetch(`${baseLink}/signin`, {
-    mode: 'no-cors',
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
@@ -25,5 +24,5 @@ export const signIn = async (body: IPerson) => {
     },
   });
 
-  console.log(await res.json());
+  return res;
 };

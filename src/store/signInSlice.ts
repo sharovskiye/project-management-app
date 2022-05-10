@@ -1,14 +1,14 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createNewPerson } from '../services/api';
-import { IGetPerson, IPerson } from '../services/type';
-import { ISignUpInitState } from './type';
+import { IGetToken, IPerson } from '../services/type';
+import { ISignInInitState } from './type';
 
-const initialState: ISignUpInitState = {
-  userData: null,
+const initialState: ISignInInitState = {
+  token: null,
   loading: 'idle',
 };
 
-const fetchSignUp = createAsyncThunk<IGetPerson, IPerson>(
+const fetchSignIn = createAsyncThunk<IGetToken, IPerson>(
   'signUp/fetchSignUp',
   async (payload, { rejectWithValue }) => {
     const res = await createNewPerson(payload);
@@ -18,32 +18,32 @@ const fetchSignUp = createAsyncThunk<IGetPerson, IPerson>(
         throw new Error('Server error');
       }
 
-      const personData: IGetPerson = await res.json();
+      const token: IGetToken = await res.json();
 
-      return personData;
+      return token;
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
   }
 );
 
-export const signUpSlice = createSlice({
-  name: 'signUp',
+export const signInSlice = createSlice({
+  name: 'signIn',
   initialState,
   reducers: {},
   extraReducers: (bulder) => {
     bulder
-      .addCase(fetchSignUp.pending, (state) => {
+      .addCase(fetchSignIn.pending, (state) => {
         state.loading = 'pending';
       })
-      .addCase(fetchSignUp.fulfilled, (state, action: PayloadAction<IGetPerson>) => {
-        state.userData = action.payload;
+      .addCase(fetchSignIn.fulfilled, (state, action: PayloadAction<IGetToken>) => {
+        state.token = action.payload;
         state.loading = 'succeeded';
       })
-      .addCase(fetchSignUp.rejected, (state) => {
+      .addCase(fetchSignIn.rejected, (state) => {
         state.loading = 'failed';
       });
   },
 });
 
-export const signUpReducer = signUpSlice.reducer;
+export const signInReducer = signInSlice.reducer;
