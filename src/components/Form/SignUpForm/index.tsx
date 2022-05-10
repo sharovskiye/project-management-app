@@ -25,7 +25,6 @@ export const SignUpForm = () => {
 
   useEffect(() => {
     fetchSignIn({ login, password });
-    console.log(login, password);
   }, [login, password]);
 
   const formik = useFormik({

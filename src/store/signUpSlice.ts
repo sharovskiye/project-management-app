@@ -43,7 +43,6 @@ export const signUpSlice = createSlice({
       .addCase(fetchSignUp.fulfilled, (state, action: PayloadAction<IGetPerson>) => {
         state.userData = action.payload;
         state.loading = 'succeeded';
-        console.log(state);
       })
       .addCase(fetchSignUp.rejected, (state) => {
         state.loading = 'failed';
