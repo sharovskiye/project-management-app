@@ -1,3 +1,3 @@
 import { ISignInInitState } from './type';
 
-export const getDataUserSelector = (state: { signIn: ISignInInitState }) => state.signIn!;
+export const getDataUserSelector = (state: { signIn: ISignInInitState }) => state.signIn;

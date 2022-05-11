@@ -3,13 +3,12 @@ import { useFormik } from 'formik';
 import { useEffect } from 'react';
 import * as Yup from 'yup';
 
-import { Login } from '../Login';
-import { Password } from '../Password';
 import { useAppSelector, useAppDispatch } from '../../../store/hook';
 import { getDataUserSelector } from '../../../store/selectors';
 import { fetchSignIn } from '../../../store/signInSlice';
 
 import styles from './styles.module.scss';
+import { FormTextField } from '../FormTextField';
 
 const signUpSchema = Yup.object().shape({
   login: Yup.string().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
@@ -47,17 +46,19 @@ export const SignInForm = () => {
   return (
     <>
       <form onSubmit={formik.handleSubmit} className={styles.form}>
-        <Login
+        <FormTextField
+          type="text"
+          label="Login"
           name="login"
           onChange={formik.handleChange}
-          value={formik.values.login}
-          error={formik.errors}
+          error={formik.errors.login}
         />
-        <Password
+        <FormTextField
+          type="password"
+          label="Password"
           name="password"
           onChange={formik.handleChange}
-          value={formik.values.password}
-          error={formik.errors}
+          error={formik.errors.password}
         />
         <Button type="submit" variant="outlined" disabled={!formik.isValid || !formik.dirty}>
           Submit
