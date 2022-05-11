@@ -24,19 +24,17 @@ export const Board = () => {
           icon={<AddCircleOutlineOutlinedIcon className={styles.icon__add} />}
           onClick={handleOpen}
         />
-        <ModalWindow
-          child={
+        <ModalWindow open={openModal} handleClose={handleClose}>
+          <div className={styles.modal}>
             <textarea
-              className={styles.modal_input}
-              placeholder="Enter a title for the new
-            columns"
-              style={{ height: '100%', width: '100%' }}
+              className={styles.input}
+              placeholder="Enter a title for the new columns"
             ></textarea>
-          }
-          open={openModal}
-          handleClose={handleClose}
-          nameButton="Add column"
-        />
+            <div className={styles.button}>
+              <CustomButton itemType="button" submit={true} textContent="Add column" />
+            </div>
+          </div>
+        </ModalWindow>
       </div>
     </>
   );

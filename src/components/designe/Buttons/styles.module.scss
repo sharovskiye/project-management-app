@@ -3,6 +3,8 @@
 .customButton {
     display: flex;
     align-items: center;
+    width: 100%;
+    height: 100%;
     color: $color-text-white;
     cursor: pointer;
     background-color: $color-column-button;
@@ -20,7 +22,9 @@
 
     &__cancel {
         justify-content: center;
-
+        width: 100%;
+        text-align: center;
+        
         &:hover {
             color: $color-cancel ;
         }

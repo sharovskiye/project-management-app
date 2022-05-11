@@ -32,18 +32,14 @@ export const TaskCard = () => {
           />
         </div>
       </div>
-      <ModalWindow
-        child={
-          <textarea
-            className={styles.modal_input}
-            placeholder="This mod is to edit the task"
-            style={{ height: '100%', width: '100%' }}
-          ></textarea>
-        }
-        open={openModal}
-        handleClose={isOpenModal}
-        nameButton="Edit"
-      />
+      <ModalWindow open={openModal} handleClose={isOpenModal}>
+        <div className={styles.modal}>
+          <textarea className={styles.input} placeholder="This mod is to edit the task"></textarea>
+          <div className={styles.button}>
+            <CustomButton itemType="button" submit={true} textContent="Edit" />
+          </div>
+        </div>
+      </ModalWindow>
       <ConfirmModalWindow open={openConfirmModal} handleClose={isOpenConfirmModal} />
     </div>
   );

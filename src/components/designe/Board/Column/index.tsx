@@ -37,25 +37,6 @@ export const Column = () => {
       <div ref={ref} className={scroll ? `${styles.taskList__scroll}` : `${styles.taskList}`}>
         <TaskCard />
         <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
       </div>
 
       <div>
@@ -66,19 +47,14 @@ export const Column = () => {
           icon={<AddCircleOutlineOutlinedIcon className={styles.icon__add} />}
           onClick={isOpenModal}
         />
-
-        <ModalWindow
-          child={
-            <textarea
-              className={styles.modal_input}
-              placeholder="Enter a title for this task"
-              style={{ height: '100%', width: '100%' }}
-            ></textarea>
-          }
-          open={openModal}
-          handleClose={isOpenModal}
-          nameButton="Add task"
-        />
+        <ModalWindow open={openModal} handleClose={isOpenModal}>
+          <div className={styles.modal}>
+            <textarea className={styles.input} placeholder="Enter a title for this task"></textarea>
+            <div className={styles.button}>
+              <CustomButton itemType="button" submit={true} textContent="Add task" />
+            </div>
+          </div>
+        </ModalWindow>
       </div>
     </div>
   );
