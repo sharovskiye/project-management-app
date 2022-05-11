@@ -29,7 +29,7 @@ export const Name = ({ onChange, name, value, error }: IName) => {
       onChange={onChange}
       value={value}
       error={Boolean(error.name)}
-      helperText={error.name ? <div>{error.name}</div> : null}
+      helperText={error.name ? error.name : null}
     />
   );
 };

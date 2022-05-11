@@ -1,12 +1,12 @@
-import { IGetPerson, IGetToken, IPerson } from '../services/type';
+import { IGetPerson, IPerson } from '../services/type';
 
 export type ISignUpInitState = {
-  userData: IGetPerson | null;
+  userData: IGetPerson;
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
 };
 
 export type ISignInInitState = {
-  token: IGetToken | null;
-  userData: IPerson | null;
+  token: string;
+  userData: IPerson;
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
 };

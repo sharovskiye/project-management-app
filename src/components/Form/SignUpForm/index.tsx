@@ -1,18 +1,18 @@
+import { useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { Button } from '@mui/material';
 
 import { Name } from '../Name';
 import { Login } from '../Login';
 import { Password } from '../Password';
-
-import styles from './styles.module.scss';
-import { Button } from '@mui/material';
 import { IPerson } from '../../../services/type';
 import { fetchSignUp } from '../../../store/signUpSlice';
-import { useEffect } from 'react';
-import { fetchSignIn } from '../../../store/signInSlice';
+import { fetchSignIn, getUserData } from '../../../store/signInSlice';
 import { getDataUserSelector } from '../../../store/selectors';
-import { useAppSelector } from '../../../store/hook';
+import { useAppDispatch, useAppSelector } from '../../../store/hook';
+
+import styles from './styles.module.scss';
 
 const signUpSchema = Yup.object().shape({
   name: Yup.string().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
@@ -21,11 +21,17 @@ const signUpSchema = Yup.object().shape({
 });
 
 export const SignUpForm = () => {
-  const { login, password } = useAppSelector(getDataUserSelector);
+  const {
+    userData: { login, password },
+  } = useAppSelector(getDataUserSelector);
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    fetchSignIn({ login, password });
-  }, [login, password]);
+    if (login && password) {
+      dispatch(fetchSignIn({ login, password }));
+    }
+  }, [login, password, dispatch]);
 
   const formik = useFormik({
     initialValues: {
@@ -35,7 +41,9 @@ export const SignUpForm = () => {
     },
     onSubmit: (values: IPerson) => {
       const currentData = { ...values };
-      fetchSignUp(currentData);
+
+      dispatch(fetchSignUp(currentData));
+      dispatch(getUserData(currentData));
       formik.resetForm();
     },
     validationSchema: signUpSchema,

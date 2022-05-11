@@ -29,7 +29,7 @@ export const Login = ({ onChange, name, value, error }: ILogin) => {
       onChange={onChange}
       value={value}
       error={Boolean(error.login)}
-      helperText={error.login ? <div>{error.login}</div> : null}
+      helperText={error.login ? error.login : null}
     />
   );
 };

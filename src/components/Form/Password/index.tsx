@@ -29,7 +29,7 @@ export const Password = ({ onChange, name, value, error }: IPassword) => {
       onChange={onChange}
       value={value}
       error={Boolean(error.password)}
-      helperText={error.password ? <div>{error.password}</div> : null}
+      helperText={error.password ? error.password : null}
     />
   );
 };

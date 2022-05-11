@@ -7,6 +7,7 @@ export const createNewPerson = async (body: IPerson) => {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
+      accept: 'application/json',
       'Content-Type': 'application/json',
     },
   });
