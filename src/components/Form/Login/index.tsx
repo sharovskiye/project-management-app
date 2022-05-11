@@ -22,7 +22,6 @@ type ILogin = {
 export const Login = ({ onChange, name, value, error }: ILogin) => {
   return (
     <TextField
-      id="outlined-basic"
       label="Login"
       variant="outlined"
       type="text"

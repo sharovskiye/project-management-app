@@ -15,17 +15,21 @@ const initialState: ISignUpInitState = {
 export const fetchSignUp = createAsyncThunk<IGetPerson, IPerson>(
   'signUp/fetchSignUp',
   async (payload, { rejectWithValue }) => {
+    console.log(1);
     const res = await createNewPerson(payload);
 
     try {
       if (!res.ok) {
+        console.log(res.status);
         throw new Error('Server error');
       }
 
       const personData: IGetPerson = await res.json();
 
+      console.log(personData);
       return personData;
     } catch (error) {
+      console.log(error);
       return rejectWithValue((error as Error).message);
     }
   }

@@ -22,7 +22,6 @@ type IName = {
 export const Name = ({ onChange, name, value, error }: IName) => {
   return (
     <TextField
-      id="outlined-basic"
       label="Name"
       variant="outlined"
       type="text"

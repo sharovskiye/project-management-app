@@ -22,7 +22,6 @@ type IPassword = {
 export const Password = ({ onChange, name, value, error }: IPassword) => {
   return (
     <TextField
-      id="outlined-basic"
       label="Password"
       variant="outlined"
       type="password"

@@ -34,37 +34,36 @@ export const SignUpForm = () => {
       password: '',
     },
     onSubmit: (values: IPerson) => {
-      fetchSignUp(values);
+      const currentData = { ...values };
+      fetchSignUp(currentData);
       formik.resetForm();
     },
     validationSchema: signUpSchema,
   });
 
   return (
-    <>
-      <form onSubmit={formik.handleSubmit} className={styles.form}>
-        <Name
-          name="name"
-          onChange={formik.handleChange}
-          value={formik.values.name}
-          error={formik.errors}
-        />
-        <Login
-          name="login"
-          onChange={formik.handleChange}
-          value={formik.values.login}
-          error={formik.errors}
-        />
-        <Password
-          name="password"
-          onChange={formik.handleChange}
-          value={formik.values.password}
-          error={formik.errors}
-        />
-        <Button type="submit" variant="outlined" disabled={!formik.isValid || !formik.dirty}>
-          Submit
-        </Button>
-      </form>
-    </>
+    <form onSubmit={formik.handleSubmit} className={styles.form}>
+      <Name
+        name="name"
+        onChange={formik.handleChange}
+        value={formik.values.name}
+        error={formik.errors}
+      />
+      <Login
+        name="login"
+        onChange={formik.handleChange}
+        value={formik.values.login}
+        error={formik.errors}
+      />
+      <Password
+        name="password"
+        onChange={formik.handleChange}
+        value={formik.values.password}
+        error={formik.errors}
+      />
+      <Button type="submit" variant="outlined" disabled={!formik.isValid || !formik.dirty}>
+        Submit
+      </Button>
+    </form>
   );
 };
