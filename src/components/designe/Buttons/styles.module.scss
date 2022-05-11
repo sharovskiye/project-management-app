@@ -1,22 +1,4 @@
-$main-bg-light: #ECE0D6;
-$main-bg-dark: #1F2132;
-$container-width-big: 90vw;
-$container-width-medium: 85vw;
-$title-color-dark: #1B1D21;
-$title-color-light: #ECE0D6; 
-$text-color: #403D3C;
-$text-column-color: rgb(107 104 103);
-$color-column-button: rgba(107 104 103 / 50%);
-$color-text-white: #ffffff;
-$font-size-large: 20px;
-$font-size-medium: 16px;
-$font-size-small: 14px;
-$color-cancel: #F3758B;
-$color-submit: #6DCCCC;
-$color-add: #007E5B;
-$color-delete: #ff0000;
-$width-column: 350px;
-$padding-base: 10px;
+@import '../scss/variables';
 
 .customButton {
     display: flex;
