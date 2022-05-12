@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { CustomButton } from '../../Buttons/CustomButton';
 import { ColumnHeader } from './Header';
@@ -13,18 +13,20 @@ export const Column = () => {
   const [isScroll, setIsScroll] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const ref = useCallback((node: HTMLDivElement) => {
-    if (node !== null) {
-      setHeight(node?.getBoundingClientRect().height);
+  const refDiv = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (refDiv.current) {
+      setHeight(refDiv.current?.clientHeight);
     }
-  }, []);
+  }, [refDiv]);
 
   const openModal = useCallback(() => {
     setIsOpenModal((prevValue) => !prevValue);
   }, []);
 
   useEffect(() => {
-    const heightColumnPercent = 0.74;
+    const heightColumnPercent = 0.69;
     const bodyHeight = window.innerHeight * heightColumnPercent;
 
     bodyHeight < height ? setIsScroll(true) : setIsScroll(false);
@@ -36,7 +38,15 @@ export const Column = () => {
         <ColumnHeader />
       </div>
 
-      <div ref={ref} className={isScroll ? `${styles.taskList__scroll}` : `${styles.taskList}`}>
+      <div ref={refDiv} className={isScroll ? `${styles.taskList__scroll}` : `${styles.taskList}`}>
+        <TaskCard />
+        <TaskCard />
+        <TaskCard />
+        <TaskCard />
+        <TaskCard />
+        <TaskCard />
+        <TaskCard />
+        <TaskCard />
         <TaskCard />
         <TaskCard />
       </div>
