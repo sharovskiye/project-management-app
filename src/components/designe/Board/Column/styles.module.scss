@@ -5,62 +5,15 @@
     width: 100%;
     max-width: $width-column;
     height: 71vh;
+    max-height: 71vh;
     padding: $padding-base;
     border-radius: $padding-base;
-
-    &_header {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        height: 30px;
-        margin-bottom: $padding-base;
-        font-size: $font-size-small;
-        font-weight: bold;
-        color: $title-color-dark;
-        border-radius: 5px;
-    }
-
-    &_title {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: calc(100% - #{$padding-base * 2} - 45px);
-        height: 100%;
-        padding: 0 $padding-base;
-        cursor: pointer;
-        background-color: $color-text-white;
-        border-radius: 3px;
-        transition: 0.5s;
-    }
-
-    &_form {
-        display: flex;
-        width: 100%;
-        height: 100%;
-    }
-
-    &_buttons {
-        display: flex;
-        justify-content: space-between;
-        width: 80px;
-    }
-
-    &_input {
-        width: calc(100% - 90px);
-        margin-left: $padding-base;
-        border: none;
-        outline: none;
-    }
-
-    & .buttonWrapper {
-        max-height: 37px;
-    }
 
 }
 
 .taskList {
-    &__scroll {
-        height: 91%;
+    &Scroll {
+        max-height: 90%;
         overflow-y: scroll;
     }
 }

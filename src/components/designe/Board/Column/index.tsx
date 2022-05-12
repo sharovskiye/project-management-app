@@ -38,7 +38,11 @@ export const Column = () => {
         <ColumnHeader />
       </div>
 
-      <div ref={refDiv} className={isScroll ? `${styles.taskList__scroll}` : `${styles.taskList}`}>
+      <div ref={refDiv} className={isScroll ? `${styles.taskListScroll}` : `${styles.taskList}`}>
+        <TaskCard />
+        <TaskCard />
+        <TaskCard />
+        <TaskCard />
         <TaskCard />
         <TaskCard />
         <TaskCard />
@@ -56,7 +60,7 @@ export const Column = () => {
           <CustomButton
             typeof="button"
             textContent="Add task"
-            icon={<AddCircleOutlineOutlinedIcon className={styles.icon__add} />}
+            icon={<AddCircleOutlineOutlinedIcon />}
             onClick={openModal}
           />
         </div>

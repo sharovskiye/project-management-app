@@ -11,15 +11,16 @@ export type ButtonProps = {
 type ButtonType = ButtonProps & React.HTMLAttributes<HTMLButtonElement>;
 
 export const CustomButton = ({ textContent, icon, submit, cancel, ...rest }: ButtonType) => {
-  const classSubmit = submit ? styles.customButton__submit : null;
-  const classCancel = cancel ? styles.customButton__cancel : null;
-  const classIcon = icon ? styles.customButton__icon : null;
+  const classButton = submit
+    ? styles.customButtonSubmit
+    : cancel
+    ? styles.customButtonCancel
+    : icon
+    ? styles.customButtonIcon
+    : null;
 
   return (
-    <button
-      className={`${styles.customButton} ${classSubmit} ${classCancel} ${classIcon}`}
-      {...rest}
-    >
+    <button className={`${styles.customButton} ${classButton}`} {...rest}>
       {icon && <span>{icon}</span>}
       {textContent}
     </button>

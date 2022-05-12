@@ -21,9 +21,9 @@ export const TaskCard = () => {
 
   return (
     <div className={styles.task}>
-      <div className={styles.task_title}>
+      <div className={styles.taskTitle}>
         <p>I`m task title</p>
-        <div className={`${styles.column_buttons} ${styles.task_buttons}`}>
+        <div className={`${styles.column_buttons} ${styles.taskButtons}`}>
           <CustomButton icon={<EditIcon />} itemType="button" submit onClick={openModal} />
           <CustomButton
             icon={<ClearOutlinedIcon />}

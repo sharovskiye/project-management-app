@@ -12,7 +12,7 @@
     border-radius: 5px;
     transition: 0.5s;
     
-    &__submit {
+    &Submit {
         justify-content: center;
 
         &:hover {
@@ -20,7 +20,7 @@
         }
     }
 
-    &__cancel {
+    &Cancel {
         justify-content: center;
         width: 100%;
         text-align: center;
@@ -30,7 +30,7 @@
         }
     }
 
-    &__icon {
+    &Icon {
         justify-content: flex-start;
         width: 100%;
         font-size: $font-size-large;

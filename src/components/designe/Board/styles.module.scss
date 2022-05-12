@@ -9,11 +9,11 @@
 }
 
 .board {
-    &_columnList {
+    &ColumnList {
         min-width: $width-column ;
     }
 
-    &_newColumn {
+    &NewColumn {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;

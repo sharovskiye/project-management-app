@@ -1,38 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './styles.module.scss';
 import { Footer } from './Footer';
 import { Header } from './Header';
 import { Main } from './Main';
 
 export const Design = () => {
+  const [isCheckedTheme, setIsCheckedTheme] = useState(true);
+
   return (
     <>
-      {/* LIGHT THEME */}
-      <section>
-        <header className={`${styles.lightTheme}`}>
+      <section className={isCheckedTheme ? styles.darkTheme : styles.lightTheme}>
+        <header>
           <Header />
         </header>
 
-        <main className={`${styles.lightTheme}`}>
+        <main>
           <Main />
         </main>
 
-        <footer className={`${styles.darkTheme}`}>
-          <Footer />
-        </footer>
-      </section>
-
-      {/* DARK THEME */}
-      <section>
-        <header className={`${styles.darkTheme}`}>
-          <Header />
-        </header>
-
-        <main className={`${styles.darkTheme}`}>
-          <Main />
-        </main>
-
-        <footer className={`${styles.lightTheme}`}>
+        <footer className={styles.footerWrapper}>
           <Footer />
         </footer>
       </section>

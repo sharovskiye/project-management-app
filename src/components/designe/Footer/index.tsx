@@ -2,23 +2,23 @@ import styles from '../styles.module.scss';
 
 export const Footer = () => {
   return (
-    <div className={`${styles.container} ${styles.container__medium}  ${styles.footer}`}>
-      <div className={styles.footer_githubBlock}>
-        <a href={''} className={`${styles.footer_link} ${styles.link}`}>
+    <div className={`${styles.container} ${styles.containerMedium}  ${styles.footer}`}>
+      <div className={styles.footerGithubBlock}>
+        <a href={''} className={`${styles.footerLink} ${styles.link}`}>
           GITHUB
         </a>
-        <a href={''} className={`${styles.footer_link} ${styles.link}`}>
+        <a href={''} className={`${styles.footerLink} ${styles.link}`}>
           GITHUB
         </a>
-        <a href={''} className={`${styles.footer_link} ${styles.link}`}>
+        <a href={''} className={`${styles.footerLink} ${styles.link}`}>
           GITHUB
         </a>
       </div>
-      <div className={styles.footer_year}>
+      <div className={styles.footerYear}>
         <p>2022</p>
       </div>
-      <div className={styles.footer_rssCourse}>
-        <a href={''} className={`${styles.footer_link} ${styles.link}`}>
+      <div className={styles.footerRssCourse}>
+        <a href={''} className={`${styles.footerLink} ${styles.link}`}>
           RSS
         </a>
       </div>

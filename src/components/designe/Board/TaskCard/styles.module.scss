@@ -13,23 +13,18 @@
     border-radius: 3px;
     transition: 0.5s;
     
-    &_buttons {
+    &Buttons {
         display: flex;
         justify-content: space-between;
         width: 80px;
         opacity: 0;
     }
 
-    &_title {
+    &Title {
         display: flex;
         align-items: center;
         justify-content: space-between;
         width: 100%;
-    }
-
-    &_icon {
-        color: $color-text-white;
-        fill: $color-text-white;
     }
 
     &:hover {
@@ -37,7 +32,7 @@
         background-color: $color-column-button;
 
         & .task {
-            &_buttons{
+            &Buttons{
                 opacity: 1;
             }
         }

@@ -15,11 +15,11 @@ export const Board = () => {
 
   return (
     <>
-      <div className={styles.board_columnList}>
+      <div className={styles.boardColumnList}>
         <Column />
       </div>
 
-      <div className={styles.board_newColumn}>
+      <div className={styles.boardNewColumn}>
         <div className={styles.buttonWrapper}>
           <CustomButton
             typeof="button"
