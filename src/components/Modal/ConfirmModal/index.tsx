@@ -1,6 +1,7 @@
 import Modal from '@mui/material/Modal/Modal';
+import { CustomButton } from '../../designe/Buttons/CustomButton';
+
 import styles from './styles.module.scss';
-import { CustomButton } from '../../Buttons';
 
 export type ConfirmModalType = {
   open: boolean;

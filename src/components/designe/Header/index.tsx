@@ -1,6 +1,7 @@
-import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
 import { CustomSelect } from '../Inputs/CustomSelect';
+
 import styles from '../styles.module.scss';
 
 export const Header = () => {

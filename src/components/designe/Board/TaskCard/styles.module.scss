@@ -1,4 +1,4 @@
-@import '../../scss/variables';
+@import '../../../style/scss/variables';
 
 .task {
     display: flex;
@@ -41,24 +41,5 @@
                 opacity: 1;
             }
         }
-    }
-}
-
-.modal { 
-    display: flex;
-    flex-direction: column;
-    width: $width-column;
-    height: 150px;
-
-    & .input {
-        width: 100%;
-        min-height: calc(100% - 40px);;
-        padding: 0;
-        resize: none;
-    }
-
-    & .button {
-        width: 100%;
-        height: 40px;
     }
 }

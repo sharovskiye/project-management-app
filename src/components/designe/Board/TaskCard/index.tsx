@@ -1,21 +1,22 @@
-import styles from './styles.module.scss';
-import EditIcon from '@mui/icons-material/Edit';
-import { ModalWindow } from '../../Modal';
 import { useCallback, useState } from 'react';
-import { CustomButton } from '../../Buttons';
+import EditIcon from '@mui/icons-material/Edit';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
-import { ConfirmModalWindow } from '../../Modal/ConfirmModal';
+import { CustomButton } from '../../Buttons/CustomButton';
+import { ConfirmModalWindow } from '../../../Modal/ConfirmModal';
+import { ModalInputTitle } from '../../../Modal/ModalInputTitle';
+
+import styles from './styles.module.scss';
 
 export const TaskCard = () => {
-  const [openModal, setOpenModal] = useState(false);
-  const [openConfirmModal, setOpenConfirmModal] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenConfirmModal, setisOpenConfirmModal] = useState(false);
 
-  const isOpenModal = useCallback(() => {
-    setOpenModal((prevValue) => !prevValue);
+  const openModal = useCallback(() => {
+    setIsOpenModal((prevValue) => !prevValue);
   }, []);
 
-  const isOpenConfirmModal = useCallback(() => {
-    setOpenConfirmModal((prevValue) => !prevValue);
+  const openConfirmModal = useCallback(() => {
+    setisOpenConfirmModal((prevValue) => !prevValue);
   }, []);
 
   return (
@@ -23,24 +24,22 @@ export const TaskCard = () => {
       <div className={styles.task_title}>
         <p>I`m task title</p>
         <div className={`${styles.column_buttons} ${styles.task_buttons}`}>
-          <CustomButton icon={<EditIcon />} itemType="button" submit={true} onClick={isOpenModal} />
+          <CustomButton icon={<EditIcon />} itemType="button" submit onClick={openModal} />
           <CustomButton
             icon={<ClearOutlinedIcon />}
             itemType="button"
-            cancel={true}
-            onClick={isOpenConfirmModal}
+            cancel
+            onClick={openConfirmModal}
           />
         </div>
       </div>
-      <ModalWindow open={openModal} handleClose={isOpenModal}>
-        <div className={styles.modal}>
-          <textarea className={styles.input} placeholder="This mod is to edit the task"></textarea>
-          <div className={styles.button}>
-            <CustomButton itemType="button" submit={true} textContent="Edit" />
-          </div>
-        </div>
-      </ModalWindow>
-      <ConfirmModalWindow open={openConfirmModal} handleClose={isOpenConfirmModal} />
+      <ModalInputTitle
+        placeholder="This mod is to edit the task"
+        buttonName="Edit"
+        open={isOpenModal}
+        handleClose={openModal}
+      />
+      <ConfirmModalWindow open={isOpenConfirmModal} handleClose={openConfirmModal} />
     </div>
   );
 };

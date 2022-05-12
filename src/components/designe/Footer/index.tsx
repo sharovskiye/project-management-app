@@ -1,27 +1,26 @@
-import { Link } from 'react-router-dom';
 import styles from '../styles.module.scss';
 
 export const Footer = () => {
   return (
     <div className={`${styles.container} ${styles.container__medium}  ${styles.footer}`}>
       <div className={styles.footer_githubBlock}>
-        <Link to={''} className={`${styles.footer_link} ${styles.link}`}>
+        <a href={''} className={`${styles.footer_link} ${styles.link}`}>
           GITHUB
-        </Link>
-        <Link to={''} className={`${styles.footer_link} ${styles.link}`}>
+        </a>
+        <a href={''} className={`${styles.footer_link} ${styles.link}`}>
           GITHUB
-        </Link>
-        <Link to={''} className={`${styles.footer_link} ${styles.link}`}>
+        </a>
+        <a href={''} className={`${styles.footer_link} ${styles.link}`}>
           GITHUB
-        </Link>
+        </a>
       </div>
       <div className={styles.footer_year}>
         <p>2022</p>
       </div>
       <div className={styles.footer_rssCourse}>
-        <Link to={''} className={`${styles.footer_link} ${styles.link}`}>
+        <a href={''} className={`${styles.footer_link} ${styles.link}`}>
           RSS
-        </Link>
+        </a>
       </div>
     </div>
   );

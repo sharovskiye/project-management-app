@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+
 import styles from './styles.module.scss';
 
 export type ButtonProps = {
@@ -10,17 +11,13 @@ export type ButtonProps = {
 type ButtonType = ButtonProps & React.HTMLAttributes<HTMLButtonElement>;
 
 export const CustomButton = ({ textContent, icon, submit, cancel, ...rest }: ButtonType) => {
+  const classSubmit = submit ? styles.customButton__submit : null;
+  const classCancel = cancel ? styles.customButton__cancel : null;
+  const classIcon = icon ? styles.customButton__icon : null;
+
   return (
     <button
-      className={
-        submit
-          ? `${styles.customButton} ${styles.customButton__submit}`
-          : cancel
-          ? `${styles.customButton} ${styles.customButton__cancel}`
-          : icon
-          ? `${styles.customButton} ${styles.customButton__icon}`
-          : `${styles.customButton}`
-      }
+      className={`${styles.customButton} ${classSubmit} ${classCancel} ${classIcon}`}
       {...rest}
     >
       {icon && <span>{icon}</span>}

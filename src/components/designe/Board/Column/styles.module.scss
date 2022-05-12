@@ -1,4 +1,4 @@
-@import '../../scss/variables';
+@import '../../../style/scss/variables';
 
 .column {
     position: relative;
@@ -52,30 +52,15 @@
         outline: none;
     }
 
+    & .buttonWrapper {
+        max-height: 37px;
+    }
+
 }
 
 .taskList {
     &__scroll {
         height: 91%;
         overflow-y: scroll;
-    }
-}
-
-.modal { 
-    display: flex;
-    flex-direction: column;
-    width: $width-column;
-    height: 150px;
-
-    & .input {
-        width: 100%;
-        min-height: calc(100% - 40px);
-        padding: 0;
-        resize: none;
-    }
-
-    & .button {
-        width: 100%;
-        height: 40px;
     }
 }

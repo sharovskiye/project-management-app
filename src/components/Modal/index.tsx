@@ -1,8 +1,9 @@
-import Modal from '@mui/material/Modal/Modal';
-import styles from './styles.module.scss';
-import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
-import { CustomButton } from '../Buttons';
 import { PropsWithChildren } from 'react';
+import Modal from '@mui/material/Modal/Modal';
+import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
+import { CustomButton } from '../designe/Buttons/CustomButton';
+
+import styles from './styles.module.scss';
 
 export type ModalType = {
   open: boolean;
@@ -19,7 +20,7 @@ export const ModalWindow = (props: PropsWithChildren<ModalType>) => {
             <CustomButton
               icon={<ClearOutlinedIcon />}
               itemType="button"
-              cancel={true}
+              cancel
               onClick={props.handleClose}
             />
           </div>

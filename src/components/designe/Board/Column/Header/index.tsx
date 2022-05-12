@@ -1,29 +1,30 @@
+import { useCallback, useState } from 'react';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import { Tooltip } from '@mui/material';
-import { CustomButton } from '../../../Buttons';
-import { useCallback, useState } from 'react';
+import { CustomButton } from '../../../Buttons/CustomButton';
+import { ConfirmModalWindow } from '../../../../Modal/ConfirmModal';
+
 import styles from '../styles.module.scss';
-import { ConfirmModalWindow } from '../../../Modal/ConfirmModal';
 
 export const ColumnHeader = () => {
-  const [open, setOpen] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const isOpen = useCallback(() => {
-    setOpen((prevValue) => !prevValue);
+  const open = useCallback(() => {
+    setIsOpen((prevValue) => !prevValue);
   }, []);
 
-  const isOpenModal = useCallback(() => {
-    setOpenModal((prevValue) => !prevValue);
+  const openModal = useCallback(() => {
+    setIsOpenModal((prevValue) => !prevValue);
   }, []);
 
   return (
     <>
-      {!open && (
+      {!isOpen && (
         <div className={`${styles.column_header}`}>
           <Tooltip title="Change title" placement="top">
-            <div className={`${styles.column_title}`} onClick={isOpen}>
+            <div className={`${styles.column_title}`} onClick={open}>
               <p>I`m title/ Click me</p>
             </div>
           </Tooltip>
@@ -32,25 +33,20 @@ export const ColumnHeader = () => {
               <CustomButton
                 icon={<ClearOutlinedIcon />}
                 itemType="button"
-                cancel={true}
-                onClick={isOpenModal}
+                cancel
+                onClick={openModal}
               />
             </div>
           </Tooltip>
-          <ConfirmModalWindow open={openModal} handleClose={isOpenModal} />
+          <ConfirmModalWindow open={isOpenModal} handleClose={openModal} />
         </div>
       )}
-      {open && (
+      {isOpen && (
         <div className={`${styles.column_header}`}>
           <form className={styles.column_form}>
             <div className={styles.column_buttons}>
-              <CustomButton icon={<CheckOutlinedIcon />} itemType="submit" submit={true} />
-              <CustomButton
-                icon={<ClearOutlinedIcon />}
-                itemType="button"
-                cancel={true}
-                onClick={isOpen}
-              />
+              <CustomButton icon={<CheckOutlinedIcon />} itemType="submit" submit />
+              <CustomButton icon={<ClearOutlinedIcon />} itemType="button" cancel onClick={open} />
             </div>
             <input className={styles.column_input} type="text" />
           </form>
