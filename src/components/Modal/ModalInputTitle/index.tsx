@@ -1,5 +1,5 @@
 import { ModalWindow } from '..';
-import { CustomButton } from '../../designe/Buttons/CustomButton';
+import { ClassType, CustomButton } from '../../designe/Buttons/CustomButton';
 
 import styles from './styles.module.scss';
 
@@ -16,7 +16,7 @@ export const ModalInputTitle = ({ placeholder, buttonName, open, handleClose }: 
       <div className={styles.modal}>
         <textarea className={styles.input} placeholder={placeholder}></textarea>
         <div className={styles.button}>
-          <CustomButton itemType="button" submit textContent={buttonName} />
+          <CustomButton itemType="button" classType={ClassType.submit} textContent={buttonName} />
         </div>
       </div>
     </ModalWindow>

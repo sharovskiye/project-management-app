@@ -1,6 +1,6 @@
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
-import { CustomButton } from '../../../../Buttons/CustomButton';
+import { ClassType, CustomButton } from '../../../../Buttons/CustomButton';
 
 import styles from './styles.module.scss';
 
@@ -11,11 +11,11 @@ export const ChangeTitle = ({ openTitleEdit }: ChangeTitleType) => {
   return (
     <form className={styles.form}>
       <div className={styles.buttons}>
-        <CustomButton icon={<CheckOutlinedIcon />} itemType="submit" submit />
+        <CustomButton icon={<CheckOutlinedIcon />} itemType="submit" classType={ClassType.submit} />
         <CustomButton
           icon={<ClearOutlinedIcon />}
           itemType="button"
-          cancel
+          classType={ClassType.cancel}
           onClick={openTitleEdit}
         />
       </div>

@@ -1,5 +1,5 @@
 import Modal from '@mui/material/Modal/Modal';
-import { CustomButton } from '../../designe/Buttons/CustomButton';
+import { ClassType, CustomButton } from '../../designe/Buttons/CustomButton';
 
 import styles from './styles.module.scss';
 
@@ -23,7 +23,12 @@ export const ConfirmModalWindow = ({ open, handleClose }: ConfirmModalType) => {
             className={`${styles.modal_buttonDelete}`}
             textContent="Delete"
           />
-          <CustomButton itemType="button" cancel textContent="Cancel" onClick={handleClose} />
+          <CustomButton
+            itemType="button"
+            classType={ClassType.cancel}
+            textContent="Cancel"
+            onClick={handleClose}
+          />
         </div>
       </form>
     </Modal>

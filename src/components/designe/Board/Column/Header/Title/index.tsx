@@ -1,7 +1,7 @@
 import { Tooltip } from '@mui/material';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import { ConfirmModalWindow } from '../../../../../Modal/ConfirmModal';
-import { CustomButton } from '../../../../Buttons/CustomButton';
+import { ClassType, CustomButton } from '../../../../Buttons/CustomButton';
 
 import styles from './styles.module.scss';
 
@@ -21,7 +21,12 @@ export const Title = ({ openModal, isOpenModal, openTitleEdit }: ColumnTitleType
       </Tooltip>
       <Tooltip title="Delete column" placement="top">
         <div>
-          <CustomButton icon={<ClearOutlinedIcon />} itemType="button" cancel onClick={openModal} />
+          <CustomButton
+            icon={<ClearOutlinedIcon />}
+            itemType="button"
+            classType={ClassType.cancel}
+            onClick={openModal}
+          />
         </div>
       </Tooltip>
       <ConfirmModalWindow open={isOpenModal} handleClose={openModal} />

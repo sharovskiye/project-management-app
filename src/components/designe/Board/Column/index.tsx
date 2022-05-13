@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { CustomButton } from '../../Buttons/CustomButton';
 import { ColumnHeader } from './Header';
 import { TaskCard } from '../TaskCard';
 import { ModalInputTitle } from '../../../Modal/ModalInputTitle';
+import { useToggle } from '../../service/CustomHook';
 
 import styles from './styles.module.scss';
 import commonStyle from '../../styles.module.scss';
@@ -11,8 +12,7 @@ import commonStyle from '../../styles.module.scss';
 export const Column = () => {
   const [height, setHeight] = useState(0);
   const [isScroll, setIsScroll] = useState(false);
-  const [isOpenModal, setIsOpenModal] = useState(false);
-
+  const { opened, onToggle } = useToggle();
   const refDiv = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -21,15 +21,11 @@ export const Column = () => {
     }
   }, [refDiv]);
 
-  const openModal = useCallback(() => {
-    setIsOpenModal((prevValue) => !prevValue);
-  }, []);
-
   useEffect(() => {
     const heightColumnPercent = 0.69;
     const bodyHeight = window.innerHeight * heightColumnPercent;
 
-    bodyHeight < height ? setIsScroll(true) : setIsScroll(false);
+    setIsScroll(bodyHeight < height);
   }, [height]);
 
   return (
@@ -61,15 +57,15 @@ export const Column = () => {
             typeof="button"
             textContent="Add task"
             icon={<AddCircleOutlineOutlinedIcon />}
-            onClick={openModal}
+            onClick={onToggle}
           />
         </div>
 
         <ModalInputTitle
           placeholder="Enter a title for this task"
           buttonName="Add task"
-          open={isOpenModal}
-          handleClose={openModal}
+          open={opened}
+          handleClose={onToggle}
         />
       </div>
     </div>

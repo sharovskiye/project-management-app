@@ -1,20 +1,12 @@
-import { useCallback, useState } from 'react';
 import { ChangeTitle } from './ChangeTitle';
 import { Title } from './Title';
+import { useToggle } from '../../../service/CustomHook';
 
 import styles from './styles.module.scss';
 
 export const ColumnHeader = () => {
-  const [isOpenTitleEditOpen, setIsOpenTitleEditOpen] = useState(false);
-  const [isOpenModal, setIsOpenModal] = useState(false);
-
-  const openTitleEdit = useCallback(() => {
-    setIsOpenTitleEditOpen((prevValue) => !prevValue);
-  }, []);
-
-  const openModal = useCallback(() => {
-    setIsOpenModal((prevValue) => !prevValue);
-  }, []);
+  const { opened: isOpenTitleEditOpen, onToggle: openTitleEdit } = useToggle();
+  const { opened: isOpenModal, onToggle: openModal } = useToggle();
 
   return (
     <div className={styles.header}>
