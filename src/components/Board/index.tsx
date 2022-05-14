@@ -1,10 +1,18 @@
-import { fetchBoard } from '../../store/boardSlice';
-import { useAppDispatch } from '../../store/hooks';
+import { useMemo } from 'react';
+import { columnsSelector, fetchBoard } from '../../store/boardSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { mockBoardId } from '../../store/mockFiles';
 import { Column } from './Сolumn';
 
 export const Board = () => {
   const dispatch = useAppDispatch();
+
+  const columns = useAppSelector(columnsSelector);
+
+  const columnsMemo = useMemo(() => {
+    return columns ? columns.map((column) => <Column column={column} key={column.id} />) : null;
+  }, [columns]);
+
   return (
     <div>
       Board
@@ -22,9 +30,7 @@ export const Board = () => {
       >
         No click
       </button>
-      <div>
-        <Column />
-      </div>
+      <div>{columnsMemo}</div>
     </div>
   );
 };

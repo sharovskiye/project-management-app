@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import app from './boardSlice';
+import board from './boardSlice';
 
 export const store = configureStore({
   reducer: {
-    app,
+    board,
   },
   devTools: process.env.NODE_ENV !== 'production',
 });

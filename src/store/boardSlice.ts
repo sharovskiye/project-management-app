@@ -1,20 +1,24 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '.';
-import { IBoard } from '../components/Board/interface';
+import { IBoard, IColumn } from '../components/Board/interface';
 import { mockToken } from './mockFiles';
 
 enum Path {
   boards = 'boards/',
 }
 
-// export interface IBoardState {}
+export interface IBoardState {
+  columns?: IColumn[];
+}
 
-const initialState = {};
+const initialState: IBoardState = {
+  columns: [],
+};
 
-const headers: HeadersInit = {
+const headers = new Headers({
   accept: 'application/json',
   Authorization: `Bearer ${mockToken}`,
-};
+});
 
 const apiBase = 'https://pma-team22.herokuapp.com/';
 
@@ -41,20 +45,27 @@ export const fetchBoard = createAsyncThunk<IBoard, string>(
 export const boardSlice = createSlice({
   name: 'board',
   initialState,
-  reducers: {},
+  reducers: {
+    setLoading: (state, action: PayloadAction<IColumn[]>) => {
+      state.columns = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchBoard.pending, (state) => {
+      .addCase(fetchBoard.pending, () => {
         console.log('pending');
       })
       .addCase(fetchBoard.fulfilled, (state, action) => {
         console.log(action);
+        state.columns = action.payload.columns;
       })
-      .addCase(fetchBoard.rejected, (state, errorMessage) => {
-        console.log(errorMessage);
+      .addCase(fetchBoard.rejected, (state, action) => {
+        console.log(action);
       })
       .addDefaultCase(() => {});
   },
 });
+
+export const columnsSelector = (state: RootState) => state.board.columns;
 
 export default boardSlice.reducer;
