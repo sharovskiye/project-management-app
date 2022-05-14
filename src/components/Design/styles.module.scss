@@ -1,0 +1,155 @@
+@import '../style/scss/variables';
+
+section {
+    margin-bottom: 50px;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+
+    &Big {
+        max-width: $container-width-big;
+    }
+
+    &Medium {
+        max-width: $container-width-medium;
+    }
+}
+
+.line {
+    position: absolute;
+    bottom: 0;
+    display: block;
+    width: 100%;
+    height: 2px;
+    content: '';
+}
+
+.header {
+    height: 100px;
+    font-size: $font-size-large;
+
+    & .selectWrapper {
+        width: 70px;
+        height: 37px;
+    }
+}
+ 
+.footer {
+    height: 80px;
+    font-size: $font-size-medium;
+
+    &GithubBlock {
+        display: flex;
+    }
+}
+
+
+.main {
+    display: flex;
+    align-items: flex-start;
+    height: calc(100vh - 200px - 60px);
+    padding: 40px 0;
+}
+
+
+.header, .footer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+
+    &Link {
+        display: block;
+        padding: 0 $padding-base;
+        line-height: 36px;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+        border-radius: 3px;
+        transition: 0.5s;
+
+        &:hover {
+            background-color: $color-column-button;
+        }
+
+        &:active {
+            background-color: $text-column-color;
+        }
+    }
+}
+
+.darkTheme {
+    background-color: $main-bg-dark;
+
+    & .link {
+        color: $title-color-light ;
+    }
+
+    & .footerWrapper {
+        color: $main-bg-dark;
+        background-color: $main-bg-light;
+    }
+
+    & .footerLink {
+        color: $main-bg-dark;
+    }
+    
+    & .line {
+        background-color: $title-color-light;
+    }
+
+
+    & .button {
+        color: $title-color-light ;
+        border-color: $title-color-light ;
+    }
+
+    & .column{
+        background-color: $main-bg-light;
+    }
+
+    & .selectWrapper {
+        color: $title-color-light ;
+    }
+}
+
+.lightTheme {
+    background-color: $main-bg-light;
+
+    & .link {
+        color: $title-color-dark ;
+    }
+    
+    & .footerWrapper {
+        color: $main-bg-light;
+        background-color: $main-bg-dark;
+    }
+
+    & .footerLink {
+        color: $main-bg-light;
+    }
+
+    & .line {
+        background-color: $title-color-dark;
+    }
+
+    & .button {
+        color: $title-color-dark ;
+        border-color: $title-color-dark ;
+    }
+
+    & .column{
+        background-color: $main-bg-dark;
+    }
+
+    & .selectWrapper  {
+        color: $title-color-dark;
+    }
+}
+
+
+
