@@ -1,12 +1,10 @@
 import { IGetPerson, IPerson } from '../services/type';
 
-export type ISignUpInitState = {
-  userData: IGetPerson;
-  loading: 'idle' | 'pending' | 'succeeded' | 'failed';
-};
-
-export type ISignInInitState = {
+export type ISignInUpInitState = {
   token: string;
-  userData: IPerson;
-  loading: 'idle' | 'pending' | 'succeeded' | 'failed';
+  setUserData: IPerson;
+  getUserData: IGetPerson;
+  loading: 'idle' | 'pending' | 'succeeded' | 'error';
+  signConteiner: string;
+  errorCode: null | number | unknown;
 };

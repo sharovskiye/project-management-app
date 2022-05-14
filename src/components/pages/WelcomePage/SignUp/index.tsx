@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 export const SignUp = () => {
   return (
     <Link to="/form">
-      <button className={styles.logUpBtn}>Sign up</button>
+      <button className={styles.signUpBtn}>Sign up</button>
     </Link>
   );
 };
