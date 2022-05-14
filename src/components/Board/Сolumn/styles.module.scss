@@ -1,0 +1,27 @@
+@import '../../style/scss/variables';
+
+.column {
+  position: relative;
+  width: 100%;
+  max-width: $width-column;
+  height: 71vh;
+  max-height: 71vh;
+  padding: $padding-base;
+  background-color: $main-bg-dark;
+  border-radius: $padding-base;
+}
+
+.taskList {
+  &Scroll {
+    max-height: 90%;
+    overflow-y: scroll;
+  }
+}
+
+.icon {
+  &Add {
+    max-height: $font-size-large;
+    padding-top: 4px;
+    padding-right: 10px;
+  }
+}

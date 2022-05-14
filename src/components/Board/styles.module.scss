@@ -1,0 +1,45 @@
+@import '../style/scss/variables';
+
+.container {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+
+  &Medium {
+    max-width: $container-width-medium;
+  }
+}
+
+.main {
+  display: flex;
+  align-items: flex-start;
+  height: calc(100vh - 200px - 60px);
+  padding: 40px 0;
+}
+
+.icon {
+  &Add {
+    max-height: $font-size-large;
+    padding-top: 4px;
+    padding-right: 10px;
+  }
+}
+
+.board {
+  &ColumnList {
+    min-width: $width-column;
+  }
+
+  &NewColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: $width-column;
+    height: 100%;
+    margin-left: 80px;
+  }
+
+  & .buttonWrapper {
+    max-height: 37px;
+  }
+}

@@ -1,0 +1,40 @@
+@import '../../style/scss/variables';
+
+.task {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - #{$padding-base * 2});
+  height: 50px;
+  padding: 0 $padding-base;
+  margin-bottom: $padding-base;
+  cursor: pointer;
+  background-color: $color-text-white;
+  border-radius: 3px;
+  transition: 0.5s;
+
+  &Buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 80px;
+    opacity: 0;
+  }
+
+  &Title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  &:hover {
+    color: $color-text-white;
+    background-color: $color-column-button;
+
+    & .task {
+      &Buttons {
+        opacity: 1;
+      }
+    }
+  }
+}
