@@ -1,6 +1,6 @@
 import { ChangeTitle } from './ChangeTitle';
 import { Title } from './Title';
-import { useToggle } from '../../../service/CustomHook';
+import { useToggle } from '../../../../../utils/CustomHook';
 
 import styles from './styles.module.scss';
 

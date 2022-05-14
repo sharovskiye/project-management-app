@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { CustomSelect } from '../Inputs/CustomSelect';
+import { SwitchTheme } from '../../SwitchTheme';
 
 import styles from '../styles.module.scss';
-import { SwitchTheme } from '../../SwitchTheme';
 
 export const Header = () => {
   return (

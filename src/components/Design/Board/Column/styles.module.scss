@@ -17,3 +17,11 @@
         overflow-y: scroll;
     }
 }
+
+.icon {
+    &Add {
+        max-height: $font-size-large;
+        padding-top: 4px;
+        padding-right: 10px;
+    }
+}

@@ -1,5 +1,5 @@
 import Modal from '@mui/material/Modal/Modal';
-import { ClassType, CustomButton } from '../../designe/Buttons/CustomButton';
+import { ClassType, CustomButton } from '../../Design/Buttons/CustomButton';
 
 import styles from './styles.module.scss';
 
@@ -13,7 +13,7 @@ export const ConfirmModalWindow = ({ open, handleClose }: ConfirmModalType) => {
     <Modal open={open}>
       <form className={`${styles.modal_form}`}>
         <div className={styles.modal_title}>
-          <div className={styles.modal_textContent}>Confirm item deletion.</div>
+          <div className={styles.modal_textContent}>Confirm deletion.</div>
         </div>
 
         <div className={styles.modal_textContent}>Cancellation is not possible.</div>

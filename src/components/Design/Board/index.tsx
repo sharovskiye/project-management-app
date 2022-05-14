@@ -1,8 +1,8 @@
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { Column } from './Column';
-import { CustomButton } from '../Buttons/CustomButton';
+import { ClassType, CustomButton } from '../Buttons/CustomButton';
 import { ModalInputTitle } from '../../Modal/ModalInputTitle';
-import { useToggle } from '../service/CustomHook';
+import { useToggle } from '../../../utils/CustomHook';
 
 import styles from './styles.module.scss';
 
@@ -20,7 +20,8 @@ export const Board = () => {
           <CustomButton
             typeof="button"
             textContent="Add new column"
-            icon={<AddCircleOutlineOutlinedIcon className={styles.icon__add} />}
+            classType={ClassType.icon}
+            icon={<AddCircleOutlineOutlinedIcon className={styles.iconAdd} />}
             onClick={onToggle}
           />
         </div>

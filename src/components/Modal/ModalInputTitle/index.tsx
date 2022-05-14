@@ -1,5 +1,5 @@
 import { ModalWindow } from '..';
-import { ClassType, CustomButton } from '../../designe/Buttons/CustomButton';
+import { ClassType, CustomButton } from '../../Design/Buttons/CustomButton';
 
 import styles from './styles.module.scss';
 

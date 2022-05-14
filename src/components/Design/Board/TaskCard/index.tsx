@@ -4,7 +4,7 @@ import { CustomButton } from '../../Buttons/CustomButton';
 import { ConfirmModalWindow } from '../../../Modal/ConfirmModal';
 import { ModalInputTitle } from '../../../Modal/ModalInputTitle';
 import { ClassType } from '../../Buttons/CustomButton';
-import { useToggle } from '../../service/CustomHook';
+import { useToggle } from '../../../../utils/CustomHook';
 
 import styles from './styles.module.scss';
 
@@ -16,7 +16,7 @@ export const TaskCard = () => {
     <div className={styles.task}>
       <div className={styles.taskTitle}>
         <p>I`m task title</p>
-        <div className={`${styles.column_buttons} ${styles.taskButtons}`}>
+        <div className={styles.taskButtons}>
           <CustomButton
             icon={<EditIcon />}
             itemType="button"

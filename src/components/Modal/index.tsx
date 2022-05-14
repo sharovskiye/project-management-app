@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
 import Modal from '@mui/material/Modal/Modal';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
-import { ClassType, CustomButton } from '../designe/Buttons/CustomButton';
+import { ClassType, CustomButton } from '../Design/Buttons/CustomButton';
 
 import styles from './styles.module.scss';
 

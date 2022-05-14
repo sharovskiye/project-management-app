@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
-import { CustomButton } from '../../Buttons/CustomButton';
+import { ClassType, CustomButton } from '../../Buttons/CustomButton';
 import { ColumnHeader } from './Header';
 import { TaskCard } from '../TaskCard';
 import { ModalInputTitle } from '../../../Modal/ModalInputTitle';
-import { useToggle } from '../../service/CustomHook';
+import { useToggle } from '../../../../utils/CustomHook';
 
 import styles from './styles.module.scss';
 import commonStyle from '../../styles.module.scss';
@@ -56,7 +56,8 @@ export const Column = () => {
           <CustomButton
             typeof="button"
             textContent="Add task"
-            icon={<AddCircleOutlineOutlinedIcon />}
+            classType={ClassType.icon}
+            icon={<AddCircleOutlineOutlinedIcon className={styles.iconAdd} />}
             onClick={onToggle}
           />
         </div>

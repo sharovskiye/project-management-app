@@ -64,7 +64,8 @@ section {
 
     &Link {
         display: block;
-        padding: $padding-base;
+        padding: 0 $padding-base;
+        line-height: 36px;
         text-decoration: none;
         cursor: pointer;
         border: none;
