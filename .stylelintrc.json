@@ -5,9 +5,7 @@
     "stylelint-config-recess-order",
     "stylelint-config-prettier-scss"
   ],
-  "plugins": [
-    "stylelint-scss"
-  ],
+  "plugins": ["stylelint-scss"],
   "customSyntax": "postcss-scss",
   "rules": {
     "at-rule-no-unknown": null,
@@ -19,9 +17,7 @@
   },
   "overrides": [
     {
-      "files": [
-        "*/.scss"
-      ],
+      "files": ["*/.scss"],
       "customSyntax": "postcss-scss"
     }
   ]
