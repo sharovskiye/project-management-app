@@ -1,0 +1,28 @@
+.wrapper {
+    display: flex;
+    flex-grow: 1;
+    align-items: middle;
+    justify-content: center;
+    margin: 16px;
+}
+
+.button {
+    margin: 8px;
+    color: #313131;
+    border-color: #313131;
+}
+
+.success {
+    color: #43a047;
+    border-color: #43a047;
+}
+
+.error {
+    color: #d32f2f;
+    border-color: #d32f2f;
+}
+
+.warning {
+    color: #ffa000;
+    border-color: #ffa000;
+}
