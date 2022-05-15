@@ -1,13 +1,10 @@
 import { Button, Grid } from '@mui/material';
 import { useFormik } from 'formik';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import { useAppDispatch, useAppSelector } from '../../../store/hook';
-import { changeloading, fetchSignIn } from '../../../store/signInUpSlice';
+import { useAppDispatch } from '../../../store/hook';
+import { fetchSignIn } from '../../../store/signInUpSlice';
 import { FormTextField } from '../FormTextField';
-import { getDataUserSelector } from '../../../store/selectors';
 
 const signUpSchema = Yup.object().shape({
   login: Yup.string().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
@@ -15,28 +12,7 @@ const signUpSchema = Yup.object().shape({
 });
 
 export const SignInForm = () => {
-  const {
-    token,
-    setUserData: { name, login },
-    loading,
-  } = useAppSelector(getDataUserSelector);
-
   const dispatch = useAppDispatch();
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (token) {
-      localStorage.setItem('personData', JSON.stringify({ token, name, login }));
-    }
-  }, [login, name, token]);
-
-  useEffect(() => {
-    if (loading === 'succeeded') {
-      dispatch(changeloading('idle'));
-      navigate('/main');
-    }
-  }, [loading, navigate, dispatch]);
 
   const formik = useFormik({
     initialValues: {

@@ -1,18 +1,16 @@
 import { useEffect } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import { WelcomePage } from '../pages/WelcomePage';
 import { MainPage } from '../pages/MainPage';
 import { Form } from '../Form';
-import { useAppDispatch, useAppSelector } from '../../store/hook';
-import { getDataUserSelector } from '../../store/selectors';
+import { useAppDispatch } from '../../store/hook';
 import { getTokenWithLocalStorage } from '../../store/signInUpSlice';
+import { RequireAuth } from '../../hoc/RequireAuth';
 
 import styles from './styles.module.scss';
 
 export function App() {
-  const { token } = useAppSelector(getDataUserSelector);
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -28,9 +26,23 @@ export function App() {
   return (
     <div className={styles.wrapper}>
       <Routes>
-        <Route path="/" element={token ? <Navigate replace to="/main" /> : <WelcomePage />} />
+        <Route
+          path="/"
+          element={
+            <RequireAuth>
+              <WelcomePage />
+            </RequireAuth>
+          }
+        />
         <Route path="/main" element={<MainPage />} />
-        <Route path="/form" element={<Form />} />
+        <Route
+          path="/form"
+          element={
+            <RequireAuth>
+              <Form />
+            </RequireAuth>
+          }
+        />
       </Routes>
     </div>
   );
