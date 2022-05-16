@@ -30,7 +30,11 @@ export const Column = memo(({ column }: IColumnProps) => {
   const dispatch = useAppDispatch();
   const { title, tasks } = column;
   const columnsMemo = useMemo(() => {
-    return tasks ? tasks.map((task) => <Task task={task} key={task.id} />) : null;
+    return tasks
+      ? tasks
+          .map((task) => ({ ...task, boardId: mockBoardId, columnId: mockColumnId }))
+          .map((task) => <Task task={task} key={task.id} />)
+      : null;
   }, [tasks]);
   console.log('render');
 
@@ -41,13 +45,14 @@ export const Column = memo(({ column }: IColumnProps) => {
 
   useEffect(() => {
     if (refDiv.current) {
-      setHeight(refDiv.current?.clientHeight);
+      setHeight(refDiv.current.clientHeight);
     }
-  }, [refDiv]);
+  }, [refDiv, column]);
 
   useEffect(() => {
-    const heightColumnPercent = 0.69;
+    const heightColumnPercent = 0.62;
     const bodyHeight = window.innerHeight * heightColumnPercent;
+    console.log({ bodyHeight, height });
 
     setIsScroll(bodyHeight < height);
   }, [height]);
