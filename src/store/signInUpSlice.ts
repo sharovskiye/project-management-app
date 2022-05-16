@@ -23,7 +23,7 @@ const initialState: ISignInUpInitState = {
 
 export const fetchSignUp = createAsyncThunk<IGetPerson, IPerson>(
   'signUp/fetchSignUp',
-  async (payload, { rejectWithValue }) => {
+  async (payload, { rejectWithValue, dispatch }) => {
     const res = await createNewPerson(payload);
 
     try {
@@ -32,6 +32,10 @@ export const fetchSignUp = createAsyncThunk<IGetPerson, IPerson>(
       }
 
       const personData: IGetPerson = await res.json();
+
+      const { login, password } = payload;
+
+      dispatch(fetchSignIn({ login, password }));
 
       return personData;
     } catch (error) {

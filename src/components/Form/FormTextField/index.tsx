@@ -12,13 +12,13 @@ type IPropsTextField = {
 export const FormTextField = ({ type, label, name, onChange, error, value }: IPropsTextField) => {
   return (
     <TextField
-      sx={{ width: '100%', bgcolor: '#fff8dc' }}
+      sx={{ width: '100%', bgcolor: '#ffffff' }}
       variant="outlined"
       type={type}
       label={label}
       name={name}
       onChange={onChange}
-      helperText={error}
+      helperText={error || ' '}
       value={value}
       error={Boolean(error)}
     />

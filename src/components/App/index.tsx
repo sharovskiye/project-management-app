@@ -7,6 +7,7 @@ import { Form } from '../Form';
 import { useAppDispatch } from '../../store/hook';
 import { getTokenWithLocalStorage } from '../../store/signInUpSlice';
 import { RequireAuth } from '../../hoc/RequireAuth';
+import { AccessToPages } from '../../hoc/AccessToPages';
 
 import styles from './styles.module.scss';
 
@@ -34,7 +35,14 @@ export function App() {
             </RequireAuth>
           }
         />
-        <Route path="/main" element={<MainPage />} />
+        <Route
+          path="/main"
+          element={
+            <AccessToPages>
+              <MainPage />
+            </AccessToPages>
+          }
+        />
         <Route
           path="/form"
           element={

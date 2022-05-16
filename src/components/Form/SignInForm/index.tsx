@@ -35,7 +35,7 @@ export const SignInForm = () => {
         direction="column"
         justifyContent="center"
         alignItems="center"
-        sx={{ rowGap: 2, margin: '20px 0' }}
+        sx={{ margin: '20px 0' }}
       >
         <FormTextField
           type="text"

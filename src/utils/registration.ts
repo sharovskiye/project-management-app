@@ -5,6 +5,6 @@ export const getMessage = (codeError: unknown) => {
     case '409':
       return 'User login already exists!';
     default:
-      return null;
+      return '';
   }
 };

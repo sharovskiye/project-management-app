@@ -14,11 +14,10 @@ root.render(
   <StrictMode>
     <HashRouter>
       <Provider store={store}>
-        <App />
+        <SnackbarProvider maxSnack={3}>
+          <App />
+        </SnackbarProvider>
       </Provider>
-      <SnackbarProvider maxSnack={3}>
-        <App />
-      </SnackbarProvider>
     </HashRouter>
   </StrictMode>
 );

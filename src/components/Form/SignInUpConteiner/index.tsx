@@ -22,12 +22,13 @@ export const SignInUpConteiner = () => {
     <Box
       sx={{
         width: '300px',
+        height: 'fit-content',
         typography: 'body1',
-        margin: '20px auto',
+        margin: '0 auto',
         padding: 2,
-        border: '1px solid grey',
-        borderRadius: 6,
-        bgcolor: '#ecefff',
+        borderRadius: '6px',
+        boxShadow: '0px 0px 8px 2px rgba(34, 60, 80, 0.5)',
+        bgcolor: '#ffffff',
       }}
     >
       <TabContext value={signConteiner}>

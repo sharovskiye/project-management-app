@@ -1,12 +1,10 @@
-import { useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button, Grid } from '@mui/material';
 
 import { IPerson } from '../../../services/type';
-import { fetchSignIn, fetchSignUp, getUserData } from '../../../store/signInUpSlice';
-import { getDataUserSelector } from '../../../store/selectors';
-import { useAppDispatch, useAppSelector } from '../../../store/hook';
+import { fetchSignUp, getUserData } from '../../../store/signInUpSlice';
+import { useAppDispatch } from '../../../store/hook';
 import { FormTextField } from '../FormTextField';
 
 const signUpSchema = Yup.object().shape({
@@ -16,17 +14,7 @@ const signUpSchema = Yup.object().shape({
 });
 
 export const SignUpForm = () => {
-  const {
-    setUserData: { login, password },
-  } = useAppSelector(getDataUserSelector);
-
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (login && password) {
-      dispatch(fetchSignIn({ login, password }));
-    }
-  }, [login, password, dispatch]);
 
   const formik = useFormik({
     initialValues: {
@@ -51,7 +39,7 @@ export const SignUpForm = () => {
         direction="column"
         justifyContent="center"
         alignItems="center"
-        sx={{ rowGap: 2, margin: '20px 0' }}
+        sx={{ margin: '20px 0' }}
       >
         <FormTextField
           type="text"
@@ -77,7 +65,12 @@ export const SignUpForm = () => {
           error={formik.errors.password}
           value={formik.values.password}
         />
-        <Button type="submit" variant="outlined" disabled={!formik.isValid || !formik.dirty}>
+        <Button
+          type="submit"
+          variant="outlined"
+          disabled={!formik.isValid || !formik.dirty}
+          sx={{ marginTop: '10px' }}
+        >
           Submit
         </Button>
       </Grid>
