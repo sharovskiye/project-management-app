@@ -13,19 +13,17 @@ export type ModalType = {
 export const ModalWindow = (props: PropsWithChildren<ModalType>) => {
   return (
     <Modal open={props.open} onClose={props.handleClose}>
-      <form className={styles.modal_form}>
-        <div className={styles.modal}>
-          {props.children}
-          <div className={styles.cancel}>
-            <CustomButton
-              icon={<ClearOutlinedIcon />}
-              itemType="button"
-              classType={ClassType.cancel}
-              onClick={props.handleClose}
-            />
-          </div>
+      <div className={styles.modal}>
+        {props.children}
+        <div className={styles.cancel}>
+          <CustomButton
+            icon={<ClearOutlinedIcon />}
+            itemType="button"
+            classType={ClassType.cancel}
+            onClick={props.handleClose}
+          />
         </div>
-      </form>
+      </div>
     </Modal>
   );
 };
