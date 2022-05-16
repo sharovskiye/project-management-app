@@ -4,7 +4,7 @@ interface IFileForTask {
 }
 
 export interface ITask {
-  id: string;
+  id?: string;
   title: string;
   order: number;
   description: string;

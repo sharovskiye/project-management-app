@@ -8,6 +8,7 @@ import { ClassType, CustomButton } from '../../Design/Buttons/CustomButton';
 
 import styles from './styles.module.scss';
 import { ModalInputTitle } from '../../Modal/ModalInputTitle';
+import { ModalWindow } from '../../Modal';
 
 interface IColumnProps {
   column: IColumn;
@@ -41,8 +42,7 @@ export const Column = memo(({ column }: IColumnProps) => {
   return (
     <div className={styles.column}>
       <div className={styles.stickyHeader}>
-        Column: {title}
-        <ColumnHeader />
+        <ColumnHeader title={title} />
       </div>
 
       <div ref={refDiv} className={isScroll ? `${styles.taskListScroll}` : `${styles.taskList}`}>
@@ -59,13 +59,15 @@ export const Column = memo(({ column }: IColumnProps) => {
             onClick={onToggle}
           />
         </div>
-
-        <ModalInputTitle
+        <ModalWindow open={opened} handleClose={onToggle}>
+          test
+        </ModalWindow>
+        {/* <ModalInputTitle
           placeholder="Enter a title for this task"
           buttonName="Add task"
           open={opened}
           handleClose={onToggle}
-        />
+        /> */}
       </div>
     </div>
   );

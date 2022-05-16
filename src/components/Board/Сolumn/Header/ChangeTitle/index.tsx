@@ -4,10 +4,12 @@ import { ClassType, CustomButton } from '../../../../Design/Buttons/CustomButton
 
 import styles from './styles.module.scss';
 
-type ChangeTitleType = {
+interface IChangeTitleProps {
   openTitleEdit: () => void;
-};
-export const ChangeTitle = ({ openTitleEdit }: ChangeTitleType) => {
+  title: string;
+}
+
+export const ChangeTitle = ({ openTitleEdit, title }: IChangeTitleProps) => {
   return (
     <form className={styles.form}>
       <div className={styles.buttons}>
@@ -19,7 +21,7 @@ export const ChangeTitle = ({ openTitleEdit }: ChangeTitleType) => {
           onClick={openTitleEdit}
         />
       </div>
-      <input className={styles.input} type="text" />
+      <input className={styles.input} type="text" value={title} />
     </form>
   );
 };

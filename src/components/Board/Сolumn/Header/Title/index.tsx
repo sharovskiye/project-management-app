@@ -5,18 +5,19 @@ import { ConfirmModalWindow } from '../../../../Modal/ConfirmModal';
 
 import styles from './styles.module.scss';
 
-type ColumnTitleType = {
+interface IColumnTitleProps {
   openTitleEdit: () => void;
   isOpenModal: boolean;
   openModal: () => void;
-};
+  title: string;
+}
 
-export const Title = ({ openModal, isOpenModal, openTitleEdit }: ColumnTitleType) => {
+export const Title = ({ openModal, isOpenModal, openTitleEdit, title }: IColumnTitleProps) => {
   return (
     <>
       <Tooltip title="Change title" placement="top">
         <div className={`${styles.title}`} onClick={openTitleEdit}>
-          <p>I`m title/ Click me</p>
+          <p>{title}</p>
         </div>
       </Tooltip>
       <Tooltip title="Delete column" placement="top">

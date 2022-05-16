@@ -28,6 +28,7 @@
 .board {
   &ColumnList {
     min-width: $width-column;
+    margin: 0 20px;
   }
 
   &NewColumn {
@@ -36,7 +37,7 @@
     justify-content: flex-start;
     width: $width-column;
     height: 100%;
-    margin-left: 80px;
+    margin: 0 20px;
   }
 
   & .buttonWrapper {
