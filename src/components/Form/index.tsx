@@ -17,8 +17,6 @@ export enum VariantType {
 export const Form = () => {
   const { loading, errorCode } = useAppSelector(getDataUserSelector);
 
-  const isError = loading === 'error' ? true : false;
-
   const { enqueueSnackbar } = useSnackbar();
 
   const alert = useCallback(
@@ -30,10 +28,10 @@ export const Form = () => {
   );
 
   useEffect(() => {
-    if (isError) {
+    if (loading === 'error') {
       alert(getMessage(errorCode));
     }
-  }, [isError, alert, errorCode]);
+  }, [loading, alert, errorCode]);
 
   return (
     <div className={styles.wrapper}>

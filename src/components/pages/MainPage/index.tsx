@@ -22,7 +22,7 @@ export const MainPage = () => {
   return (
     <div>
       <h1>Main page</h1>
-      <button onClick={() => logOut()}>LogOut</button>
+      <button onClick={logOut}>LogOut</button>
       <Header />
       <Main />
       <Footer />
