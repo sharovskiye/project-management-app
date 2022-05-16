@@ -1,14 +1,10 @@
-import React, { ReactNode, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { useAppSelector } from '../store/hook';
 import { getDataUserSelector } from '../store/selectors';
 
-type IPropsChildren = {
-  children: ReactNode;
-};
-
-export const RequireAuth = ({ children }: IPropsChildren) => {
+export const RequireAuth = ({ children }: React.PropsWithChildren<unknown>) => {
   const {
     token,
     getUserData: { login, name },
