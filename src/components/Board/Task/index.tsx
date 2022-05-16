@@ -22,7 +22,7 @@ export const Task = memo(({ task }: ITaskProps) => {
   return (
     <div className={styles.task}>
       <div className={styles.taskTitle}>
-        <p>
+        <p title={title}>
           Task #{order}: {title}
         </p>
         <div className={styles.taskButtons}>
@@ -33,12 +33,17 @@ export const Task = memo(({ task }: ITaskProps) => {
             onClick={openModal}
           />
 
-          <CustomButton
+          <button className={styles.customButton}>
+            <span>
+              <ClearOutlinedIcon />
+            </span>
+          </button>
+          {/* <CustomButton
             icon={<ClearOutlinedIcon />}
             itemType="button"
             classType={ClassType.cancel}
             onClick={openConfirmModal}
-          />
+          /> */}
         </div>
       </div>
       <ModalInputTitle

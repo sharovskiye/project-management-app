@@ -29,12 +29,13 @@ export const Board = () => {
 
   const mockNewTask: ITask = {
     title: `Test #${Date.now()}`,
-    order: 1,
+    order: 2,
     description: 'Lorem ipsum dolor sit amet consectetur.',
     userId: mockUserId,
     boardId: mockBoardId,
     columnId: mockColumnId,
   };
+  // const { enqueueSnackbar } = useSnackbar();
 
   return (
     <div className={`${styles.container} ${styles.containerMedium} `}>
@@ -63,7 +64,7 @@ export const Board = () => {
       </button>
       {/* <button
         onClick={() => {
-          dispatch(fetchBoard(mockBoardId + '1'));
+          enqueueSnackbar('lol', { variant: 'error' });
         }}
       >
         No click
