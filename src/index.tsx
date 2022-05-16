@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 import { store } from './store';
 
+import { SnackbarProvider } from 'notistack';
 import { App } from './components/App';
 
 import './index.scss';
@@ -15,6 +16,9 @@ root.render(
       <Provider store={store}>
         <App />
       </Provider>
+      <SnackbarProvider maxSnack={3}>
+        <App />
+      </SnackbarProvider>
     </HashRouter>
   </StrictMode>
 );
