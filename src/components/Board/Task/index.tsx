@@ -41,7 +41,7 @@ export const Task = memo(({ task }: ITaskProps) => {
             onClick={openModal}
           />
 
-          <button onClick={onDelete} className={styles.customButton}>
+          <button onClick={onDelete} className={styles.btnDelete}>
             <span>
               <ClearOutlinedIcon />
             </span>

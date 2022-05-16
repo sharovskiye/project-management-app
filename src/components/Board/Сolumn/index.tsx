@@ -85,7 +85,7 @@ export const Column = memo(({ column }: IColumnProps) => {
   return (
     <div className={styles.column}>
       <div className={styles.stickyHeader}>
-        <ColumnHeader title={title} />
+        <ColumnHeader column={column} />
       </div>
 
       <div ref={refDiv} className={isScroll ? `${styles.taskListScroll}` : `${styles.taskList}`}>

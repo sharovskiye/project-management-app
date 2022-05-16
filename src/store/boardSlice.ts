@@ -13,6 +13,7 @@ enum Path {
 enum Method {
   POST = 'POST',
   DELETE = 'DELETE',
+  PUT = 'PUT',
 }
 
 export interface IBoardState {
@@ -101,6 +102,33 @@ export const fetchDeleteTask = createAsyncThunk<unknown, ITask>(
     const url = `${apiBase}/${Path.boards}/${boardId}/${Path.columns}/${columnId}/${Path.tasks}/${id}`;
     try {
       const res = await fetch(url, { headers, method: Method.DELETE });
+      console.log('status: ' + res.status);
+      if (!res.ok) {
+        throw new Error(`Could not fetch ${url}, status ${res.status}`);
+      }
+
+      dispatch(fetchBoard(mockBoardId));
+
+      return;
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
+    }
+  }
+);
+
+export const fetchUpdateColumn = createAsyncThunk<unknown, IColumn>(
+  'board/fetchUpdateColumn',
+  async (column, { rejectWithValue, dispatch }) => {
+    const headers = new Headers({
+      accept: 'application/json',
+      Authorization: `Bearer ${mockToken}`,
+      'Content-Type': 'application/json',
+    });
+    const { id, title, order } = column;
+    const body = JSON.stringify({ title, order });
+    const url = `${apiBase}/${Path.boards}/${mockBoardId}/${Path.columns}/${id}`;
+    try {
+      const res = await fetch(url, { headers, body, method: Method.PUT });
       console.log('status: ' + res.status);
       if (!res.ok) {
         throw new Error(`Could not fetch ${url}, status ${res.status}`);
