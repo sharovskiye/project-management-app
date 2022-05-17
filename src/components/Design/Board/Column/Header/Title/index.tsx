@@ -29,7 +29,7 @@ export const Title = ({ openModal, isOpenModal, openTitleEdit }: ColumnTitleType
           />
         </div>
       </Tooltip>
-      <ConfirmModalWindow open={isOpenModal} handleClose={openModal} />
+      {/* <ConfirmModalWindow open={isOpenModal} handleClose={openModal} /> */}
     </>
   );
 };

@@ -1,15 +1,20 @@
-import { useMemo } from 'react';
-import { columnsSelector, fetchBoard, fetchCreateTask } from '../../store/boardSlice';
+import { ChangeEvent, FormEvent, useMemo, useState } from 'react';
+import {
+  columnsSelector,
+  fetchBoard,
+  fetchCreateColumn,
+  fetchCreateTask,
+} from '../../store/boardSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { mockBoardId, mockColumnId, mockUserId } from '../../store/mockFiles';
 import { Column } from './Сolumn';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 
 import styles from './styles.module.scss';
-import { ModalInputTitle } from '../Modal/ModalInputTitle';
 import { ClassType, CustomButton } from '../Design/Buttons/CustomButton';
 import { useToggle } from '../../utils/CustomHook';
-import { ITask } from './interface';
+import { IColumn, ITask } from './interface';
+import { ModalWindow } from '../Modal';
 
 export const Board = () => {
   const dispatch = useAppDispatch();
@@ -36,6 +41,26 @@ export const Board = () => {
     columnId: mockColumnId,
   };
   // const { enqueueSnackbar } = useSnackbar();
+
+  const [titleColumn, setTitleColumn] = useState('');
+
+  const onChangeColumn = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitleColumn(e.target.value);
+  };
+
+  const findMaxOrderColumn = () => {
+    return columns ? columns.reduce((prev, { order }) => (prev > order ? prev : order), 0) : 0;
+  };
+
+  const onSubmitNewColumn = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const mockNewColumn: IColumn = {
+      title: titleColumn,
+      order: findMaxOrderColumn() + 1,
+    };
+    console.log({ titleColumn });
+    dispatch(fetchCreateColumn(mockNewColumn));
+  };
 
   return (
     <div className={`${styles.container} ${styles.containerMedium} `}>
@@ -82,12 +107,24 @@ export const Board = () => {
             />
           </div>
 
+          <ModalWindow open={opened} handleClose={onToggle}>
+            <form onSubmit={onSubmitNewColumn}>
+              <div>
+                <label htmlFor="title">Title:</label>
+                <input onChange={onChangeColumn} value={titleColumn} type="text" id="title" />
+              </div>
+
+              <button type="submit">submit</button>
+            </form>
+          </ModalWindow>
+
+          {/* 
           <ModalInputTitle
             placeholder="Enter a title for the new columns"
             buttonName="Add column"
             open={opened}
             handleClose={onToggle}
-          />
+          /> */}
         </div>
       </div>
     </div>

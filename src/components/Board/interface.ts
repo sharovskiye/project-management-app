@@ -15,7 +15,7 @@ export interface ITask {
 }
 
 export interface IColumn {
-  id: string;
+  id?: string;
   title: string;
   order: number;
   tasks?: ITask[];

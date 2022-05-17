@@ -37,7 +37,7 @@ export const TaskCard = () => {
         open={isOpenModal}
         handleClose={openModal}
       />
-      <ConfirmModalWindow open={isOpenConfirmModal} handleClose={openConfirmModal} />
+      {/* <ConfirmModalWindow open={isOpenConfirmModal} handleClose={openConfirmModal} /> */}
     </div>
   );
 };

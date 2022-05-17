@@ -116,6 +116,36 @@ export const fetchDeleteTask = createAsyncThunk<unknown, ITask>(
   }
 );
 
+export const fetchCreateColumn = createAsyncThunk<IColumn, IColumn>(
+  'board/fetchCreateColumn',
+  async (newColumn, { rejectWithValue, dispatch }) => {
+    const headers = new Headers({
+      accept: 'application/json',
+      Authorization: `Bearer ${mockToken}`,
+      'Content-Type': 'application/json',
+    });
+    const { title, order } = newColumn;
+    const body = JSON.stringify({ title, order });
+    const url = `${apiBase}/${Path.boards}/${mockBoardId}/${Path.columns}`;
+    try {
+      const res = await fetch(url, { headers, body, method: Method.POST });
+      console.log('status: ' + res.status);
+      if (!res.ok) {
+        throw new Error(`Could not fetch ${url}, status ${res.status}`);
+      }
+
+      const parsed = await res.json();
+      console.log(parsed);
+
+      dispatch(fetchBoard(mockBoardId));
+
+      return parsed;
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
+    }
+  }
+);
+
 export const fetchUpdateColumn = createAsyncThunk<unknown, IColumn>(
   'board/fetchUpdateColumn',
   async (column, { rejectWithValue, dispatch }) => {
@@ -129,6 +159,31 @@ export const fetchUpdateColumn = createAsyncThunk<unknown, IColumn>(
     const url = `${apiBase}/${Path.boards}/${mockBoardId}/${Path.columns}/${id}`;
     try {
       const res = await fetch(url, { headers, body, method: Method.PUT });
+      console.log('status: ' + res.status);
+      if (!res.ok) {
+        throw new Error(`Could not fetch ${url}, status ${res.status}`);
+      }
+
+      dispatch(fetchBoard(mockBoardId));
+
+      return;
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
+    }
+  }
+);
+
+export const fetchDeleteColumn = createAsyncThunk<unknown, IColumn>(
+  'board/fetchDeleteColumn',
+  async (column, { rejectWithValue, dispatch }) => {
+    const headers = new Headers({
+      accept: 'application/json',
+      Authorization: `Bearer ${mockToken}`,
+    });
+    const { id } = column;
+    const url = `${apiBase}/${Path.boards}/${mockBoardId}/${Path.columns}/${id}`;
+    try {
+      const res = await fetch(url, { headers, method: Method.DELETE });
       console.log('status: ' + res.status);
       if (!res.ok) {
         throw new Error(`Could not fetch ${url}, status ${res.status}`);

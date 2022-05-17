@@ -12,19 +12,13 @@ interface IColumnHeaderProps {
 
 export const ColumnHeader = memo(({ column }: IColumnHeaderProps) => {
   const { opened: isOpenTitleEditOpen, onToggle: openTitleEdit } = useToggle();
-  const { opened: isOpenModal, onToggle: openModal } = useToggle();
 
   return (
     <div className={styles.header}>
       {isOpenTitleEditOpen ? (
         <ChangeTitle column={column} openTitleEdit={openTitleEdit} />
       ) : (
-        <Title
-          title={column.title}
-          openTitleEdit={openTitleEdit}
-          isOpenModal={isOpenModal}
-          openModal={openModal}
-        />
+        <Title column={column} openTitleEdit={openTitleEdit} />
       )}
     </div>
   );
