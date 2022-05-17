@@ -10,7 +10,7 @@ import {
 } from 'react';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { useToggle } from '../../../utils/CustomHook';
-import { IColumn, ITask } from '../interface';
+import { IColumn, INewTask, ITask } from '../interface';
 import { Task } from '../Task';
 import { ColumnHeader } from './Header';
 import { ClassType, CustomButton } from '../../Design/Buttons/CustomButton';
@@ -18,21 +18,22 @@ import { ClassType, CustomButton } from '../../Design/Buttons/CustomButton';
 import styles from './styles.module.scss';
 import { ModalInputTitle } from '../../Modal/ModalInputTitle';
 import { ModalWindow } from '../../Modal';
-import { mockBoardId, mockColumnId, mockUserId } from '../../../store/mockFiles';
+import { mockBoardId, mockUserId } from '../../../store/mockFiles';
 import { fetchCreateTask } from '../../../store/boardSlice';
 import { useAppDispatch } from '../../../store/hooks';
 
 interface IColumnProps {
+  boardId: string;
   column: IColumn;
 }
 
-export const Column = memo(({ column }: IColumnProps) => {
+export const Column = memo(({ boardId, column }: IColumnProps) => {
   const dispatch = useAppDispatch();
   const { tasks } = column;
   const columnsMemo = useMemo(() => {
     return tasks
       ? tasks
-          .map((task) => ({ ...task, boardId: mockBoardId, columnId: mockColumnId }))
+          .map((task) => ({ ...task, boardId, columnId: column.id }))
           .map((task) => <Task task={task} key={task.id} />)
       : null;
   }, [tasks]);
@@ -68,18 +69,22 @@ export const Column = memo(({ column }: IColumnProps) => {
     setDescriptionTask(e.target.value);
   };
 
+  const findMaxOrderTask = () => {
+    return tasks ? tasks.reduce((prev, { order }) => (prev > order ? prev : order), 0) : 0;
+  };
+
   const onSubmitNewTask = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const mockNewTask: ITask = {
+    const newTask: INewTask = {
       title: titleTask,
-      order: 2,
+      order: findMaxOrderTask() + 1,
       description: descriptionTask,
       userId: mockUserId,
-      boardId: mockBoardId,
-      columnId: mockColumnId,
+      boardId,
+      columnId: column.id,
     };
     console.log({ titleTask, descriptionTask });
-    dispatch(fetchCreateTask(mockNewTask));
+    dispatch(fetchCreateTask(newTask));
   };
 
   return (
@@ -120,12 +125,6 @@ export const Column = memo(({ column }: IColumnProps) => {
             <button type="submit">submit</button>
           </form>
         </ModalWindow>
-        {/* <ModalInputTitle
-          placeholder="Enter a title for this task"
-          buttonName="Add task"
-          open={opened}
-          handleClose={onToggle}
-        /> */}
       </div>
     </div>
   );

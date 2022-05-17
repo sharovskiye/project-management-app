@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '.';
-import { IBoard, IColumn, ITask } from '../components/Board/interface';
+import { IBoard, IColumn, INewColumn, INewTask, ITask } from '../components/Board/interface';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { mockBoardId, mockToken } from './mockFiles';
 
@@ -61,7 +61,7 @@ export const fetchBoard = createAsyncThunk<IBoard, string>(
 // /boards/{boardId}/columns/{columnId}/tasks
 // 'https://pma-team22.herokuapp.com/boards/1b481050-6177-4f95-b814-b232837a0726/columns/5e673963-a0d0-452c-936c-99561904939c/tasks
 
-export const fetchCreateTask = createAsyncThunk<ITask, ITask>(
+export const fetchCreateTask = createAsyncThunk<ITask, INewTask>(
   'board/fetchCreateTask',
   async (newTask, { rejectWithValue, dispatch }) => {
     const headers = new Headers({
@@ -116,7 +116,7 @@ export const fetchDeleteTask = createAsyncThunk<unknown, ITask>(
   }
 );
 
-export const fetchCreateColumn = createAsyncThunk<IColumn, IColumn>(
+export const fetchCreateColumn = createAsyncThunk<IColumn, INewColumn>(
   'board/fetchCreateColumn',
   async (newColumn, { rejectWithValue, dispatch }) => {
     const headers = new Headers({
