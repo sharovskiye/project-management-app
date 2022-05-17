@@ -28,7 +28,7 @@ interface IColumnProps {
 
 export const Column = memo(({ column }: IColumnProps) => {
   const dispatch = useAppDispatch();
-  const { title, tasks } = column;
+  const { tasks } = column;
   const columnsMemo = useMemo(() => {
     return tasks
       ? tasks

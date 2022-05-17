@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import { useToggle } from '../../../utils/CustomHook';
@@ -22,10 +22,18 @@ export const Task = memo(({ task }: ITaskProps) => {
   const { opened: isOpenModal, onToggle: openModal } = useToggle();
   const { opened: isOpenConfirmModal, onToggle: openConfirmModal } = useToggle();
 
+  const [isDelete, setIsDelete] = useState(false);
+
+  useEffect(() => {
+    if (isDelete) {
+      dispatch(fetchDeleteTask(task));
+    }
+  }, [isDelete, dispatch, task]);
+
   const onDelete = () => {
     console.log(task);
 
-    dispatch(fetchDeleteTask(task));
+    setIsDelete(true);
   };
   return (
     <div className={styles.task}>
@@ -41,7 +49,7 @@ export const Task = memo(({ task }: ITaskProps) => {
             onClick={openModal}
           />
 
-          <button onClick={onDelete} className={styles.btnDelete}>
+          <button onClick={openConfirmModal} className={styles.btnDelete}>
             <span>
               <ClearOutlinedIcon />
             </span>
@@ -60,7 +68,11 @@ export const Task = memo(({ task }: ITaskProps) => {
         open={isOpenModal}
         handleClose={openModal}
       />
-      {/* <ConfirmModalWindow open={isOpenConfirmModal} handleClose={openConfirmModal} /> */}
+      <ConfirmModalWindow
+        onDelete={onDelete}
+        open={isOpenConfirmModal}
+        handleClose={openConfirmModal}
+      />
     </div>
   );
 });
