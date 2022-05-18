@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch } from '../../../store/hook';
 import { getTokenWithLocalStorage } from '../../../store/signInUpSlice';
-import { Header } from '../../Design/Header';
+import { Header } from '../../Header';
 import { Main } from '../../Design/Main';
 
 export const MainPage = () => {
@@ -20,9 +20,7 @@ export const MainPage = () => {
 
   return (
     <div>
-      <h1>Main page</h1>
-      <button onClick={logOut}>LogOut</button>
-      <Header />
+      <Header signOut={logOut} />
       <Main />
     </div>
   );
