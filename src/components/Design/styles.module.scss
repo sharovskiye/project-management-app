@@ -27,40 +27,19 @@ section {
     content: '';
 }
 
-.header {
+.header{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     height: 100px;
     font-size: $font-size-large;
+    font-weight: bold;
 
     & .selectWrapper {
         width: 70px;
         height: 37px;
     }
-}
- 
-.footer {
-    height: 80px;
-    font-size: $font-size-medium;
-
-    &GithubBlock {
-        display: flex;
-    }
-}
-
-
-.main {
-    display: flex;
-    align-items: flex-start;
-    height: calc(100vh - 200px - 60px);
-    padding: 40px 0;
-}
-
-
-.header, .footer {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-weight: bold;
 
     &Link {
         display: block;
@@ -80,6 +59,14 @@ section {
             background-color: $text-column-color;
         }
     }
+}
+
+
+.main {
+    display: flex;
+    align-items: flex-start;
+    height: calc(100vh - 200px - 60px);
+    padding: 40px 0;
 }
 
 .darkTheme {

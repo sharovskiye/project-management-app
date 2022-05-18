@@ -1,12 +1,32 @@
+import styles from './styles.module.scss';
+
 export const Footer = () => {
   return (
-    <ul>
-      <li>© 2022</li>
-      <li>
-        <a href="https://rs.school/react/" target="_blank" rel="noopener noreferrer">
-          The Rolling Scopes School
+    <div className={`${styles.container} ${styles.containerMedium}  ${styles.footer}`}>
+      <div className={styles.footerGithubBlock}>
+        <a href={''} className={`${styles.footerLink} ${styles.link}`}>
+          GITHUB
         </a>
-      </li>
-    </ul>
+        <a href={''} className={`${styles.footerLink} ${styles.link}`}>
+          GITHUB
+        </a>
+        <a href={''} className={`${styles.footerLink} ${styles.link}`}>
+          GITHUB
+        </a>
+      </div>
+      <div className={styles.footerYear}>
+        <p>© 2022</p>
+      </div>
+      <div className={styles.footerRssCourse}>
+        <a
+          href="https://rs.school/react/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`${styles.footerLink} ${styles.link}`}
+        >
+          RSS
+        </a>
+      </div>
+    </div>
   );
 };
