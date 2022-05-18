@@ -1,74 +1,5 @@
 @import '../style/scss/variables';
 
-section {
-    margin-bottom: 50px;
-}
-
-.container {
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
-
-    &Big {
-        max-width: $container-width-big;
-    }
-
-    &Medium {
-        max-width: $container-width-medium;
-    }
-}
-
-.line {
-    position: absolute;
-    bottom: 0;
-    display: block;
-    width: 100%;
-    height: 2px;
-    content: '';
-}
-
-.header{
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 100px;
-    font-size: $font-size-large;
-    font-weight: bold;
-
-    & .selectWrapper {
-        width: 70px;
-        height: 37px;
-    }
-
-    &Link {
-        display: block;
-        padding: 0 $padding-base;
-        line-height: 36px;
-        text-decoration: none;
-        cursor: pointer;
-        border: none;
-        border-radius: 3px;
-        transition: 0.5s;
-
-        &:hover {
-            background-color: $color-column-button;
-        }
-
-        &:active {
-            background-color: $text-column-color;
-        }
-    }
-}
-
-
-.main {
-    display: flex;
-    align-items: flex-start;
-    height: calc(100vh - 200px - 60px);
-    padding: 40px 0;
-}
-
 .darkTheme {
     background-color: $main-bg-dark;
 
@@ -137,6 +68,3 @@ section {
         color: $title-color-dark;
     }
 }
-
-
-

@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch } from '../../../store/hook';
 import { getTokenWithLocalStorage } from '../../../store/signInUpSlice';
-import { Footer } from '../../Design/Footer';
 import { Header } from '../../Design/Header';
 import { Main } from '../../Design/Main';
 
@@ -25,7 +24,6 @@ export const MainPage = () => {
       <button onClick={logOut}>LogOut</button>
       <Header />
       <Main />
-      <Footer />
     </div>
   );
 };

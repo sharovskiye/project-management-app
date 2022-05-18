@@ -10,6 +10,7 @@ import { RequireAuth } from '../../hoc/RequireAuth';
 import { AccessToPages } from '../../hoc/AccessToPages';
 
 import styles from './styles.module.scss';
+import { Layout } from '../Layout';
 
 export function App() {
   const dispatch = useAppDispatch();
@@ -27,23 +28,32 @@ export function App() {
   return (
     <div className={styles.wrapper}>
       <Routes>
-        <Route path="/" element={<WelcomePage />} />
-        <Route
-          path="/main"
-          element={
-            <AccessToPages>
-              <MainPage />
-            </AccessToPages>
-          }
-        />
-        <Route
-          path="/form"
-          element={
-            <RequireAuth>
-              <Form />
-            </RequireAuth>
-          }
-        />
+        <Route path="/" element={<Layout />}>
+          <Route
+            path="/"
+            element={
+              <RequireAuth>
+                <WelcomePage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/main"
+            element={
+              <AccessToPages>
+                <MainPage />
+              </AccessToPages>
+            }
+          />
+          <Route
+            path="/form"
+            element={
+              <RequireAuth>
+                <Form />
+              </RequireAuth>
+            }
+          />
+        </Route>
       </Routes>
     </div>
   );
