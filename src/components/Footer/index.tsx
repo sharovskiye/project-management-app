@@ -6,14 +6,26 @@ export const Footer = () => {
       <div className={styles.footerGithubBlock}>
         <a
           href={'https://github.com/sharovskiye'}
+          target="_blank"
+          rel="noopener noreferrer"
           className={`${styles.footerLink} ${styles.link}`}
         >
           Yevhenii
         </a>
-        <a href={'https://github.com/Bogdan-VS'} className={`${styles.footerLink} ${styles.link}`}>
+        <a
+          href={'https://github.com/Bogdan-VS'}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`${styles.footerLink} ${styles.link}`}
+        >
           Bogdan
         </a>
-        <a href={'https://github.com/nnadeysha'} className={`${styles.footerLink} ${styles.link}`}>
+        <a
+          href={'https://github.com/nnadeysha'}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`${styles.footerLink} ${styles.link}`}
+        >
           Nadezhda
         </a>
       </div>
