@@ -7,7 +7,7 @@ import { getDataUserSelector } from '../store/selectors';
 export const RequireAuth = ({ children }: React.PropsWithChildren<unknown>) => {
   const {
     token,
-    getUserData: { login, name },
+    setUserData: { login, name },
   } = useAppSelector(getDataUserSelector);
 
   useEffect(() => {

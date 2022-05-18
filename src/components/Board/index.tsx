@@ -5,7 +5,7 @@ import {
   fetchCreateColumn,
   fetchCreateTask,
 } from '../../store/boardSlice';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hook';
 import { mockBoardId, mockUserId } from '../../store/mockFiles';
 import { Column } from './Сolumn';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';

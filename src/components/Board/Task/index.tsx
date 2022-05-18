@@ -9,7 +9,7 @@ import { ModalInputTitle } from '../../Modal/ModalInputTitle';
 import { ClassType, CustomButton } from '../../Design/Buttons/CustomButton';
 import { ConfirmModalWindow } from '../../Modal/ConfirmModal';
 import { fetchDeleteTask } from '../../../store/boardSlice';
-import { useAppDispatch } from '../../../store/hooks';
+import { useAppDispatch } from '../../../store/hook';
 
 interface ITaskProps {
   task: ITask;

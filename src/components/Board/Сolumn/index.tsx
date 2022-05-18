@@ -20,7 +20,7 @@ import { ModalInputTitle } from '../../Modal/ModalInputTitle';
 import { ModalWindow } from '../../Modal';
 import { mockBoardId, mockUserId } from '../../../store/mockFiles';
 import { fetchCreateTask } from '../../../store/boardSlice';
-import { useAppDispatch } from '../../../store/hooks';
+import { useAppDispatch } from '../../../store/hook';
 
 interface IColumnProps {
   boardId: string;

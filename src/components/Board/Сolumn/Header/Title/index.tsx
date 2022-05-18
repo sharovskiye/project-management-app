@@ -4,7 +4,7 @@ import { ClassType, CustomButton } from '../../../../Design/Buttons/CustomButton
 import { ConfirmModalWindow } from '../../../../Modal/ConfirmModal';
 
 import styles from './styles.module.scss';
-import { useAppDispatch } from '../../../../../store/hooks';
+import { useAppDispatch } from '../../../../../store/hook';
 import { fetchDeleteColumn } from '../../../../../store/boardSlice';
 import { IColumn } from '../../../interface';
 import { useToggle } from '../../../../../utils/CustomHook';
