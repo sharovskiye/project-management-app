@@ -1,4 +1,11 @@
+@import '../../../style/scss/variables';
+
+.wrapper {
+  color: $text-color;
+}
+
 .title {
+  margin: 30px 0;
   text-align: center;
 }
 

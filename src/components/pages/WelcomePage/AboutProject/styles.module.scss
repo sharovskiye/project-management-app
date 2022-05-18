@@ -1,7 +1,12 @@
+@import '../../../style/scss/variables';
+
 .title {
+  margin: 30px 0;
+  color: $text-color;
   text-align: center;
 }
 
 .subtitle {
+  color: $text-color;
   letter-spacing: 0.03em;
 }

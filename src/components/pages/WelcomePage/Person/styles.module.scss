@@ -1,5 +1,30 @@
-.image {
-  max-width: 150px;
+@import '../../../style/scss/variables';
+
+.wrapper {
+  display: grid;
+  width: 280px;
+  column-gap: 10px;
+  margin: 0 auto;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  box-shadow: 0px 5px 10px 2px #223c5033;
+}
+
+.imgContainer {
+  display: flex;
+  align-items: center;
+
+  & .image {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+}
+
+.wrapperContainer {
+  padding: 10px;
+  color: $text-color;
 }
 
 .title {

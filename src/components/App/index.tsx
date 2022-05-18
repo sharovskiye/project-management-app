@@ -27,14 +27,7 @@ export function App() {
   return (
     <div className={styles.wrapper}>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <RequireAuth>
-              <WelcomePage />
-            </RequireAuth>
-          }
-        />
+        <Route path="/" element={<WelcomePage />} />
         <Route
           path="/main"
           element={

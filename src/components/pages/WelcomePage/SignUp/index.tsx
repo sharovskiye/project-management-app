@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { SignContainer } from '../../../../const/SignInUp';
 
+import { SignContainer } from '../../../../const/SignInUp';
 import { useAppDispatch } from '../../../../store/hook';
 import { changeSignConteiner } from '../../../../store/signInUpSlice';
-
-import styles from './styles.module.scss';
+import { CustomButton } from '../../../Design/Buttons/CustomButton';
+import { ClassType } from '../../../Design/Buttons/CustomButton';
 
 export const SignUp = () => {
   const dispatch = useAppDispatch();
@@ -16,9 +16,7 @@ export const SignUp = () => {
 
   return (
     <Link to="/form">
-      <button className={styles.signUpBtn} onClick={openSignUp}>
-        Sign up
-      </button>
+      <CustomButton textContent="Sign up" classType={ClassType.icon} onClick={openSignUp} />
     </Link>
   );
 };

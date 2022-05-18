@@ -1,14 +1,25 @@
+@import '../../style/scss/variables';
+
 .wrapper {
-  width: calc(100vw - 80px);
-  min-height: 100vh;
-  padding: 10px;
-  margin: 0 auto;
-  background-color: #5f9ea0;
+  display: grid;
+  grid-template-rows: 80px 1fr 80px;
 }
 
-header {
+.header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  padding: 0 30px;
+  background-color: $main-bg-dark;
+
+  &Title {
+    color: $color-text-white;
+  }
+}
+
+.main {
+  padding: 0 30px;
+  background-color: $main-bg-light;
 }
 
 .regContainer {
