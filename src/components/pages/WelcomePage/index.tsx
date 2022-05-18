@@ -22,7 +22,6 @@ export const WelcomePage = () => {
         <AboutTeam />
         <AboutCourse />
       </main>
-      <Footer />
     </div>
   );
 };

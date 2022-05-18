@@ -31,4 +31,13 @@
             background-color: $text-column-color;
         }
     }
+
+    &Logo {
+        width: 70px;
+        height: 33px;
+        background-image: url('https://rs.school/images/rs_school_js.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
 }

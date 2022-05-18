@@ -4,14 +4,17 @@ export const Footer = () => {
   return (
     <div className={`${styles.container} ${styles.containerMedium}  ${styles.footer}`}>
       <div className={styles.footerGithubBlock}>
-        <a href={''} className={`${styles.footerLink} ${styles.link}`}>
-          GITHUB
+        <a
+          href={'https://github.com/sharovskiye'}
+          className={`${styles.footerLink} ${styles.link}`}
+        >
+          Yevhenii
         </a>
-        <a href={''} className={`${styles.footerLink} ${styles.link}`}>
-          GITHUB
+        <a href={'https://github.com/Bogdan-VS'} className={`${styles.footerLink} ${styles.link}`}>
+          Bogdan
         </a>
-        <a href={''} className={`${styles.footerLink} ${styles.link}`}>
-          GITHUB
+        <a href={'https://github.com/nnadeysha'} className={`${styles.footerLink} ${styles.link}`}>
+          Nadezhda
         </a>
       </div>
       <div className={styles.footerYear}>
@@ -22,10 +25,8 @@ export const Footer = () => {
           href="https://rs.school/react/"
           target="_blank"
           rel="noopener noreferrer"
-          className={`${styles.footerLink} ${styles.link}`}
-        >
-          RSS
-        </a>
+          className={`${styles.footerLink} ${styles.link} ${styles.footerLogo}`}
+        ></a>
       </div>
     </div>
   );

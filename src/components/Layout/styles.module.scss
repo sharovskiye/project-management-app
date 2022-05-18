@@ -1,0 +1,70 @@
+@import '../style/scss/variables';
+
+.darkTheme {
+    background-color: $main-bg-dark;
+
+    & .link {
+        color: $title-color-light ;
+    }
+
+    & .footerWrapper {
+        color: $main-bg-dark;
+        background-color: $main-bg-light;
+    }
+
+    & .footerLink {
+        color: $main-bg-dark;
+    }
+    
+    & .line {
+        background-color: $title-color-light;
+    }
+
+
+    & .button {
+        color: $title-color-light ;
+        border-color: $title-color-light ;
+    }
+
+    & .column{
+        background-color: $main-bg-light;
+    }
+
+    & .selectWrapper {
+        color: $title-color-light ;
+    }
+}
+
+.lightTheme {
+    background-color: $main-bg-light;
+
+    & .link {
+        color: $title-color-dark ;
+    }
+    
+    & .footerWrapper {
+        color: $main-bg-light;
+        background-color: $main-bg-dark;
+    }
+
+    & .footerLink {
+        color: $main-bg-light;
+    }
+
+    & .line {
+        background-color: $title-color-dark;
+    }
+
+    & .button {
+        color: $title-color-dark ;
+        border-color: $title-color-dark ;
+    }
+
+    & .column{
+        background-color: $main-bg-dark;
+    }
+
+    & .selectWrapper  {
+        color: $title-color-dark;
+    }
+}
