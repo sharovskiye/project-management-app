@@ -4,7 +4,6 @@ import { useCallback, useEffect } from 'react';
 import { useAppSelector } from '../../store/hook';
 import { getDataUserSelector } from '../../store/selectors';
 import { getMessage } from '../../utils/registration';
-import { Footer } from '../Design/Footer';
 import { Spinner } from '../Spinner';
 import { SignInUpConteiner } from './SignInUpConteiner';
 
@@ -34,7 +33,6 @@ export const Form = () => {
         <SignInUpConteiner />
       </div>
       {loading === 'pending' && <Spinner />}
-      <Footer />
     </div>
   );
 };
