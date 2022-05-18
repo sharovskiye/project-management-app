@@ -29,14 +29,7 @@ export function App() {
     <div className={styles.wrapper}>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route
-            path="/"
-            element={
-              <RequireAuth>
-                <WelcomePage />
-              </RequireAuth>
-            }
-          />
+          <Route path="/" element={<WelcomePage />} />
           <Route
             path="/main"
             element={

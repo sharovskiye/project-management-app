@@ -1,8 +1,9 @@
 @import '../../style/scss/variables';
 
 .wrapper {
+  // height: calc(100vh - 80px);
   display: grid;
-  grid-template-rows: 80px 1fr 80px;
+  grid-template-rows: 80px 1fr;
 }
 
 .header {

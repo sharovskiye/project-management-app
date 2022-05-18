@@ -46,7 +46,7 @@ export const fetchSignUp = createAsyncThunk<IGetPerson, IPerson>(
 
 export const fetchSignIn = createAsyncThunk<string, IPerson>(
   'signIn/fetchSignIn',
-  async (payload, { rejectWithValue }) => {
+  async (payload, { rejectWithValue, dispatch }) => {
     try {
       const res = await signIn(payload);
 
@@ -55,6 +55,9 @@ export const fetchSignIn = createAsyncThunk<string, IPerson>(
       }
 
       const token: string = await res.json();
+
+      dispatch(getUserData(payload));
+
       return token;
     } catch (error) {
       return rejectWithValue((error as Error).message);
