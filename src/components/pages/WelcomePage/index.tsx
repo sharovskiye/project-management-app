@@ -1,8 +1,7 @@
-import { Footer } from '../Footer';
 import { AboutCourse } from './AboutCourse';
 import { AboutProject } from './AboutProject';
 import { AboutTeam } from './AboutTeam';
-import { LogIn } from './LogIn';
+import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
 
 import styles from './styles.module.scss';
@@ -13,7 +12,7 @@ export const WelcomePage = () => {
       <header>
         <h1 className="title">Project Management System</h1>
         <div className={styles.regContainer}>
-          <LogIn />
+          <SignIn />
           <SignUp />
         </div>
       </header>
@@ -22,7 +21,6 @@ export const WelcomePage = () => {
         <AboutTeam />
         <AboutCourse />
       </main>
-      <Footer />
     </div>
   );
 };

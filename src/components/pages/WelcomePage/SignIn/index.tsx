@@ -7,17 +7,17 @@ import { changeSignConteiner } from '../../../../store/signInUpSlice';
 
 import styles from './styles.module.scss';
 
-export const SignUp = () => {
+export const SignIn = () => {
   const dispatch = useAppDispatch();
 
-  const openSignUp = useCallback(() => {
-    dispatch(changeSignConteiner(SignContainer.signUp));
+  const openSignIn = useCallback(() => {
+    dispatch(changeSignConteiner(SignContainer.signIn));
   }, [dispatch]);
 
   return (
     <Link to="/form">
-      <button className={styles.signUpBtn} onClick={openSignUp}>
-        Sign up
+      <button className={styles.signInBtn} onClick={openSignIn}>
+        Sign in
       </button>
     </Link>
   );

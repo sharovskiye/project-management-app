@@ -13,11 +13,11 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <StrictMode>
     <HashRouter>
-      <SnackbarProvider maxSnack={3}>
-        <Provider store={store}>
+      <Provider store={store}>
+        <SnackbarProvider maxSnack={3}>
           <App />
-        </Provider>
-      </SnackbarProvider>
+        </SnackbarProvider>
+      </Provider>
     </HashRouter>
   </StrictMode>
 );
