@@ -1,4 +1,5 @@
 import { Button } from '@mui/material';
+import { useState } from 'react';
 import { CustomSelect } from '../Inputs/CustomSelect';
 import { SwitchTheme } from '../SwitchTheme';
 
@@ -8,6 +9,8 @@ type HeaderPropsType = {
   signOut: () => void;
 };
 export const Header = ({ signOut }: HeaderPropsType) => {
+  const [isCheckedTheme, setIsCheckedTheme] = useState(true);
+
   return (
     <div className={`${styles.container} ${styles.containerBig}  ${styles.header}`}>
       <div className={styles.headerButtonGroup}>
