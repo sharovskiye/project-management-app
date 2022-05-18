@@ -17,10 +17,12 @@ enum Method {
 
 export interface IBoardState {
   columns?: IColumn[];
+  isLoadingOnBoard: boolean;
 }
 
 const initialState: IBoardState = {
   columns: [],
+  isLoadingOnBoard: true,
 };
 
 const apiBase = 'https://pma-team22.herokuapp.com';
@@ -35,13 +37,11 @@ export const fetchBoard = createAsyncThunk<IBoard, string>(
     const url = `${apiBase}/${Path.boards}/${boardId}`;
     try {
       const res = await fetch(url, { headers });
-      console.log('status: ' + res.status);
       if (!res.ok) {
         throw new Error(`Could not fetch ${url}, status ${res.status}`);
       }
 
       const parsed = await res.json();
-      console.log(parsed);
       return parsed;
     } catch (error) {
       return rejectWithValue((error as Error).message);
@@ -62,13 +62,11 @@ export const fetchCreateTask = createAsyncThunk<ITask, INewTask>(
     const url = `${apiBase}/${Path.boards}/${boardId}/${Path.columns}/${columnId}/${Path.tasks}`;
     try {
       const res = await fetch(url, { headers, body, method: Method.POST });
-      console.log('status: ' + res.status);
       if (!res.ok) {
         throw new Error(`Could not fetch ${url}, status ${res.status}`);
       }
 
       const parsed = await res.json();
-      console.log(parsed);
 
       dispatch(fetchBoard(mockBoardId));
 
@@ -90,7 +88,6 @@ export const fetchDeleteTask = createAsyncThunk<unknown, ITask>(
     const url = `${apiBase}/${Path.boards}/${boardId}/${Path.columns}/${columnId}/${Path.tasks}/${id}`;
     try {
       const res = await fetch(url, { headers, method: Method.DELETE });
-      console.log('status: ' + res.status);
       if (!res.ok) {
         throw new Error(`Could not fetch ${url}, status ${res.status}`);
       }
@@ -117,13 +114,11 @@ export const fetchCreateColumn = createAsyncThunk<IColumn, INewColumn>(
     const url = `${apiBase}/${Path.boards}/${mockBoardId}/${Path.columns}`;
     try {
       const res = await fetch(url, { headers, body, method: Method.POST });
-      console.log('status: ' + res.status);
       if (!res.ok) {
         throw new Error(`Could not fetch ${url}, status ${res.status}`);
       }
 
       const parsed = await res.json();
-      console.log(parsed);
 
       dispatch(fetchBoard(mockBoardId));
 
@@ -147,7 +142,6 @@ export const fetchUpdateColumn = createAsyncThunk<unknown, IColumn>(
     const url = `${apiBase}/${Path.boards}/${mockBoardId}/${Path.columns}/${id}`;
     try {
       const res = await fetch(url, { headers, body, method: Method.PUT });
-      console.log('status: ' + res.status);
       if (!res.ok) {
         throw new Error(`Could not fetch ${url}, status ${res.status}`);
       }
@@ -172,7 +166,6 @@ export const fetchDeleteColumn = createAsyncThunk<unknown, IColumn>(
     const url = `${apiBase}/${Path.boards}/${mockBoardId}/${Path.columns}/${id}`;
     try {
       const res = await fetch(url, { headers, method: Method.DELETE });
-      console.log('status: ' + res.status);
       if (!res.ok) {
         throw new Error(`Could not fetch ${url}, status ${res.status}`);
       }
@@ -190,48 +183,50 @@ export const boardSlice = createSlice({
   name: 'board',
   initialState,
   reducers: {
-    setLoading: (state, action: PayloadAction<IColumn[]>) => {
-      state.columns = action.payload;
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoadingOnBoard = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchBoard.pending, () => {
-        console.log('pending');
+      .addCase(fetchBoard.pending, (state) => {
+        state.isLoadingOnBoard = true;
       })
       .addCase(fetchBoard.fulfilled, (state, action) => {
-        console.log(action);
         state.columns = action.payload.columns;
+        state.isLoadingOnBoard = false;
       })
-      .addCase(fetchBoard.rejected, (state, action) => {
-        console.log(action);
+      .addCase(fetchBoard.rejected, () => {})
+      .addCase(fetchCreateTask.pending, (state) => {
+        state.isLoadingOnBoard = true;
       })
-      .addCase(fetchCreateTask.pending, () => {
-        console.log('pending');
+      .addCase(fetchCreateTask.fulfilled, () => {})
+      .addCase(fetchCreateTask.rejected, () => {})
+      .addCase(fetchDeleteTask.pending, (state) => {
+        state.isLoadingOnBoard = true;
       })
-      .addCase(fetchCreateTask.fulfilled, (state, action) => {
-        console.log(action);
-
-        // state.columns = action.payload.columns;
+      .addCase(fetchDeleteTask.fulfilled, () => {})
+      .addCase(fetchDeleteTask.rejected, () => {})
+      .addCase(fetchCreateColumn.pending, (state) => {
+        state.isLoadingOnBoard = true;
       })
-      .addCase(fetchCreateTask.rejected, (state, action) => {
-        console.log(action);
+      .addCase(fetchCreateColumn.fulfilled, () => {})
+      .addCase(fetchCreateColumn.rejected, () => {})
+      .addCase(fetchUpdateColumn.pending, (state) => {
+        state.isLoadingOnBoard = true;
       })
-      .addCase(fetchDeleteTask.pending, () => {
-        console.log('pending');
+      .addCase(fetchUpdateColumn.fulfilled, () => {})
+      .addCase(fetchUpdateColumn.rejected, () => {})
+      .addCase(fetchDeleteColumn.pending, (state) => {
+        state.isLoadingOnBoard = true;
       })
-      .addCase(fetchDeleteTask.fulfilled, (state, action) => {
-        console.log(action);
-
-        // state.columns = action.payload.columns;
-      })
-      .addCase(fetchDeleteTask.rejected, (state, action) => {
-        console.log(action);
-      })
+      .addCase(fetchDeleteColumn.fulfilled, () => {})
+      .addCase(fetchDeleteColumn.rejected, () => {})
       .addDefaultCase(() => {});
   },
 });
 
 export const columnsSelector = (state: IRootState) => state.board.columns;
+export const isLoadingOnBoardSelector = (state: IRootState) => state.board.isLoadingOnBoard;
 
 export default boardSlice.reducer;

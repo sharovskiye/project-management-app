@@ -1,26 +1,15 @@
-import {
-  ChangeEvent,
-  FormEvent,
-  FormEventHandler,
-  memo,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { ChangeEvent, FormEvent, memo, useEffect, useMemo, useRef, useState } from 'react';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { useToggle } from '../../../utils/CustomHook';
-import { IColumn, INewTask, ITask } from '../interface';
+import { IColumn, INewTask } from '../interface';
 import { Task } from '../Task';
 import { ColumnHeader } from './Header';
-import { ClassType, CustomButton } from '../../Design/Buttons/CustomButton';
-
-import styles from './styles.module.scss';
-import { ModalInputTitle } from '../../Modal/ModalInputTitle';
 import { ModalWindow } from '../../Modal';
-import { mockBoardId, mockUserId } from '../../../store/mockFiles';
+import { mockUserId } from '../../../store/mockFiles';
 import { fetchCreateTask } from '../../../store/boardSlice';
 import { useAppDispatch } from '../../../store/hook';
+
+import styles from './styles.module.scss';
 
 interface IColumnProps {
   boardId: string;
@@ -36,8 +25,7 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
           .map((task) => ({ ...task, boardId, columnId: column.id }))
           .map((task) => <Task task={task} key={task.id} />)
       : null;
-  }, [tasks]);
-  console.log('render');
+  }, [tasks, boardId, column.id]);
 
   const [height, setHeight] = useState(0);
   const [isScroll, setIsScroll] = useState(false);
@@ -53,8 +41,6 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
   useEffect(() => {
     const heightColumnPercent = 0.62;
     const bodyHeight = window.innerHeight * heightColumnPercent;
-    console.log({ bodyHeight, height });
-
     setIsScroll(bodyHeight < height);
   }, [height]);
 
@@ -83,7 +69,6 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
       boardId,
       columnId: column.id,
     };
-    console.log({ titleTask, descriptionTask });
     dispatch(fetchCreateTask(newTask));
   };
 
@@ -99,13 +84,12 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
 
       <div>
         <div className={styles.buttonWrapper}>
-          <CustomButton
-            typeof="button"
-            textContent="Add task"
-            classType={ClassType.icon}
-            icon={<AddCircleOutlineOutlinedIcon className={styles.iconAdd} />}
-            onClick={onToggle}
-          />
+          <button onClick={onToggle} className={styles.btnAddTask}>
+            <span>
+              <AddCircleOutlineOutlinedIcon className={styles.iconAdd} />
+            </span>
+            Add task
+          </button>
         </div>
         <ModalWindow open={opened} handleClose={onToggle}>
           <form onSubmit={onSubmitNewTask}>

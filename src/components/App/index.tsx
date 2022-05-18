@@ -28,36 +28,37 @@ export function App() {
   }, [dispatch]);
 
   return (
-    <div className={styles.wrapper}>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route
-            path="/"
-            element={
-              <RequireAuth>
-                <WelcomePage />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/main"
-            element={
-              <AccessToPages>
-                <MainPage />
-              </AccessToPages>
-            }
-          />
-          <Route
-            path="/form"
-            element={
-              <RequireAuth>
-                <Form />
-              </RequireAuth>
-            }
-          />
-        </Route>
-      </Routes>
-    </div>
+    // <div className={styles.wrapper}>
+    //   <Routes>
+    //     <Route path="/" element={<Layout />}>
+    //       <Route
+    //         path="/"
+    //         element={
+    //           <RequireAuth>
+    //             <WelcomePage />
+    //           </RequireAuth>
+    //         }
+    //       />
+    //       <Route
+    //         path="/main"
+    //         element={
+    //           <AccessToPages>
+    //             <MainPage />
+    //           </AccessToPages>
+    //         }
+    //       />
+    //       <Route
+    //         path="/form"
+    //         element={
+    //           <RequireAuth>
+    //             <Form />
+    //           </RequireAuth>
+    //         }
+    //       />
+    //     </Route>
+    //   </Routes>
+    // </div>
+    <Board />
   );
 }
 

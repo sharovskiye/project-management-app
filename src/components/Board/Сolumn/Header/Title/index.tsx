@@ -1,14 +1,13 @@
 import { Tooltip } from '@mui/material';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
-import { ClassType, CustomButton } from '../../../../Design/Buttons/CustomButton';
 import { ConfirmModalWindow } from '../../../../Modal/ConfirmModal';
-
-import styles from './styles.module.scss';
 import { useAppDispatch } from '../../../../../store/hook';
 import { fetchDeleteColumn } from '../../../../../store/boardSlice';
 import { IColumn } from '../../../interface';
 import { useToggle } from '../../../../../utils/CustomHook';
 import { useEffect, useState } from 'react';
+
+import styles from './styles.module.scss';
 
 interface IColumnTitleProps {
   openTitleEdit: () => void;
@@ -29,7 +28,6 @@ export const Title = ({ openTitleEdit, column }: IColumnTitleProps) => {
   }, [isDelete, dispatch, column]);
 
   const onDelete = () => {
-    console.log(column);
     setIsDelete(true);
   };
   return (
@@ -46,12 +44,6 @@ export const Title = ({ openTitleEdit, column }: IColumnTitleProps) => {
               <ClearOutlinedIcon />
             </span>
           </button>
-          {/* <CustomButton
-            icon={<ClearOutlinedIcon />}
-            itemType="button"
-            classType={ClassType.cancel}
-            onClick={openModal}
-          /> */}
         </div>
       </Tooltip>
       <ConfirmModalWindow onDelete={onDelete} open={isOpenModal} handleClose={openModal} />

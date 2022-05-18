@@ -3,22 +3,23 @@ import {
   columnsSelector,
   fetchBoard,
   fetchCreateColumn,
-  fetchCreateTask,
+  isLoadingOnBoardSelector,
 } from '../../store/boardSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hook';
-import { mockBoardId, mockUserId } from '../../store/mockFiles';
+import { mockBoardId } from '../../store/mockFiles';
 import { Column } from './Сolumn';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import { useToggle } from '../../utils/CustomHook';
+import { INewColumn } from './interface';
+import { ModalWindow } from '../Modal';
+import { Spinner } from '../Spinner';
 
 import styles from './styles.module.scss';
-import { ClassType, CustomButton } from '../Design/Buttons/CustomButton';
-import { useToggle } from '../../utils/CustomHook';
-import { IColumn, INewColumn, ITask } from './interface';
-import { ModalWindow } from '../Modal';
 
 export const Board = () => {
   const dispatch = useAppDispatch();
   const columns = useAppSelector(columnsSelector);
+  const loading = useAppSelector(isLoadingOnBoardSelector);
 
   const { opened, onToggle } = useToggle();
 
@@ -53,7 +54,6 @@ export const Board = () => {
       order: findMaxOrderColumn() + 1,
       boardId: mockBoardId,
     };
-    console.log({ titleColumn });
     dispatch(fetchCreateColumn(newColumn));
   };
 
@@ -74,17 +74,17 @@ export const Board = () => {
       >
         No click
       </button>
+      {loading && <Spinner />}
       <div className={styles.main}>
         {columnsMemo}
         <div className={styles.boardNewColumn}>
           <div className={styles.buttonWrapper}>
-            <CustomButton
-              typeof="button"
-              textContent="Add new column"
-              classType={ClassType.icon}
-              icon={<AddCircleOutlineOutlinedIcon className={styles.iconAdd} />}
-              onClick={onToggle}
-            />
+            <button onClick={onToggle} className={styles.btnAddColumn}>
+              <span>
+                <AddCircleOutlineOutlinedIcon className={styles.iconAdd} />
+              </span>
+              Add new column
+            </button>
           </div>
 
           <ModalWindow open={opened} handleClose={onToggle}>
