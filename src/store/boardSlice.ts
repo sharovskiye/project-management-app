@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { IRootState } from '.';
 import { IBoard, IColumn, INewColumn, INewTask, ITask } from '../components/Board/interface';
-import { mockBoardId, mockToken } from './mockFiles';
 
 enum Path {
   boards = 'boards',
@@ -16,11 +15,13 @@ enum Method {
 }
 
 export interface IBoardState {
+  boardId: string;
   columns?: IColumn[];
   isLoadingOnBoard: boolean;
 }
 
 const initialState: IBoardState = {
+  boardId: '',
   columns: [],
   isLoadingOnBoard: true,
 };
@@ -29,10 +30,14 @@ const apiBase = 'https://pma-team22.herokuapp.com';
 
 export const fetchBoard = createAsyncThunk<IBoard, string>(
   'board/fetchBoard',
-  async (boardId, { rejectWithValue }) => {
+  async (boardId, { rejectWithValue, getState }) => {
+    const {
+      signInUp: { token },
+    } = getState() as IRootState;
+
     const headers = new Headers({
       accept: 'application/json',
-      Authorization: `Bearer ${mockToken}`,
+      Authorization: `Bearer ${token}`,
     });
     const url = `${apiBase}/${Path.boards}/${boardId}`;
     try {
@@ -51,10 +56,14 @@ export const fetchBoard = createAsyncThunk<IBoard, string>(
 
 export const fetchCreateTask = createAsyncThunk<ITask, INewTask>(
   'board/fetchCreateTask',
-  async (newTask, { rejectWithValue, dispatch }) => {
+  async (newTask, { rejectWithValue, dispatch, getState }) => {
+    const {
+      signInUp: { token },
+    } = getState() as IRootState;
+
     const headers = new Headers({
       accept: 'application/json',
-      Authorization: `Bearer ${mockToken}`,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
     const { title, order, description, userId, boardId, columnId } = newTask;
@@ -68,7 +77,7 @@ export const fetchCreateTask = createAsyncThunk<ITask, INewTask>(
 
       const parsed = await res.json();
 
-      dispatch(fetchBoard(mockBoardId));
+      dispatch(fetchBoard(boardId));
 
       return parsed;
     } catch (error) {
@@ -79,10 +88,14 @@ export const fetchCreateTask = createAsyncThunk<ITask, INewTask>(
 
 export const fetchDeleteTask = createAsyncThunk<unknown, ITask>(
   'board/fetchDeleteTask',
-  async (task, { rejectWithValue, dispatch }) => {
+  async (task, { rejectWithValue, dispatch, getState }) => {
+    const {
+      signInUp: { token },
+    } = getState() as IRootState;
+
     const headers = new Headers({
       accept: 'application/json',
-      Authorization: `Bearer ${mockToken}`,
+      Authorization: `Bearer ${token}`,
     });
     const { id, boardId, columnId } = task;
     const url = `${apiBase}/${Path.boards}/${boardId}/${Path.columns}/${columnId}/${Path.tasks}/${id}`;
@@ -92,7 +105,7 @@ export const fetchDeleteTask = createAsyncThunk<unknown, ITask>(
         throw new Error(`Could not fetch ${url}, status ${res.status}`);
       }
 
-      dispatch(fetchBoard(mockBoardId));
+      dispatch(fetchBoard(boardId));
 
       return;
     } catch (error) {
@@ -103,15 +116,20 @@ export const fetchDeleteTask = createAsyncThunk<unknown, ITask>(
 
 export const fetchCreateColumn = createAsyncThunk<IColumn, INewColumn>(
   'board/fetchCreateColumn',
-  async (newColumn, { rejectWithValue, dispatch }) => {
+  async (newColumn, { rejectWithValue, dispatch, getState }) => {
+    const {
+      signInUp: { token },
+      board: { boardId },
+    } = getState() as IRootState;
+
     const headers = new Headers({
       accept: 'application/json',
-      Authorization: `Bearer ${mockToken}`,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
     const { title, order } = newColumn;
     const body = JSON.stringify({ title, order });
-    const url = `${apiBase}/${Path.boards}/${mockBoardId}/${Path.columns}`;
+    const url = `${apiBase}/${Path.boards}/${boardId}/${Path.columns}`;
     try {
       const res = await fetch(url, { headers, body, method: Method.POST });
       if (!res.ok) {
@@ -120,7 +138,7 @@ export const fetchCreateColumn = createAsyncThunk<IColumn, INewColumn>(
 
       const parsed = await res.json();
 
-      dispatch(fetchBoard(mockBoardId));
+      dispatch(fetchBoard(boardId));
 
       return parsed;
     } catch (error) {
@@ -131,22 +149,27 @@ export const fetchCreateColumn = createAsyncThunk<IColumn, INewColumn>(
 
 export const fetchUpdateColumn = createAsyncThunk<unknown, IColumn>(
   'board/fetchUpdateColumn',
-  async (column, { rejectWithValue, dispatch }) => {
+  async (column, { rejectWithValue, dispatch, getState }) => {
+    const {
+      signInUp: { token },
+      board: { boardId },
+    } = getState() as IRootState;
+
     const headers = new Headers({
       accept: 'application/json',
-      Authorization: `Bearer ${mockToken}`,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
     const { id, title, order } = column;
     const body = JSON.stringify({ title, order });
-    const url = `${apiBase}/${Path.boards}/${mockBoardId}/${Path.columns}/${id}`;
+    const url = `${apiBase}/${Path.boards}/${boardId}/${Path.columns}/${id}`;
     try {
       const res = await fetch(url, { headers, body, method: Method.PUT });
       if (!res.ok) {
         throw new Error(`Could not fetch ${url}, status ${res.status}`);
       }
 
-      dispatch(fetchBoard(mockBoardId));
+      dispatch(fetchBoard(boardId));
 
       return;
     } catch (error) {
@@ -157,20 +180,25 @@ export const fetchUpdateColumn = createAsyncThunk<unknown, IColumn>(
 
 export const fetchDeleteColumn = createAsyncThunk<unknown, IColumn>(
   'board/fetchDeleteColumn',
-  async (column, { rejectWithValue, dispatch }) => {
+  async (column, { rejectWithValue, dispatch, getState }) => {
+    const {
+      signInUp: { token },
+      board: { boardId },
+    } = getState() as IRootState;
+
     const headers = new Headers({
       accept: 'application/json',
-      Authorization: `Bearer ${mockToken}`,
+      Authorization: `Bearer ${token}`,
     });
     const { id } = column;
-    const url = `${apiBase}/${Path.boards}/${mockBoardId}/${Path.columns}/${id}`;
+    const url = `${apiBase}/${Path.boards}/${boardId}/${Path.columns}/${id}`;
     try {
       const res = await fetch(url, { headers, method: Method.DELETE });
       if (!res.ok) {
         throw new Error(`Could not fetch ${url}, status ${res.status}`);
       }
 
-      dispatch(fetchBoard(mockBoardId));
+      dispatch(fetchBoard(boardId));
 
       return;
     } catch (error) {
@@ -186,6 +214,9 @@ export const boardSlice = createSlice({
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoadingOnBoard = action.payload;
     },
+    setBoardId: (state, action: PayloadAction<string>) => {
+      state.boardId = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -196,35 +227,49 @@ export const boardSlice = createSlice({
         state.columns = action.payload.columns;
         state.isLoadingOnBoard = false;
       })
-      .addCase(fetchBoard.rejected, () => {})
+      .addCase(fetchBoard.rejected, (state) => {
+        state.isLoadingOnBoard = false;
+      })
       .addCase(fetchCreateTask.pending, (state) => {
         state.isLoadingOnBoard = true;
       })
       .addCase(fetchCreateTask.fulfilled, () => {})
-      .addCase(fetchCreateTask.rejected, () => {})
+      .addCase(fetchCreateTask.rejected, (state) => {
+        state.isLoadingOnBoard = false;
+      })
       .addCase(fetchDeleteTask.pending, (state) => {
         state.isLoadingOnBoard = true;
       })
       .addCase(fetchDeleteTask.fulfilled, () => {})
-      .addCase(fetchDeleteTask.rejected, () => {})
+      .addCase(fetchDeleteTask.rejected, (state) => {
+        state.isLoadingOnBoard = false;
+      })
       .addCase(fetchCreateColumn.pending, (state) => {
         state.isLoadingOnBoard = true;
       })
       .addCase(fetchCreateColumn.fulfilled, () => {})
-      .addCase(fetchCreateColumn.rejected, () => {})
+      .addCase(fetchCreateColumn.rejected, (state) => {
+        state.isLoadingOnBoard = false;
+      })
       .addCase(fetchUpdateColumn.pending, (state) => {
         state.isLoadingOnBoard = true;
       })
       .addCase(fetchUpdateColumn.fulfilled, () => {})
-      .addCase(fetchUpdateColumn.rejected, () => {})
+      .addCase(fetchUpdateColumn.rejected, (state) => {
+        state.isLoadingOnBoard = false;
+      })
       .addCase(fetchDeleteColumn.pending, (state) => {
         state.isLoadingOnBoard = true;
       })
       .addCase(fetchDeleteColumn.fulfilled, () => {})
-      .addCase(fetchDeleteColumn.rejected, () => {})
+      .addCase(fetchDeleteColumn.rejected, (state) => {
+        state.isLoadingOnBoard = false;
+      })
       .addDefaultCase(() => {});
   },
 });
+
+export const { setBoardId } = boardSlice.actions;
 
 export const columnsSelector = (state: IRootState) => state.board.columns;
 export const isLoadingOnBoardSelector = (state: IRootState) => state.board.isLoadingOnBoard;

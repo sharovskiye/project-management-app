@@ -1,20 +1,16 @@
-import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { WelcomePage } from '../pages/WelcomePage';
 import { MainPage } from '../pages/MainPage';
 import { Form } from '../Form';
-import { useAppDispatch } from '../../store/hook';
-import { getTokenWithLocalStorage, getUserData, setLogin } from '../../store/signInUpSlice';
+import { useAppDispatch } from '../../store/hooks';
+import { getTokenWithLocalStorage, setLogin } from '../../store/signInUpSlice';
 import { RequireAuth } from '../../hoc/RequireAuth';
 import { AccessToPages } from '../../hoc/AccessToPages';
-
-import styles from './styles.module.scss';
 import { Layout } from '../Layout';
-
-import { Board } from '../Board';
 import { BoardContainer } from '../BoardContainer';
 
+import styles from './styles.module.scss';
 interface ILocalStorage {
   token: string;
   login: string;
@@ -73,8 +69,4 @@ export function App() {
       </Routes>
     </div>
   );
-}
-
-{
-  /* <Board /> */
 }

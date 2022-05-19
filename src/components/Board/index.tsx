@@ -1,12 +1,11 @@
-import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, FormEvent, memo, useEffect, useMemo, useState } from 'react';
 import {
   columnsSelector,
   fetchBoard,
   fetchCreateColumn,
   isLoadingOnBoardSelector,
 } from '../../store/boardSlice';
-import { useAppDispatch, useAppSelector } from '../../store/hook';
-import { mockBoardId } from '../../store/mockFiles';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { Column } from './Сolumn';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { useToggle } from '../../utils/CustomHook';
@@ -16,7 +15,11 @@ import { Spinner } from '../Spinner';
 
 import styles from './styles.module.scss';
 
-export const Board = () => {
+interface IBoardProps {
+  id: string;
+}
+
+export const Board = memo(({ id }: IBoardProps) => {
   const dispatch = useAppDispatch();
   const columns = useAppSelector(columnsSelector);
   const loading = useAppSelector(isLoadingOnBoardSelector);
@@ -24,18 +27,18 @@ export const Board = () => {
   const { opened, onToggle } = useToggle();
 
   useEffect(() => {
-    dispatch(fetchBoard(mockBoardId));
-  }, [dispatch]);
+    dispatch(fetchBoard(id));
+  }, [dispatch, id]);
 
   const columnsMemo = useMemo(() => {
     return columns
       ? columns.map((column) => (
           <div className={styles.boardColumnList} key={column.id}>
-            <Column boardId={mockBoardId} column={column} />
+            <Column boardId={id} column={column} />
           </div>
         ))
       : null;
-  }, [columns]);
+  }, [columns, id]);
 
   const [titleColumn, setTitleColumn] = useState('');
 
@@ -52,7 +55,7 @@ export const Board = () => {
     const newColumn: INewColumn = {
       title: titleColumn,
       order: findMaxOrderColumn() + 1,
-      boardId: mockBoardId,
+      boardId: id,
     };
     dispatch(fetchCreateColumn(newColumn));
   };
@@ -62,14 +65,14 @@ export const Board = () => {
       Board
       <button
         onClick={() => {
-          dispatch(fetchBoard(mockBoardId));
+          dispatch(fetchBoard(id));
         }}
       >
         Click
       </button>
       <button
         onClick={() => {
-          dispatch(fetchBoard(mockBoardId + '1'));
+          dispatch(fetchBoard(id + '1'));
         }}
       >
         No click
@@ -101,4 +104,4 @@ export const Board = () => {
       </div>
     </div>
   );
-};
+});

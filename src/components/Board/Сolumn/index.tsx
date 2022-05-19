@@ -7,7 +7,7 @@ import { ColumnHeader } from './Header';
 import { ModalWindow } from '../../Modal';
 import { mockUserId } from '../../../store/mockFiles';
 import { fetchCreateTask } from '../../../store/boardSlice';
-import { useAppDispatch } from '../../../store/hook';
+import { useAppDispatch } from '../../../store/hooks';
 
 import styles from './styles.module.scss';
 
@@ -23,6 +23,7 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
     return tasks
       ? tasks
           .map((task) => ({ ...task, boardId, columnId: column.id }))
+          .sort((a, b) => a.order - b.order)
           .map((task) => <Task task={task} key={task.id} />)
       : null;
   }, [tasks, boardId, column.id]);
