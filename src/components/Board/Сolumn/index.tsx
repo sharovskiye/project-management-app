@@ -79,7 +79,7 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
         <ColumnHeader column={column} />
       </div>
 
-      <div ref={refDiv} className={isScroll ? `${styles.taskListScroll}` : `${styles.taskList}`}>
+      <div ref={refDiv} className={isScroll ? styles.taskListScroll : undefined}>
         <div>{columnsMemo}</div>
       </div>
 

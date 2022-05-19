@@ -10,7 +10,7 @@ export const Footer = () => {
           rel="noopener noreferrer"
           className={`${styles.footerLink} ${styles.link}`}
         >
-          <div>Yevhenii</div>
+          Yevhenii
         </a>
         <a
           href={'https://github.com/Bogdan-VS'}
