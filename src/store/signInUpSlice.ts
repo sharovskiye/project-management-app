@@ -54,7 +54,7 @@ export const fetchSignIn = createAsyncThunk<string, IPerson>(
         throw new Error(`${res.status}`);
       }
 
-      const token: string = await res.json();
+      const { token } = await res.json();
 
       dispatch(getUserData(payload));
 
