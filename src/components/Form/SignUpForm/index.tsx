@@ -4,7 +4,7 @@ import { Button, Grid } from '@mui/material';
 
 import { IPerson } from '../../../services/type';
 import { fetchSignUp, getUserData } from '../../../store/signInUpSlice';
-import { useAppDispatch } from '../../../store/hook';
+import { useAppDispatch } from '../../../store/hooks';
 import { FormTextField } from '../FormTextField';
 
 const signUpSchema = Yup.object().shape({

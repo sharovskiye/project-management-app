@@ -1,7 +1,7 @@
 import { Tooltip } from '@mui/material';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import { ConfirmModalWindow } from '../../../../Modal/ConfirmModal';
-import { useAppDispatch } from '../../../../../store/hook';
+import { useAppDispatch } from '../../../../../store/hooks';
 import { fetchDeleteColumn } from '../../../../../store/boardSlice';
 import { IColumn } from '../../../interface';
 import { useToggle } from '../../../../../utils/CustomHook';

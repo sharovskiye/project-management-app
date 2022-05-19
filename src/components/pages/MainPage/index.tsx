@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useAppDispatch } from '../../../store/hook';
+import { useAppDispatch } from '../../../store/hooks';
 import { getTokenWithLocalStorage } from '../../../store/signInUpSlice';
 import { Header } from '../../Design/Header';
 import { Main } from '../../Design/Main';

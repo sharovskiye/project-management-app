@@ -2,7 +2,7 @@ import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import { ChangeEvent, useState } from 'react';
 import { fetchUpdateColumn } from '../../../../../store/boardSlice';
-import { useAppDispatch } from '../../../../../store/hook';
+import { useAppDispatch } from '../../../../../store/hooks';
 import { ClassType, CustomButton } from '../../../../Design/Buttons/CustomButton';
 import { IColumn } from '../../../interface';
 

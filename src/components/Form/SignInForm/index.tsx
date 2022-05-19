@@ -2,7 +2,7 @@ import { Button, Grid } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-import { useAppDispatch } from '../../../store/hook';
+import { useAppDispatch } from '../../../store/hooks';
 import { fetchSignIn } from '../../../store/signInUpSlice';
 import { FormTextField } from '../FormTextField';
 

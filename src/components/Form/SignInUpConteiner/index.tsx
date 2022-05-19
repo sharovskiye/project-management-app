@@ -3,7 +3,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 
-import { useAppDispatch, useAppSelector } from '../../../store/hook';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { getDataUserSelector } from '../../../store/selectors';
 import { changeSignConteiner } from '../../../store/signInUpSlice';
 import { SignInForm } from '../SignInForm';

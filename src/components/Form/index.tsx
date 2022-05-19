@@ -1,7 +1,7 @@
 import { useSnackbar } from 'notistack';
 import { useCallback, useEffect } from 'react';
 
-import { useAppSelector } from '../../store/hook';
+import { useAppSelector } from '../../store/hooks';
 import { getDataUserSelector } from '../../store/selectors';
 import { getMessage } from '../../utils/registration';
 import { Spinner } from '../Spinner';

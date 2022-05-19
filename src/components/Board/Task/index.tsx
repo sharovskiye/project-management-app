@@ -5,7 +5,7 @@ import { useToggle } from '../../../utils/CustomHook';
 import { ITask } from '../interface';
 import { ConfirmModalWindow } from '../../Modal/ConfirmModal';
 import { fetchDeleteTask } from '../../../store/boardSlice';
-import { useAppDispatch } from '../../../store/hook';
+import { useAppDispatch } from '../../../store/hooks';
 
 import styles from './styles.module.scss';
 interface ITaskProps {
