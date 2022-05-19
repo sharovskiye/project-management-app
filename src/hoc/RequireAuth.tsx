@@ -5,16 +5,13 @@ import { useAppSelector } from '../store/hook';
 import { getDataUserSelector } from '../store/selectors';
 
 export const RequireAuth = ({ children }: React.PropsWithChildren<unknown>) => {
-  const {
-    token,
-    setUserData: { login, name },
-  } = useAppSelector(getDataUserSelector);
+  const { token, login } = useAppSelector(getDataUserSelector);
 
   useEffect(() => {
     if (token) {
-      localStorage.setItem('personData', JSON.stringify({ token, name, login }));
+      localStorage.setItem('personData', JSON.stringify({ token, login }));
     }
-  }, [login, name, token]);
+  }, [token, login]);
 
   if (token) {
     return <Navigate to="/main" />;

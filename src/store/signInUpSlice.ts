@@ -6,6 +6,7 @@ import { ISignInUpInitState } from './type';
 
 const initialState: ISignInUpInitState = {
   token: '',
+  login: '',
   setUserData: {
     name: '',
     login: '',
@@ -57,6 +58,7 @@ export const fetchSignIn = createAsyncThunk<string, IPerson>(
       const { token } = await res.json();
 
       dispatch(getUserData(payload));
+      dispatch(setLogin(payload.login));
 
       return token;
     } catch (error) {
@@ -71,6 +73,9 @@ export const signInUpSlice = createSlice({
   reducers: {
     getUserData(state, action: PayloadAction<IPerson>) {
       state.setUserData = action.payload;
+    },
+    setLogin(state, action: PayloadAction<string>) {
+      state.login = action.payload;
     },
     getTokenWithLocalStorage(state, action: PayloadAction<string>) {
       state.token = action.payload;
@@ -109,7 +114,12 @@ export const signInUpSlice = createSlice({
   },
 });
 
-export const { getUserData, getTokenWithLocalStorage, changeloading, changeSignConteiner } =
-  signInUpSlice.actions;
+export const {
+  getUserData,
+  getTokenWithLocalStorage,
+  changeloading,
+  changeSignConteiner,
+  setLogin,
+} = signInUpSlice.actions;
 
 export const signInUpReducer = signInUpSlice.reducer;
