@@ -1,5 +1,3 @@
-@import '../../style/scss/variables';
-
 .modal {
     &_form {
         position: absolute;
@@ -9,10 +7,10 @@
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
-        width: $width-column;
+        width: var(--width-column);
         height: 150px;
-        padding: $padding-base;
-        background-color: $color-text-white;
+        padding: var(--padding-base);
+        background-color: var(--color-text-white);
         border: 2px solid #000000;
         border-radius: 5px;
         box-shadow: rgb(38 57 77) 0 20px 30px -10px;
@@ -22,7 +20,7 @@
     &_buttons {
         display: flex;
         justify-content: space-between;
-        width: calc(100% - #{$padding-base * 2});
+        width: calc(100% - #{var(--padding-base)} * 2);
 
     }
 
@@ -31,8 +29,8 @@
     }
 
     &_textContent {
-        padding: $padding-base;
-        font-size: $font-size-large;
+        padding: var(--padding-base);
+        font-size: var(--font-size-large);
         text-align: center;
     }
 
@@ -46,15 +44,15 @@
             width: 100%;
             height: 1px;
             content: '';
-            background-color: $text-column-color;
+            background-color: var(--text-column-color);
         }
     }
 
     &_buttonDelete {
         width: 100%;
         height: 30px;
-        margin-right: $padding-base;
-        color: $color-text-white;
+        margin-right: var(--padding-base);
+        color: var(--color-text-white);
         cursor: pointer;
         background-color: #b04632;
         filter: contrast(0.8);

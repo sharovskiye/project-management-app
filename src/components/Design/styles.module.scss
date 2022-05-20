@@ -1,5 +1,3 @@
-@import '../style/scss/variables';
-
 section {
     margin-bottom: 50px;
 }
@@ -10,11 +8,11 @@ section {
     margin: 0 auto;
 
     &Big {
-        max-width: $container-width-big;
+        max-width: var(--container-width-big);
     }
 
     &Medium {
-        max-width: $container-width-medium;
+        max-width: var(--container-width-medium);
     }
 }
 
@@ -24,7 +22,7 @@ section {
     align-items: center;
     justify-content: space-between;
     height: 100px;
-    font-size: $font-size-large;
+    font-size: var(--font-size-large);
     font-weight: bold;
 
     & .selectWrapper {
@@ -34,7 +32,7 @@ section {
 
     &Link {
         display: block;
-        padding: 0 $padding-base;
+        padding: 0 var(--padding-base);
         line-height: 36px;
         text-decoration: none;
         cursor: pointer;
@@ -43,11 +41,11 @@ section {
         transition: 0.5s;
 
         &:hover {
-            background-color: $color-column-button;
+            background-color: var(--color-column-button);
         }
 
         &:active {
-            background-color: $text-column-color;
+            background-color: var(--text-column-color);
         }
     }
 }
@@ -58,75 +56,6 @@ section {
     align-items: flex-start;
     height: calc(100vh - 200px - 60px);
     padding: 40px 0;
-}
-
-.darkTheme {
-    background-color: $main-bg-dark;
-
-    & .link {
-        color: $title-color-light ;
-    }
-
-    & .footerWrapper {
-        color: $main-bg-dark;
-        background-color: $main-bg-light;
-    }
-
-    & .footerLink {
-        color: $main-bg-dark;
-    }
-    
-    & .line {
-        background-color: $title-color-light;
-    }
-
-
-    & .button {
-        color: $title-color-light ;
-        border-color: $title-color-light ;
-    }
-
-    & .column{
-        background-color: $main-bg-light;
-    }
-
-    & .selectWrapper {
-        color: $title-color-light ;
-    }
-}
-
-.lightTheme {
-    background-color: $main-bg-light;
-
-    & .link {
-        color: $title-color-dark ;
-    }
-    
-    & .footerWrapper {
-        color: $main-bg-light;
-        background-color: $main-bg-dark;
-    }
-
-    & .footerLink {
-        color: $main-bg-light;
-    }
-
-    & .line {
-        background-color: $title-color-dark;
-    }
-
-    & .button {
-        color: $title-color-dark ;
-        border-color: $title-color-dark ;
-    }
-
-    & .column{
-        background-color: $main-bg-dark;
-    }
-
-    & .selectWrapper  {
-        color: $title-color-dark;
-    }
 }
 
 

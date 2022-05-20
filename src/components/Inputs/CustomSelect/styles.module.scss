@@ -1,27 +1,25 @@
-@import '../../style/scss/variables';
-
  .select {
         display: flex;
         align-items: center;
         width: 100%;
         height: 100%;
         padding-bottom: 3px;
-        font-size: $font-size-medium;
+        font-size: var(--font-size-medium);
         color: inherit;
         cursor: pointer;
         background-color: transparent;
         border-radius: 5px;
         outline: none;
-        transition: $transition-base;
+        transition: var(--transition-base);
 
         &:hover {
-            color: $color-text-white;
-            background-color: $color-column-button;
+            color: var(--color-text-white);
+            background-color: var(--color-column-button);
             border: 1px solid #1976d2;
         }
 
         &:active {
-            background-color: $text-column-color;
+            background-color: var(--text-column-color);
         }
     
     }

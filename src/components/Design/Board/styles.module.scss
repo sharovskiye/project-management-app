@@ -1,8 +1,6 @@
-@import '../../style/scss/variables';
-
 .icon {
     &Add {
-        max-height: $font-size-large;
+        max-height: var(--font-size-large);
         padding-top: 4px;
         padding-right: 10px;
     }
@@ -10,14 +8,14 @@
 
 .board {
     &ColumnList {
-        min-width: $width-column ;
+        min-width: var(--width-column);
     }
 
     &NewColumn {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        width: $width-column;
+        width: var(--width-column);
         height: 100%;
         margin-left: 80px;
     }

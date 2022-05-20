@@ -1,12 +1,10 @@
-@import '../style/scss/variables';
-
 .container {
     width: 100%;
     height: 100%;
     margin: 0 auto;
 
     &Big {
-        max-width: $container-width-big;
+        max-width: var(--container-width-big);
     }
 }
 
@@ -16,28 +14,82 @@
     align-items: center;
     justify-content: space-between;
     height: 100px;
-    font-size: $font-size-large;
+    font-size: var(--font-size-large);
     font-weight: bold;
 
     &SettingsBlock {
         display: flex;
     }
 
-    & .selectWrapper {
+   .selectWrapper {
         width: 70px;
         height: 37px;
+        color: var(--details-background-color);
     }
 
-    & .line {
+    &ButtonGroup {
+        display: flex;
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    &Button {
+        margin-right: 20px;
+        color: var(--details-background-color);
+        list-style-type: none;
+    }
+
+    .line {
         position: absolute;
         bottom: 0;
         display: block;
         width: 100%;
         height: 2px;
         content: '';
+        background-color: var(--details-background-color);
     }
-
-    &Button {
-        margin-right: 20px;
+    
+    .btn {
+        padding: 16px;
+        font-size: 16px;
+        color: white;
+        background-color: #2196F3;
+        border: none;
+        outline: none;
+        transition: var(--transition-base);
+    }
+    
+    .dropdown {
+        position: absolute;
+        display: inline-block;
+    }
+    
+    .dropdownContent {
+        position: absolute;
+        z-index: 1;
+        display: none;
+        min-width: 160px;
+        background-color: #f1f1f1;
+    }
+    
+    .dropdownContent a {
+        display: block;
+        padding: 12px 16px;
+        color: black;
+        text-decoration: none;
+        transition: var(--transition-base);
+    }
+    
+    .dropdownContent a:hover {
+        background-color: #dddddd;
+    }
+    
+    .dropdown:hover .dropdownContent {
+        display: block;
+    }
+    
+    .btn:hover, .dropdown:hover .btn {
+        background-color: #0b7dda;
     }
 }
+

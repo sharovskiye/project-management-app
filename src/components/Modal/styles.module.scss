@@ -1,5 +1,3 @@
-@import '../style/scss/variables';
-
 .modal {
     & .cancel {
         position: absolute;
@@ -17,8 +15,8 @@
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
-        padding: 30px $padding-base $padding-base $padding-base;
-        background-color: $color-text-white;
+        padding: 30px var(--padding-base) var(--padding-base) var(--padding-base);
+        background-color: var(--color-text-white);
         border: 2px solid #000000;
         border-radius: 5px;
         box-shadow: rgb(38 57 77) 0 20px 30px -10px;

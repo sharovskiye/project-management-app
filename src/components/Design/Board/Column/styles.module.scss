@@ -1,14 +1,12 @@
-@import '../../../style/scss/variables';
-
 .column {
     position: relative;
     width: 100%;
-    max-width: $width-column;
+    max-width: var(--width-column);
     height: 71vh;
     max-height: 71vh;
-    padding: $padding-base;
-    border-radius: $padding-base;
-
+    padding: var(--padding-base);
+    background-color: var(--details-background-color);
+    border-radius: var(--padding-base);
 }
 
 .taskList {
@@ -20,7 +18,7 @@
 
 .icon {
     &Add {
-        max-height: $font-size-large;
+        max-height: var(--font-size-large);
         padding-top: 4px;
         padding-right: 10px;
     }

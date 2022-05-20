@@ -15,7 +15,11 @@ export const Header = () => {
       <Button variant="outlined" className={`${styles.headerButton} ${styles.button}`}>
         Header button
       </Button>
-      <SwitchTheme />
+      <SwitchTheme
+        onChangeTheme={function (): void {
+          throw new Error('Function not implemented.');
+        }}
+      />
       <div className={styles.selectWrapper}>
         <CustomSelect />
       </div>

@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../store/hook';
 import { getTokenWithLocalStorage } from '../../store/signInUpSlice';
+import { useToggle } from '../../utils/CustomHook';
 import { Footer } from '../Footer';
 import { Header } from '../Header';
 
@@ -9,7 +10,9 @@ import styles from './styles.module.scss';
 
 export const Layout = () => {
   const location = useLocation();
-  const [isCheckedTheme, setIsCheckedTheme] = useState(true);
+  const { opened: isCheckedTheme, onToggle: checkedTheme } = useToggle();
+
+  /* const theme = isCheckedTheme ? styles.lightTheme : styles.darkTheme; */
 
   const navigate = useNavigate();
 
@@ -23,16 +26,18 @@ export const Layout = () => {
   }, [navigate, dispatch]);
 
   return (
-    <section className={isCheckedTheme ? styles.darkTheme : styles.lightTheme}>
-      <header>{location.pathname === '/main' && <Header signOut={logOut} />}</header>
+    <div className={styles.wrapper}>
+      <header>
+        {location.pathname === '/main' && <Header theme={''} signOut={logOut} userName="Hello" />}
+      </header>
 
       <main>
         <Outlet />
       </main>
 
       <footer className={styles.footerWrapper}>
-        <Footer />
+        <Footer theme={'isCheckedTheme ? styles.darkTheme : styles.lightTheme'} />
       </footer>
-    </section>
+    </div>
   );
 };

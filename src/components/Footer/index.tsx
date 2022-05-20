@@ -1,8 +1,11 @@
 import styles from './styles.module.scss';
 
-export const Footer = () => {
+type FooterPropsType = {
+  theme: string;
+};
+export const Footer = ({ theme }: FooterPropsType) => {
   return (
-    <div className={`${styles.container} ${styles.containerMedium}  ${styles.footer}`}>
+    <div className={`${styles.container} ${styles.containerMedium}  ${styles.footer} ${theme}`}>
       <div className={styles.footerGithubBlock}>
         <a
           href={'https://github.com/sharovskiye'}

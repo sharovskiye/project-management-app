@@ -1,9 +1,7 @@
-@import '../../style/scss/variables';
-
 .modal { 
     display: flex;
     flex-direction: column;
-    width: $width-column;
+    width: var(--width-column);
     height: 150px;
 
     & .input {

@@ -1,4 +1,17 @@
-@import '../style/scss/variables';
+.container {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+
+    &Big {
+        max-width: var(--container-width-big);
+    }
+
+    &Medium {
+        max-width: var(--container-width-medium);
+    }
+}
+
 
 .footer {
     position: relative;
@@ -6,17 +19,18 @@
     align-items: center;
     justify-content: space-between;
     height: 80px;
-    font-size: $font-size-medium;
+    font-size: var(--font-size-medium);
     font-weight: bold;
-
+    
     &GithubBlock {
         display: flex;
     }
-    
+
     &Link {
         display: block;
-        padding: 0 $padding-base;
+        padding: 0 var(--padding-base);
         line-height: 36px;
+        color: var(--main-background-color);
         text-decoration: none;
         cursor: pointer;
         border: none;
@@ -24,11 +38,11 @@
         transition: 0.5s;
 
         &:hover {
-            background-color: $color-column-button;
+            background-color: var(--color-column-button);
         }
 
         &:active {
-            background-color: $text-column-color;
+            background-color: var(--text-column-color);
         }
     }
 
