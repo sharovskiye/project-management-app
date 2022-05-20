@@ -1,9 +1,9 @@
 import { useAppSelector } from '../../../../store/hook';
 import { HeaderBtn } from '../HeaderBtn';
-import { SignContainerPage } from '../../../../const/signInUp';
 import { Pages } from '../../../../const/pages';
 import { NameBtn } from './const';
 import { getDataUserSelector } from '../../../../store/selectors';
+import { SignContainerPage } from '../../../../const/signInUp';
 
 import styles from './styles.module.scss';
 
