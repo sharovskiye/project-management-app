@@ -1,13 +1,25 @@
-import { SignIn } from '../SignIn';
-import { SignUp } from '../SignUp';
+import { useAppSelector } from '../../../../store/hook';
+import { HeaderBtn } from '../HeaderBtn';
+import { SignContainerPage } from '../../../../const/signInUp';
+import { Pages } from '../../../../const/pages';
+import { NameBtn } from './const';
+import { getDataUserSelector } from '../../../../store/selectors';
 
 import styles from './styles.module.scss';
 
 export const SignContainer = () => {
+  const { token } = useAppSelector(getDataUserSelector);
+
   return (
-    <div className={styles.wrapper}>
-      <SignIn />
-      <SignUp />
-    </div>
+    <>
+      {token ? (
+        <HeaderBtn name={NameBtn.GoToMain} link={Pages.mainPage} />
+      ) : (
+        <div className={styles.wrapper}>
+          <HeaderBtn name={NameBtn.SignIn} link={Pages.sign} signPage={SignContainerPage.signIn} />
+          <HeaderBtn name={NameBtn.SignUp} link={Pages.sign} signPage={SignContainerPage.signUp} />
+        </div>
+      )}
+    </>
   );
 };

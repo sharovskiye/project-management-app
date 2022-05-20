@@ -6,6 +6,13 @@
   text-align: center;
 }
 
+.wrapper {
+  width: 80%;
+  margin: 0 auto;
+  background-color: #f7f7f7;
+  box-shadow: 0 5px 10px 2px #223c5033;
+}
+
 .subtitle {
   color: $text-color;
   letter-spacing: 0.03em;
