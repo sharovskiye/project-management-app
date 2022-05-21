@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-
+import { useEffect } from 'react';
 import { WelcomePage } from '../pages/WelcomePage';
 import { MainPage } from '../pages/MainPage';
 import { Form } from '../Form';
@@ -8,9 +7,9 @@ import { useAppDispatch } from '../../store/hook';
 import { getTokenWithLocalStorage } from '../../store/signInUpSlice';
 import { RequireAuth } from '../../hoc/RequireAuth';
 import { AccessToPages } from '../../hoc/AccessToPages';
+import { Layout } from '../Layout';
 
 import styles from './styles.module.scss';
-import { Layout } from '../Layout';
 
 export function App() {
   const dispatch = useAppDispatch();
