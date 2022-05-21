@@ -38,9 +38,9 @@ export const Footer = ({ theme }: FooterPropsType) => {
       <div className={styles.footerRssCourse}>
         <a
           href="https://rs.school/react/"
+          className={styles.footerLogo}
           target="_blank"
           rel="noopener noreferrer"
-          className={`${styles.footerLink} ${styles.link} ${styles.footerLogo}`}
         ></a>
       </div>
     </div>

@@ -9,7 +9,7 @@ import { App } from './components/App';
 
 import './index.scss';
 
-import '../src/components/style/variables.css';
+import './style/variables.css';
 import ThemeContextWrapper from './providers';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
