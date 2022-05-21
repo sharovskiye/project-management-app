@@ -36,7 +36,6 @@
     &Button {
         margin-right: 20px;
         color: var(--details-background-color);
-        list-style-type: none;
     }
 
     .line {
@@ -49,19 +48,9 @@
         background-color: var(--details-background-color);
     }
     
-    .btn {
-        padding: 16px;
-        font-size: 16px;
-        color: white;
-        background-color: #2196F3;
-        border: none;
-        outline: none;
-        transition: var(--transition-base);
-    }
     
     .dropdown {
-        position: absolute;
-        display: inline-block;
+        display: block;
     }
     
     .dropdownContent {
@@ -69,27 +58,24 @@
         z-index: 1;
         display: none;
         min-width: 160px;
-        background-color: #f1f1f1;
+        background-color: var(--details-background-color);
     }
     
     .dropdownContent a {
         display: block;
         padding: 12px 16px;
-        color: black;
+        color: var(--main-background-color);
         text-decoration: none;
         transition: var(--transition-base);
     }
     
     .dropdownContent a:hover {
-        background-color: #dddddd;
+        background-color: var(--text-column-color);
     }
     
     .dropdown:hover .dropdownContent {
         display: block;
     }
     
-    .btn:hover, .dropdown:hover .btn {
-        background-color: #0b7dda;
-    }
 }
 
