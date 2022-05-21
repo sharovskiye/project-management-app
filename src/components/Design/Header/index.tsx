@@ -23,7 +23,7 @@ export const Header = () => {
       <div className={styles.selectWrapper}>
         <CustomSelect />
       </div>
-      <span className={`${styles.line}`}></span>
+      <span className={styles.line}></span>
     </div>
   );
 };

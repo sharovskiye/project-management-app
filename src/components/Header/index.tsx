@@ -9,13 +9,12 @@ import styles from './styles.module.scss';
 type HeaderPropsType = {
   signOut: () => void;
   userName: string;
-  theme: string;
 };
-export const Header = ({ signOut, userName, theme }: HeaderPropsType) => {
+export const Header = ({ signOut, userName }: HeaderPropsType) => {
   const [darkMode, setDarkMode] = useState(true);
 
   return (
-    <div className={`${styles.container} ${styles.containerBig}  ${styles.header} ${theme}`}>
+    <div className={`${styles.container} ${styles.containerBig}  ${styles.header}`}>
       <div className={styles.headerButtonGroup}>
         <div className={styles.dropdown}>
           <div className={styles.headerButton}>
