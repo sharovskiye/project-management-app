@@ -1,6 +1,14 @@
-import { ChangeEvent, FormEvent, memo, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  ChangeEvent,
+  FormEvent,
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
-import { useToggle } from '../../../utils/CustomHook';
 import { IColumn, INewTask } from '../interface';
 import { Task } from '../Task';
 import { ColumnHeader } from './Header';
@@ -8,6 +16,7 @@ import { ModalWindow } from '../../Modal';
 import { mockUserId } from '../../../store/mockFiles';
 import { fetchCreateTask } from '../../../store/boardSlice';
 import { useAppDispatch } from '../../../store/hooks';
+import { useChangeOpenModalBoard } from '../../../utils/CustomHook';
 
 import styles from './styles.module.scss';
 
@@ -30,7 +39,7 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
 
   const [height, setHeight] = useState(0);
   const [isScroll, setIsScroll] = useState(false);
-  const { opened, onToggle } = useToggle();
+  const { openModal, onOpenModal, onCloseModal } = useChangeOpenModalBoard();
   const refDiv = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -56,22 +65,48 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
     setDescriptionTask(e.target.value);
   };
 
-  const findMaxOrderTask = () => {
+  const findMaxOrderTask = useCallback(() => {
     return tasks ? tasks.reduce((prev, { order }) => (prev > order ? prev : order), 0) : 0;
-  };
+  }, [tasks]);
 
-  const onSubmitNewTask = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const newTask: INewTask = {
-      title: titleTask,
-      order: findMaxOrderTask() + 1,
-      description: descriptionTask,
-      userId: mockUserId,
-      boardId,
-      columnId: column.id,
-    };
-    dispatch(fetchCreateTask(newTask));
-  };
+  const onSubmitNewTask = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const newTask: INewTask = {
+        title: titleTask,
+        order: findMaxOrderTask() + 1,
+        description: descriptionTask,
+        userId: mockUserId,
+        boardId,
+        columnId: column.id,
+      };
+      dispatch(fetchCreateTask(newTask));
+    },
+    [boardId, column.id, descriptionTask, dispatch, findMaxOrderTask, titleTask]
+  );
+
+  const modal = useMemo(() => {
+    return openModal ? (
+      <ModalWindow open={openModal} handleClose={onCloseModal}>
+        <form onSubmit={onSubmitNewTask}>
+          <div>
+            <label htmlFor="title">Title:</label>
+            <input onChange={onChangeTitle} value={titleTask} type="text" id="title" />
+          </div>
+          <div>
+            <label htmlFor="description">Description:</label>
+            <input
+              onChange={onChangeDescription}
+              value={descriptionTask}
+              type="text"
+              id="description"
+            />
+          </div>
+          <button type="submit">submit</button>
+        </form>
+      </ModalWindow>
+    ) : null;
+  }, [descriptionTask, onSubmitNewTask, openModal, titleTask, onCloseModal]);
 
   return (
     <div className={styles.column}>
@@ -85,31 +120,14 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
 
       <div>
         <div className={styles.buttonWrapper}>
-          <button onClick={onToggle} className={styles.btnAddTask}>
+          <button onClick={onOpenModal} className={styles.btnAddTask}>
             <span>
               <AddCircleOutlineOutlinedIcon className={styles.iconAdd} />
             </span>
             Add task
           </button>
         </div>
-        <ModalWindow open={opened} handleClose={onToggle}>
-          <form onSubmit={onSubmitNewTask}>
-            <div>
-              <label htmlFor="title">Title:</label>
-              <input onChange={onChangeTitle} value={titleTask} type="text" id="title" />
-            </div>
-            <div>
-              <label htmlFor="description">Description:</label>
-              <input
-                onChange={onChangeDescription}
-                value={descriptionTask}
-                type="text"
-                id="description"
-              />
-            </div>
-            <button type="submit">submit</button>
-          </form>
-        </ModalWindow>
+        {modal}
       </div>
     </div>
   );

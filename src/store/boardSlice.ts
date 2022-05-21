@@ -14,16 +14,18 @@ enum Method {
   PUT = 'PUT',
 }
 
-export interface IBoardState {
+interface IBoardState {
   boardId: string;
   columns?: IColumn[];
   isLoadingOnBoard: boolean;
+  isOpenModal: boolean;
 }
 
 const initialState: IBoardState = {
   boardId: '',
   columns: [],
   isLoadingOnBoard: true,
+  isOpenModal: false,
 };
 
 const apiBase = 'https://pma-team22.herokuapp.com';
@@ -214,6 +216,9 @@ export const boardSlice = createSlice({
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoadingOnBoard = action.payload;
     },
+    setIsOpenModal: (state, action: PayloadAction<boolean>) => {
+      state.isOpenModal = action.payload;
+    },
     setBoardId: (state, action: PayloadAction<string>) => {
       state.boardId = action.payload;
     },
@@ -226,6 +231,7 @@ export const boardSlice = createSlice({
       .addCase(fetchBoard.fulfilled, (state, action) => {
         state.columns = action.payload.columns;
         state.isLoadingOnBoard = false;
+        state.isOpenModal = false;
       })
       .addCase(fetchBoard.rejected, (state) => {
         state.isLoadingOnBoard = false;
@@ -269,9 +275,10 @@ export const boardSlice = createSlice({
   },
 });
 
-export const { setBoardId } = boardSlice.actions;
+export const { setBoardId, setIsOpenModal } = boardSlice.actions;
 
 export const columnsSelector = (state: IRootState) => state.board.columns;
 export const isLoadingOnBoardSelector = (state: IRootState) => state.board.isLoadingOnBoard;
+export const isOpenModalSelector = (state: IRootState) => state.board.isOpenModal;
 
 export default boardSlice.reducer;

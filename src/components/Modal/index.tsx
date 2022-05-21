@@ -1,7 +1,6 @@
 import { PropsWithChildren } from 'react';
 import Modal from '@mui/material/Modal/Modal';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
-import { ClassType, CustomButton } from '../Design/Buttons/CustomButton';
 
 import styles from './styles.module.scss';
 
@@ -16,12 +15,11 @@ export const ModalWindow = (props: PropsWithChildren<ModalType>) => {
       <div className={styles.modal}>
         {props.children}
         <div className={styles.cancel}>
-          <CustomButton
-            icon={<ClearOutlinedIcon />}
-            itemType="button"
-            classType={ClassType.cancel}
-            onClick={props.handleClose}
-          />
+          <button onClick={props.handleClose} className={styles.btnCancel}>
+            <span>
+              <ClearOutlinedIcon />
+            </span>
+          </button>
         </div>
       </div>
     </Modal>
