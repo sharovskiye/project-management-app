@@ -1,4 +1,6 @@
-import { ChangeEvent, FormEvent, memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import {
   columnsSelector,
   fetchBoard,
@@ -14,10 +16,16 @@ import { ModalWindow } from '../Modal';
 import { Spinner } from '../Spinner';
 
 import styles from './styles.module.scss';
+import { FormTextField } from '../FormTextField';
+import { Button } from '@mui/material';
 
 interface IBoardProps {
   id: string;
 }
+
+const signUpSchema = Yup.object().shape({
+  title: Yup.string().trim().required('required'),
+});
 
 export const Board = memo(({ id }: IBoardProps) => {
   const dispatch = useAppDispatch();
@@ -42,43 +50,57 @@ export const Board = memo(({ id }: IBoardProps) => {
       : null;
   }, [columns, id]);
 
-  const [titleColumn, setTitleColumn] = useState('');
-
-  const onChangeColumn = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitleColumn(e.target.value);
-  };
-
   const findMaxOrderColumn = useCallback(() => {
     return columns ? columns.reduce((prev, { order }) => (prev > order ? prev : order), 0) : 0;
   }, [columns]);
 
-  const onSubmitNewColumn = useCallback(
-    (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
+  const formik = useFormik({
+    initialValues: {
+      title: '',
+      description: '',
+    },
+    onSubmit: (values) => {
+      const { title } = { ...values };
       const newColumn: INewColumn = {
-        title: titleColumn,
+        title,
         order: findMaxOrderColumn() + 1,
         boardId: id,
       };
       dispatch(fetchCreateColumn(newColumn));
+      formik.resetForm();
     },
-    [dispatch, findMaxOrderColumn, id, titleColumn]
-  );
+    validationSchema: signUpSchema,
+  });
 
   const modal = useMemo(() => {
     return openModal ? (
       <ModalWindow open={openModal} handleClose={onCloseModal}>
-        <form onSubmit={onSubmitNewColumn}>
-          <div>
-            <label htmlFor="title">Title:</label>
-            <input onChange={onChangeColumn} value={titleColumn} type="text" id="title" />
-          </div>
+        <form onSubmit={formik.handleSubmit}>
+          <FormTextField
+            type="text"
+            label="Title"
+            name="title"
+            onChange={formik.handleChange}
+            error={formik.errors.title}
+            value={formik.values.title}
+          />
 
-          <button type="submit">submit</button>
+          <Button type="submit" variant="outlined" disabled={!formik.isValid || !formik.dirty}>
+            Submit
+          </Button>
         </form>
       </ModalWindow>
     ) : null;
-  }, [onCloseModal, onSubmitNewColumn, openModal, titleColumn]);
+  }, [
+    formik.dirty,
+    formik.errors.title,
+    formik.handleChange,
+    formik.handleSubmit,
+    formik.isValid,
+    formik.values.title,
+    onCloseModal,
+    openModal,
+  ]);
 
   return (
     <div className={`${styles.container} ${styles.containerMedium} `}>

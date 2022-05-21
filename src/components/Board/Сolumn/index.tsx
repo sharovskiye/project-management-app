@@ -1,22 +1,17 @@
-import {
-  ChangeEvent,
-  FormEvent,
-  memo,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { IColumn, INewTask } from '../interface';
 import { Task } from '../Task';
 import { ColumnHeader } from './Header';
 import { ModalWindow } from '../../Modal';
-import { mockUserId } from '../../../store/mockFiles';
-import { fetchCreateTask } from '../../../store/boardSlice';
-import { useAppDispatch } from '../../../store/hooks';
+import { fetchCreateTask, usersSelector } from '../../../store/boardSlice';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { useChangeOpenModalBoard } from '../../../utils/CustomHook';
+import { Autocomplete, Button, TextField } from '@mui/material';
+import { FormTextField } from '../../FormTextField';
+import { loginSelector } from '../../../store/selectors';
 
 import styles from './styles.module.scss';
 
@@ -25,9 +20,16 @@ interface IColumnProps {
   column: IColumn;
 }
 
+const signUpSchema = Yup.object().shape({
+  title: Yup.string().trim().required('required'),
+  description: Yup.string().trim().required('required'),
+  user: Yup.string().trim().required('required'),
+});
+
 export const Column = memo(({ boardId, column }: IColumnProps) => {
   const dispatch = useAppDispatch();
   const { tasks } = column;
+
   const columnsMemo = useMemo(() => {
     return tasks
       ? tasks
@@ -54,59 +56,86 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
     setIsScroll(bodyHeight < height);
   }, [height]);
 
-  const [titleTask, setTitleTask] = useState('');
-  const [descriptionTask, setDescriptionTask] = useState('');
-
-  const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitleTask(e.target.value);
-  };
-
-  const onChangeDescription = (e: ChangeEvent<HTMLInputElement>) => {
-    setDescriptionTask(e.target.value);
-  };
-
   const findMaxOrderTask = useCallback(() => {
     return tasks ? tasks.reduce((prev, { order }) => (prev > order ? prev : order), 0) : 0;
   }, [tasks]);
 
-  const onSubmitNewTask = useCallback(
-    (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
+  const login = useAppSelector(loginSelector);
+
+  const formik = useFormik({
+    initialValues: {
+      title: '',
+      description: '',
+      user: login,
+    },
+    onSubmit: (values) => {
+      const { title, description, user } = { ...values };
+      const selectedUser = users.find((userItem) => userItem.login === user);
       const newTask: INewTask = {
-        title: titleTask,
+        title,
         order: findMaxOrderTask() + 1,
-        description: descriptionTask,
-        userId: mockUserId,
+        description,
+        userId: selectedUser?.id || '',
         boardId,
         columnId: column.id,
       };
       dispatch(fetchCreateTask(newTask));
+      formik.resetForm();
     },
-    [boardId, column.id, descriptionTask, dispatch, findMaxOrderTask, titleTask]
-  );
+    validationSchema: signUpSchema,
+  });
+
+  const users = useAppSelector(usersSelector);
+  const loginUsers = users.map((user) => user.login);
 
   const modal = useMemo(() => {
     return openModal ? (
       <ModalWindow open={openModal} handleClose={onCloseModal}>
-        <form onSubmit={onSubmitNewTask}>
-          <div>
-            <label htmlFor="title">Title:</label>
-            <input onChange={onChangeTitle} value={titleTask} type="text" id="title" />
-          </div>
-          <div>
-            <label htmlFor="description">Description:</label>
-            <input
-              onChange={onChangeDescription}
-              value={descriptionTask}
-              type="text"
-              id="description"
-            />
-          </div>
-          <button type="submit">submit</button>
+        <form onSubmit={formik.handleSubmit}>
+          <FormTextField
+            type="text"
+            label="Title"
+            name="title"
+            onChange={formik.handleChange}
+            error={formik.errors.title}
+            value={formik.values.title}
+          />
+          <FormTextField
+            type="text"
+            label="Description"
+            name="description"
+            multiline
+            rows={4}
+            onChange={formik.handleChange}
+            error={formik.errors.description}
+            value={formik.values.description}
+          />
+          <Autocomplete
+            disablePortal
+            id="user"
+            options={loginUsers}
+            defaultValue={login}
+            onChange={(e, value) => {
+              formik.setFieldValue('user', value || '');
+            }}
+            sx={{ width: 300 }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                name="user"
+                label="User"
+                helperText={formik.errors.user || ' '}
+                error={Boolean(formik.errors.user)}
+              />
+            )}
+          />
+          <Button type="submit" variant="outlined" disabled={!formik.isValid || !formik.dirty}>
+            Submit
+          </Button>
         </form>
       </ModalWindow>
     ) : null;
-  }, [descriptionTask, onSubmitNewTask, openModal, titleTask, onCloseModal]);
+  }, [formik, login, loginUsers, onCloseModal, openModal]);
 
   return (
     <div className={styles.column}>

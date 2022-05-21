@@ -1,11 +1,13 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { IRootState } from '.';
 import { IBoard, IColumn, INewColumn, INewTask, ITask } from '../components/Board/interface';
+import { IGetPerson } from '../services/type';
 
 enum Path {
   boards = 'boards',
   columns = 'columns',
   tasks = 'tasks',
+  users = 'users',
 }
 
 enum Method {
@@ -19,6 +21,7 @@ interface IBoardState {
   columns?: IColumn[];
   isLoadingOnBoard: boolean;
   isOpenModal: boolean;
+  users: IGetPerson[];
 }
 
 const initialState: IBoardState = {
@@ -26,6 +29,7 @@ const initialState: IBoardState = {
   columns: [],
   isLoadingOnBoard: true,
   isOpenModal: false,
+  users: [],
 };
 
 const apiBase = 'https://pma-team22.herokuapp.com';
@@ -209,6 +213,33 @@ export const fetchDeleteColumn = createAsyncThunk<unknown, IColumn>(
   }
 );
 
+export const fetchUsers = createAsyncThunk<IGetPerson[], unknown>(
+  'board/fetchUsers',
+  async (_, { rejectWithValue, getState }) => {
+    const {
+      signInUp: { token },
+    } = getState() as IRootState;
+
+    const headers = new Headers({
+      accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+    const url = `${apiBase}/${Path.users}`;
+    try {
+      const res = await fetch(url, { headers });
+      if (!res.ok) {
+        throw new Error(`Could not fetch ${url}, status ${res.status}`);
+      }
+
+      const parsed = await res.json();
+
+      return parsed;
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
+    }
+  }
+);
+
 export const boardSlice = createSlice({
   name: 'board',
   initialState,
@@ -271,6 +302,13 @@ export const boardSlice = createSlice({
       .addCase(fetchDeleteColumn.rejected, (state) => {
         state.isLoadingOnBoard = false;
       })
+      .addCase(fetchUsers.pending, () => {})
+      .addCase(fetchUsers.fulfilled, (state, action) => {
+        state.users = action.payload;
+      })
+      .addCase(fetchUsers.rejected, (state) => {
+        state.isLoadingOnBoard = false;
+      })
       .addDefaultCase(() => {});
   },
 });
@@ -280,5 +318,6 @@ export const { setBoardId, setIsOpenModal } = boardSlice.actions;
 export const columnsSelector = (state: IRootState) => state.board.columns;
 export const isLoadingOnBoardSelector = (state: IRootState) => state.board.isLoadingOnBoard;
 export const isOpenModalSelector = (state: IRootState) => state.board.isOpenModal;
+export const usersSelector = (state: IRootState) => state.board.users;
 
 export default boardSlice.reducer;
