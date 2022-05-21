@@ -2,7 +2,6 @@ import { useCallback, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../store/hook';
 import { getTokenWithLocalStorage } from '../../store/signInUpSlice';
-import { useToggle } from '../../utils/CustomHook';
 import { Footer } from '../Footer';
 import { Header } from '../Header';
 
@@ -10,9 +9,6 @@ import styles from './styles.module.scss';
 
 export const Layout = () => {
   const location = useLocation();
-  const { opened: isCheckedTheme, onToggle: checkedTheme } = useToggle();
-
-  /* const theme = isCheckedTheme ? styles.lightTheme : styles.darkTheme; */
 
   const navigate = useNavigate();
 
@@ -36,7 +32,7 @@ export const Layout = () => {
       </main>
 
       <footer className={styles.footerWrapper}>
-        <Footer theme={'isCheckedTheme ? styles.darkTheme : styles.lightTheme'} />
+        <Footer />
       </footer>
     </div>
   );
