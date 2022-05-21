@@ -22,6 +22,8 @@ interface IBoardState {
   isLoadingOnBoard: boolean;
   isOpenModal: boolean;
   users: IGetPerson[];
+  isError: boolean;
+  errorCode: number | null | unknown;
 }
 
 const initialState: IBoardState = {
@@ -30,6 +32,8 @@ const initialState: IBoardState = {
   isLoadingOnBoard: true,
   isOpenModal: false,
   users: [],
+  isError: false,
+  errorCode: null,
 };
 
 const apiBase = 'https://pma-team22.herokuapp.com';
@@ -49,7 +53,7 @@ export const fetchBoard = createAsyncThunk<IBoard, string>(
     try {
       const res = await fetch(url, { headers });
       if (!res.ok) {
-        throw new Error(`Could not fetch ${url}, status ${res.status}`);
+        throw new Error(`${res.status}`);
       }
 
       const parsed = await res.json();
@@ -78,7 +82,7 @@ export const fetchCreateTask = createAsyncThunk<ITask, INewTask>(
     try {
       const res = await fetch(url, { headers, body, method: Method.POST });
       if (!res.ok) {
-        throw new Error(`Could not fetch ${url}, status ${res.status}`);
+        throw new Error(`${res.status}`);
       }
 
       const parsed = await res.json();
@@ -108,7 +112,7 @@ export const fetchDeleteTask = createAsyncThunk<unknown, ITask>(
     try {
       const res = await fetch(url, { headers, method: Method.DELETE });
       if (!res.ok) {
-        throw new Error(`Could not fetch ${url}, status ${res.status}`);
+        throw new Error(`${res.status}`);
       }
 
       dispatch(fetchBoard(boardId));
@@ -139,7 +143,7 @@ export const fetchCreateColumn = createAsyncThunk<IColumn, INewColumn>(
     try {
       const res = await fetch(url, { headers, body, method: Method.POST });
       if (!res.ok) {
-        throw new Error(`Could not fetch ${url}, status ${res.status}`);
+        throw new Error(`${res.status}`);
       }
 
       const parsed = await res.json();
@@ -172,7 +176,7 @@ export const fetchUpdateColumn = createAsyncThunk<unknown, IColumn>(
     try {
       const res = await fetch(url, { headers, body, method: Method.PUT });
       if (!res.ok) {
-        throw new Error(`Could not fetch ${url}, status ${res.status}`);
+        throw new Error(`${res.status}`);
       }
 
       dispatch(fetchBoard(boardId));
@@ -201,7 +205,7 @@ export const fetchDeleteColumn = createAsyncThunk<unknown, IColumn>(
     try {
       const res = await fetch(url, { headers, method: Method.DELETE });
       if (!res.ok) {
-        throw new Error(`Could not fetch ${url}, status ${res.status}`);
+        throw new Error(`${res.status}`);
       }
 
       dispatch(fetchBoard(boardId));
@@ -228,7 +232,7 @@ export const fetchUsers = createAsyncThunk<IGetPerson[], unknown>(
     try {
       const res = await fetch(url, { headers });
       if (!res.ok) {
-        throw new Error(`Could not fetch ${url}, status ${res.status}`);
+        throw new Error(`${res.status}`);
       }
 
       const parsed = await res.json();
@@ -258,56 +262,77 @@ export const boardSlice = createSlice({
     builder
       .addCase(fetchBoard.pending, (state) => {
         state.isLoadingOnBoard = true;
+        state.isError = false;
       })
       .addCase(fetchBoard.fulfilled, (state, action) => {
         state.columns = action.payload.columns;
         state.isLoadingOnBoard = false;
         state.isOpenModal = false;
       })
-      .addCase(fetchBoard.rejected, (state) => {
+      .addCase(fetchBoard.rejected, (state, action) => {
         state.isLoadingOnBoard = false;
+        state.errorCode = action.payload;
+        state.isError = true;
       })
       .addCase(fetchCreateTask.pending, (state) => {
         state.isLoadingOnBoard = true;
+        state.isError = false;
       })
       .addCase(fetchCreateTask.fulfilled, () => {})
-      .addCase(fetchCreateTask.rejected, (state) => {
+      .addCase(fetchCreateTask.rejected, (state, action) => {
         state.isLoadingOnBoard = false;
+        state.errorCode = action.payload;
+        state.isError = true;
       })
       .addCase(fetchDeleteTask.pending, (state) => {
         state.isLoadingOnBoard = true;
+        state.isError = false;
       })
       .addCase(fetchDeleteTask.fulfilled, () => {})
-      .addCase(fetchDeleteTask.rejected, (state) => {
+      .addCase(fetchDeleteTask.rejected, (state, action) => {
         state.isLoadingOnBoard = false;
+        state.errorCode = action.payload;
+        state.isError = true;
       })
       .addCase(fetchCreateColumn.pending, (state) => {
         state.isLoadingOnBoard = true;
+        state.isError = false;
       })
       .addCase(fetchCreateColumn.fulfilled, () => {})
-      .addCase(fetchCreateColumn.rejected, (state) => {
+      .addCase(fetchCreateColumn.rejected, (state, action) => {
         state.isLoadingOnBoard = false;
+        state.errorCode = action.payload;
+        state.isError = true;
       })
       .addCase(fetchUpdateColumn.pending, (state) => {
         state.isLoadingOnBoard = true;
+        state.isError = false;
       })
       .addCase(fetchUpdateColumn.fulfilled, () => {})
-      .addCase(fetchUpdateColumn.rejected, (state) => {
+      .addCase(fetchUpdateColumn.rejected, (state, action) => {
         state.isLoadingOnBoard = false;
+        state.errorCode = action.payload;
+        state.isError = true;
       })
       .addCase(fetchDeleteColumn.pending, (state) => {
         state.isLoadingOnBoard = true;
+        state.isError = false;
       })
       .addCase(fetchDeleteColumn.fulfilled, () => {})
-      .addCase(fetchDeleteColumn.rejected, (state) => {
+      .addCase(fetchDeleteColumn.rejected, (state, action) => {
         state.isLoadingOnBoard = false;
+        state.errorCode = action.payload;
+        state.isError = true;
       })
-      .addCase(fetchUsers.pending, () => {})
+      .addCase(fetchUsers.pending, (state) => {
+        state.isError = false;
+      })
       .addCase(fetchUsers.fulfilled, (state, action) => {
         state.users = action.payload;
       })
-      .addCase(fetchUsers.rejected, (state) => {
-        state.isLoadingOnBoard = false;
+      .addCase(fetchUsers.rejected, (state, action) => {
+        state.errorCode = action.payload;
+        state.isError = true;
       })
       .addDefaultCase(() => {});
   },
@@ -319,5 +344,7 @@ export const columnsSelector = (state: IRootState) => state.board.columns;
 export const isLoadingOnBoardSelector = (state: IRootState) => state.board.isLoadingOnBoard;
 export const isOpenModalSelector = (state: IRootState) => state.board.isOpenModal;
 export const usersSelector = (state: IRootState) => state.board.users;
+export const isErrorBoardSelector = (state: IRootState) => state.board.isError;
+export const errorCodeBoardSelector = (state: IRootState) => state.board.errorCode;
 
 export default boardSlice.reducer;

@@ -3,8 +3,10 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {
   columnsSelector,
+  errorCodeBoardSelector,
   fetchBoard,
   fetchCreateColumn,
+  isErrorBoardSelector,
   isLoadingOnBoardSelector,
 } from '../../store/boardSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
@@ -18,6 +20,8 @@ import { Spinner } from '../Spinner';
 import styles from './styles.module.scss';
 import { FormTextField } from '../FormTextField';
 import { Button } from '@mui/material';
+import { useSnackbar } from 'notistack';
+import { getMessage } from '../../utils/getMessage';
 
 interface IBoardProps {
   id: string;
@@ -36,6 +40,25 @@ export const Board = memo(({ id }: IBoardProps) => {
   useEffect(() => {
     dispatch(fetchBoard(id));
   }, [dispatch, id]);
+
+  const errorCode = useAppSelector(errorCodeBoardSelector);
+  const isError = useAppSelector(isErrorBoardSelector);
+
+  const { enqueueSnackbar } = useSnackbar();
+
+  const alert = useCallback(
+    (message: string) => {
+      enqueueSnackbar(message, { variant: 'error' });
+    },
+    [enqueueSnackbar]
+  );
+
+  useEffect(() => {
+    console.log({ isError, errorCode });
+    if (isError) {
+      alert(getMessage(errorCode));
+    }
+  }, [isError, errorCode, alert]);
 
   const columnsMemo = useMemo(() => {
     return columns

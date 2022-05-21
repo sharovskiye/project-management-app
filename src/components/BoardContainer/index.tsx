@@ -8,8 +8,8 @@ export const BoardContainer = () => {
   const { boardId } = useParams();
   const id = String(boardId);
 
-  dispatch(setBoardId(id));
   dispatch(fetchUsers(''));
+  dispatch(setBoardId(id));
 
   return <Board id={id} />;
 };

@@ -4,6 +4,10 @@ export const getMessage = (codeError: unknown) => {
       return 'User was not founded!';
     case '409':
       return 'User login already exists!';
+    case '400':
+      return 'Data is incorrect!';
+    case '500':
+      return 'The data is out of date! Refresh the page.';
     default:
       return '';
   }

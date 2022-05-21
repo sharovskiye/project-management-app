@@ -3,7 +3,7 @@ import { useCallback, useEffect } from 'react';
 
 import { useAppSelector } from '../../store/hooks';
 import { getDataUserSelector } from '../../store/selectors';
-import { getMessage } from '../../utils/registration';
+import { getMessage } from '../../utils/getMessage';
 import { Spinner } from '../Spinner';
 import { SignInUpConteiner } from './SignInUpConteiner';
 
