@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+
 import { fetchUsers, setBoardId } from '../../store/boardSlice';
 import { useAppDispatch } from '../../store/hooks';
 import { Board } from '../Board';

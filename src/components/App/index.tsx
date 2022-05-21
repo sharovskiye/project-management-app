@@ -11,6 +11,7 @@ import { Layout } from '../Layout';
 import { BoardContainer } from '../BoardContainer';
 
 import styles from './styles.module.scss';
+
 interface ILocalStorage {
   token: string;
   login: string;

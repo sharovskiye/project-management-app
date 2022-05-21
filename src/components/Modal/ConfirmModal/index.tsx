@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import Modal from '@mui/material/Modal/Modal';
 
 import styles from './styles.module.scss';
@@ -8,11 +9,12 @@ export type ConfirmModalType = {
   onDelete: () => void;
 };
 
-export const ConfirmModalWindow = ({ open, handleClose, onDelete }: ConfirmModalType) => {
+export const ConfirmModalWindow = memo(({ open, handleClose, onDelete }: ConfirmModalType) => {
   const onClickBtnDelete = () => {
     onDelete();
     handleClose();
   };
+
   return (
     <Modal open={open}>
       <div className={`${styles.modal}`}>
@@ -32,4 +34,4 @@ export const ConfirmModalWindow = ({ open, handleClose, onDelete }: ConfirmModal
       </div>
     </Modal>
   );
-};
+});

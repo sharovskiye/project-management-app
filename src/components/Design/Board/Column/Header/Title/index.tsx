@@ -1,17 +1,17 @@
 import { Tooltip } from '@mui/material';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
-import { ConfirmModalWindow } from '../../../../../Modal/ConfirmModal';
+// import { ConfirmModalWindow } from '../../../../../Modal/ConfirmModal';
 import { ClassType, CustomButton } from '../../../../Buttons/CustomButton';
 
 import styles from './styles.module.scss';
 
 type ColumnTitleType = {
   openTitleEdit: () => void;
-  isOpenModal: boolean;
+  // isOpenModal: boolean;
   openModal: () => void;
 };
 
-export const Title = ({ openModal, isOpenModal, openTitleEdit }: ColumnTitleType) => {
+export const Title = ({ openModal, openTitleEdit }: ColumnTitleType) => {
   return (
     <>
       <Tooltip title="Change title" placement="top">

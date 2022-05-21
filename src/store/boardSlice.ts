@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { IRootState } from '.';
 import { IBoard, IColumn, INewColumn, INewTask, ITask } from '../components/Board/interface';
+import { apiBase } from '../const/const';
 import { IGetPerson } from '../services/type';
 
 enum Path {
@@ -36,8 +37,6 @@ const initialState: IBoardState = {
   errorCode: null,
 };
 
-const apiBase = 'https://pma-team22.herokuapp.com';
-
 export const fetchBoard = createAsyncThunk<IBoard, string>(
   'board/fetchBoard',
   async (boardId, { rejectWithValue, getState }) => {
@@ -50,8 +49,10 @@ export const fetchBoard = createAsyncThunk<IBoard, string>(
       Authorization: `Bearer ${token}`,
     });
     const url = `${apiBase}/${Path.boards}/${boardId}`;
+
     try {
       const res = await fetch(url, { headers });
+
       if (!res.ok) {
         throw new Error(`${res.status}`);
       }
@@ -76,9 +77,11 @@ export const fetchCreateTask = createAsyncThunk<ITask, INewTask>(
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
+
     const { title, order, description, userId, boardId, columnId } = newTask;
     const body = JSON.stringify({ title, order, description, userId });
     const url = `${apiBase}/${Path.boards}/${boardId}/${Path.columns}/${columnId}/${Path.tasks}`;
+
     try {
       const res = await fetch(url, { headers, body, method: Method.POST });
       if (!res.ok) {
@@ -107,8 +110,10 @@ export const fetchDeleteTask = createAsyncThunk<unknown, ITask>(
       accept: 'application/json',
       Authorization: `Bearer ${token}`,
     });
+
     const { id, boardId, columnId } = task;
     const url = `${apiBase}/${Path.boards}/${boardId}/${Path.columns}/${columnId}/${Path.tasks}/${id}`;
+
     try {
       const res = await fetch(url, { headers, method: Method.DELETE });
       if (!res.ok) {
@@ -137,9 +142,11 @@ export const fetchCreateColumn = createAsyncThunk<IColumn, INewColumn>(
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
+
     const { title, order } = newColumn;
     const body = JSON.stringify({ title, order });
     const url = `${apiBase}/${Path.boards}/${boardId}/${Path.columns}`;
+
     try {
       const res = await fetch(url, { headers, body, method: Method.POST });
       if (!res.ok) {
@@ -170,9 +177,11 @@ export const fetchUpdateColumn = createAsyncThunk<unknown, IColumn>(
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
+
     const { id, title, order } = column;
     const body = JSON.stringify({ title, order });
     const url = `${apiBase}/${Path.boards}/${boardId}/${Path.columns}/${id}`;
+
     try {
       const res = await fetch(url, { headers, body, method: Method.PUT });
       if (!res.ok) {
@@ -200,8 +209,10 @@ export const fetchDeleteColumn = createAsyncThunk<unknown, IColumn>(
       accept: 'application/json',
       Authorization: `Bearer ${token}`,
     });
+
     const { id } = column;
     const url = `${apiBase}/${Path.boards}/${boardId}/${Path.columns}/${id}`;
+
     try {
       const res = await fetch(url, { headers, method: Method.DELETE });
       if (!res.ok) {
@@ -228,7 +239,9 @@ export const fetchUsers = createAsyncThunk<IGetPerson[], unknown>(
       accept: 'application/json',
       Authorization: `Bearer ${token}`,
     });
+
     const url = `${apiBase}/${Path.users}`;
+
     try {
       const res = await fetch(url, { headers });
       if (!res.ok) {
@@ -278,7 +291,6 @@ export const boardSlice = createSlice({
         state.isLoadingOnBoard = true;
         state.isError = false;
       })
-      .addCase(fetchCreateTask.fulfilled, () => {})
       .addCase(fetchCreateTask.rejected, (state, action) => {
         state.isLoadingOnBoard = false;
         state.errorCode = action.payload;
@@ -288,7 +300,6 @@ export const boardSlice = createSlice({
         state.isLoadingOnBoard = true;
         state.isError = false;
       })
-      .addCase(fetchDeleteTask.fulfilled, () => {})
       .addCase(fetchDeleteTask.rejected, (state, action) => {
         state.isLoadingOnBoard = false;
         state.errorCode = action.payload;
@@ -298,7 +309,6 @@ export const boardSlice = createSlice({
         state.isLoadingOnBoard = true;
         state.isError = false;
       })
-      .addCase(fetchCreateColumn.fulfilled, () => {})
       .addCase(fetchCreateColumn.rejected, (state, action) => {
         state.isLoadingOnBoard = false;
         state.errorCode = action.payload;
@@ -308,7 +318,6 @@ export const boardSlice = createSlice({
         state.isLoadingOnBoard = true;
         state.isError = false;
       })
-      .addCase(fetchUpdateColumn.fulfilled, () => {})
       .addCase(fetchUpdateColumn.rejected, (state, action) => {
         state.isLoadingOnBoard = false;
         state.errorCode = action.payload;
@@ -318,7 +327,6 @@ export const boardSlice = createSlice({
         state.isLoadingOnBoard = true;
         state.isError = false;
       })
-      .addCase(fetchDeleteColumn.fulfilled, () => {})
       .addCase(fetchDeleteColumn.rejected, (state, action) => {
         state.isLoadingOnBoard = false;
         state.errorCode = action.payload;

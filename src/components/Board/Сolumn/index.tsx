@@ -2,16 +2,17 @@ import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
-import { IColumn, INewTask } from '../interface';
+import { Autocomplete, Button, TextField } from '@mui/material';
+
 import { Task } from '../Task';
 import { ColumnHeader } from './Header';
 import { ModalWindow } from '../../Modal';
 import { fetchCreateTask, usersSelector } from '../../../store/boardSlice';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { useChangeOpenModalBoard } from '../../../utils/CustomHook';
-import { Autocomplete, Button, TextField } from '@mui/material';
 import { FormTextField } from '../../FormTextField';
 import { loginSelector } from '../../../store/selectors';
+import { IColumn, INewTask } from '../interface';
 
 import styles from './styles.module.scss';
 
@@ -27,22 +28,15 @@ const signUpSchema = Yup.object().shape({
 });
 
 export const Column = memo(({ boardId, column }: IColumnProps) => {
-  const dispatch = useAppDispatch();
   const { tasks } = column;
-
-  const columnsMemo = useMemo(() => {
-    return tasks
-      ? tasks
-          .map((task) => ({ ...task, boardId, columnId: column.id }))
-          .sort((a, b) => a.order - b.order)
-          .map((task) => <Task task={task} key={task.id} />)
-      : null;
-  }, [tasks, boardId, column.id]);
-
   const [height, setHeight] = useState(0);
   const [isScroll, setIsScroll] = useState(false);
   const { openModal, onOpenModal, onCloseModal } = useChangeOpenModalBoard();
   const refDiv = useRef<HTMLDivElement>(null);
+  const dispatch = useAppDispatch();
+  const login = useAppSelector(loginSelector);
+  const users = useAppSelector(usersSelector);
+  const loginUsers = users.map((user) => user.login);
 
   useEffect(() => {
     if (refDiv.current) {
@@ -56,11 +50,18 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
     setIsScroll(bodyHeight < height);
   }, [height]);
 
+  const columnsMemo = useMemo(() => {
+    return tasks
+      ? tasks
+          .map((task) => ({ ...task, boardId, columnId: column.id }))
+          .sort((a, b) => a.order - b.order)
+          .map((task) => <Task task={task} key={task.id} />)
+      : null;
+  }, [tasks, boardId, column.id]);
+
   const findMaxOrderTask = useCallback(() => {
     return tasks ? tasks.reduce((prev, { order }) => (prev > order ? prev : order), 0) : 0;
   }, [tasks]);
-
-  const login = useAppSelector(loginSelector);
 
   const formik = useFormik({
     initialValues: {
@@ -84,9 +85,6 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
     },
     validationSchema: signUpSchema,
   });
-
-  const users = useAppSelector(usersSelector);
-  const loginUsers = users.map((user) => user.login);
 
   const modal = useMemo(() => {
     return openModal ? (

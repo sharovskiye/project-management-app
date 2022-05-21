@@ -1,11 +1,12 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
+
 import { useToggle } from '../../../utils/CustomHook';
-import { ITask } from '../interface';
 import { ConfirmModalWindow } from '../../Modal/ConfirmModal';
 import { fetchDeleteTask } from '../../../store/boardSlice';
 import { useAppDispatch } from '../../../store/hooks';
+import { ITask } from '../interface';
 
 import styles from './styles.module.scss';
 interface ITaskProps {
@@ -15,9 +16,7 @@ interface ITaskProps {
 export const Task = memo(({ task }: ITaskProps) => {
   const dispatch = useAppDispatch();
   const { title, order } = task;
-
-  const { opened: isOpenConfirmModal, onToggle: openConfirmModal } = useToggle();
-
+  const { opened, onToggle } = useToggle();
   const [isDelete, setIsDelete] = useState(false);
 
   useEffect(() => {
@@ -26,9 +25,10 @@ export const Task = memo(({ task }: ITaskProps) => {
     }
   }, [isDelete, dispatch, task]);
 
-  const onDelete = () => {
+  const onDelete = useCallback(() => {
     setIsDelete(true);
-  };
+  }, []);
+
   return (
     <div className={styles.task}>
       <div className={styles.taskTitle}>
@@ -41,18 +41,14 @@ export const Task = memo(({ task }: ITaskProps) => {
               <EditIcon />
             </span>
           </button>
-          <button onClick={openConfirmModal} className={`${styles.btn} ${styles.btnDelete}`}>
+          <button onClick={onToggle} className={`${styles.btn} ${styles.btnDelete}`}>
             <span>
               <ClearOutlinedIcon />
             </span>
           </button>
         </div>
       </div>
-      <ConfirmModalWindow
-        onDelete={onDelete}
-        open={isOpenConfirmModal}
-        handleClose={openConfirmModal}
-      />
+      <ConfirmModalWindow onDelete={onDelete} open={opened} handleClose={onToggle} />
     </div>
   );
 });

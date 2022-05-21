@@ -6,9 +6,7 @@ export const getMessage = (codeError: unknown) => {
       return 'User login already exists!';
     case '400':
       return 'Data is incorrect!';
-    case '500':
-      return 'The data is out of date! Refresh the page.';
     default:
-      return '';
+      return 'The data is out of date! Refresh the page.';
   }
 };

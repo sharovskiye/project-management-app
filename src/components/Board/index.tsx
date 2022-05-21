@@ -1,6 +1,10 @@
 import { memo, useCallback, useEffect, useMemo } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useSnackbar } from 'notistack';
+import { Button } from '@mui/material';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+
 import {
   columnsSelector,
   errorCodeBoardSelector,
@@ -11,17 +15,14 @@ import {
 } from '../../store/boardSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { Column } from './Сolumn';
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { useChangeOpenModalBoard } from '../../utils/CustomHook';
-import { INewColumn } from './interface';
 import { ModalWindow } from '../Modal';
 import { Spinner } from '../Spinner';
+import { FormTextField } from '../FormTextField';
+import { getMessage } from '../../utils/getMessage';
+import { INewColumn } from './interface';
 
 import styles from './styles.module.scss';
-import { FormTextField } from '../FormTextField';
-import { Button } from '@mui/material';
-import { useSnackbar } from 'notistack';
-import { getMessage } from '../../utils/getMessage';
 
 interface IBoardProps {
   id: string;
@@ -36,15 +37,13 @@ export const Board = memo(({ id }: IBoardProps) => {
   const columns = useAppSelector(columnsSelector);
   const loading = useAppSelector(isLoadingOnBoardSelector);
   const { openModal, onOpenModal, onCloseModal } = useChangeOpenModalBoard();
+  const errorCode = useAppSelector(errorCodeBoardSelector);
+  const isError = useAppSelector(isErrorBoardSelector);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     dispatch(fetchBoard(id));
   }, [dispatch, id]);
-
-  const errorCode = useAppSelector(errorCodeBoardSelector);
-  const isError = useAppSelector(isErrorBoardSelector);
-
-  const { enqueueSnackbar } = useSnackbar();
 
   const alert = useCallback(
     (message: string) => {
@@ -54,7 +53,6 @@ export const Board = memo(({ id }: IBoardProps) => {
   );
 
   useEffect(() => {
-    console.log({ isError, errorCode });
     if (isError) {
       alert(getMessage(errorCode));
     }
@@ -127,21 +125,6 @@ export const Board = memo(({ id }: IBoardProps) => {
 
   return (
     <div className={`${styles.container} ${styles.containerMedium} `}>
-      Board
-      <button
-        onClick={() => {
-          dispatch(fetchBoard(id));
-        }}
-      >
-        Click
-      </button>
-      <button
-        onClick={() => {
-          dispatch(fetchBoard(id + '1'));
-        }}
-      >
-        No click
-      </button>
       {loading && <Spinner />}
       <div className={styles.main}>
         {columnsMemo}
@@ -154,7 +137,6 @@ export const Board = memo(({ id }: IBoardProps) => {
               Add new column
             </button>
           </div>
-
           {modal}
         </div>
       </div>

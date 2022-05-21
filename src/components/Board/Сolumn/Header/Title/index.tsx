@@ -1,11 +1,12 @@
+import { useCallback, useEffect, useState } from 'react';
 import { Tooltip } from '@mui/material';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
+
 import { ConfirmModalWindow } from '../../../../Modal/ConfirmModal';
 import { useAppDispatch } from '../../../../../store/hooks';
 import { fetchDeleteColumn } from '../../../../../store/boardSlice';
-import { IColumn } from '../../../interface';
 import { useToggle } from '../../../../../utils/CustomHook';
-import { useEffect, useState } from 'react';
+import { IColumn } from '../../../interface';
 
 import styles from './styles.module.scss';
 
@@ -16,9 +17,7 @@ interface IColumnTitleProps {
 
 export const Title = ({ openTitleEdit, column }: IColumnTitleProps) => {
   const dispatch = useAppDispatch();
-
   const [isDelete, setIsDelete] = useState(false);
-
   const { opened: isOpenModal, onToggle: openModal } = useToggle();
 
   useEffect(() => {
@@ -27,9 +26,10 @@ export const Title = ({ openTitleEdit, column }: IColumnTitleProps) => {
     }
   }, [isDelete, dispatch, column]);
 
-  const onDelete = () => {
+  const onDelete = useCallback(() => {
     setIsDelete(true);
-  };
+  }, []);
+
   return (
     <>
       <Tooltip title="Change title" placement="top">

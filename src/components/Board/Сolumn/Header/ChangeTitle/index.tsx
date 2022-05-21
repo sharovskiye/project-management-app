@@ -1,9 +1,9 @@
+import { ChangeEvent, useState } from 'react';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
-import { ChangeEvent, useState } from 'react';
+
 import { fetchUpdateColumn } from '../../../../../store/boardSlice';
 import { useAppDispatch } from '../../../../../store/hooks';
-import { ClassType, CustomButton } from '../../../../Design/Buttons/CustomButton';
 import { IColumn } from '../../../interface';
 
 import styles from './styles.module.scss';
@@ -25,25 +25,23 @@ export const ChangeTitle = ({ openTitleEdit, column }: IChangeTitleProps) => {
   const onClickSubmit = () => {
     if (title !== newTitle) {
       dispatch(fetchUpdateColumn({ id, title: newTitle, order }));
-      openTitleEdit();
     }
+    openTitleEdit();
   };
 
   return (
     <div className={styles.titleColumn}>
       <div className={styles.buttons}>
-        {/* <CustomButton icon={<CheckOutlinedIcon />} itemType="submit" classType={ClassType.submit} /> */}
-        <button onClick={onClickSubmit} className={styles.btnSubmit}>
+        <button onClick={onClickSubmit} className={`${styles.btn} ${styles.btnSubmit}`}>
           <span>
             <CheckOutlinedIcon />
           </span>
         </button>
-        <CustomButton
-          icon={<ClearOutlinedIcon />}
-          itemType="button"
-          classType={ClassType.cancel}
-          onClick={openTitleEdit}
-        />
+        <button onClick={openTitleEdit} className={`${styles.btn} ${styles.btnCancel}`}>
+          <span>
+            <ClearOutlinedIcon />
+          </span>
+        </button>
       </div>
       <input onChange={onChangeTitleColumn} className={styles.input} type="text" value={newTitle} />
     </div>

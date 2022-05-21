@@ -1,7 +1,7 @@
 import EditIcon from '@mui/icons-material/Edit';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import { CustomButton } from '../../Buttons/CustomButton';
-import { ConfirmModalWindow } from '../../../Modal/ConfirmModal';
+// import { ConfirmModalWindow } from '../../../Modal/ConfirmModal';
 import { ModalInputTitle } from '../../../Modal/ModalInputTitle';
 import { ClassType } from '../../Buttons/CustomButton';
 import { useToggle } from '../../../../utils/CustomHook';
@@ -10,7 +10,7 @@ import styles from './styles.module.scss';
 
 export const TaskCard = () => {
   const { opened: isOpenModal, onToggle: openModal } = useToggle();
-  const { opened: isOpenConfirmModal, onToggle: openConfirmModal } = useToggle();
+  // const { opened: isOpenConfirmModal, onToggle: openConfirmModal } = useToggle();
 
   return (
     <div className={styles.task}>
@@ -27,7 +27,7 @@ export const TaskCard = () => {
             icon={<ClearOutlinedIcon />}
             itemType="button"
             classType={ClassType.cancel}
-            onClick={openConfirmModal}
+            onClick={() => {}}
           />
         </div>
       </div>
