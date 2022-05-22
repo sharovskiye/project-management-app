@@ -4,13 +4,13 @@ import { Button, Grid } from '@mui/material';
 
 import { IPerson } from '../../../services/type';
 import { fetchSignUp, getUserData } from '../../../store/signInUpSlice';
-import { useAppDispatch } from '../../../store/hook';
-import { FormTextField } from '../FormTextField';
+import { useAppDispatch } from '../../../store/hooks';
+import { FormTextField } from '../../FormTextField';
 
 const signUpSchema = Yup.object().shape({
-  name: Yup.string().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
-  login: Yup.string().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
-  password: Yup.string().min(5, 'Too Short!').max(15, 'Too Long!').required('required'),
+  name: Yup.string().trim().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
+  login: Yup.string().trim().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
+  password: Yup.string().trim().min(5, 'Too Short!').max(15, 'Too Long!').required('required'),
 });
 
 export const SignUpForm = () => {
@@ -23,10 +23,8 @@ export const SignUpForm = () => {
       password: '',
     },
     onSubmit: (values: IPerson) => {
-      const currentData = { ...values };
-
-      dispatch(fetchSignUp(currentData));
-      dispatch(getUserData(currentData));
+      dispatch(fetchSignUp(values));
+      dispatch(getUserData(values));
       formik.resetForm();
     },
     validationSchema: signUpSchema,

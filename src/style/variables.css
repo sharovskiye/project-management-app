@@ -15,6 +15,7 @@
   --color-column-button: rgba(107 104 103 / 50%);
   --color-text-white: #ffffff;
   --text-color: #403d3c;
+  --title-color-dark: #1f2132;
 }
 
 [data-theme='lightTheme'] {

@@ -1,9 +1,8 @@
+import { apiBase } from '../const/const';
 import { IPerson } from './type';
 
-const baseLink = 'https://pma-team22.herokuapp.com';
-
 export const createNewPerson = async (body: IPerson) => {
-  const res = await fetch(`${baseLink}/signup`, {
+  const res = await fetch(`${apiBase}/signup`, {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
@@ -16,7 +15,7 @@ export const createNewPerson = async (body: IPerson) => {
 };
 
 export const signIn = async (body: IPerson) => {
-  const res = await fetch(`${baseLink}/signin`, {
+  const res = await fetch(`${apiBase}/signin`, {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { useAppSelector } from '../store/hook';
+import { useAppSelector } from '../store/hooks';
 import { getDataUserSelector } from '../store/selectors';
 
 export const AccessToPages = ({ children }: React.PropsWithChildren<unknown>) => {

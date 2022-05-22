@@ -6,14 +6,14 @@ import styles from './styles.module.scss';
 
 export const ColumnHeader = () => {
   const { opened: isOpenTitleEditOpen, onToggle: openTitleEdit } = useToggle();
-  const { opened: isOpenModal, onToggle: openModal } = useToggle();
+  // const { opened: isOpenModal, onToggle: openModal } = useToggle();
 
   return (
     <div className={styles.header}>
       {isOpenTitleEditOpen ? (
         <ChangeTitle openTitleEdit={openTitleEdit} />
       ) : (
-        <Title openTitleEdit={openTitleEdit} isOpenModal={isOpenModal} openModal={openModal} />
+        <Title openTitleEdit={openTitleEdit} openModal={() => {}} />
       )}
     </div>
   );

@@ -3,6 +3,7 @@
     <style>
         .fill {
             fill: #4b4949;
+            filter: invert(50%);
         }
 
         .st0 {

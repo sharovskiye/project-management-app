@@ -3,6 +3,14 @@ import styles from './styles.module.scss';
 export const Footer = () => {
   return (
     <div className={`${styles.container} ${styles.containerMedium}  ${styles.footer}`}>
+      <div className={styles.footerRssCourse}>
+        <a
+          href="https://rs.school/react/"
+          className={styles.footerLogo}
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
+      </div>
       <div className={styles.footerGithubBlock}>
         <a
           href={'https://github.com/sharovskiye'}
@@ -31,14 +39,6 @@ export const Footer = () => {
       </div>
       <div className={styles.footerYear}>
         <p>© 2022</p>
-      </div>
-      <div className={styles.footerRssCourse}>
-        <a
-          href="https://rs.school/react/"
-          className={styles.footerLogo}
-          target="_blank"
-          rel="noopener noreferrer"
-        ></a>
       </div>
     </div>
   );

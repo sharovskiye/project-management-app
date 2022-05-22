@@ -1,0 +1,11 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 30px;
+  margin-bottom: var(--padding-base);
+  font-size: var(--font-size-small);
+  font-weight: bold;
+  color: var(--title-color-dark);
+  border-radius: 5px;
+}

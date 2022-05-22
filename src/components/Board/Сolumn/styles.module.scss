@@ -1,0 +1,41 @@
+.column {
+  position: relative;
+  width: 100%;
+  max-width: var(--width-column);
+  height: 68vh;
+  max-height: 68vh;
+  padding: var(--padding-base);
+  background-color: var(--details-background-color);
+  border-radius: var(--padding-base);
+}
+
+.taskListScroll {
+  max-height: 90%;
+  overflow-y: scroll;
+}
+
+.iconAdd {
+  max-height: var(--font-size-large);
+  padding-top: 4px;
+  padding-right: 10px;
+}
+
+.btnAddTask {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  font-size: var(--font-size-medium);
+  color: var(--color-text-white);
+  text-align: center;
+  cursor: pointer;
+  background-color: var(--color-column-button);
+  border: none;
+  border-radius: 5px;
+  transition: 0.5s;
+
+  &:hover {
+    color: var(--color-submit);
+  }
+}

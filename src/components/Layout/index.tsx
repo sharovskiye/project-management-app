@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../store/hook';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getDataUserSelector } from '../../store/selectors';
 import { getTokenWithLocalStorage } from '../../store/signInUpSlice';
 import { Footer } from '../Footer';
