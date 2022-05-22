@@ -23,10 +23,8 @@ export const SignUpForm = () => {
       password: '',
     },
     onSubmit: (values: IPerson) => {
-      const currentData = { ...values };
-
-      dispatch(fetchSignUp(currentData));
-      dispatch(getUserData(currentData));
+      dispatch(fetchSignUp(values));
+      dispatch(getUserData(values));
       formik.resetForm();
     },
     validationSchema: signUpSchema,

@@ -13,25 +13,25 @@ export function useToggle(initialValue = false) {
 }
 
 export const useChangeOpenModalBoard = (initialValue = false) => {
-  const [openModal, setOpenModal] = useState(initialValue);
+  const [isModalOpen, setIsModalOpen] = useState(initialValue);
   const dispatch = useAppDispatch();
   const isOpenModal = useAppSelector(isOpenModalSelector);
 
   useEffect(() => {
     if (!isOpenModal) {
-      setOpenModal(false);
+      setIsModalOpen(false);
     }
   }, [isOpenModal]);
 
   const onOpenModal = useCallback(() => {
     dispatch(setIsOpenModal(true));
-    setOpenModal(true);
-  }, [dispatch, setOpenModal]);
+    setIsModalOpen(true);
+  }, [dispatch, setIsModalOpen]);
 
   const onCloseModal = useCallback(() => {
     dispatch(setIsOpenModal(false));
-    setOpenModal(false);
-  }, [dispatch, setOpenModal]);
+    setIsModalOpen(false);
+  }, [dispatch, setIsModalOpen]);
 
-  return { openModal, onOpenModal, onCloseModal };
+  return { isModalOpen, onOpenModal, onCloseModal };
 };

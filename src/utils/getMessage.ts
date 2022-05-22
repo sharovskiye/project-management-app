@@ -1,12 +1,8 @@
-export const getMessage = (codeError: unknown) => {
-  switch (codeError) {
-    case '403':
-      return 'User was not founded!';
-    case '409':
-      return 'User login already exists!';
-    case '400':
-      return 'Data is incorrect!';
-    default:
+export const getMessage = (errorMessage: string) => {
+  switch (errorMessage) {
+    case 'Internal Server Error':
       return 'The data is out of date! Refresh the page.';
+    default:
+      return errorMessage;
   }
 };

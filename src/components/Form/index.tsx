@@ -1,5 +1,5 @@
+import { useEffect } from 'react';
 import { useSnackbar } from 'notistack';
-import { useCallback, useEffect } from 'react';
 
 import { useAppSelector } from '../../store/hooks';
 import { getDataUserSelector } from '../../store/selectors';
@@ -10,22 +10,15 @@ import { SignInUpConteiner } from './SignInUpConteiner';
 import styles from './styles.module.scss';
 
 export const Form = () => {
-  const { loading, errorCode } = useAppSelector(getDataUserSelector);
+  const { loading, errorMessage } = useAppSelector(getDataUserSelector);
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const alert = useCallback(
-    (message: string) => {
-      enqueueSnackbar(message, { variant: 'error' });
-    },
-    [enqueueSnackbar]
-  );
-
   useEffect(() => {
     if (loading === 'error') {
-      alert(getMessage(errorCode));
+      enqueueSnackbar(getMessage(errorMessage), { variant: 'error' });
     }
-  }, [loading, alert, errorCode]);
+  }, [loading, enqueueSnackbar, errorMessage]);
 
   return (
     <div className={styles.wrapper}>

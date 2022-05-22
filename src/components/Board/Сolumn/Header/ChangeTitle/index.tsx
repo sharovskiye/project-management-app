@@ -17,9 +17,12 @@ export const ChangeTitle = ({ openTitleEdit, column }: IChangeTitleProps) => {
   const dispatch = useAppDispatch();
   const { id, title, order } = column;
   const [newTitle, setNewTitle] = useState(title);
+  const [disabled, setDisabled] = useState(false);
 
   const onChangeTitleColumn = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewTitle(e.target.value);
+    const value = e.target.value;
+    setNewTitle(value);
+    setDisabled(!value.trim());
   };
 
   const onClickSubmit = () => {
@@ -32,7 +35,11 @@ export const ChangeTitle = ({ openTitleEdit, column }: IChangeTitleProps) => {
   return (
     <div className={styles.titleColumn}>
       <div className={styles.buttons}>
-        <button onClick={onClickSubmit} className={`${styles.btn} ${styles.btnSubmit}`}>
+        <button
+          disabled={disabled}
+          onClick={onClickSubmit}
+          className={`${styles.btn} ${styles.btnSubmit}`}
+        >
           <span>
             <CheckOutlinedIcon />
           </span>

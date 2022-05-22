@@ -1,6 +1,13 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { IRootState } from '.';
-import { IBoard, IColumn, INewColumn, INewTask, ITask } from '../components/Board/interface';
+import {
+  IBoard,
+  IColumn,
+  INewColumn,
+  INewTask,
+  ITask,
+  IUpdateColumn,
+} from '../components/Board/interface';
 import { apiBase } from '../const/const';
 import { IGetPerson } from '../services/type';
 
@@ -19,12 +26,13 @@ enum Method {
 
 interface IBoardState {
   boardId: string;
-  columns?: IColumn[];
+  columns: IColumn[];
   isLoadingOnBoard: boolean;
   isOpenModal: boolean;
   users: IGetPerson[];
   isError: boolean;
-  errorCode: number | null | unknown;
+  errorMessage: string;
+  authorized: boolean;
 }
 
 const initialState: IBoardState = {
@@ -34,12 +42,13 @@ const initialState: IBoardState = {
   isOpenModal: false,
   users: [],
   isError: false,
-  errorCode: null,
+  errorMessage: '',
+  authorized: false,
 };
 
 export const fetchBoard = createAsyncThunk<IBoard, string>(
   'board/fetchBoard',
-  async (boardId, { rejectWithValue, getState }) => {
+  async (boardId, { rejectWithValue, getState, dispatch }) => {
     const {
       signInUp: { token },
     } = getState() as IRootState;
@@ -52,12 +61,14 @@ export const fetchBoard = createAsyncThunk<IBoard, string>(
 
     try {
       const res = await fetch(url, { headers });
-
+      const parsed = await res.json();
       if (!res.ok) {
-        throw new Error(`${res.status}`);
+        if (res.status === 401) {
+          dispatch(setAuthorized(false));
+        }
+        throw new Error(parsed.message);
       }
 
-      const parsed = await res.json();
       return parsed;
     } catch (error) {
       return rejectWithValue((error as Error).message);
@@ -84,11 +95,10 @@ export const fetchCreateTask = createAsyncThunk<ITask, INewTask>(
 
     try {
       const res = await fetch(url, { headers, body, method: Method.POST });
-      if (!res.ok) {
-        throw new Error(`${res.status}`);
-      }
-
       const parsed = await res.json();
+      if (!res.ok) {
+        throw new Error(parsed.message);
+      }
 
       dispatch(fetchBoard(boardId));
 
@@ -117,7 +127,8 @@ export const fetchDeleteTask = createAsyncThunk<unknown, ITask>(
     try {
       const res = await fetch(url, { headers, method: Method.DELETE });
       if (!res.ok) {
-        throw new Error(`${res.status}`);
+        const parsed = await res.json();
+        throw new Error(parsed.message);
       }
 
       dispatch(fetchBoard(boardId));
@@ -149,11 +160,10 @@ export const fetchCreateColumn = createAsyncThunk<IColumn, INewColumn>(
 
     try {
       const res = await fetch(url, { headers, body, method: Method.POST });
-      if (!res.ok) {
-        throw new Error(`${res.status}`);
-      }
-
       const parsed = await res.json();
+      if (!res.ok) {
+        throw new Error(parsed.message);
+      }
 
       dispatch(fetchBoard(boardId));
 
@@ -164,7 +174,7 @@ export const fetchCreateColumn = createAsyncThunk<IColumn, INewColumn>(
   }
 );
 
-export const fetchUpdateColumn = createAsyncThunk<unknown, IColumn>(
+export const fetchUpdateColumn = createAsyncThunk<unknown, IUpdateColumn>(
   'board/fetchUpdateColumn',
   async (column, { rejectWithValue, dispatch, getState }) => {
     const {
@@ -184,8 +194,9 @@ export const fetchUpdateColumn = createAsyncThunk<unknown, IColumn>(
 
     try {
       const res = await fetch(url, { headers, body, method: Method.PUT });
+      const parsed = await res.json();
       if (!res.ok) {
-        throw new Error(`${res.status}`);
+        throw new Error(parsed.message);
       }
 
       dispatch(fetchBoard(boardId));
@@ -216,7 +227,8 @@ export const fetchDeleteColumn = createAsyncThunk<unknown, IColumn>(
     try {
       const res = await fetch(url, { headers, method: Method.DELETE });
       if (!res.ok) {
-        throw new Error(`${res.status}`);
+        const parsed = await res.json();
+        throw new Error(parsed.message);
       }
 
       dispatch(fetchBoard(boardId));
@@ -244,11 +256,10 @@ export const fetchUsers = createAsyncThunk<IGetPerson[], unknown>(
 
     try {
       const res = await fetch(url, { headers });
-      if (!res.ok) {
-        throw new Error(`${res.status}`);
-      }
-
       const parsed = await res.json();
+      if (!res.ok) {
+        throw new Error(parsed.message);
+      }
 
       return parsed;
     } catch (error) {
@@ -270,6 +281,9 @@ export const boardSlice = createSlice({
     setBoardId: (state, action: PayloadAction<string>) => {
       state.boardId = action.payload;
     },
+    setAuthorized: (state, action: PayloadAction<boolean>) => {
+      state.authorized = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -284,7 +298,7 @@ export const boardSlice = createSlice({
       })
       .addCase(fetchBoard.rejected, (state, action) => {
         state.isLoadingOnBoard = false;
-        state.errorCode = action.payload;
+        state.errorMessage = action.payload as string;
         state.isError = true;
       })
       .addCase(fetchCreateTask.pending, (state) => {
@@ -293,7 +307,7 @@ export const boardSlice = createSlice({
       })
       .addCase(fetchCreateTask.rejected, (state, action) => {
         state.isLoadingOnBoard = false;
-        state.errorCode = action.payload;
+        state.errorMessage = action.payload as string;
         state.isError = true;
       })
       .addCase(fetchDeleteTask.pending, (state) => {
@@ -302,7 +316,7 @@ export const boardSlice = createSlice({
       })
       .addCase(fetchDeleteTask.rejected, (state, action) => {
         state.isLoadingOnBoard = false;
-        state.errorCode = action.payload;
+        state.errorMessage = action.payload as string;
         state.isError = true;
       })
       .addCase(fetchCreateColumn.pending, (state) => {
@@ -311,7 +325,7 @@ export const boardSlice = createSlice({
       })
       .addCase(fetchCreateColumn.rejected, (state, action) => {
         state.isLoadingOnBoard = false;
-        state.errorCode = action.payload;
+        state.errorMessage = action.payload as string;
         state.isError = true;
       })
       .addCase(fetchUpdateColumn.pending, (state) => {
@@ -320,7 +334,7 @@ export const boardSlice = createSlice({
       })
       .addCase(fetchUpdateColumn.rejected, (state, action) => {
         state.isLoadingOnBoard = false;
-        state.errorCode = action.payload;
+        state.errorMessage = action.payload as string;
         state.isError = true;
       })
       .addCase(fetchDeleteColumn.pending, (state) => {
@@ -329,7 +343,7 @@ export const boardSlice = createSlice({
       })
       .addCase(fetchDeleteColumn.rejected, (state, action) => {
         state.isLoadingOnBoard = false;
-        state.errorCode = action.payload;
+        state.errorMessage = action.payload as string;
         state.isError = true;
       })
       .addCase(fetchUsers.pending, (state) => {
@@ -339,20 +353,22 @@ export const boardSlice = createSlice({
         state.users = action.payload;
       })
       .addCase(fetchUsers.rejected, (state, action) => {
-        state.errorCode = action.payload;
+        state.errorMessage = action.payload as string;
         state.isError = true;
       })
       .addDefaultCase(() => {});
   },
 });
 
-export const { setBoardId, setIsOpenModal } = boardSlice.actions;
+export const { setBoardId, setIsOpenModal, setAuthorized } = boardSlice.actions;
 
+export const boardSelector = (state: IRootState) => state.board;
 export const columnsSelector = (state: IRootState) => state.board.columns;
 export const isLoadingOnBoardSelector = (state: IRootState) => state.board.isLoadingOnBoard;
 export const isOpenModalSelector = (state: IRootState) => state.board.isOpenModal;
 export const usersSelector = (state: IRootState) => state.board.users;
 export const isErrorBoardSelector = (state: IRootState) => state.board.isError;
-export const errorCodeBoardSelector = (state: IRootState) => state.board.errorCode;
+export const errorMessageBoardSelector = (state: IRootState) => state.board.errorMessage;
+export const authorizedSelector = (state: IRootState) => state.board.authorized;
 
 export default boardSlice.reducer;

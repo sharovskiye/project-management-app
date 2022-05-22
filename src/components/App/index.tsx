@@ -11,6 +11,7 @@ import { Layout } from '../Layout';
 import { BoardContainer } from '../BoardContainer';
 
 import styles from './styles.module.scss';
+import { setAuthorized } from '../../store/boardSlice';
 
 interface ILocalStorage {
   token: string;
@@ -24,9 +25,9 @@ export function App() {
 
   if (dataPerson) {
     const currentToken: ILocalStorage = JSON.parse(dataPerson);
-
     dispatch(getTokenWithLocalStorage(currentToken.token));
     dispatch(setLogin(currentToken.login));
+    dispatch(setAuthorized(true));
   }
 
   return (

@@ -5,14 +5,7 @@ import { useSnackbar } from 'notistack';
 import { Button } from '@mui/material';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 
-import {
-  columnsSelector,
-  errorCodeBoardSelector,
-  fetchBoard,
-  fetchCreateColumn,
-  isErrorBoardSelector,
-  isLoadingOnBoardSelector,
-} from '../../store/boardSlice';
+import { boardSelector, fetchBoard, fetchCreateColumn } from '../../store/boardSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { Column } from './Сolumn';
 import { useChangeOpenModalBoard } from '../../utils/CustomHook';
@@ -23,6 +16,8 @@ import { getMessage } from '../../utils/getMessage';
 import { INewColumn } from './interface';
 
 import styles from './styles.module.scss';
+import { useNavigate } from 'react-router-dom';
+import { getTokenWithLocalStorage } from '../../store/signInUpSlice';
 
 interface IBoardProps {
   id: string;
@@ -34,56 +29,51 @@ const signUpSchema = Yup.object().shape({
 
 export const Board = memo(({ id }: IBoardProps) => {
   const dispatch = useAppDispatch();
-  const columns = useAppSelector(columnsSelector);
-  const loading = useAppSelector(isLoadingOnBoardSelector);
-  const { openModal, onOpenModal, onCloseModal } = useChangeOpenModalBoard();
-  const errorCode = useAppSelector(errorCodeBoardSelector);
-  const isError = useAppSelector(isErrorBoardSelector);
+  const { columns, isLoadingOnBoard, errorMessage, authorized, isError } =
+    useAppSelector(boardSelector);
+  const { isModalOpen, onOpenModal, onCloseModal } = useChangeOpenModalBoard();
   const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!authorized) {
+      localStorage.clear();
+      dispatch(getTokenWithLocalStorage(''));
+      navigate('/');
+    }
+  }, [authorized, navigate, dispatch]);
 
   useEffect(() => {
     dispatch(fetchBoard(id));
   }, [dispatch, id]);
 
-  const alert = useCallback(
-    (message: string) => {
-      enqueueSnackbar(message, { variant: 'error' });
-    },
-    [enqueueSnackbar]
-  );
-
   useEffect(() => {
     if (isError) {
-      alert(getMessage(errorCode));
+      enqueueSnackbar(getMessage(errorMessage), { variant: 'error' });
     }
-  }, [isError, errorCode, alert]);
+  }, [isError, errorMessage, enqueueSnackbar]);
 
-  const columnsMemo = useMemo(() => {
-    return columns
-      ? columns
-          .map((column) => column)
-          .sort((a, b) => a.order - b.order)
-          .map((column) => (
-            <div className={styles.boardColumnList} key={column.id}>
-              <Column boardId={id} column={column} />
-            </div>
-          ))
-      : null;
+  const memoizedColumns = useMemo(() => {
+    return [...columns]
+      .sort((a, b) => a.order - b.order)
+      .map((column) => (
+        <div className={styles.boardColumnList} key={column.id}>
+          <Column boardId={id} column={column} />
+        </div>
+      ));
   }, [columns, id]);
 
   const findMaxOrderColumn = useCallback(() => {
-    return columns ? columns.reduce((prev, { order }) => (prev > order ? prev : order), 0) : 0;
+    return columns.reduce((prev, { order }) => (prev > order ? prev : order), 0);
   }, [columns]);
 
   const formik = useFormik({
     initialValues: {
       title: '',
-      description: '',
     },
     onSubmit: (values) => {
-      const { title } = { ...values };
       const newColumn: INewColumn = {
-        title,
+        title: values.title,
         order: findMaxOrderColumn() + 1,
         boardId: id,
       };
@@ -94,24 +84,26 @@ export const Board = memo(({ id }: IBoardProps) => {
   });
 
   const modal = useMemo(() => {
-    return openModal ? (
-      <ModalWindow open={openModal} handleClose={onCloseModal}>
-        <form onSubmit={formik.handleSubmit}>
-          <FormTextField
-            type="text"
-            label="Title"
-            name="title"
-            onChange={formik.handleChange}
-            error={formik.errors.title}
-            value={formik.values.title}
-          />
+    return (
+      isModalOpen && (
+        <ModalWindow open={isModalOpen} handleClose={onCloseModal}>
+          <form onSubmit={formik.handleSubmit}>
+            <FormTextField
+              type="text"
+              label="Title"
+              name="title"
+              onChange={formik.handleChange}
+              error={formik.errors.title}
+              value={formik.values.title}
+            />
 
-          <Button type="submit" variant="outlined" disabled={!formik.isValid || !formik.dirty}>
-            Submit
-          </Button>
-        </form>
-      </ModalWindow>
-    ) : null;
+            <Button type="submit" variant="outlined" disabled={!formik.isValid || !formik.dirty}>
+              Submit
+            </Button>
+          </form>
+        </ModalWindow>
+      )
+    );
   }, [
     formik.dirty,
     formik.errors.title,
@@ -120,14 +112,14 @@ export const Board = memo(({ id }: IBoardProps) => {
     formik.isValid,
     formik.values.title,
     onCloseModal,
-    openModal,
+    isModalOpen,
   ]);
 
   return (
     <div className={`${styles.container} ${styles.containerMedium} `}>
-      {loading && <Spinner />}
+      {isLoadingOnBoard && <Spinner />}
       <div className={styles.main}>
-        {columnsMemo}
+        <>{memoizedColumns}</>
         <div className={styles.boardNewColumn}>
           <div className={styles.buttonWrapper}>
             <button onClick={onOpenModal} className={styles.btnAddColumn}>
@@ -137,7 +129,7 @@ export const Board = memo(({ id }: IBoardProps) => {
               Add new column
             </button>
           </div>
-          {modal}
+          <>{modal}</>
         </div>
       </div>
     </div>

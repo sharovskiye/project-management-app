@@ -29,9 +29,8 @@ const signUpSchema = Yup.object().shape({
 
 export const Column = memo(({ boardId, column }: IColumnProps) => {
   const { tasks } = column;
-  const [height, setHeight] = useState(0);
   const [isScroll, setIsScroll] = useState(false);
-  const { openModal, onOpenModal, onCloseModal } = useChangeOpenModalBoard();
+  const { isModalOpen, onOpenModal, onCloseModal } = useChangeOpenModalBoard();
   const refDiv = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
   const login = useAppSelector(loginSelector);
@@ -40,27 +39,22 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
 
   useEffect(() => {
     if (refDiv.current) {
-      setHeight(refDiv.current.clientHeight);
+      const height = refDiv.current.clientHeight;
+      const heightColumnPercent = 0.6;
+      const bodyHeight = window.innerHeight * heightColumnPercent;
+      setIsScroll(bodyHeight < height);
     }
   }, [refDiv, column]);
 
-  useEffect(() => {
-    const heightColumnPercent = 0.62;
-    const bodyHeight = window.innerHeight * heightColumnPercent;
-    setIsScroll(bodyHeight < height);
-  }, [height]);
-
-  const columnsMemo = useMemo(() => {
+  const memoizedTasks = useMemo(() => {
     return tasks
-      ? tasks
-          .map((task) => ({ ...task, boardId, columnId: column.id }))
-          .sort((a, b) => a.order - b.order)
-          .map((task) => <Task task={task} key={task.id} />)
-      : null;
+      .map((task) => ({ ...task, boardId, columnId: column.id }))
+      .sort((a, b) => a.order - b.order)
+      .map((task) => <Task task={task} key={task.id} />);
   }, [tasks, boardId, column.id]);
 
   const findMaxOrderTask = useCallback(() => {
-    return tasks ? tasks.reduce((prev, { order }) => (prev > order ? prev : order), 0) : 0;
+    return tasks.reduce((prev, { order }) => (prev > order ? prev : order), 0);
   }, [tasks]);
 
   const formik = useFormik({
@@ -70,7 +64,7 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
       user: login,
     },
     onSubmit: (values) => {
-      const { title, description, user } = { ...values };
+      const { title, description, user } = values;
       const selectedUser = users.find((userItem) => userItem.login === user);
       const newTask: INewTask = {
         title,
@@ -87,53 +81,55 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
   });
 
   const modal = useMemo(() => {
-    return openModal ? (
-      <ModalWindow open={openModal} handleClose={onCloseModal}>
-        <form onSubmit={formik.handleSubmit}>
-          <FormTextField
-            type="text"
-            label="Title"
-            name="title"
-            onChange={formik.handleChange}
-            error={formik.errors.title}
-            value={formik.values.title}
-          />
-          <FormTextField
-            type="text"
-            label="Description"
-            name="description"
-            multiline
-            rows={4}
-            onChange={formik.handleChange}
-            error={formik.errors.description}
-            value={formik.values.description}
-          />
-          <Autocomplete
-            disablePortal
-            id="user"
-            options={loginUsers}
-            defaultValue={login}
-            onChange={(e, value) => {
-              formik.setFieldValue('user', value || '');
-            }}
-            sx={{ width: 300 }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                name="user"
-                label="User"
-                helperText={formik.errors.user || ' '}
-                error={Boolean(formik.errors.user)}
-              />
-            )}
-          />
-          <Button type="submit" variant="outlined" disabled={!formik.isValid || !formik.dirty}>
-            Submit
-          </Button>
-        </form>
-      </ModalWindow>
-    ) : null;
-  }, [formik, login, loginUsers, onCloseModal, openModal]);
+    return (
+      isModalOpen && (
+        <ModalWindow open={isModalOpen} handleClose={onCloseModal}>
+          <form onSubmit={formik.handleSubmit}>
+            <FormTextField
+              type="text"
+              label="Title"
+              name="title"
+              onChange={formik.handleChange}
+              error={formik.errors.title}
+              value={formik.values.title}
+            />
+            <FormTextField
+              type="text"
+              label="Description"
+              name="description"
+              multiline
+              rows={4}
+              onChange={formik.handleChange}
+              error={formik.errors.description}
+              value={formik.values.description}
+            />
+            <Autocomplete
+              disablePortal
+              id="user"
+              options={loginUsers}
+              defaultValue={login}
+              onChange={(e, value) => {
+                formik.setFieldValue('user', value || '');
+              }}
+              sx={{ width: 300 }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  name="user"
+                  label="User"
+                  helperText={formik.errors.user || ' '}
+                  error={Boolean(formik.errors.user)}
+                />
+              )}
+            />
+            <Button type="submit" variant="outlined" disabled={!formik.isValid || !formik.dirty}>
+              Submit
+            </Button>
+          </form>
+        </ModalWindow>
+      )
+    );
+  }, [formik, login, loginUsers, onCloseModal, isModalOpen]);
 
   return (
     <div className={styles.column}>
@@ -142,7 +138,7 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
       </div>
 
       <div ref={refDiv} className={isScroll ? styles.taskListScroll : undefined}>
-        <div>{columnsMemo}</div>
+        <div>{memoizedTasks}</div>
       </div>
 
       <div>
@@ -151,10 +147,10 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
             <span>
               <AddCircleOutlineOutlinedIcon className={styles.iconAdd} />
             </span>
-            Add task
+            Add new task
           </button>
         </div>
-        {modal}
+        <>{modal}</>
       </div>
     </div>
   );

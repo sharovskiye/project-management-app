@@ -18,13 +18,13 @@ export interface IColumn {
   id: string;
   title: string;
   order: number;
-  tasks?: ITask[];
+  tasks: ITask[];
 }
 
 export interface IBoard {
   id: string;
   title: string;
-  columns?: IColumn[];
+  columns: IColumn[];
 }
 
 export interface INewTask {
@@ -44,4 +44,10 @@ export interface INewColumn {
 
 export interface INewBoard {
   title: string;
+}
+
+export interface IUpdateColumn {
+  id: string;
+  title: string;
+  order: number;
 }

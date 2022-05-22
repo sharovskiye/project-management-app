@@ -7,5 +7,5 @@ export type ISignInUpInitState = {
   getUserData: IGetPerson;
   loading: 'idle' | 'pending' | 'succeeded' | 'error';
   signConteiner: string;
-  errorCode: null | number | unknown;
+  errorMessage: string;
 };

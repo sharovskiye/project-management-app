@@ -11,6 +11,12 @@
   background-color: $color-text-white;
   border-radius: 3px;
   transition: 0.5s;
+
+  p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
 .btnDelete {

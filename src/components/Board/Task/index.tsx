@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 
@@ -9,6 +9,7 @@ import { useAppDispatch } from '../../../store/hooks';
 import { ITask } from '../interface';
 
 import styles from './styles.module.scss';
+
 interface ITaskProps {
   task: ITask;
 }
@@ -17,17 +18,10 @@ export const Task = memo(({ task }: ITaskProps) => {
   const dispatch = useAppDispatch();
   const { title, order } = task;
   const { opened, onToggle } = useToggle();
-  const [isDelete, setIsDelete] = useState(false);
-
-  useEffect(() => {
-    if (isDelete) {
-      dispatch(fetchDeleteTask(task));
-    }
-  }, [isDelete, dispatch, task]);
 
   const onDelete = useCallback(() => {
-    setIsDelete(true);
-  }, []);
+    dispatch(fetchDeleteTask(task));
+  }, [dispatch, task]);
 
   return (
     <div className={styles.task}>

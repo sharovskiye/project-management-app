@@ -20,9 +20,7 @@ export const SignInForm = () => {
       password: '',
     },
     onSubmit: (values) => {
-      const currentValues = { ...values };
-
-      dispatch(fetchSignIn(currentValues));
+      dispatch(fetchSignIn(values));
       formik.resetForm();
     },
     validationSchema: signUpSchema,

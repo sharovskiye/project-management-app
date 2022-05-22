@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { Tooltip } from '@mui/material';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 
@@ -17,36 +17,29 @@ interface IColumnTitleProps {
 
 export const Title = ({ openTitleEdit, column }: IColumnTitleProps) => {
   const dispatch = useAppDispatch();
-  const [isDelete, setIsDelete] = useState(false);
-  const { opened: isOpenModal, onToggle: openModal } = useToggle();
-
-  useEffect(() => {
-    if (isDelete) {
-      dispatch(fetchDeleteColumn(column));
-    }
-  }, [isDelete, dispatch, column]);
+  const { opened, onToggle } = useToggle();
 
   const onDelete = useCallback(() => {
-    setIsDelete(true);
-  }, []);
+    dispatch(fetchDeleteColumn(column));
+  }, [dispatch, column]);
 
   return (
     <>
       <Tooltip title="Change title" placement="top">
         <div className={`${styles.title}`} onClick={openTitleEdit}>
-          <p>{column.title}</p>
+          <p title={column.title}>{column.title}</p>
         </div>
       </Tooltip>
       <Tooltip title="Delete column" placement="top">
         <div>
-          <button onClick={openModal} className={styles.btnDelete}>
+          <button onClick={onToggle} className={styles.btnDelete}>
             <span>
               <ClearOutlinedIcon />
             </span>
           </button>
         </div>
       </Tooltip>
-      <ConfirmModalWindow onDelete={onDelete} open={isOpenModal} handleClose={openModal} />
+      <ConfirmModalWindow onDelete={onDelete} open={opened} handleClose={onToggle} />
     </>
   );
 };
