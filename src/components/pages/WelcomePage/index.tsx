@@ -9,13 +9,17 @@ export const WelcomePage = () => {
   return (
     <div className={styles.wrapper}>
       <header className={styles.header}>
-        <h1 className={styles.headerTitle}>Project Management System</h1>
-        <SignContainer />
+        <div className={`${styles.wrapperContainer} ${styles.wrapperHeader}`}>
+          <h1 className={styles.headerTitle}>Project Management System</h1>
+          <SignContainer />
+        </div>
       </header>
       <main className={styles.main}>
-        <AboutProject />
-        <AboutTeam />
-        <AboutCourse />
+        <div className={styles.wrapperContainer}>
+          <AboutProject />
+          <AboutTeam />
+          <AboutCourse />
+        </div>
       </main>
     </div>
   );

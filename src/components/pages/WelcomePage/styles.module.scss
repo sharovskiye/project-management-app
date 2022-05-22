@@ -3,12 +3,20 @@
 .wrapper {
   display: grid;
   grid-template-rows: 80px 1fr;
+
+  &Container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  &Header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   padding: 0 30px;
   background-color: $main-bg-dark;
 
