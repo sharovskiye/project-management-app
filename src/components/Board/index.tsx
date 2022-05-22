@@ -1,4 +1,5 @@
 import { memo, useCallback, useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useSnackbar } from 'notistack';
@@ -13,11 +14,10 @@ import { ModalWindow } from '../Modal';
 import { Spinner } from '../Spinner';
 import { FormTextField } from '../FormTextField';
 import { getMessage } from '../../utils/getMessage';
+import { getTokenWithLocalStorage } from '../../store/signInUpSlice';
 import { INewColumn } from './interface';
 
 import styles from './styles.module.scss';
-import { useNavigate } from 'react-router-dom';
-import { getTokenWithLocalStorage } from '../../store/signInUpSlice';
 
 interface IBoardProps {
   id: string;

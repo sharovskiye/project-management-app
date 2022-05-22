@@ -1,13 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { IRootState } from '.';
-import {
-  IBoard,
-  IColumn,
-  INewColumn,
-  INewTask,
-  ITask,
-  IUpdateColumn,
-} from '../components/Board/interface';
+import { IBoard, IColumn, INewColumn, INewTask, ITask } from '../components/Board/interface';
 import { apiBase } from '../const/const';
 import { IGetPerson } from '../services/type';
 
@@ -174,7 +167,7 @@ export const fetchCreateColumn = createAsyncThunk<IColumn, INewColumn>(
   }
 );
 
-export const fetchUpdateColumn = createAsyncThunk<unknown, IUpdateColumn>(
+export const fetchUpdateColumn = createAsyncThunk<unknown, IColumn>(
   'board/fetchUpdateColumn',
   async (column, { rejectWithValue, dispatch, getState }) => {
     const {

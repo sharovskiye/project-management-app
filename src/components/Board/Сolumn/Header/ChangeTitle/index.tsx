@@ -15,19 +15,17 @@ interface IChangeTitleProps {
 
 export const ChangeTitle = ({ openTitleEdit, column }: IChangeTitleProps) => {
   const dispatch = useAppDispatch();
-  const { id, title, order } = column;
+  const { title } = column;
   const [newTitle, setNewTitle] = useState(title);
-  const [disabled, setDisabled] = useState(false);
 
   const onChangeTitleColumn = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setNewTitle(value);
-    setDisabled(!value.trim());
   };
 
   const onClickSubmit = () => {
     if (title !== newTitle) {
-      dispatch(fetchUpdateColumn({ id, title: newTitle, order }));
+      dispatch(fetchUpdateColumn({ ...column, title: newTitle }));
     }
     openTitleEdit();
   };
@@ -36,7 +34,7 @@ export const ChangeTitle = ({ openTitleEdit, column }: IChangeTitleProps) => {
     <div className={styles.titleColumn}>
       <div className={styles.buttons}>
         <button
-          disabled={disabled}
+          disabled={!newTitle.trim()}
           onClick={onClickSubmit}
           className={`${styles.btn} ${styles.btnSubmit}`}
         >

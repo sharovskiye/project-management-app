@@ -45,9 +45,3 @@ export interface INewColumn {
 export interface INewBoard {
   title: string;
 }
-
-export interface IUpdateColumn {
-  id: string;
-  title: string;
-  order: number;
-}
