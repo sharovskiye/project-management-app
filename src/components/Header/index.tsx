@@ -11,8 +11,8 @@ type HeaderPropsType = {
   userName: string;
 };
 export const Header = ({ signOut, userName }: HeaderPropsType) => {
-  const [darkMode, setDarkMode] = useState(true);
-
+  const [isDarkTheme, setIsDarkTheme] = useState(true);
+  const [isChecked, setIsChecked] = useState(true);
   return (
     <div className={`${styles.container} ${styles.containerBig}  ${styles.header}`}>
       <div className={styles.headerButtonGroup}>
@@ -40,9 +40,11 @@ export const Header = ({ signOut, userName }: HeaderPropsType) => {
           {({ changeTheme }) => (
             <SwitchTheme
               onChangeTheme={() => {
-                setDarkMode(!darkMode);
-                changeTheme(darkMode ? themes.light : themes.dark);
+                setIsDarkTheme(!isDarkTheme);
+                setIsChecked(!isChecked);
+                changeTheme(isDarkTheme ? themes.light : themes.dark);
               }}
+              isChecked
             />
           )}
         </ThemeContext.Consumer>

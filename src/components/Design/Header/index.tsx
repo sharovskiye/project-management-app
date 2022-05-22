@@ -19,6 +19,7 @@ export const Header = () => {
         onChangeTheme={function (): void {
           throw new Error('Function not implemented.');
         }}
+        isChecked={false}
       />
       <div className={styles.selectWrapper}>
         <CustomSelect />

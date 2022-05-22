@@ -2,11 +2,12 @@ import { FormControlLabel, styled, Switch, SwitchProps } from '@mui/material';
 
 export type SwitchThemePropsType = {
   onChangeTheme: () => void;
+  isChecked: boolean;
 };
-export const SwitchTheme = ({ onChangeTheme }: SwitchThemePropsType) => {
+export const SwitchTheme = ({ onChangeTheme, isChecked }: SwitchThemePropsType) => {
   return (
     <FormControlLabel
-      control={<IOSSwitch sx={{ m: 1 }} onClick={onChangeTheme} defaultChecked />}
+      control={<IOSSwitch sx={{ m: 1 }} onClick={onChangeTheme} defaultChecked={isChecked} />}
       label=""
     />
   );

@@ -10,7 +10,7 @@ export const CustomSelect = () => {
   };
 
   return (
-    <select className={styles.select} defaultValue={'RU'} value={language} onChange={handleChange}>
+    <select className={styles.select} value={language} onChange={handleChange}>
       <option className={styles.option} value="RU">
         RU
       </option>
