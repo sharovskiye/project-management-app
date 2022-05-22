@@ -4,7 +4,7 @@ import img3 from '../../../../images/3.jpg';
 
 export const teamMembers = [
   {
-    src: `${img1}`,
+    src: img1,
     name: 'Yevhenii Sharovskyi',
     role: 'Team leader, Frontend developer',
     github: 'https://github.com/sharovskiye',
@@ -12,7 +12,7 @@ export const teamMembers = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
   },
   {
-    src: `${img2}`,
+    src: img2,
     name: 'Nadezhda Novikova',
     role: 'Frontend developer',
     github: 'https://github.com/nnadeysha',
@@ -20,7 +20,7 @@ export const teamMembers = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
   },
   {
-    src: `${img3}`,
+    src: img3,
     name: 'Bogdan Samonov',
     role: 'Frontend developer',
     github: 'https://github.com/Bogdan-VS',
