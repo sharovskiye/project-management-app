@@ -1,13 +1,13 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { useAppSelector } from '../store/hook';
+import { useAppSelector } from '../store/hooks';
 import { getDataUserSelector } from '../store/selectors';
 
 export const AccessToPages = ({ children }: React.PropsWithChildren<unknown>) => {
-  const { token, errorCode, loading } = useAppSelector(getDataUserSelector);
+  const { token } = useAppSelector(getDataUserSelector);
 
-  if (!token || (loading === 'error' && errorCode === '401')) {
+  if (!token) {
     return <Navigate to="/" />;
   }
 

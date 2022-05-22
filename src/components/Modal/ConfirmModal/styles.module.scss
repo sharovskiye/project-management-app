@@ -1,69 +1,81 @@
 @import '../../style/scss/variables';
 
 .modal {
-    &_form {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-        width: $width-column;
-        height: 150px;
-        padding: $padding-base;
-        background-color: $color-text-white;
-        border: 2px solid #000000;
-        border-radius: 5px;
-        box-shadow: rgb(38 57 77) 0 20px 30px -10px;
-        transform: translate(-50%, -50%);
-    }
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: $width-column;
+  height: 150px;
+  padding: $padding-base;
+  background-color: $color-text-white;
+  border: 2px solid #000000;
+  border-radius: 5px;
+  box-shadow: rgb(38 57 77) 0 20px 30px -10px;
+  transform: translate(-50%, -50%);
+}
 
-    &_buttons {
-        display: flex;
-        justify-content: space-between;
-        width: calc(100% - #{$padding-base * 2});
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  width: calc(100% - #{$padding-base * 2});
+}
 
-    }
+.textButton {
+  width: 100%;
+}
 
-    &_textButton {
-        width: 100%;
-    }
+.textContent {
+  padding: $padding-base;
+  font-size: $font-size-large;
+  text-align: center;
+}
 
-    &_textContent {
-        padding: $padding-base;
-        font-size: $font-size-large;
-        text-align: center;
-    }
+.title {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 
-    &_title {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        width: 100%;
+  &::after {
+    width: 100%;
+    height: 1px;
+    content: '';
+    background-color: $text-column-color;
+  }
+}
 
-        &::after {
-            width: 100%;
-            height: 1px;
-            content: '';
-            background-color: $text-column-color;
-        }
-    }
+.btnDelete {
+  margin-right: $padding-base;
+  background-color: #b04632;
+  filter: contrast(0.8);
 
-    &_buttonDelete {
-        width: 100%;
-        height: 30px;
-        margin-right: $padding-base;
-        color: $color-text-white;
-        cursor: pointer;
-        background-color: #b04632;
-        filter: contrast(0.8);
-        border: none;
-        border-radius: 3px;
-        transition: 0.5s;
+  &:hover {
+    filter: contrast(1);
+  }
+}
 
-        &:hover {
-            filter: contrast(1);
-        }
-    }
-  };
+.btn {
+  width: 100%;
+  height: 30px;
+  color: $color-text-white;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: 0.5s;
+}
+
+.btnCancel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: $color-column-button;
+
+  &:hover {
+    color: $color-cancel;
+  }
+}

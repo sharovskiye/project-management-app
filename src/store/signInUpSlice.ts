@@ -2,10 +2,12 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { createNewPerson, signIn } from '../services/api';
 import { IGetPerson, IPerson } from '../services/type';
+import { setAuthorized } from './boardSlice';
 import { ISignInUpInitState } from './type';
 
 const initialState: ISignInUpInitState = {
   token: '',
+  login: '',
   setUserData: {
     name: '',
     login: '',
@@ -18,26 +20,24 @@ const initialState: ISignInUpInitState = {
   },
   loading: 'idle',
   signConteiner: 'one',
-  errorCode: null,
+  errorMessage: '',
 };
 
 export const fetchSignUp = createAsyncThunk<IGetPerson, IPerson>(
   'signUp/fetchSignUp',
   async (payload, { rejectWithValue, dispatch }) => {
-    const res = await createNewPerson(payload);
-
     try {
+      const res = await createNewPerson(payload);
+      const parsed = await res.json();
       if (!res.ok) {
-        throw new Error(`${res.status}`);
+        throw new Error(parsed.message);
       }
-
-      const personData: IGetPerson = await res.json();
 
       const { login, password } = payload;
 
       dispatch(fetchSignIn({ login, password }));
 
-      return personData;
+      return parsed;
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
@@ -49,16 +49,16 @@ export const fetchSignIn = createAsyncThunk<string, IPerson>(
   async (payload, { rejectWithValue, dispatch }) => {
     try {
       const res = await signIn(payload);
-
+      const parsed = await res.json();
       if (!res.ok) {
-        throw new Error(`${res.status}`);
+        throw new Error(parsed.message);
       }
 
-      const token: string = await res.json();
-
       dispatch(getUserData(payload));
+      dispatch(setLogin(payload.login));
+      dispatch(setAuthorized(true));
 
-      return token;
+      return parsed.token;
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
@@ -71,6 +71,9 @@ export const signInUpSlice = createSlice({
   reducers: {
     getUserData(state, action: PayloadAction<IPerson>) {
       state.setUserData = action.payload;
+    },
+    setLogin(state, action: PayloadAction<string>) {
+      state.login = action.payload;
     },
     getTokenWithLocalStorage(state, action: PayloadAction<string>) {
       state.token = action.payload;
@@ -93,7 +96,7 @@ export const signInUpSlice = createSlice({
       })
       .addCase(fetchSignIn.rejected, (state, action) => {
         state.loading = 'error';
-        state.errorCode = action.payload;
+        state.errorMessage = action.payload as string;
       })
       .addCase(fetchSignUp.pending, (state) => {
         state.loading = 'pending';
@@ -104,12 +107,17 @@ export const signInUpSlice = createSlice({
       })
       .addCase(fetchSignUp.rejected, (state, action) => {
         state.loading = 'error';
-        state.errorCode = action.payload;
+        state.errorMessage = action.payload as string;
       });
   },
 });
 
-export const { getUserData, getTokenWithLocalStorage, changeloading, changeSignConteiner } =
-  signInUpSlice.actions;
+export const {
+  getUserData,
+  getTokenWithLocalStorage,
+  changeloading,
+  changeSignConteiner,
+  setLogin,
+} = signInUpSlice.actions;
 
 export const signInUpReducer = signInUpSlice.reducer;

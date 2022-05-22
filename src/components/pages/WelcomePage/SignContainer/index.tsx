@@ -1,4 +1,4 @@
-import { useAppSelector } from '../../../../store/hook';
+import { useAppSelector } from '../../../../store/hooks';
 import { HeaderBtn } from '../HeaderBtn';
 import { Pages } from '../../../../const/pages';
 import { NameBtn } from './const';

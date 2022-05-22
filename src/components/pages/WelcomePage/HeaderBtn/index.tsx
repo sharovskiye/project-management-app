@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../../../store/hook';
+import { useAppDispatch } from '../../../../store/hooks';
 import { changeSignConteiner } from '../../../../store/signInUpSlice';
 
 import styles from './styles.module.scss';

@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import styles from './styles.module.scss';
+// import  { useState } from 'react';
 import { Header } from './Header';
 import { Main } from './Main';
 
+import styles from './styles.module.scss';
+
 export const Design = () => {
-  const [isCheckedTheme] = useState(true);
+  // const [isCheckedTheme, setIsCheckedTheme] = useState(true);
 
   return (
     <>
-      <section className={isCheckedTheme ? styles.darkTheme : styles.lightTheme}>
+      <section className={true ? styles.darkTheme : styles.lightTheme}>
         <header>
           <Header />
         </header>
