@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useMemo } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -63,10 +63,6 @@ export const Board = memo(({ id }: IBoardProps) => {
       ));
   }, [columns, id]);
 
-  const findMaxOrderColumn = useCallback(() => {
-    return columns.reduce((prev, { order }) => (prev > order ? prev : order), 0);
-  }, [columns]);
-
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -74,7 +70,6 @@ export const Board = memo(({ id }: IBoardProps) => {
     onSubmit: (values) => {
       const newColumn: INewColumn = {
         title: values.title,
-        order: findMaxOrderColumn() + 1,
         boardId: id,
       };
       dispatch(fetchCreateColumn(newColumn));

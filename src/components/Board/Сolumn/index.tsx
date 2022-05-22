@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
@@ -53,10 +53,6 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
       .map((task) => <Task task={task} key={task.id} />);
   }, [tasks, boardId, column.id]);
 
-  const findMaxOrderTask = useCallback(() => {
-    return tasks.reduce((prev, { order }) => (prev > order ? prev : order), 0);
-  }, [tasks]);
-
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -68,7 +64,6 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
       const selectedUser = users.find((userItem) => userItem.login === user);
       const newTask: INewTask = {
         title,
-        order: findMaxOrderTask() + 1,
         description,
         userId: selectedUser?.id || '',
         boardId,

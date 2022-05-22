@@ -82,8 +82,8 @@ export const fetchCreateTask = createAsyncThunk<ITask, INewTask>(
       'Content-Type': 'application/json',
     });
 
-    const { title, order, description, userId, boardId, columnId } = newTask;
-    const body = JSON.stringify({ title, order, description, userId });
+    const { title, description, userId, boardId, columnId } = newTask;
+    const body = JSON.stringify({ title, description, userId });
     const url = `${apiBase}/${Path.boards}/${boardId}/${Path.columns}/${columnId}/${Path.tasks}`;
 
     try {
@@ -147,8 +147,8 @@ export const fetchCreateColumn = createAsyncThunk<IColumn, INewColumn>(
       'Content-Type': 'application/json',
     });
 
-    const { title, order } = newColumn;
-    const body = JSON.stringify({ title, order });
+    const { title } = newColumn;
+    const body = JSON.stringify({ title });
     const url = `${apiBase}/${Path.boards}/${boardId}/${Path.columns}`;
 
     try {

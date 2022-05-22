@@ -58,7 +58,7 @@ export function App() {
               </RequireAuth>
             }
           />
-          {/* test: /boards/1b481050-6177-4f95-b814-b232837a0726 */}
+          {/* test: /boards/6d755762-8c91-4aef-bc25-9b2486691a72 */}
           <Route
             path="/boards/:boardId"
             element={
