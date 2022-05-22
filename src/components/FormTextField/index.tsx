@@ -7,12 +7,25 @@ type IPropsTextField = {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   error: string | undefined;
   value: string;
+  multiline?: boolean;
+  rows?: number;
 };
 
-export const FormTextField = ({ type, label, name, onChange, error, value }: IPropsTextField) => {
+export const FormTextField = ({
+  type,
+  label,
+  name,
+  onChange,
+  error,
+  value,
+  multiline = false,
+  rows = 1,
+}: IPropsTextField) => {
   return (
     <TextField
       sx={{ width: '100%', bgcolor: '#ffffff' }}
+      multiline={multiline}
+      rows={rows}
       variant="outlined"
       type={type}
       label={label}

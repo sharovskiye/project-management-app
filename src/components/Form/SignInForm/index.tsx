@@ -2,13 +2,13 @@ import { Button, Grid } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-import { useAppDispatch } from '../../../store/hook';
+import { useAppDispatch } from '../../../store/hooks';
 import { fetchSignIn } from '../../../store/signInUpSlice';
-import { FormTextField } from '../FormTextField';
+import { FormTextField } from '../../FormTextField';
 
 const signUpSchema = Yup.object().shape({
-  login: Yup.string().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
-  password: Yup.string().min(5, 'Too Short!').max(15, 'Too Long!').required('required'),
+  login: Yup.string().trim().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
+  password: Yup.string().trim().min(5, 'Too Short!').max(15, 'Too Long!').required('required'),
 });
 
 export const SignInForm = () => {
@@ -20,9 +20,7 @@ export const SignInForm = () => {
       password: '',
     },
     onSubmit: (values) => {
-      const currentValues = { ...values };
-
-      dispatch(fetchSignIn(currentValues));
+      dispatch(fetchSignIn(values));
       formik.resetForm();
     },
     validationSchema: signUpSchema,
