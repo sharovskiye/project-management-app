@@ -9,6 +9,7 @@ type IPropsTextField = {
   value: string;
   multiline?: boolean;
   rows?: number;
+  disabled?: boolean;
 };
 
 export const FormTextField = ({
@@ -20,6 +21,7 @@ export const FormTextField = ({
   value,
   multiline = false,
   rows = 1,
+  disabled,
 }: IPropsTextField) => {
   return (
     <TextField
@@ -34,6 +36,7 @@ export const FormTextField = ({
       helperText={error || ' '}
       value={value}
       error={Boolean(error)}
+      disabled={disabled}
     />
   );
 };

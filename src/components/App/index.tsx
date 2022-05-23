@@ -11,6 +11,7 @@ import { BoardContainer } from '../BoardContainer';
 import { setAuthorized } from '../../store/boardSlice';
 
 import styles from './styles.module.scss';
+import { EditProfileForm } from '../Form/EditProfileForm';
 
 interface ILocalStorage {
   token: string;
@@ -56,6 +57,14 @@ export function App() {
             element={
               <AccessToPages>
                 <BoardContainer />
+              </AccessToPages>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <AccessToPages>
+                <EditProfileForm />
               </AccessToPages>
             }
           />

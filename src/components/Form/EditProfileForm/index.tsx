@@ -2,10 +2,14 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button, Grid } from '@mui/material';
 
-import { IPerson } from '../../../services/type';
+import { IGetPerson, IPerson } from '../../../services/type';
 import { fetchSignUp, getUserData } from '../../../store/signInUpSlice';
-import { useAppDispatch } from '../../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { FormTextField } from '../../FormTextField';
+import { fetchEditProfile } from '../../../store/editProfileSlice';
+import { useEffect } from 'react';
+import { fetchUsers, usersSelector } from '../../../store/boardSlice';
+import { loginSelector } from '../../../store/selectors';
 
 const signUpSchema = Yup.object().shape({
   name: Yup.string().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
@@ -14,19 +18,28 @@ const signUpSchema = Yup.object().shape({
 });
 
 export const EditProfileForm = () => {
+  const login = useAppSelector(loginSelector);
+  const users = useAppSelector(usersSelector);
   const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchUsers(''));
+  }, []);
+
+  const currentUser = users.filter((user) => user.login === login);
+  console.log(currentUser[0].name);
 
   const formik = useFormik({
     initialValues: {
-      name: '',
-      login: '',
+      name: currentUser[0].name,
+      login: currentUser[0].login,
       password: '',
+      id: currentUser[0].id,
     },
-    onSubmit: (values: IPerson) => {
+    onSubmit: (values) => {
       const currentData = { ...values };
 
-      dispatch(fetchSignUp(currentData));
-      dispatch(getUserData(currentData));
+      dispatch(fetchEditProfile(currentData));
+      /* dispatch(getUserData(currentData)); */
       formik.resetForm();
     },
     validationSchema: signUpSchema,
@@ -56,6 +69,7 @@ export const EditProfileForm = () => {
           onChange={formik.handleChange}
           error={formik.errors.login}
           value={formik.values.login}
+          disabled
         />
         <FormTextField
           type="password"

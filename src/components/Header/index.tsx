@@ -24,6 +24,7 @@ export const Header = () => {
   }, []);
 
   const userNameTitle = useCallback(() => {
+    console.log(users);
     return users.map((user) => {
       if (user.login === login) {
         return user.name;
@@ -48,7 +49,7 @@ export const Header = () => {
             </Button>
           </div>
           <div className={styles.dropdownContent}>
-            <Link to="/editProfile">Edit profile</Link>
+            <Link to="/profile">Edit profile</Link>
             <a href="#" onClick={logOut}>
               Sign Out
             </a>
