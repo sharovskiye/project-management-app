@@ -1,30 +1,55 @@
 import { Button } from '@mui/material';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ThemeContext, themes } from '../../providers';
+import { fetchUsers, setBoardId, usersSelector } from '../../store/boardSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { loginSelector } from '../../store/selectors';
+import { getTokenWithLocalStorage } from '../../store/signInUpSlice';
 import { CustomSelect } from '../Inputs/CustomSelect';
 import { SwitchTheme } from '../SwitchTheme';
 
 import styles from './styles.module.scss';
 
-type HeaderPropsType = {
-  signOut: () => void;
-  userName: string;
-};
-export const Header = ({ signOut, userName }: HeaderPropsType) => {
+export const Header = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(true);
   const [isChecked, setIsChecked] = useState(true);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const login = useAppSelector(loginSelector);
+  const users = useAppSelector(usersSelector);
+
+  useEffect(() => {
+    dispatch(fetchUsers(''));
+  }, []);
+
+  const userNameTitle = useCallback(() => {
+    return users.map((user) => {
+      if (user.login === login) {
+        return user.name;
+      }
+    });
+  }, [login, users]);
+
+  const logOut = useCallback(() => {
+    localStorage.clear();
+
+    dispatch(getTokenWithLocalStorage(''));
+    navigate('/');
+  }, [navigate, dispatch]);
+
   return (
     <div className={`${styles.container} ${styles.containerBig}  ${styles.header}`}>
       <div className={styles.headerButtonGroup}>
         <div className={styles.dropdown}>
           <div className={styles.headerButton}>
             <Button variant="outlined" color="inherit">
-              {userName}
+              {userNameTitle()}
             </Button>
           </div>
           <div className={styles.dropdownContent}>
-            <a href="#">Edit profile</a>
-            <a href="#" onClick={signOut}>
+            <Link to="/form">Edit profile</Link>
+            <a href="#" onClick={logOut}>
               Sign Out
             </a>
           </div>

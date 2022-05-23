@@ -13,7 +13,7 @@ const signUpSchema = Yup.object().shape({
   password: Yup.string().min(5, 'Too Short!').max(15, 'Too Long!').required('required'),
 });
 
-export const SignUpForm = () => {
+export const EditProfileForm = () => {
   const dispatch = useAppDispatch();
 
   const formik = useFormik({
