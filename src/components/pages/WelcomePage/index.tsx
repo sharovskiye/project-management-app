@@ -15,7 +15,7 @@ export const WelcomePage = () => {
         </div>
       </header>
       <main className={styles.main}>
-        <div className={styles.wrapperContainer}>
+        <div className={`${styles.wrapperContainer} ${styles.content}`}>
           <AboutProject />
           <AboutTeam />
           <AboutCourse />

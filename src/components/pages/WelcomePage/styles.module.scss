@@ -2,6 +2,7 @@
 
 .wrapper {
   display: grid;
+  flex-grow: 1;
   grid-template-rows: 80px 1fr;
 
   &Container {
@@ -14,6 +15,12 @@
     align-items: center;
     justify-content: space-between;
   }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .header {
