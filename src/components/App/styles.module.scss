@@ -1,8 +1,10 @@
+@import '../style/scss/variables';
+
 .testClass {
   color: #ff0000;
 }
 
 .wrapper {
-  width: calc(100% - 100px);
+  min-height: 100vh;
   margin: 0 auto;
 }
