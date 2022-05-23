@@ -8,7 +8,6 @@ import styles from './styles.module.scss';
 type IPropsHeaderBtn = {
   link: string;
   name: string;
-  openSign?: (value: string) => void;
   signPage?: string;
 };
 
