@@ -1,43 +1,45 @@
 @import '../style/scss/variables';
 
 .footer {
-    position: relative;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  height: 80px;
+  margin: 0 auto;
+  font-size: $font-size-medium;
+  font-weight: bold;
+
+  &GithubBlock {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 80px;
-    font-size: $font-size-medium;
-    font-weight: bold;
+  }
 
-    &GithubBlock {
-        display: flex;
-    }
-    
-    &Link {
-        display: block;
-        padding: 0 $padding-base;
-        line-height: 36px;
-        text-decoration: none;
-        cursor: pointer;
-        border: none;
-        border-radius: 3px;
-        transition: 0.5s;
+  &Link {
+    display: block;
+    padding: 0 $padding-base;
+    line-height: 36px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    transition: 0.5s;
 
-        &:hover {
-            background-color: $color-column-button;
-        }
-
-        &:active {
-            background-color: $text-column-color;
-        }
+    &:hover {
+      background-color: $color-column-button;
     }
 
-    &Logo {
-        width: 70px;
-        height: 33px;
-        background-image: url('https://rs.school/images/rs_school_js.svg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
+    &:active {
+      background-color: $text-column-color;
     }
+  }
+
+  &Logo {
+    width: 70px;
+    height: 33px;
+    background-image: url('https://rs.school/images/rs_school_js.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
 }
