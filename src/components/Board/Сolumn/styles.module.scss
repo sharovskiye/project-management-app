@@ -3,17 +3,18 @@
 .column {
   position: relative;
   width: 100%;
+  min-width: $width-column;
   max-width: $width-column;
-  height: 68vh;
-  max-height: 68vh;
+  height: 70vh;
   padding: $padding-base;
+  margin: 0 20px;
   background-color: $main-bg-dark;
   border-radius: $padding-base;
 }
 
-.taskListScroll {
-  max-height: 90%;
-  overflow-y: scroll;
+.taskList {
+  height: 100%;
+  overflow-y: auto;
 }
 
 .iconAdd {
@@ -34,10 +35,29 @@
   cursor: pointer;
   background-color: $color-column-button;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   transition: 0.5s;
 
   &:hover {
     color: $color-submit;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 88%;
+}
+
+.draggable {
+  width: 20%;
+  height: 20px;
+  margin: 10px auto;
+  background-color: #646464;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: #ffffff;
   }
 }

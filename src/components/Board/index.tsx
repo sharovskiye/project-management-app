@@ -1,4 +1,4 @@
-import { memo, useEffect, useMemo } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -18,6 +18,7 @@ import { getTokenWithLocalStorage } from '../../store/signInUpSlice';
 import { INewColumn } from './interface';
 
 import styles from './styles.module.scss';
+import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 
 interface IBoardProps {
   id: string;
@@ -56,11 +57,7 @@ export const Board = memo(({ id }: IBoardProps) => {
   const memoizedColumns = useMemo(() => {
     return [...columns]
       .sort((a, b) => a.order - b.order)
-      .map((column) => (
-        <div className={styles.boardColumnList} key={column.id}>
-          <Column boardId={id} column={column} />
-        </div>
-      ));
+      .map((column) => <Column boardId={id} column={column} key={column.id} />);
   }, [columns, id]);
 
   const formik = useFormik({
@@ -110,11 +107,46 @@ export const Board = memo(({ id }: IBoardProps) => {
     isModalOpen,
   ]);
 
+  const onDragEnd = useCallback((result: DropResult) => {
+    // the only one that is required
+    // console.log(result);
+    const { destination, draggableId, source } = result;
+    console.log(destination?.droppableId);
+    if (!destination?.droppableId) {
+      return;
+    }
+
+    if (destination?.droppableId === 'columns') {
+      if (destination.index !== source.index) {
+        console.log('update column');
+        return;
+      }
+    }
+    if (destination?.droppableId !== source?.droppableId || destination.index !== source.index) {
+      console.log('update task');
+      return;
+    }
+  }, []);
+
   return (
     <div className={`${styles.container} ${styles.containerMedium} `}>
       {isLoadingOnBoard && <Spinner />}
       <div className={styles.main}>
-        <>{memoizedColumns}</>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable direction="horizontal" droppableId="columns">
+            {(provided, snapshot) => (
+              <div
+                className={styles.columns}
+                ref={provided.innerRef}
+                // style={{ backgroundColor: snapshot.isDraggingOver ? 'blue' : 'grey' }}
+                {...provided.droppableProps}
+              >
+                <>{memoizedColumns}</>
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
         <div className={styles.boardNewColumn}>
           <div className={styles.buttonWrapper}>
             <button onClick={onOpenModal} className={styles.btnAddColumn}>

@@ -17,6 +17,7 @@
   height: calc(100vh - 260px);
   padding: 40px 0;
   overflow-x: scroll;
+  overflow-y: hidden;
   font-size: $font-size-small;
 }
 
@@ -46,6 +47,10 @@
   & .buttonWrapper {
     max-height: 37px;
   }
+}
+
+.columns {
+  display: flex;
 }
 
 .btnAddColumn {
