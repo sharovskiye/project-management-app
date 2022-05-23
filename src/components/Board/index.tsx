@@ -1,16 +1,18 @@
-import { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useSnackbar } from 'notistack';
 import { Button } from '@mui/material';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 
 import {
   boardSelector,
   fetchBoard,
   fetchCreateColumn,
   fetchUpdateColumn,
+  fetchUpdateTask,
   setColumns,
 } from '../../store/boardSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
@@ -24,7 +26,6 @@ import { getTokenWithLocalStorage } from '../../store/signInUpSlice';
 import { INewColumn } from './interface';
 
 import styles from './styles.module.scss';
-import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 
 interface IBoardProps {
   id: string;
@@ -61,6 +62,8 @@ export const Board = memo(({ id }: IBoardProps) => {
   }, [isError, errorMessage, enqueueSnackbar]);
 
   const memoizedColumns = useMemo(() => {
+    // console.log(columns);
+
     return [...columns]
       .sort((a, b) => a.order - b.order)
       .map((column) => <Column boardId={id} column={column} key={column.id} />);
@@ -116,7 +119,6 @@ export const Board = memo(({ id }: IBoardProps) => {
   const onDragEnd = useCallback(
     (result: DropResult) => {
       const { destination, draggableId, source } = result;
-      console.log(result);
 
       if (!destination?.droppableId) {
         return;
@@ -139,7 +141,46 @@ export const Board = memo(({ id }: IBoardProps) => {
       }
 
       if (destination?.droppableId !== source?.droppableId || destination.index !== source.index) {
-        console.log('update task');
+        const copyColumns = [...columns];
+        const oldColumnOrder = columns.findIndex((column) => column.id === source?.droppableId);
+        const newColumnOrder = columns.findIndex(
+          (column) => column.id === destination?.droppableId
+        );
+
+        const copyOldColumn = copyColumns[oldColumnOrder];
+
+        const copyNewColumn = copyColumns[newColumnOrder];
+
+        const oldTasks = [...copyOldColumn.tasks].sort((a, b) => a.order - b.order);
+
+        const [reorderedTask] = oldTasks.splice(source.index - 1, 1);
+
+        if (destination?.droppableId !== source?.droppableId) {
+          const newTasks = [...copyNewColumn.tasks].sort((a, b) => a.order - b.order);
+          newTasks.splice(destination.index - 1, 0, reorderedTask);
+          const orderedNewTask = { ...copyNewColumn, tasks: newTasks }.tasks.map((task, index) => ({
+            ...task,
+            order: index + 1,
+          }));
+
+          copyColumns.splice(newColumnOrder, 1, { ...copyNewColumn, tasks: orderedNewTask });
+        } else {
+          oldTasks.splice(destination.index - 1, 0, reorderedTask);
+        }
+        const orderedOldTask = { ...copyOldColumn, tasks: oldTasks }.tasks.map((taks, index) => ({
+          ...taks,
+          order: index + 1,
+        }));
+        copyColumns.splice(oldColumnOrder, 1, { ...copyOldColumn, tasks: orderedOldTask });
+
+        dispatch(setColumns(copyColumns));
+        const augmentedTask = {
+          ...reorderedTask,
+          order: destination.index ? destination.index : 1,
+          columnId: destination?.droppableId,
+          oldColumnId: source?.droppableId,
+        };
+        dispatch(fetchUpdateTask(augmentedTask));
         return;
       }
     },

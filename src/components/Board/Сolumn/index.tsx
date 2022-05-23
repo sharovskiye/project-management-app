@@ -1,4 +1,4 @@
-import { memo, useMemo, useRef } from 'react';
+import { memo, useMemo } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
@@ -31,7 +31,6 @@ const signUpSchema = Yup.object().shape({
 export const Column = memo(({ boardId, column }: IColumnProps) => {
   const { tasks } = column;
   const { isModalOpen, onOpenModal, onCloseModal } = useChangeOpenModalBoard();
-  const refDiv = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
   const login = useAppSelector(loginSelector);
   const users = useAppSelector(usersSelector);
@@ -122,7 +121,7 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
       {(provided) => (
         <Droppable type="tasks" droppableId={column.id}>
           {(providedTasks) => (
-            <div ref={providedTasks.innerRef} {...providedTasks.droppableProps}>
+            <div>
               <div ref={provided.innerRef} {...provided.draggableProps}>
                 <div className={styles.column}>
                   <div className={styles.draggable} {...provided.dragHandleProps}></div>
@@ -131,7 +130,11 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
                   </div>
 
                   <div className={styles.container}>
-                    <div ref={refDiv} className={styles.taskList}>
+                    <div
+                      ref={providedTasks.innerRef}
+                      {...providedTasks.droppableProps}
+                      className={styles.taskList}
+                    >
                       <>{memoizedTasks}</>
                     </div>
 

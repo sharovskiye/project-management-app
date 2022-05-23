@@ -11,6 +11,7 @@ export interface ITask {
   userId: string;
   boardId: string;
   columnId: string;
+  oldColumnId?: string;
   files?: IFileForTask[];
 }
 

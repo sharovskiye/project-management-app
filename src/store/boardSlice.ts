@@ -102,6 +102,39 @@ export const fetchCreateTask = createAsyncThunk<ITask, INewTask>(
   }
 );
 
+export const fetchUpdateTask = createAsyncThunk<unknown, ITask>(
+  'board/fetchUpdateTask',
+  async (task, { rejectWithValue, dispatch, getState }) => {
+    const {
+      signInUp: { token },
+      board: { boardId },
+    } = getState() as IRootState;
+
+    const headers = new Headers({
+      accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+
+    const { title, description, userId, columnId, order, id, oldColumnId } = task;
+    const body = JSON.stringify({ title, order, description, userId, boardId, columnId });
+    const url = `${apiBase}/${Path.boards}/${boardId}/${Path.columns}/${oldColumnId}/${Path.tasks}/${id}`;
+
+    try {
+      const res = await fetch(url, { headers, body, method: Method.PUT });
+      const parsed = await res.json();
+      if (!res.ok) {
+        throw new Error(parsed.message);
+      }
+
+      return;
+    } catch (error) {
+      dispatch(fetchBoard(boardId));
+      return rejectWithValue((error as Error).message);
+    }
+  }
+);
+
 export const fetchDeleteTask = createAsyncThunk<unknown, ITask>(
   'board/fetchDeleteTask',
   async (task, { rejectWithValue, dispatch, getState }) => {
@@ -311,6 +344,18 @@ export const boardSlice = createSlice({
         state.errorMessage = action.payload as string;
         state.isError = true;
       })
+      .addCase(fetchUpdateTask.pending, (state) => {
+        state.isLoadingOnBoard = true;
+        state.isError = false;
+      })
+      .addCase(fetchUpdateTask.rejected, (state, action) => {
+        state.isLoadingOnBoard = false;
+        state.errorMessage = action.payload as string;
+        state.isError = true;
+      })
+      .addCase(fetchUpdateTask.fulfilled, (state) => {
+        state.isLoadingOnBoard = false;
+      })
       .addCase(fetchDeleteTask.pending, (state) => {
         state.isLoadingOnBoard = true;
         state.isError = false;
@@ -341,6 +386,7 @@ export const boardSlice = createSlice({
       .addCase(fetchUpdateColumn.fulfilled, (state) => {
         state.isLoadingOnBoard = false;
       })
+
       .addCase(fetchDeleteColumn.pending, (state) => {
         state.isLoadingOnBoard = true;
         state.isError = false;
