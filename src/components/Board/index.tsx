@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useMemo } from 'react';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -6,7 +6,13 @@ import { useSnackbar } from 'notistack';
 import { Button } from '@mui/material';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 
-import { boardSelector, fetchBoard, fetchCreateColumn } from '../../store/boardSlice';
+import {
+  boardSelector,
+  fetchBoard,
+  fetchCreateColumn,
+  fetchUpdateColumn,
+  setColumns,
+} from '../../store/boardSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { Column } from './Сolumn';
 import { useChangeOpenModalBoard } from '../../utils/CustomHook';
@@ -107,26 +113,38 @@ export const Board = memo(({ id }: IBoardProps) => {
     isModalOpen,
   ]);
 
-  const onDragEnd = useCallback((result: DropResult) => {
-    // the only one that is required
-    // console.log(result);
-    const { destination, draggableId, source } = result;
-    console.log(destination?.droppableId);
-    if (!destination?.droppableId) {
-      return;
-    }
+  const onDragEnd = useCallback(
+    (result: DropResult) => {
+      const { destination, draggableId, source } = result;
+      console.log(result);
 
-    if (destination?.droppableId === 'columns') {
-      if (destination.index !== source.index) {
-        console.log('update column');
+      if (!destination?.droppableId) {
         return;
       }
-    }
-    if (destination?.droppableId !== source?.droppableId || destination.index !== source.index) {
-      console.log('update task');
-      return;
-    }
-  }, []);
+
+      if (destination?.droppableId === 'columns') {
+        if (destination.index !== source.index) {
+          const column = columns.find((column) => column.id === draggableId);
+          if (column) {
+            const copyColumns = [...columns];
+            const [reorderedColumn] = copyColumns.splice(source.index - 1, 1);
+            copyColumns.splice(destination.index - 1, 0, reorderedColumn);
+            dispatch(
+              setColumns(copyColumns.map((column, index) => ({ ...column, order: index + 1 })))
+            );
+            dispatch(fetchUpdateColumn({ ...column, order: destination.index }));
+          }
+          return;
+        }
+      }
+
+      if (destination?.droppableId !== source?.droppableId || destination.index !== source.index) {
+        console.log('update task');
+        return;
+      }
+    },
+    [dispatch, columns]
+  );
 
   return (
     <div className={`${styles.container} ${styles.containerMedium} `}>
@@ -134,13 +152,8 @@ export const Board = memo(({ id }: IBoardProps) => {
       <div className={styles.main}>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable direction="horizontal" droppableId="columns">
-            {(provided, snapshot) => (
-              <div
-                className={styles.columns}
-                ref={provided.innerRef}
-                // style={{ backgroundColor: snapshot.isDraggingOver ? 'blue' : 'grey' }}
-                {...provided.droppableProps}
-              >
+            {(provided) => (
+              <div className={styles.columns} ref={provided.innerRef} {...provided.droppableProps}>
                 <>{memoizedColumns}</>
                 {provided.placeholder}
               </div>

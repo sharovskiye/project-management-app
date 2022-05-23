@@ -172,7 +172,7 @@ export const fetchUpdateColumn = createAsyncThunk<unknown, IColumn>(
   async (column, { rejectWithValue, dispatch, getState }) => {
     const {
       signInUp: { token },
-      board: { boardId },
+      board: { boardId, columns },
     } = getState() as IRootState;
 
     const headers = new Headers({
@@ -185,6 +185,8 @@ export const fetchUpdateColumn = createAsyncThunk<unknown, IColumn>(
     const body = JSON.stringify({ title, order });
     const url = `${apiBase}/${Path.boards}/${boardId}/${Path.columns}/${id}`;
 
+    const isUpdate = columns.find((colunm) => colunm.id === id)?.title !== title;
+
     try {
       const res = await fetch(url, { headers, body, method: Method.PUT });
       const parsed = await res.json();
@@ -192,10 +194,13 @@ export const fetchUpdateColumn = createAsyncThunk<unknown, IColumn>(
         throw new Error(parsed.message);
       }
 
-      dispatch(fetchBoard(boardId));
+      if (isUpdate) {
+        dispatch(fetchBoard(boardId));
+      }
 
       return;
     } catch (error) {
+      dispatch(fetchBoard(boardId));
       return rejectWithValue((error as Error).message);
     }
   }
@@ -265,6 +270,9 @@ export const boardSlice = createSlice({
   name: 'board',
   initialState,
   reducers: {
+    setColumns: (state, action: PayloadAction<IColumn[]>) => {
+      state.columns = action.payload;
+    },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoadingOnBoard = action.payload;
     },
@@ -330,6 +338,9 @@ export const boardSlice = createSlice({
         state.errorMessage = action.payload as string;
         state.isError = true;
       })
+      .addCase(fetchUpdateColumn.fulfilled, (state) => {
+        state.isLoadingOnBoard = false;
+      })
       .addCase(fetchDeleteColumn.pending, (state) => {
         state.isLoadingOnBoard = true;
         state.isError = false;
@@ -353,7 +364,7 @@ export const boardSlice = createSlice({
   },
 });
 
-export const { setBoardId, setIsOpenModal, setAuthorized } = boardSlice.actions;
+export const { setBoardId, setIsOpenModal, setAuthorized, setColumns } = boardSlice.actions;
 
 export const boardSelector = (state: IRootState) => state.board;
 export const columnsSelector = (state: IRootState) => state.board.columns;
