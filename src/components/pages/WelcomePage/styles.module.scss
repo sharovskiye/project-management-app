@@ -1,14 +1,29 @@
 .wrapper {
-  width: calc(100vw - 80px);
-  min-height: 100vh;
-  padding: 10px;
-  margin: 0 auto;
-  background-color: #5f9ea0;
+  display: grid;
+  grid-template-rows: 80px 1fr;
+
+  &Container {
+    max-width: var(--container-width-medium);
+    margin: 0 auto;
+  }
+
+  &Header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
+.header {
+  background-color: var(--details-background-color);
+
+  &Title {
+    color: var(--color-text-white);
+  }
+}
+
+.main {
+  background-color: var(--main-background-color);
 }
 
 .regContainer {

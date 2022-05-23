@@ -1,7 +1,15 @@
 .title {
+  margin: 30px 0;
+  color: var(--text-color);
   text-align: center;
 }
 
+.wrapper {
+  width: 80%;
+  margin: 0 auto;
+}
+
 .subtitle {
+  color: var(--text-color);
   letter-spacing: 0.03em;
 }

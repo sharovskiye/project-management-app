@@ -8,9 +8,9 @@ import { RequireAuth } from '../../hoc/RequireAuth';
 import { AccessToPages } from '../../hoc/AccessToPages';
 import { Layout } from '../Layout';
 import { BoardContainer } from '../BoardContainer';
+import { setAuthorized } from '../../store/boardSlice';
 
 import styles from './styles.module.scss';
-import { setAuthorized } from '../../store/boardSlice';
 
 interface ILocalStorage {
   token: string;
@@ -33,14 +33,7 @@ export function App() {
     <div className={styles.wrapper}>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route
-            path="/"
-            element={
-              <RequireAuth>
-                <WelcomePage />
-              </RequireAuth>
-            }
-          />
+          <Route path="/" element={<WelcomePage />} />
           <Route
             path="/main"
             element={

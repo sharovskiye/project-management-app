@@ -1,8 +1,8 @@
 import { Button } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ThemeContext, themes } from '../../providers';
-import { fetchUsers, setBoardId, usersSelector } from '../../store/boardSlice';
+import { fetchUsers, usersSelector } from '../../store/boardSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { loginSelector } from '../../store/selectors';
 import { getTokenWithLocalStorage } from '../../store/signInUpSlice';
@@ -48,7 +48,7 @@ export const Header = () => {
             </Button>
           </div>
           <div className={styles.dropdownContent}>
-            <Link to="/form">Edit profile</Link>
+            <Link to="/editProfile">Edit profile</Link>
             <a href="#" onClick={logOut}>
               Sign Out
             </a>
