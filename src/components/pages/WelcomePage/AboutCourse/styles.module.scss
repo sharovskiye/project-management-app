@@ -1,6 +1,10 @@
 @import '../../../style/scss/variables';
 
 .wrapper {
+  width: 100%;
+  max-width: 1200px;
+  padding-bottom: 15px;
+  margin: 0 auto;
   color: $text-color;
 }
 

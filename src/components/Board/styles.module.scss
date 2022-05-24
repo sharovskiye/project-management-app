@@ -2,6 +2,7 @@
 
 .container {
   position: relative;
+  flex-grow: 1;
   width: 100%;
   height: 100%;
   margin: 0 auto;
@@ -16,7 +17,8 @@
   align-items: flex-start;
   height: calc(100vh - 260px);
   padding: 40px 0;
-  overflow-x: scroll;
+  overflow-x: auto;
+  overflow-y: hidden;
   font-size: $font-size-small;
 }
 
@@ -48,7 +50,11 @@
   }
 }
 
-.btnAddColumn {
+.columns {
+  display: flex;
+}
+
+.btn {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -65,5 +71,9 @@
 
   &:hover {
     color: $color-submit;
+  }
+
+  &BackToMain {
+    max-width: 150px;
   }
 }
