@@ -135,7 +135,7 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
                       {...providedTasks.droppableProps}
                       className={styles.taskList}
                     >
-                      <>{memoizedTasks}</>
+                      {memoizedTasks}
                     </div>
 
                     <div>
@@ -148,7 +148,7 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
                         </button>
                       </div>
                     </div>
-                    <>{modal}</>
+                    {modal}
                   </div>
                 </div>
               </div>

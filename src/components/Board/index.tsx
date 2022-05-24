@@ -124,20 +124,18 @@ export const Board = memo(({ id }: IBoardProps) => {
         return;
       }
 
-      if (destination?.droppableId === 'columns') {
-        if (destination.index !== source.index) {
-          const column = columns.find((column) => column.id === draggableId);
-          if (column) {
-            const copyColumns = [...columns];
-            const [reorderedColumn] = copyColumns.splice(source.index - 1, 1);
-            copyColumns.splice(destination.index - 1, 0, reorderedColumn);
-            dispatch(
-              setColumns(copyColumns.map((column, index) => ({ ...column, order: index + 1 })))
-            );
-            dispatch(fetchUpdateColumn({ ...column, order: destination.index }));
-          }
-          return;
+      if (destination?.droppableId === 'columns' && destination.index !== source.index) {
+        const column = columns.find((column) => column.id === draggableId);
+        if (column) {
+          const copyColumns = [...columns].sort((a, b) => a.order - b.order);
+          const [reorderedColumn] = copyColumns.splice(source.index - 1, 1);
+          copyColumns.splice(destination.index - 1, 0, reorderedColumn);
+          dispatch(
+            setColumns(copyColumns.map((column, index) => ({ ...column, order: index + 1 })))
+          );
+          dispatch(fetchUpdateColumn({ ...column, order: destination.index }));
         }
+        return;
       }
 
       if (destination?.droppableId !== source?.droppableId || destination.index !== source.index) {
@@ -158,7 +156,7 @@ export const Board = memo(({ id }: IBoardProps) => {
         if (destination?.droppableId !== source?.droppableId) {
           const newTasks = [...copyNewColumn.tasks].sort((a, b) => a.order - b.order);
           newTasks.splice(destination.index - 1, 0, reorderedTask);
-          const orderedNewTask = { ...copyNewColumn, tasks: newTasks }.tasks.map((task, index) => ({
+          const orderedNewTask = newTasks.map((task, index) => ({
             ...task,
             order: index + 1,
           }));
@@ -167,8 +165,8 @@ export const Board = memo(({ id }: IBoardProps) => {
         } else {
           oldTasks.splice(destination.index - 1, 0, reorderedTask);
         }
-        const orderedOldTask = { ...copyOldColumn, tasks: oldTasks }.tasks.map((taks, index) => ({
-          ...taks,
+        const orderedOldTask = oldTasks.map((task, index) => ({
+          ...task,
           order: index + 1,
         }));
         copyColumns.splice(oldColumnOrder, 1, { ...copyOldColumn, tasks: orderedOldTask });
@@ -195,7 +193,7 @@ export const Board = memo(({ id }: IBoardProps) => {
           <Droppable direction="horizontal" droppableId="columns">
             {(provided) => (
               <div className={styles.columns} ref={provided.innerRef} {...provided.droppableProps}>
-                <>{memoizedColumns}</>
+                {memoizedColumns}
                 {provided.placeholder}
               </div>
             )}
@@ -210,7 +208,7 @@ export const Board = memo(({ id }: IBoardProps) => {
               Add new column
             </button>
           </div>
-          <>{modal}</>
+          {modal}
         </div>
       </div>
     </div>
