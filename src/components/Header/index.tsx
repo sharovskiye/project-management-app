@@ -7,12 +7,18 @@ import { DropDownButton } from './DropDownButton';
 
 import styles from './styles.module.scss';
 
+const getIsSwitchTheme = () => {
+  const isSwitchLS = window?.localStorage?.getItem('isSwitchTheme');
+  const isSwitch = isSwitchLS !== null ? JSON.parse(isSwitchLS) : false;
+  return isSwitch;
+};
 export const Header = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(true);
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(getIsSwitchTheme || false);
 
   const currentTheme = isDarkTheme ? themes.dark : themes.light;
 
+  localStorage.setItem('isSwitchTheme', JSON.stringify(isChecked));
   return (
     <div className={`${styles.container} ${styles.containerBig}  ${styles.header}`}>
       <div className={styles.headerButtonGroup}>
@@ -30,7 +36,7 @@ export const Header = () => {
               onChangeTheme={() => {
                 setIsDarkTheme(!isDarkTheme);
                 setIsChecked(!isChecked);
-                changeTheme(currentTheme, `${isChecked}`);
+                changeTheme(currentTheme);
               }}
               isChecked={isChecked}
             />
