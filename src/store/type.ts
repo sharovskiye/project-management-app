@@ -9,3 +9,21 @@ export type ISignInUpInitState = {
   signConteiner: string;
   errorMessage: string;
 };
+
+export type IMainBoard = {
+  modal: boolean;
+  boardCollection: IGetBoard[];
+  loading: 'idle' | 'pending' | 'succeeded' | 'error';
+  errorMessage: string;
+};
+
+export type IGetBoard = {
+  id: string;
+  title: string;
+  description: string;
+};
+
+export type ICreateBoard = {
+  title: string;
+  description: string;
+};

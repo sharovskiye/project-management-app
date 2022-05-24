@@ -1,0 +1,35 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  background-color: #000000c5;
+}
+
+.form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  width: 250px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 5px 10px 2px #223c5033;
+  transform: translate(-50%, -50%);
+  animation: board 0.5s ease forwards;
+}
+
+@keyframes board {
+  0% {
+    top: 0;
+  }
+
+  100% {
+    top: 50%;
+  }
+}

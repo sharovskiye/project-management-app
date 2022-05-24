@@ -4,14 +4,14 @@ import { IBoard, IColumn, INewColumn, INewTask, ITask } from '../components/Boar
 import { apiBase } from '../const/const';
 import { IGetPerson } from '../services/type';
 
-enum Path {
+export enum Path {
   boards = 'boards',
   columns = 'columns',
   tasks = 'tasks',
   users = 'users',
 }
 
-enum Method {
+export enum Method {
   POST = 'POST',
   DELETE = 'DELETE',
   PUT = 'PUT',

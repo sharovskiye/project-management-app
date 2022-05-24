@@ -1,0 +1,91 @@
+@import '../../style/scss/variables';
+
+.main {
+  min-height: calc(100vh - 180px);
+  background-color: $main-bg-light;
+}
+
+.wrapper {
+  width: $container-width-medium;
+  padding: 15px 0;
+  margin: 0 auto;
+}
+
+.boardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.wrapperSubtitle {
+  padding: 5px;
+}
+
+.boardContainer {
+  width: 450px;
+  cursor: pointer;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  box-shadow: 0 -5px 5px -5px #223c5099;
+  transition: 0.5s;
+
+  &Title {
+    position: relative;
+    padding-bottom: 3px;
+    margin: 5px;
+    text-align: center;
+    border-bottom: 1px solid #00000045;
+  }
+
+  .title {
+    padding: 3px 0;
+    margin: 0;
+  }
+
+  .delete {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #f7f7f7;
+    border: 1px solid black;
+    border-radius: 3px;
+    transition: 0.5s;
+  }
+
+  .delete:hover {
+    color: #ffffff;
+    background-color: #da0c0c;
+    border: 1px solid #da0c0c;
+  }
+
+  &Subtitle {
+    height: 80px;
+    padding-right: 5px;
+    margin: 0;
+    overflow: auto;
+    font-size: 14px;
+  }
+
+  &Subtitle::-webkit-scrollbar {
+    width: 8px;
+    height: 4px;
+  }
+
+  &Subtitle::-webkit-scrollbar-thumb {
+    background-color: $text-color;
+    border-radius: 4px;
+  }
+
+  &Subtitle::-webkit-scrollbar-thumb:hover {
+    background-color: #253861;
+  }
+}
+
+.boardContainer:hover {
+  background-color: #ffffff;
+  transform: scale(1.05);
+}
