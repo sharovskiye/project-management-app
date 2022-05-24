@@ -4,10 +4,12 @@ export const themes = {
   dark: 'darkTheme',
   light: 'lightTheme',
 };
-export const ThemeContext = createContext({
-  theme: themes.dark,
-  changeTheme: (theme: string) => {},
-});
+
+type ThemeContextProps = {
+  theme: string;
+  changeTheme: (theme: string) => void;
+};
+export const ThemeContext = createContext<ThemeContextProps>({} as ThemeContextProps);
 
 type ThemeProviderPropsType = {
   children: ReactNode;
