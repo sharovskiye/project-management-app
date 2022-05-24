@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { useSnackbar } from 'notistack';
 import { Button } from '@mui/material';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 
 import {
@@ -185,9 +186,19 @@ export const Board = memo(({ id }: IBoardProps) => {
     [dispatch, columns]
   );
 
+  const backToMain = () => {
+    navigate('/main');
+  };
+
   return (
     <div className={`${styles.container} ${styles.containerMedium} `}>
       {isLoadingOnBoard && <Spinner />}
+      <button onClick={backToMain} className={`${styles.btn} ${styles.btnBackToMain}`}>
+        <span>
+          <ArrowBackIosIcon className={styles.iconAdd} />
+        </span>
+        Back to main
+      </button>
       <div className={styles.main}>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable direction="horizontal" droppableId="columns">
@@ -201,7 +212,7 @@ export const Board = memo(({ id }: IBoardProps) => {
         </DragDropContext>
         <div className={styles.boardNewColumn}>
           <div className={styles.buttonWrapper}>
-            <button onClick={onOpenModal} className={styles.btnAddColumn}>
+            <button onClick={onOpenModal} className={styles.btn}>
               <span>
                 <AddCircleOutlineOutlinedIcon className={styles.iconAdd} />
               </span>

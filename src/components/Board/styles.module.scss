@@ -54,7 +54,7 @@
   display: flex;
 }
 
-.btnAddColumn {
+.btn {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -71,5 +71,9 @@
 
   &:hover {
     color: $color-submit;
+  }
+
+  &BackToMain {
+    max-width: 150px;
   }
 }
