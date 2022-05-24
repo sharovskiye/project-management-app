@@ -25,6 +25,9 @@ const getTheme = () => {
 
 const getIsSwitchTheme = () => {
   const isSwitch = `${window?.localStorage?.getItem('isSwitchTheme')}`;
+  /*  if (isSwitch === 'null') {
+    console.log('null');
+  } */
   return isSwitch;
 };
 
@@ -41,7 +44,9 @@ export default function ThemeContextWrapper({ children }: ThemeProviderPropsType
     document.body.setAttribute('data-theme', `${theme}`);
     document.documentElement.dataset.theme = theme;
     localStorage.setItem('theme', theme);
-    localStorage.setItem('isSwitchTheme', `${isChecked}`);
+
+    console.log(isChecked);
+    localStorage.setItem('isSwitchTheme', `${isChecked === 'null' ? 'false' : isChecked}`);
   }, [theme, isChecked]);
 
   return (
