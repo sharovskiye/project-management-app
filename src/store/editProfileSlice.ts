@@ -9,14 +9,17 @@ export type IGetPersonForEdit = {
   login: string;
   password: string;
 };
+
 export type IEditProfileInitState = {
   token: string;
   login: string;
   setUserData: IPerson;
   getUserData: IGetPersonForEdit;
-  loading: 'idle' | 'pending' | 'succeeded' | 'error';
+  isLoading: boolean;
+  isError: boolean;
   errorMessage: string;
 };
+
 const initialState: IEditProfileInitState = {
   token: '',
   login: '',
@@ -31,11 +34,12 @@ const initialState: IEditProfileInitState = {
     login: '',
     password: '',
   },
-  loading: 'idle',
+  isLoading: false,
+  isError: false,
   errorMessage: '',
 };
 
-export const fetchEditProfile = createAsyncThunk<unknown, IGetPersonForEdit>(
+export const fetchEditProfile = createAsyncThunk<IGetPersonForEdit, IGetPersonForEdit>(
   'editProfile/fetchEditProfile',
   async (user, { rejectWithValue, getState }) => {
     const {
@@ -96,7 +100,7 @@ export const editProfileSlice = createSlice({
   name: 'editProfile',
   initialState,
   reducers: {
-    getUserData(state, action: PayloadAction<IGetPersonForEdit>) {
+    getUserData(state, action: PayloadAction<IPerson>) {
       state.setUserData = action.payload;
     },
     setLogin(state, action: PayloadAction<string>) {
@@ -105,16 +109,32 @@ export const editProfileSlice = createSlice({
     getTokenWithLocalStorage(state, action: PayloadAction<string>) {
       state.token = action.payload;
     },
-    changeloading(state, action: PayloadAction<'idle'>) {
-      state.loading = action.payload;
+    changeloading(state, action: PayloadAction<boolean>) {
+      state.isLoading = action.payload;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchEditProfile.rejected, (state, action) => {
-      state.loading = 'error';
-      state.errorMessage = action.payload as string;
-    });
+    builder
+      .addCase(fetchEditProfile.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(fetchEditProfile.fulfilled, (state, action) => {
+        state.getUserData = action.payload;
+        state.isLoading = false;
+        state.isError = false;
+      })
+      .addCase(fetchEditProfile.rejected, (state, action) => {
+        state.isLoading = false;
+        state.errorMessage = action.payload as string;
+        state.isError = true;
+      });
   },
 });
 
-export const editProfileReducer = editProfileSlice.reducer;
+export const editProfileSelector = (state: IRootState) => state.editProfile;
+export const isLoadingEditProfileSelector = (state: IRootState) => state.editProfile.isLoading;
+export const isErrorEditProfileSelector = (state: IRootState) => state.editProfile.isError;
+export const errorMessageEditProfileSelector = (state: IRootState) =>
+  state.editProfile.errorMessage;
+export const editProfile = editProfileSlice.reducer;

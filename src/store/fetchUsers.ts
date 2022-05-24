@@ -70,6 +70,6 @@ export const usersSlice = createSlice({
 });
 
 export const getDataUserSelector = (state: { users: IUsersState }) => state.users.users;
-export const usersSelector = (state: IRootState) => state.usersReducer.users;
-export const errorMessage = (state: IRootState) => state.usersReducer.errorMessage;
-export const usersReducer = usersSlice.reducer;
+export const usersSelector = (state: IRootState) => state.users.users;
+export const errorMessage = (state: IRootState) => state.users.errorMessage;
+export const users = usersSlice.reducer;

@@ -5,6 +5,7 @@ export type SwitchThemePropsType = {
   isChecked: boolean;
 };
 export const SwitchTheme = ({ onChangeTheme, isChecked }: SwitchThemePropsType) => {
+  console.log(isChecked);
   return (
     <FormControlLabel
       control={<IOSSwitch sx={{ m: 1 }} onClick={onChangeTheme} defaultChecked={isChecked} />}

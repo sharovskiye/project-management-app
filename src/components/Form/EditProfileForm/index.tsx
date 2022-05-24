@@ -3,7 +3,11 @@ import * as Yup from 'yup';
 import { Box, Button, Grid } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { FormTextField } from '../../FormTextField';
-import { fetchDeleteProfile, fetchEditProfile } from '../../../store/editProfileSlice';
+import {
+  editProfileSelector,
+  fetchDeleteProfile,
+  fetchEditProfile,
+} from '../../../store/editProfileSlice';
 import { useCallback, useEffect } from 'react';
 import { loginSelector } from '../../../store/selectors';
 import { ConfirmModalWindow } from '../../Modal/ConfirmModal';
@@ -13,7 +17,10 @@ import { fetchUsers, usersSelector } from '../../../store/fetchUsers';
 
 import styles from './styles.module.scss';
 import { setAuthorized } from '../../../store/boardSlice';
-import { getTokenWithLocalStorage } from '../../../store/signInUpSlice';
+import { getTokenWithLocalStorage, getUserData } from '../../../store/signInUpSlice';
+import { useSnackbar } from 'notistack';
+import { getMessage } from '../../../utils/getMessage';
+import { Spinner } from '../../Spinner';
 
 const signUpSchema = Yup.object().shape({
   name: Yup.string().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
@@ -21,17 +28,24 @@ const signUpSchema = Yup.object().shape({
 });
 
 export const EditProfileForm = () => {
-  /* const { loading, errorMessage } = useAppSelector(usersSelector); */
   const login = useAppSelector(loginSelector);
   const users = useAppSelector(usersSelector);
   const { opened, onToggle } = useToggle();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+  const currentUser = users.filter((user) => user.login === login);
+  const { isError, isLoading, errorMessage } = useAppSelector(editProfileSelector);
+
   useEffect(() => {
     dispatch(fetchUsers(''));
-  }, []);
+  }, [dispatch]);
 
-  const currentUser = users.filter((user) => user.login === login);
+  useEffect(() => {
+    if (isError) {
+      enqueueSnackbar(getMessage(errorMessage), { variant: 'error' });
+    }
+  }, [isError, errorMessage, enqueueSnackbar]);
 
   const onDelete = useCallback(() => {
     localStorage.clear();
@@ -40,7 +54,7 @@ export const EditProfileForm = () => {
     dispatch(getTokenWithLocalStorage(''));
     dispatch(setAuthorized(false));
     navigate('/');
-  }, [navigate, dispatch]);
+  }, [dispatch, currentUser, navigate]);
 
   const formik = useFormik({
     initialValues: {
@@ -53,6 +67,7 @@ export const EditProfileForm = () => {
       const currentData = { ...values };
 
       dispatch(fetchEditProfile(currentData));
+      dispatch(getUserData(values));
       formik.resetForm();
       navigate('/main');
     },
@@ -61,6 +76,7 @@ export const EditProfileForm = () => {
 
   return (
     <div className={styles.container}>
+      {isLoading && <Spinner />}
       <Box
         sx={{
           width: '300px',

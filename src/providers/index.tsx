@@ -6,7 +6,7 @@ export const themes = {
 };
 export const ThemeContext = createContext({
   theme: themes.dark,
-  changeTheme: (theme: string) => {},
+  changeTheme: (theme: string, isChecked: string) => {},
 });
 
 type ThemeProviderPropsType = {
@@ -23,18 +23,26 @@ const getTheme = () => {
   return themes.dark;
 };
 
+const getIsSwitchTheme = () => {
+  const isSwitch = `${window?.localStorage?.getItem('isSwitchTheme')}`;
+  return isSwitch;
+};
+
 export default function ThemeContextWrapper({ children }: ThemeProviderPropsType) {
   const [theme, setTheme] = useState(getTheme);
+  const [isChecked, setIsChecked] = useState(getIsSwitchTheme);
 
-  function changeTheme(theme: string) {
+  function changeTheme(theme: string, isChecked: string) {
     setTheme(theme);
+    setIsChecked(isChecked);
   }
 
   useEffect(() => {
     document.body.setAttribute('data-theme', `${theme}`);
     document.documentElement.dataset.theme = theme;
     localStorage.setItem('theme', theme);
-  }, [theme]);
+    localStorage.setItem('isSwitchTheme', `${isChecked}`);
+  }, [theme, isChecked]);
 
   return (
     <ThemeContext.Provider value={{ theme: theme, changeTheme: changeTheme }}>
