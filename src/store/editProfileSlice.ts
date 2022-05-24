@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IRootState } from '.';
 import { apiBase } from '../const/const';
 import { IGetPerson, IPerson } from '../services/type';
+
 export type IGetPersonForEdit = {
   id: string;
   name: string;
@@ -84,7 +85,6 @@ export const fetchDeleteProfile = createAsyncThunk<unknown, IGetPerson>(
       if (!res.ok) {
         throw new Error(parsed.message);
       }
-
       return parsed;
     } catch (error) {
       return rejectWithValue((error as Error).message);
@@ -96,7 +96,7 @@ export const editProfileSlice = createSlice({
   name: 'editProfile',
   initialState,
   reducers: {
-    getUserData(state, action: PayloadAction<IPerson>) {
+    getUserData(state, action: PayloadAction<IGetPersonForEdit>) {
       state.setUserData = action.payload;
     },
     setLogin(state, action: PayloadAction<string>) {
@@ -109,33 +109,12 @@ export const editProfileSlice = createSlice({
       state.loading = action.payload;
     },
   },
-  /* extraReducers: (builder) => {
-    builder
-      .addCase(fetchEditProfile.pending, (state) => {
-        state.loading = 'pending';
-      })
-      .addCase(fetchEditProfile.fulfilled, (state, action: PayloadAction<string>) => {
-        state.token = action.payload;
-        state.loading = 'succeeded';
-      })
-      .addCase(fetchEditProfile.rejected, (state, action) => {
-        state.loading = 'error';
-        state.errorMessage = action.payload as string;
-      })
-      .addCase(fetchEditProfile.pending, (state) => {
-        state.loading = 'pending';
-      })
-      .addCase(fetchEditProfile.fulfilled, (state, action: PayloadAction<IGetPerson>) => {
-        state.getUserData = action.payload;
-        state.loading = 'succeeded';
-      })
-      .addCase(fetchEditProfile.rejected, (state, action) => {
-        state.loading = 'error';
-        state.errorMessage = action.payload as string;
-      });
-  }, */
+  extraReducers: (builder) => {
+    builder.addCase(fetchEditProfile.rejected, (state, action) => {
+      state.loading = 'error';
+      state.errorMessage = action.payload as string;
+    });
+  },
 });
-export const { getUserData, getTokenWithLocalStorage, changeloading, setLogin } =
-  editProfileSlice.actions;
 
 export const editProfileReducer = editProfileSlice.reducer;

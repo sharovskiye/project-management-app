@@ -1,6 +1,7 @@
 .wrapper {
   display: grid;
   grid-template-rows: 80px 1fr;
+  color: var(--details-background-color);
 
   &Container {
     max-width: var(--container-width-medium);
@@ -15,10 +16,10 @@
 }
 
 .header {
-  background-color: var(--details-background-color);
+  background-color: var(--main-background-color);
 
   &Title {
-    color: var(--color-text-white);
+    color: var(--details-background-color);
   }
 }
 

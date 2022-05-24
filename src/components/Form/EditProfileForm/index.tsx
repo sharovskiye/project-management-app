@@ -12,6 +12,8 @@ import { useNavigate } from 'react-router-dom';
 import { fetchUsers, usersSelector } from '../../../store/fetchUsers';
 
 import styles from './styles.module.scss';
+import { setAuthorized } from '../../../store/boardSlice';
+import { getTokenWithLocalStorage } from '../../../store/signInUpSlice';
 
 const signUpSchema = Yup.object().shape({
   name: Yup.string().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
@@ -35,6 +37,8 @@ export const EditProfileForm = () => {
     localStorage.clear();
 
     dispatch(fetchDeleteProfile(currentUser[0]));
+    dispatch(getTokenWithLocalStorage(''));
+    dispatch(setAuthorized(false));
     navigate('/');
   }, [navigate, dispatch]);
 
