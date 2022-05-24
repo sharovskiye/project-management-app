@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IRootState } from '.';
 import { apiBase } from '../const/const';
-import { IPerson } from '../services/type';
-export type IGetPerson = {
+import { IGetPerson, IPerson } from '../services/type';
+export type IGetPersonForEdit = {
   id: string;
   name: string;
   login: string;
@@ -12,7 +12,7 @@ export type IEditProfileInitState = {
   token: string;
   login: string;
   setUserData: IPerson;
-  getUserData: IGetPerson;
+  getUserData: IGetPersonForEdit;
   loading: 'idle' | 'pending' | 'succeeded' | 'error';
   errorMessage: string;
 };
@@ -34,7 +34,7 @@ const initialState: IEditProfileInitState = {
   errorMessage: '',
 };
 
-export const fetchEditProfile = createAsyncThunk<unknown, IGetPerson>(
+export const fetchEditProfile = createAsyncThunk<unknown, IGetPersonForEdit>(
   'editProfile/fetchEditProfile',
   async (user, { rejectWithValue, getState }) => {
     const {
@@ -50,10 +50,36 @@ export const fetchEditProfile = createAsyncThunk<unknown, IGetPerson>(
     const body = JSON.stringify({ name, login, password });
     const url = `${apiBase}/users/${id}`;
 
-    console.log(body);
-    console.log(url);
     try {
       const res = await fetch(url, { headers, body, method: 'PUT' });
+      const parsed = await res.json();
+      if (!res.ok) {
+        throw new Error(parsed.message);
+      }
+
+      return parsed;
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
+    }
+  }
+);
+
+export const fetchDeleteProfile = createAsyncThunk<unknown, IGetPerson>(
+  'editProfile/fetchEditProfile',
+  async (user, { rejectWithValue, getState }) => {
+    const {
+      signInUp: { token },
+    } = getState() as IRootState;
+
+    const headers = new Headers({
+      accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+    const { id } = user;
+    const url = `${apiBase}/users/${id}`;
+
+    try {
+      const res = await fetch(url, { headers, method: 'DELETE' });
       const parsed = await res.json();
       if (!res.ok) {
         throw new Error(parsed.message);

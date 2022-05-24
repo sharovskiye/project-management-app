@@ -1,11 +1,6 @@
-.form {
+.container {
   display: flex;
-  flex-direction: column;
-  row-gap: 20px;
-  max-width: 300px;
-  padding: 20px;
-  margin: 20px auto;
-  background-color: #f0f9f6;
-  border: 1px solid gray;
-  border-radius: 6px;
+  align-items: center;
+  height: calc(100vh - 80px - 100px);
+  background-color: var(--main-background-color);
 }

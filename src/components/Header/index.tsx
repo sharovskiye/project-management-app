@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ThemeContext, themes } from '../../providers';
-import { fetchUsers, usersSelector } from '../../store/boardSlice';
+import { fetchUsers, usersSelector } from '../../store/fetchUsers';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { loginSelector } from '../../store/selectors';
 import { getTokenWithLocalStorage } from '../../store/signInUpSlice';
@@ -24,7 +24,6 @@ export const Header = () => {
   }, []);
 
   const userNameTitle = useCallback(() => {
-    console.log(users);
     return users.map((user) => {
       if (user.login === login) {
         return user.name;

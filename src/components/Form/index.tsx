@@ -21,11 +21,11 @@ export const Form = () => {
   }, [loading, enqueueSnackbar, errorMessage]);
 
   return (
-    <div className={styles.wrapper}>
+    <>
       <div className={styles.container}>
         <SignInUpConteiner />
       </div>
       {loading === 'pending' && <Spinner />}
-    </div>
+    </>
   );
 };

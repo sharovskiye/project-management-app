@@ -34,7 +34,7 @@ export const Layout = () => {
   return (
     <div className={styles.wrapper}>
       <header ref={refHeader} className={stickyHeader}>
-        {location.pathname === '/main' && <Header />}
+        {location.pathname !== '/' && location.pathname !== '/form' && <Header />}
       </header>
 
       <main>

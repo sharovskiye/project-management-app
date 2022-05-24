@@ -1,3 +1,4 @@
+import { usersReducer } from './fetchUsers';
 import { configureStore } from '@reduxjs/toolkit';
 import { signInUpReducer } from './signInUpSlice';
 import board from './boardSlice';
@@ -6,6 +7,7 @@ export const store = configureStore({
   reducer: {
     signInUp: signInUpReducer,
     board,
+    usersReducer,
   },
   devTools: process.env.NODE_ENV !== 'production',
 });

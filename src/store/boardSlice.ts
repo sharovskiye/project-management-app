@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { IRootState } from '.';
 import { IBoard, IColumn, INewColumn, INewTask, ITask } from '../components/Board/interface';
 import { apiBase } from '../const/const';
-import { IGetPerson } from '../services/type';
 
 enum Path {
   boards = 'boards',
@@ -22,7 +21,6 @@ interface IBoardState {
   columns: IColumn[];
   isLoadingOnBoard: boolean;
   isOpenModal: boolean;
-  users: IGetPerson[];
   isError: boolean;
   errorMessage: string;
   authorized: boolean;
@@ -33,7 +31,6 @@ const initialState: IBoardState = {
   columns: [],
   isLoadingOnBoard: true,
   isOpenModal: false,
-  users: [],
   isError: false,
   errorMessage: '',
   authorized: false,
@@ -233,34 +230,6 @@ export const fetchDeleteColumn = createAsyncThunk<unknown, IColumn>(
   }
 );
 
-export const fetchUsers = createAsyncThunk<IGetPerson[], unknown>(
-  'board/fetchUsers',
-  async (_, { rejectWithValue, getState }) => {
-    const {
-      signInUp: { token },
-    } = getState() as IRootState;
-
-    const headers = new Headers({
-      accept: 'application/json',
-      Authorization: `Bearer ${token}`,
-    });
-
-    const url = `${apiBase}/${Path.users}`;
-
-    try {
-      const res = await fetch(url, { headers });
-      const parsed = await res.json();
-      if (!res.ok) {
-        throw new Error(parsed.message);
-      }
-
-      return parsed;
-    } catch (error) {
-      return rejectWithValue((error as Error).message);
-    }
-  }
-);
-
 export const boardSlice = createSlice({
   name: 'board',
   initialState,
@@ -339,16 +308,6 @@ export const boardSlice = createSlice({
         state.errorMessage = action.payload as string;
         state.isError = true;
       })
-      .addCase(fetchUsers.pending, (state) => {
-        state.isError = false;
-      })
-      .addCase(fetchUsers.fulfilled, (state, action) => {
-        state.users = action.payload;
-      })
-      .addCase(fetchUsers.rejected, (state, action) => {
-        state.errorMessage = action.payload as string;
-        state.isError = true;
-      })
       .addDefaultCase(() => {});
   },
 });
@@ -359,7 +318,6 @@ export const boardSelector = (state: IRootState) => state.board;
 export const columnsSelector = (state: IRootState) => state.board.columns;
 export const isLoadingOnBoardSelector = (state: IRootState) => state.board.isLoadingOnBoard;
 export const isOpenModalSelector = (state: IRootState) => state.board.isOpenModal;
-export const usersSelector = (state: IRootState) => state.board.users;
 export const isErrorBoardSelector = (state: IRootState) => state.board.isError;
 export const errorMessageBoardSelector = (state: IRootState) => state.board.errorMessage;
 export const authorizedSelector = (state: IRootState) => state.board.authorized;
