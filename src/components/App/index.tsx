@@ -9,9 +9,9 @@ import { AccessToPages } from '../../hoc/AccessToPages';
 import { Layout } from '../Layout';
 import { BoardContainer } from '../BoardContainer';
 import { setAuthorized } from '../../store/boardSlice';
+import { EditProfileForm } from '../Form/EditProfileForm';
 
 import styles from './styles.module.scss';
-import { EditProfileForm } from '../Form/EditProfileForm';
 
 interface ILocalStorage {
   token: string;
@@ -51,7 +51,7 @@ export function App() {
               </RequireAuth>
             }
           />
-          {/* test: /boards/1b481050-6177-4f95-b814-b232837a0726 */}
+          {/* test: /boards/6d755762-8c91-4aef-bc25-9b2486691a72 */}
           <Route
             path="/boards/:boardId"
             element={

@@ -1,17 +1,18 @@
 .column {
   position: relative;
   width: 100%;
+  min-width: var(--width-column);
   max-width: var(--width-column);
-  height: 68vh;
-  max-height: 68vh;
+  height: 70vh;
   padding: var(--padding-base);
+  margin: 0 20px;
   background-color: var(--details-background-color);
   border-radius: var(--padding-base);
 }
 
-.taskListScroll {
-  max-height: 90%;
-  overflow-y: scroll;
+.taskList {
+  height: 100%;
+  overflow-y: auto;
 }
 
 .iconAdd {
@@ -32,10 +33,30 @@
   cursor: pointer;
   background-color: var(--color-column-button);
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   transition: 0.5s;
 
   &:hover {
     color: var(--color-submit);
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 88%;
+}
+
+.draggable {
+  width: 20%;
+  height: 20px;
+  margin: 0 auto 10px;
+  background-color: var(--color-column-button);
+  border-radius: 5px;
+  transition: 0.5s;
+
+  &:hover {
+    background-color: var(--main-background-color);
   }
 }

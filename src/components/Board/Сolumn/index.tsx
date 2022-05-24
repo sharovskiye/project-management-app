@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useMemo } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
@@ -13,9 +13,10 @@ import { useChangeOpenModalBoard } from '../../../utils/CustomHook';
 import { FormTextField } from '../../FormTextField';
 import { loginSelector } from '../../../store/selectors';
 import { IColumn, INewTask } from '../interface';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
+import { usersSelector } from '../../../store/fetchUsers';
 
 import styles from './styles.module.scss';
-import { usersSelector } from '../../../store/fetchUsers';
 
 interface IColumnProps {
   boardId: string;
@@ -30,22 +31,11 @@ const signUpSchema = Yup.object().shape({
 
 export const Column = memo(({ boardId, column }: IColumnProps) => {
   const { tasks } = column;
-  const [isScroll, setIsScroll] = useState(false);
   const { isModalOpen, onOpenModal, onCloseModal } = useChangeOpenModalBoard();
-  const refDiv = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
   const login = useAppSelector(loginSelector);
   const users = useAppSelector(usersSelector);
   const loginUsers = users.map((user) => user.login);
-
-  useEffect(() => {
-    if (refDiv.current) {
-      const height = refDiv.current.clientHeight;
-      const heightColumnPercent = 0.6;
-      const bodyHeight = window.innerHeight * heightColumnPercent;
-      setIsScroll(bodyHeight < height);
-    }
-  }, [refDiv, column]);
 
   const memoizedTasks = useMemo(() => {
     return tasks
@@ -53,10 +43,6 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
       .sort((a, b) => a.order - b.order)
       .map((task) => <Task task={task} key={task.id} />);
   }, [tasks, boardId, column.id]);
-
-  const findMaxOrderTask = useCallback(() => {
-    return tasks.reduce((prev, { order }) => (prev > order ? prev : order), 0);
-  }, [tasks]);
 
   const formik = useFormik({
     initialValues: {
@@ -69,7 +55,6 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
       const selectedUser = users.find((userItem) => userItem.login === user);
       const newTask: INewTask = {
         title,
-        order: findMaxOrderTask() + 1,
         description,
         userId: selectedUser?.id || '',
         boardId,
@@ -133,26 +118,46 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
   }, [formik, login, loginUsers, onCloseModal, isModalOpen]);
 
   return (
-    <div className={styles.column}>
-      <div className={styles.stickyHeader}>
-        <ColumnHeader column={column} />
-      </div>
+    <Draggable key={column.id} draggableId={column.id} index={column.order}>
+      {(provided) => (
+        <Droppable type="tasks" droppableId={column.id}>
+          {(providedTasks) => (
+            <div>
+              <div ref={provided.innerRef} {...provided.draggableProps}>
+                <div className={styles.column}>
+                  <div className={styles.draggable} {...provided.dragHandleProps}></div>
+                  <div className={styles.stickyHeader}>
+                    <ColumnHeader column={column} />
+                  </div>
 
-      <div ref={refDiv} className={isScroll ? styles.taskListScroll : undefined}>
-        <div>{memoizedTasks}</div>
-      </div>
+                  <div className={styles.container}>
+                    <div
+                      ref={providedTasks.innerRef}
+                      {...providedTasks.droppableProps}
+                      className={styles.taskList}
+                    >
+                      {memoizedTasks}
+                    </div>
 
-      <div>
-        <div className={styles.buttonWrapper}>
-          <button onClick={onOpenModal} className={styles.btnAddTask}>
-            <span>
-              <AddCircleOutlineOutlinedIcon className={styles.iconAdd} />
-            </span>
-            Add new task
-          </button>
-        </div>
-        <>{modal}</>
-      </div>
-    </div>
+                    <div>
+                      <div className={styles.buttonWrapper}>
+                        <button onClick={onOpenModal} className={styles.btnAddTask}>
+                          <span>
+                            <AddCircleOutlineOutlinedIcon className={styles.iconAdd} />
+                          </span>
+                          Add new task
+                        </button>
+                      </div>
+                    </div>
+                    {modal}
+                  </div>
+                </div>
+              </div>
+              {providedTasks.placeholder}
+            </div>
+          )}
+        </Droppable>
+      )}
+    </Draggable>
   );
 });
