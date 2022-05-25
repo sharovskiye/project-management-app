@@ -14,13 +14,13 @@ import { ConfirmModalWindow } from '../../Modal/ConfirmModal';
 import { useToggle } from '../../../utils/CustomHook';
 import { useNavigate } from 'react-router-dom';
 import { fetchUsers, usersSelector } from '../../../store/fetchUsers';
-
-import styles from './styles.module.scss';
 import { setAuthorized } from '../../../store/boardSlice';
 import { getTokenWithLocalStorage, getUserData } from '../../../store/signInUpSlice';
 import { useSnackbar } from 'notistack';
 import { getMessage } from '../../../utils/getMessage';
 import { Spinner } from '../../Spinner';
+
+import styles from './styles.module.scss';
 
 const signUpSchema = Yup.object().shape({
   name: Yup.string().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
@@ -69,7 +69,6 @@ export const EditProfileForm = () => {
       dispatch(fetchEditProfile(currentData));
       dispatch(getUserData(values));
       formik.resetForm();
-      navigate('/main');
     },
     validationSchema: signUpSchema,
   });
