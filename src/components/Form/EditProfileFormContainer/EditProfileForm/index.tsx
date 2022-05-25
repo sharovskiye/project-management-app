@@ -1,71 +1,55 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, Grid } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { FormTextField } from '../../FormTextField';
+import { IGetPerson } from '../../../../services/type';
+import { useToggle } from '../../../../utils/CustomHook';
+import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
+import { useNavigate } from 'react-router-dom';
 import {
   editProfileSelector,
   fetchDeleteProfile,
   fetchEditProfile,
-} from '../../../store/editProfileSlice';
-import { useCallback, useEffect } from 'react';
-import { loginSelector } from '../../../store/selectors';
-import { ConfirmModalWindow } from '../../Modal/ConfirmModal';
-import { useToggle } from '../../../utils/CustomHook';
-import { useNavigate } from 'react-router-dom';
-import { fetchUsers, usersSelector } from '../../../store/fetchUsers';
-import { setAuthorized } from '../../../store/boardSlice';
-import { getTokenWithLocalStorage, getUserData } from '../../../store/signInUpSlice';
-import { useSnackbar } from 'notistack';
-import { getMessage } from '../../../utils/getMessage';
-import { Spinner } from '../../Spinner';
-
-import styles from './styles.module.scss';
+} from '../../../../store/editProfileSlice';
+import { getTokenWithLocalStorage, getUserData } from '../../../../store/signInUpSlice';
+import { setAuthorized } from '../../../../store/boardSlice';
+import { useCallback } from 'react';
+import { Spinner } from '../../../Spinner';
+import { FormTextField } from '../../../FormTextField';
+import { ConfirmModalWindow } from '../../../Modal/ConfirmModal';
 
 const signUpSchema = Yup.object().shape({
   name: Yup.string().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
   password: Yup.string().min(5, 'Too Short!').max(15, 'Too Long!').required('required'),
 });
 
-export const EditProfileForm = () => {
-  const login = useAppSelector(loginSelector);
-  const users = useAppSelector(usersSelector);
+type EditProfileFormPropsType = {
+  currentUser: IGetPerson;
+};
+export const EditProfileForm = ({ currentUser }: EditProfileFormPropsType) => {
   const { opened, onToggle } = useToggle();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
-  const currentUser = users.filter((user) => user.login === login);
-  const { isError, isLoading, errorMessage } = useAppSelector(editProfileSelector);
-
-  useEffect(() => {
-    dispatch(fetchUsers(''));
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (isError) {
-      enqueueSnackbar(getMessage(errorMessage), { variant: 'error' });
-    }
-  }, [isError, errorMessage, enqueueSnackbar]);
+  const { isLoading } = useAppSelector(editProfileSelector);
 
   const onDelete = useCallback(() => {
     localStorage.clear();
-
-    dispatch(fetchDeleteProfile(currentUser[0]));
-    dispatch(getTokenWithLocalStorage(''));
-    dispatch(setAuthorized(false));
-    navigate('/');
+    if (currentUser) {
+      dispatch(fetchDeleteProfile(currentUser));
+      dispatch(getTokenWithLocalStorage(''));
+      dispatch(setAuthorized(false));
+      navigate('/');
+    }
   }, [dispatch, currentUser, navigate]);
 
   const formik = useFormik({
     initialValues: {
-      name: currentUser[0].name,
-      login: currentUser[0].login,
+      name: currentUser.name,
+      login: currentUser.login,
       password: '',
-      id: currentUser[0].id,
+      id: currentUser.id,
     },
     onSubmit: (values) => {
       const currentData = { ...values };
-
       dispatch(fetchEditProfile(currentData));
       dispatch(getUserData(values));
       formik.resetForm();
@@ -74,7 +58,7 @@ export const EditProfileForm = () => {
   });
 
   return (
-    <div className={styles.container}>
+    <div>
       {isLoading && <Spinner />}
       <Box
         sx={{
