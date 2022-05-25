@@ -3,7 +3,6 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { Autocomplete, Button, TextField } from '@mui/material';
-
 import { Task } from '../Task';
 import { ColumnHeader } from './Header';
 import { ModalWindow } from '../../Modal';

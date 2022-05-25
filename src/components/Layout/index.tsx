@@ -13,23 +13,23 @@ export const Layout = () => {
   const refHeader = useRef<HTMLDivElement>(null);
   const stickyHeader = token ? styles.stickyHeader : '';
   const layoutWithStandartHeader = location.pathname !== '/' && location.pathname !== '/form';
+
   useEffect(() => {
+    const isSticky = () => {
+      const scrollTop = window.scrollY;
+
+      if (refHeader.current && token) {
+        const headerHeight = 100;
+        scrollTop >= headerHeight
+          ? refHeader.current.classList.add(styles.scroll)
+          : refHeader.current.classList.remove(styles.scroll);
+      }
+    };
     window.addEventListener('scroll', isSticky);
     return () => {
       window.removeEventListener('scroll', isSticky);
     };
-  });
-
-  const isSticky = () => {
-    const scrollTop = window.scrollY;
-
-    if (refHeader.current && token) {
-      const headerHeight = 100;
-      scrollTop >= headerHeight
-        ? refHeader.current.classList.add(styles.scroll)
-        : refHeader.current.classList.remove(styles.scroll);
-    }
-  };
+  }, [token]);
 
   return (
     <div className={styles.wrapper}>

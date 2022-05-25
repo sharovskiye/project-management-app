@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ThemeContext, themes } from '../../providers';
 import { CustomSelect } from '../Inputs/CustomSelect';
 import { SwitchTheme } from '../SwitchTheme';
@@ -9,16 +9,16 @@ import styles from './styles.module.scss';
 
 const getIsSwitchTheme = () => {
   const isSwitchLS = window?.localStorage?.getItem('isSwitchTheme');
-  const isSwitch = isSwitchLS !== null ? JSON.parse(isSwitchLS) : false;
+  const isSwitch = isSwitchLS !== null ? JSON.parse(isSwitchLS) : true;
   return isSwitch;
 };
 export const Header = () => {
-  const [isDarkTheme, setIsDarkTheme] = useState(true);
-  const [isChecked, setIsChecked] = useState(getIsSwitchTheme || false);
+  const [isChecked, setIsChecked] = useState(getIsSwitchTheme);
 
-  const currentTheme = isDarkTheme ? themes.dark : themes.light;
+  useEffect(() => {
+    localStorage.setItem('isSwitchTheme', JSON.stringify(isChecked));
+  }, [isChecked]);
 
-  localStorage.setItem('isSwitchTheme', JSON.stringify(isChecked));
   return (
     <div className={`${styles.container} ${styles.containerBig}  ${styles.header}`}>
       <div className={styles.headerButtonGroup}>
@@ -34,8 +34,9 @@ export const Header = () => {
           {({ changeTheme }) => (
             <SwitchTheme
               onChangeTheme={() => {
-                setIsDarkTheme(!isDarkTheme);
-                setIsChecked(!isChecked);
+                const currentTheme = isChecked ? themes.light : themes.dark;
+
+                setIsChecked((prevValue: boolean) => !prevValue);
                 changeTheme(currentTheme);
               }}
               isChecked={isChecked}
