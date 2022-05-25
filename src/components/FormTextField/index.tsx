@@ -9,6 +9,7 @@ type IPropsTextField = {
   value: string;
   multiline?: boolean;
   rows?: number;
+  disabled?: boolean;
 };
 
 export const FormTextField = ({
@@ -20,6 +21,7 @@ export const FormTextField = ({
   value,
   multiline = false,
   rows = 1,
+  disabled = false,
 }: IPropsTextField) => {
   return (
     <TextField
@@ -30,6 +32,7 @@ export const FormTextField = ({
       type={type}
       label={label}
       name={name}
+      disabled={disabled}
       onChange={onChange}
       helperText={error || ' '}
       value={value}

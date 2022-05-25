@@ -13,7 +13,7 @@ import {
   fetchBoard,
   fetchCreateColumn,
   fetchUpdateColumn,
-  fetchUpdateTask,
+  fetchUpdateTaskOrder,
   setColumns,
 } from '../../store/boardSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
@@ -179,7 +179,7 @@ export const Board = memo(({ id }: IBoardProps) => {
           columnId: destination?.droppableId,
           oldColumnId: source?.droppableId,
         };
-        dispatch(fetchUpdateTask(augmentedTask));
+        dispatch(fetchUpdateTaskOrder(augmentedTask));
         return;
       }
     },
