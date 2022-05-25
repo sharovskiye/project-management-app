@@ -106,15 +106,6 @@ export const EditProfileForm = () => {
               value={formik.values.name}
             />
             <FormTextField
-              type="text"
-              label="Login"
-              name="login"
-              onChange={formik.handleChange}
-              error={formik.errors.login}
-              value={formik.values.login}
-              disabled
-            />
-            <FormTextField
               type="password"
               label="Password"
               name="password"
