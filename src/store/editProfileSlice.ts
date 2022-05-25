@@ -1,3 +1,4 @@
+import { fetchUsers } from './fetchUsers';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IRootState } from '.';
 import { apiBase } from '../const/const';
@@ -41,7 +42,7 @@ const initialState: IEditProfileInitState = {
 
 export const fetchEditProfile = createAsyncThunk<IGetPersonForEdit, IGetPersonForEdit>(
   'editProfile/fetchEditProfile',
-  async (user, { rejectWithValue, getState }) => {
+  async (user, { rejectWithValue, getState, dispatch }) => {
     const {
       signInUp: { token },
     } = getState() as IRootState;
@@ -61,7 +62,7 @@ export const fetchEditProfile = createAsyncThunk<IGetPersonForEdit, IGetPersonFo
       if (!res.ok) {
         throw new Error(parsed.message);
       }
-
+      dispatch(fetchUsers(''));
       return parsed;
     } catch (error) {
       return rejectWithValue((error as Error).message);
