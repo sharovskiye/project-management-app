@@ -12,7 +12,7 @@ export const Layout = () => {
   const { token } = useAppSelector(getDataUserSelector);
   const refHeader = useRef<HTMLDivElement>(null);
   const stickyHeader = token ? styles.stickyHeader : '';
-
+  const layoutWithStandartHeader = location.pathname !== '/' && location.pathname !== '/form';
   useEffect(() => {
     window.addEventListener('scroll', isSticky);
     return () => {
@@ -34,10 +34,10 @@ export const Layout = () => {
   return (
     <div className={styles.wrapper}>
       <header ref={refHeader} className={stickyHeader}>
-        {location.pathname !== '/' && location.pathname !== '/form' && <Header />}
+        {layoutWithStandartHeader && <Header />}
       </header>
 
-      <main>
+      <main className={layoutWithStandartHeader ? styles.mainWrapperMedium : styles.mainWrapperBig}>
         <Outlet />
       </main>
 
