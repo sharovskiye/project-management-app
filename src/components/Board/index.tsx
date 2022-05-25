@@ -191,7 +191,7 @@ export const Board = memo(({ id }: IBoardProps) => {
   };
 
   return (
-    <div className={`${styles.container} ${styles.containerMedium} `}>
+    <div className={`${styles.container} ${styles.containerMedium}`}>
       {isLoadingOnBoard && <Spinner />}
       <button onClick={backToMain} className={`${styles.btn} ${styles.btnBackToMain}`}>
         <span>

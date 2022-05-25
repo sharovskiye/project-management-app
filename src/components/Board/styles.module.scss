@@ -13,8 +13,8 @@
 .main {
   display: flex;
   align-items: flex-start;
-  height: calc(100vh - 260px);
-  padding: 40px 0;
+  height: calc(100vh - 280px);
+  padding: 20px 0 40px;
   overflow-x: scroll;
   overflow-y: hidden;
   font-size: var(--font-size-small);
@@ -73,5 +73,6 @@
 
   &BackToMain {
     max-width: 150px;
+    margin-top: 10px;
   }
 }
