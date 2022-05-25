@@ -1,8 +1,8 @@
 import { fetchUsers } from './fetchUsers';
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { IRootState } from '.';
 import { apiBase } from '../const/const';
-import { IGetPerson, IPerson } from '../services/type';
+import { IGetPerson } from '../services/type';
 
 export type IGetPersonForEdit = {
   id: string;
@@ -12,29 +12,12 @@ export type IGetPersonForEdit = {
 };
 
 export type IEditProfileInitState = {
-  token: string;
-  login: string;
-  setUserData: IPerson;
-  getUserData: IGetPersonForEdit;
   isLoading: boolean;
   isError: boolean;
   errorMessage: string;
 };
 
 const initialState: IEditProfileInitState = {
-  token: '',
-  login: '',
-  setUserData: {
-    name: '',
-    login: '',
-    password: '',
-  },
-  getUserData: {
-    id: '',
-    name: '',
-    login: '',
-    password: '',
-  },
   isLoading: false,
   isError: false,
   errorMessage: '',
@@ -100,28 +83,14 @@ export const fetchDeleteProfile = createAsyncThunk<unknown, IGetPerson>(
 export const editProfileSlice = createSlice({
   name: 'editProfile',
   initialState,
-  reducers: {
-    getUserData(state, action: PayloadAction<IPerson>) {
-      state.setUserData = action.payload;
-    },
-    setLogin(state, action: PayloadAction<string>) {
-      state.login = action.payload;
-    },
-    getTokenWithLocalStorage(state, action: PayloadAction<string>) {
-      state.token = action.payload;
-    },
-    changeloading(state, action: PayloadAction<boolean>) {
-      state.isLoading = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchEditProfile.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
       })
-      .addCase(fetchEditProfile.fulfilled, (state, action) => {
-        state.getUserData = action.payload;
+      .addCase(fetchEditProfile.fulfilled, (state) => {
         state.isLoading = false;
         state.isError = false;
       })

@@ -6,9 +6,9 @@ import { useToggle } from '../../../../utils/CustomHook';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import { useNavigate } from 'react-router-dom';
 import {
-  editProfileSelector,
   fetchDeleteProfile,
   fetchEditProfile,
+  isLoadingEditProfileSelector,
 } from '../../../../store/editProfileSlice';
 import { getTokenWithLocalStorage, getUserData } from '../../../../store/signInUpSlice';
 import { setAuthorized } from '../../../../store/boardSlice';
@@ -29,7 +29,7 @@ export const EditProfileForm = ({ currentUser }: EditProfileFormPropsType) => {
   const { opened, onToggle } = useToggle();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { isLoading } = useAppSelector(editProfileSelector);
+  const isLoading = useAppSelector(isLoadingEditProfileSelector);
 
   const onDelete = useCallback(() => {
     localStorage.clear();
