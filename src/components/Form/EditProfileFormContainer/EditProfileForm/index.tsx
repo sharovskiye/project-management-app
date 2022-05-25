@@ -3,19 +3,17 @@ import * as Yup from 'yup';
 import { Box, Button, Grid } from '@mui/material';
 import { IGetPerson } from '../../../../services/type';
 import { useToggle } from '../../../../utils/CustomHook';
-import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
+import { useAppDispatch } from '../../../../store/hooks';
 import { useNavigate } from 'react-router-dom';
-import {
-  fetchDeleteProfile,
-  fetchEditProfile,
-  isLoadingEditProfileSelector,
-} from '../../../../store/editProfileSlice';
+import { fetchDeleteProfile, fetchEditProfile } from '../../../../store/editProfileSlice';
 import { getTokenWithLocalStorage, getUserData } from '../../../../store/signInUpSlice';
 import { setAuthorized } from '../../../../store/boardSlice';
 import { useCallback } from 'react';
-import { Spinner } from '../../../Spinner';
 import { FormTextField } from '../../../FormTextField';
 import { ConfirmModalWindow } from '../../../Modal/ConfirmModal';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+
+import styles from '../styles.module.scss';
 
 const signUpSchema = Yup.object().shape({
   name: Yup.string().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
@@ -29,7 +27,6 @@ export const EditProfileForm = ({ currentUser }: EditProfileFormPropsType) => {
   const { opened, onToggle } = useToggle();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isLoading = useAppSelector(isLoadingEditProfileSelector);
 
   const onDelete = useCallback(() => {
     localStorage.clear();
@@ -57,9 +54,12 @@ export const EditProfileForm = ({ currentUser }: EditProfileFormPropsType) => {
     validationSchema: signUpSchema,
   });
 
+  const backToMain = () => {
+    navigate('/main');
+  };
+
   return (
     <div>
-      {isLoading && <Spinner />}
       <Box
         sx={{
           width: '300px',
@@ -72,6 +72,14 @@ export const EditProfileForm = ({ currentUser }: EditProfileFormPropsType) => {
           bgcolor: '#ffffff',
         }}
       >
+        <div className={styles.btnWrapper}>
+          <button onClick={backToMain} className={`${styles.btn} ${styles.btnBackToMain}`}>
+            <span>
+              <ArrowBackIosIcon className={styles.iconAdd} />
+            </span>
+            Back to main
+          </button>
+        </div>
         <form onSubmit={formik.handleSubmit}>
           <Grid
             container
