@@ -49,9 +49,9 @@ export const EditProfileForm = ({ currentUser }: EditProfileFormPropsType) => {
       const currentData = { ...values };
       dispatch(fetchEditProfile(currentData));
       dispatch(getUserData(values));
-      formik.resetForm();
     },
     validationSchema: signUpSchema,
+    enableReinitialize: true,
   });
 
   const backToMain = () => {
@@ -111,7 +111,7 @@ export const EditProfileForm = ({ currentUser }: EditProfileFormPropsType) => {
               disabled={!formik.isValid || !formik.dirty}
               sx={{ marginTop: '10px' }}
             >
-              Submit
+              Update
             </Button>
             <Button variant="outlined" color="error" sx={{ marginTop: '10px' }} onClick={onToggle}>
               Delete user

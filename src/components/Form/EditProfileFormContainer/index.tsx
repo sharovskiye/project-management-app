@@ -9,18 +9,31 @@ import { Spinner } from '../../Spinner';
 import { EditProfileForm } from './EditProfileForm';
 
 import styles from './styles.module.scss';
+import { getTokenWithLocalStorage } from '../../../store/signInUpSlice';
+import { useNavigate } from 'react-router-dom';
+import { boardSelector } from '../../../store/boardSlice';
 
 export const EditProfileFormContainer = () => {
   const login = useAppSelector(loginSelector);
   const users = useAppSelector(usersSelector);
   const dispatch = useAppDispatch();
   const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
   const currentUser = users.find((user) => user.login === login);
   const { isError, isLoading, errorMessage } = useAppSelector(editProfileSelector);
+  const { authorized } = useAppSelector(boardSelector);
 
   useEffect(() => {
     dispatch(fetchUsers(''));
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!authorized) {
+      localStorage.clear();
+      dispatch(getTokenWithLocalStorage(''));
+      navigate('/');
+    }
+  }, [authorized, navigate, dispatch]);
 
   useEffect(() => {
     if (isError) {

@@ -61,9 +61,9 @@ export function App() {
           <Route
             path="/profile"
             element={
-              <RequireAuth>
+              <AccessToPages>
                 <EditProfileFormContainer />
-              </RequireAuth>
+              </AccessToPages>
             }
           />
         </Route>
