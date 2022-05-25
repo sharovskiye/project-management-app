@@ -25,17 +25,16 @@
 
 .boardContainer {
   width: 450px;
-  cursor: pointer;
   background-color: #f7f7f7;
   border-radius: 5px;
   box-shadow: 0 -5px 5px -5px #223c5099;
   transition: 0.5s;
 
   &Title {
-    position: relative;
+    display: flex;
+    justify-content: space-between;
     padding-bottom: 3px;
     margin: 5px;
-    text-align: center;
     border-bottom: 1px solid #00000045;
   }
 
@@ -44,22 +43,52 @@
     margin: 0;
   }
 
-  .delete {
-    position: absolute;
-    top: 0;
-    right: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #f7f7f7;
-    border: 1px solid black;
-    border-radius: 3px;
-    transition: 0.5s;
-  }
+  .buttonContainer {
+    display: flex;
+    column-gap: 10px;
 
-  .delete:hover {
-    color: #ffffff;
-    background-color: #da0c0c;
-    border: 1px solid #da0c0c;
+    .btn {
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 3px;
+      transition: 0.5s;
+    }
+
+    .open {
+      color: $color-add;
+      background-color: #f7f7f7;
+      border: 1px solid $color-add;
+    }
+
+    .open:hover {
+      color: #ffffff;
+      background-color: $color-add;
+      border: 1px solid $color-add;
+    }
+
+    .change {
+      color: $color-submit;
+      background-color: #f7f7f7;
+      border: 1px solid $color-submit;
+    }
+
+    .change:hover {
+      color: #ffffff;
+      background-color: $color-submit;
+      border: 1px solid $color-submit;
+    }
+
+    .delete {
+      color: $color-delete;
+      background-color: #f7f7f7;
+      border: 1px solid $color-delete;
+    }
+
+    .delete:hover {
+      color: #ffffff;
+      background-color: $color-delete;
+      border: 1px solid $color-delete;
+    }
   }
 
   &Subtitle {

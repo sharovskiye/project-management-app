@@ -13,6 +13,7 @@ export type ISignInUpInitState = {
 export type IMainBoard = {
   modal: boolean;
   boardCollection: IGetBoard[];
+  taskId: string;
   loading: 'idle' | 'pending' | 'succeeded' | 'error';
   errorMessage: string;
 };
