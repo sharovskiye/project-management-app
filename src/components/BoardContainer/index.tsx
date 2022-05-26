@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 
 import { setBoardId } from '../../store/boardSlice';
-import { fetchUsers } from '../../store/fetchUsers';
+import { fetchUsers } from '../../store/usersSlice';
 import { useAppDispatch } from '../../store/hooks';
 import { Board } from '../Board';
 

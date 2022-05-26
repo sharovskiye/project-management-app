@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { IRootState } from '.';
 import { IBoard, IColumn, INewColumn, INewTask, ITask } from '../components/Board/interface';
 import { apiBase } from '../const/const';
+import { setAuthorized } from './usersSlice';
 
 enum Path {
   boards = 'boards',
@@ -23,7 +24,6 @@ interface IBoardState {
   isOpenModal: boolean;
   isError: boolean;
   errorMessage: string;
-  authorized: boolean;
 }
 
 const initialState: IBoardState = {
@@ -33,7 +33,6 @@ const initialState: IBoardState = {
   isOpenModal: false,
   isError: false,
   errorMessage: '',
-  authorized: false,
 };
 
 export const fetchBoard = createAsyncThunk<IBoard, string>(
@@ -284,9 +283,6 @@ export const boardSlice = createSlice({
     setBoardId: (state, action: PayloadAction<string>) => {
       state.boardId = action.payload;
     },
-    setAuthorized: (state, action: PayloadAction<boolean>) => {
-      state.authorized = action.payload;
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -369,7 +365,7 @@ export const boardSlice = createSlice({
   },
 });
 
-export const { setBoardId, setIsOpenModal, setAuthorized, setColumns } = boardSlice.actions;
+export const { setBoardId, setIsOpenModal, setColumns } = boardSlice.actions;
 
 export const boardSelector = (state: IRootState) => state.board;
 export const columnsSelector = (state: IRootState) => state.board.columns;
@@ -377,6 +373,5 @@ export const isLoadingOnBoardSelector = (state: IRootState) => state.board.isLoa
 export const isOpenModalSelector = (state: IRootState) => state.board.isOpenModal;
 export const isErrorBoardSelector = (state: IRootState) => state.board.isError;
 export const errorMessageBoardSelector = (state: IRootState) => state.board.errorMessage;
-export const authorizedSelector = (state: IRootState) => state.board.authorized;
 
 export default boardSlice.reducer;

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
+
 import { useAppSelector } from '../../store/hooks';
 import { getDataUserSelector } from '../../store/selectors';
 import { Footer } from '../Footer';

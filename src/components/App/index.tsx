@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+
 import { WelcomePage } from '../pages/WelcomePage';
 import { MainPage } from '../pages/MainPage';
 import { Form } from '../Form';
@@ -8,7 +9,7 @@ import { RequireAuth } from '../../hoc/RequireAuth';
 import { AccessToPages } from '../../hoc/AccessToPages';
 import { Layout } from '../Layout';
 import { BoardContainer } from '../BoardContainer';
-import { setAuthorized } from '../../store/boardSlice';
+import { setAuthorized } from '../../store/usersSlice';
 import { EditProfileFormContainer } from '../Form/EditProfileFormContainer';
 
 interface ILocalStorage {

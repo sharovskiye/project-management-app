@@ -1,17 +1,18 @@
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, Grid } from '@mui/material';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+
 import { IGetPerson } from '../../../../services/type';
 import { useToggle } from '../../../../utils/CustomHook';
 import { useAppDispatch } from '../../../../store/hooks';
-import { useNavigate } from 'react-router-dom';
 import { fetchDeleteProfile, fetchEditProfile } from '../../../../store/editProfileSlice';
 import { getTokenWithLocalStorage, getUserData } from '../../../../store/signInUpSlice';
-import { setAuthorized } from '../../../../store/boardSlice';
-import { useCallback } from 'react';
 import { FormTextField } from '../../../FormTextField';
 import { ConfirmModalWindow } from '../../../Modal/ConfirmModal';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { setAuthorized } from '../../../../store/usersSlice';
 
 import styles from '../styles.module.scss';
 

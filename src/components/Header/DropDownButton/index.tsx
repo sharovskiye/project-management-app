@@ -1,7 +1,8 @@
 import { Button } from '@mui/material';
 import { useCallback, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { fetchUsers } from '../../../store/fetchUsers';
+
+import { fetchUsers } from '../../../store/usersSlice';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { userNameSelector } from '../../../store/selectors';
 import { getTokenWithLocalStorage } from '../../../store/signInUpSlice';

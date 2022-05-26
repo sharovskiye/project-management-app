@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IRootState } from '.';
 import { apiBase } from '../const/const';
 import { IGetPerson } from '../services/type';
@@ -7,12 +7,14 @@ interface IUsersState {
   isError: boolean;
   errorMessage: string;
   users: IGetPerson[];
+  authorized: boolean;
 }
 
 const initialState: IUsersState = {
   isError: false,
   errorMessage: '',
   users: [],
+  authorized: false,
 };
 
 export const fetchUsers = createAsyncThunk<IGetPerson[], unknown>(
@@ -46,7 +48,11 @@ export const fetchUsers = createAsyncThunk<IGetPerson[], unknown>(
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
-  reducers: {},
+  reducers: {
+    setAuthorized: (state, action: PayloadAction<boolean>) => {
+      state.authorized = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchUsers.pending, (state) => {
@@ -63,6 +69,9 @@ export const usersSlice = createSlice({
   },
 });
 
+export const { setAuthorized } = usersSlice.actions;
+
 export const usersSelector = (state: IRootState) => state.users.users;
 export const errorMessage = (state: IRootState) => state.users.errorMessage;
+export const authorizedSelector = (state: IRootState) => state.users.authorized;
 export const users = usersSlice.reducer;

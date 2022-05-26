@@ -1,5 +1,5 @@
 import { editProfile } from './editProfileSlice';
-import { users } from './fetchUsers';
+import { users } from './usersSlice';
 import { configureStore } from '@reduxjs/toolkit';
 import { signInUpReducer } from './signInUpSlice';
 import board from './boardSlice';

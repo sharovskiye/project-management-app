@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { Autocomplete, Button, TextField } from '@mui/material';
+
 import { Task } from '../Task';
 import { ColumnHeader } from './Header';
 import { ModalWindow } from '../../Modal';
@@ -13,7 +14,7 @@ import { FormTextField } from '../../FormTextField';
 import { loginSelector } from '../../../store/selectors';
 import { IColumn, INewTask } from '../interface';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
-import { usersSelector } from '../../../store/fetchUsers';
+import { usersSelector } from '../../../store/usersSlice';
 
 import styles from './styles.module.scss';
 

@@ -1,8 +1,10 @@
-import { fetchUsers } from './fetchUsers';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
+import { fetchUsers } from './usersSlice';
 import { IRootState } from '.';
 import { apiBase } from '../const/const';
 import { IGetPerson } from '../services/type';
+import { setAuthorized } from './usersSlice';
 
 export type IGetPersonForEdit = {
   id: string;
@@ -23,7 +25,7 @@ const initialState: IEditProfileInitState = {
   errorMessage: '',
 };
 
-export const fetchEditProfile = createAsyncThunk<IGetPersonForEdit, IGetPersonForEdit>(
+export const fetchEditProfile = createAsyncThunk<unknown, IGetPersonForEdit>(
   'editProfile/fetchEditProfile',
   async (user, { rejectWithValue, getState, dispatch }) => {
     const {
@@ -43,10 +45,13 @@ export const fetchEditProfile = createAsyncThunk<IGetPersonForEdit, IGetPersonFo
       const res = await fetch(url, { headers, body, method: 'PUT' });
       const parsed = await res.json();
       if (!res.ok) {
+        if (res.status === 401) {
+          dispatch(setAuthorized(false));
+        }
         throw new Error(parsed.message);
       }
       dispatch(fetchUsers(''));
-      return parsed;
+      return;
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
@@ -54,7 +59,7 @@ export const fetchEditProfile = createAsyncThunk<IGetPersonForEdit, IGetPersonFo
 );
 
 export const fetchDeleteProfile = createAsyncThunk<unknown, IGetPerson>(
-  'editProfile/fetchEditProfile',
+  'editProfile/fetchDeleteProfile',
   async (user, { rejectWithValue, getState }) => {
     const {
       signInUp: { token },
@@ -73,7 +78,7 @@ export const fetchDeleteProfile = createAsyncThunk<unknown, IGetPerson>(
       if (!res.ok) {
         throw new Error(parsed.message);
       }
-      return parsed;
+      return;
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }

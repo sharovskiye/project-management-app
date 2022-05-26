@@ -1,6 +1,7 @@
 import { memo, useCallback } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
+import { Draggable } from 'react-beautiful-dnd';
 
 import { useToggle } from '../../../utils/CustomHook';
 import { ConfirmModalWindow } from '../../Modal/ConfirmModal';
@@ -9,7 +10,6 @@ import { useAppDispatch } from '../../../store/hooks';
 import { ITask } from '../interface';
 
 import styles from './styles.module.scss';
-import { Draggable } from 'react-beautiful-dnd';
 
 interface ITaskProps {
   task: ITask;

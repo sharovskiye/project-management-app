@@ -1,17 +1,17 @@
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useSnackbar } from 'notistack';
+
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { editProfileSelector } from '../../../store/editProfileSlice';
-import { useEffect } from 'react';
 import { loginSelector } from '../../../store/selectors';
-import { fetchUsers, usersSelector } from '../../../store/fetchUsers';
-import { useSnackbar } from 'notistack';
+import { authorizedSelector, fetchUsers, usersSelector } from '../../../store/usersSlice';
 import { getMessage } from '../../../utils/getMessage';
 import { Spinner } from '../../Spinner';
 import { EditProfileForm } from './EditProfileForm';
+import { getTokenWithLocalStorage } from '../../../store/signInUpSlice';
 
 import styles from './styles.module.scss';
-import { getTokenWithLocalStorage } from '../../../store/signInUpSlice';
-import { useNavigate } from 'react-router-dom';
-import { boardSelector } from '../../../store/boardSlice';
 
 export const EditProfileFormContainer = () => {
   const login = useAppSelector(loginSelector);
@@ -21,8 +21,7 @@ export const EditProfileFormContainer = () => {
   const navigate = useNavigate();
   const currentUser = users.find((user) => user.login === login);
   const { isError, isLoading, errorMessage } = useAppSelector(editProfileSelector);
-  const { authorized } = useAppSelector(boardSelector);
-
+  const authorized = useAppSelector(authorizedSelector);
   useEffect(() => {
     dispatch(fetchUsers(''));
   }, [dispatch]);
