@@ -462,5 +462,6 @@ export const usersSelector = (state: IRootState) => state.board.users;
 export const isErrorBoardSelector = (state: IRootState) => state.board.isError;
 export const errorMessageBoardSelector = (state: IRootState) => state.board.errorMessage;
 export const authorizedSelector = (state: IRootState) => state.board.authorized;
+export const loginsSelector = (state: IRootState) => state.board.users.map((user) => user.login);
 
 export default boardSlice.reducer;

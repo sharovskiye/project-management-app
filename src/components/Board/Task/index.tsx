@@ -8,7 +8,12 @@ import * as Yup from 'yup';
 
 import { useChangeOpenModalBoard, useToggle } from '../../../utils/CustomHook';
 import { ConfirmModalWindow } from '../../Modal/ConfirmModal';
-import { fetchDeleteTask, fetchUpdateTask, usersSelector } from '../../../store/boardSlice';
+import {
+  fetchDeleteTask,
+  fetchUpdateTask,
+  loginsSelector,
+  usersSelector,
+} from '../../../store/boardSlice';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { ModalWindow } from '../../Modal';
 import { FormTextField } from '../../FormTextField';
@@ -33,8 +38,7 @@ export const Task = memo(({ task }: ITaskProps) => {
   const { isModalOpen, onOpenModal, onCloseModal } = useChangeOpenModalBoard();
   const users = useAppSelector(usersSelector);
   const { title, description, order, userId } = task;
-  const loginUsers = users.map((user) => user.login);
-
+  const loginUsers = useAppSelector(loginsSelector);
   const currentUser = users.find((userItem) => userItem.id === userId);
 
   const onDelete = useCallback(() => {
@@ -73,8 +77,8 @@ export const Task = memo(({ task }: ITaskProps) => {
     enableReinitialize: true,
   });
 
-  const modal = useMemo(() => {
-    return (
+  const modal = useMemo(
+    () =>
       isModalOpen && (
         <ModalWindow open={isModalOpen} handleClose={onCloseModal}>
           <form onSubmit={formik.handleSubmit}>
@@ -137,9 +141,10 @@ export const Task = memo(({ task }: ITaskProps) => {
             </div>
           )}
         </ModalWindow>
-      )
-    );
-  }, [formik, onCloseModal, isModalOpen, loginUsers, isEdit]);
+      ),
+
+    [formik, onCloseModal, isModalOpen, loginUsers, isEdit]
+  );
 
   return (
     <Draggable key={task.id} draggableId={task.id} index={task.order}>
