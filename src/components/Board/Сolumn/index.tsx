@@ -1,6 +1,7 @@
 import { memo, useMemo } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { Autocomplete, Button, TextField } from '@mui/material';
 
@@ -15,14 +16,13 @@ import { loginSelector } from '../../../store/selectors';
 import { IColumn, INewTask } from '../interface';
 
 import styles from './styles.module.scss';
-import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 interface IColumnProps {
   boardId: string;
   column: IColumn;
 }
 
-const signUpSchema = Yup.object().shape({
+const validationSchema = Yup.object().shape({
   title: Yup.string().trim().required('required'),
   description: Yup.string().trim().required('required'),
   user: Yup.string().trim().required('required'),
@@ -62,7 +62,7 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
       dispatch(fetchCreateTask(newTask));
       formik.resetForm();
     },
-    validationSchema: signUpSchema,
+    validationSchema,
   });
 
   const modal = useMemo(() => {

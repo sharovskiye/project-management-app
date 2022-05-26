@@ -69,7 +69,7 @@ export const fetchBoard = createAsyncThunk<IBoard, string>(
   }
 );
 
-export const fetchCreateTask = createAsyncThunk<ITask, INewTask>(
+export const fetchCreateTask = createAsyncThunk<unknown, INewTask>(
   'board/fetchCreateTask',
   async (newTask, { rejectWithValue, dispatch, getState }) => {
     const {
@@ -88,15 +88,16 @@ export const fetchCreateTask = createAsyncThunk<ITask, INewTask>(
 
     try {
       const res = await fetch(url, { headers, body, method: Method.POST });
+      dispatch(fetchBoard(boardId));
+
       const parsed = await res.json();
       if (!res.ok) {
         throw new Error(parsed.message);
       }
 
-      dispatch(fetchBoard(boardId));
-
-      return parsed;
+      return;
     } catch (error) {
+      dispatch(fetchUsers(''));
       return rejectWithValue((error as Error).message);
     }
   }
@@ -104,6 +105,40 @@ export const fetchCreateTask = createAsyncThunk<ITask, INewTask>(
 
 export const fetchUpdateTask = createAsyncThunk<unknown, ITask>(
   'board/fetchUpdateTask',
+  async (task, { rejectWithValue, dispatch, getState }) => {
+    const {
+      signInUp: { token },
+      board: { boardId },
+    } = getState() as IRootState;
+
+    const headers = new Headers({
+      accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+
+    const { title, description, userId, columnId, order, id } = task;
+    const body = JSON.stringify({ title, order, description, userId, boardId, columnId });
+    const url = `${apiBase}/${Path.boards}/${boardId}/${Path.columns}/${columnId}/${Path.tasks}/${id}`;
+
+    try {
+      const res = await fetch(url, { headers, body, method: Method.PUT });
+      dispatch(fetchBoard(boardId));
+      const parsed = await res.json();
+      if (!res.ok) {
+        throw new Error(parsed.message);
+      }
+
+      return;
+    } catch (error) {
+      dispatch(fetchUsers(''));
+      return rejectWithValue((error as Error).message);
+    }
+  }
+);
+
+export const fetchUpdateTaskOrder = createAsyncThunk<unknown, ITask>(
+  'board/fetchUpdateTaskOrder',
   async (task, { rejectWithValue, dispatch, getState }) => {
     const {
       signInUp: { token },
@@ -152,12 +187,11 @@ export const fetchDeleteTask = createAsyncThunk<unknown, ITask>(
 
     try {
       const res = await fetch(url, { headers, method: Method.DELETE });
+      dispatch(fetchBoard(boardId));
       if (!res.ok) {
         const parsed = await res.json();
         throw new Error(parsed.message);
       }
-
-      dispatch(fetchBoard(boardId));
 
       return;
     } catch (error) {
@@ -166,7 +200,7 @@ export const fetchDeleteTask = createAsyncThunk<unknown, ITask>(
   }
 );
 
-export const fetchCreateColumn = createAsyncThunk<IColumn, INewColumn>(
+export const fetchCreateColumn = createAsyncThunk<unknown, INewColumn>(
   'board/fetchCreateColumn',
   async (newColumn, { rejectWithValue, dispatch, getState }) => {
     const {
@@ -186,14 +220,13 @@ export const fetchCreateColumn = createAsyncThunk<IColumn, INewColumn>(
 
     try {
       const res = await fetch(url, { headers, body, method: Method.POST });
+      dispatch(fetchBoard(boardId));
       const parsed = await res.json();
       if (!res.ok) {
         throw new Error(parsed.message);
       }
 
-      dispatch(fetchBoard(boardId));
-
-      return parsed;
+      return;
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
@@ -222,13 +255,14 @@ export const fetchUpdateColumn = createAsyncThunk<unknown, IColumn>(
 
     try {
       const res = await fetch(url, { headers, body, method: Method.PUT });
-      const parsed = await res.json();
-      if (!res.ok) {
-        throw new Error(parsed.message);
-      }
-
       if (isUpdate) {
         dispatch(fetchBoard(boardId));
+      }
+
+      const parsed = await res.json();
+
+      if (!res.ok) {
+        throw new Error(parsed.message);
       }
 
       return;
@@ -257,12 +291,11 @@ export const fetchDeleteColumn = createAsyncThunk<unknown, IColumn>(
 
     try {
       const res = await fetch(url, { headers, method: Method.DELETE });
+      dispatch(fetchBoard(boardId));
       if (!res.ok) {
         const parsed = await res.json();
         throw new Error(parsed.message);
       }
-
-      dispatch(fetchBoard(boardId));
 
       return;
     } catch (error) {
@@ -353,7 +386,16 @@ export const boardSlice = createSlice({
         state.errorMessage = action.payload as string;
         state.isError = true;
       })
-      .addCase(fetchUpdateTask.fulfilled, (state) => {
+      .addCase(fetchUpdateTaskOrder.pending, (state) => {
+        state.isLoadingOnBoard = true;
+        state.isError = false;
+      })
+      .addCase(fetchUpdateTaskOrder.rejected, (state, action) => {
+        state.isLoadingOnBoard = false;
+        state.errorMessage = action.payload as string;
+        state.isError = true;
+      })
+      .addCase(fetchUpdateTaskOrder.fulfilled, (state) => {
         state.isLoadingOnBoard = false;
       })
       .addCase(fetchDeleteTask.pending, (state) => {
@@ -420,5 +462,6 @@ export const usersSelector = (state: IRootState) => state.board.users;
 export const isErrorBoardSelector = (state: IRootState) => state.board.isError;
 export const errorMessageBoardSelector = (state: IRootState) => state.board.errorMessage;
 export const authorizedSelector = (state: IRootState) => state.board.authorized;
+export const loginsSelector = (state: IRootState) => state.board.users.map((user) => user.login);
 
 export default boardSlice.reducer;
