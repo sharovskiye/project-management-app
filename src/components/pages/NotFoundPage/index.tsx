@@ -1,14 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
-
 import { useAppSelector } from '../../../store/hooks';
-import { getDataUserSelector } from '../../../store/selectors';
 import { BackButton } from '../../BackButton';
+import { tokenSelector } from '../../../store/selectors';
 
 import styles from './styles.module.scss';
 
-export const NotFoudPage = () => {
-  const { token } = useAppSelector(getDataUserSelector);
+export const NotFoundPage = () => {
+  const token = useAppSelector(tokenSelector);
   const navigate = useNavigate();
 
   const backTo = () => {
@@ -23,7 +22,7 @@ export const NotFoudPage = () => {
           <div className={styles.notFoundPageTitle}>404</div>
           <div className={styles.notFoundPageSubtitle}>Page not found</div>
           <div>
-            <p>The page are you looking for doesn&apos;t exist or an other error occured.</p>
+            <p>The page are you looking for doesn&apos;t exist or an other error occurred.</p>
             <p>Push back button or choose a new direction</p>
           </div>
         </div>
