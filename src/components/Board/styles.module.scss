@@ -3,6 +3,7 @@
   flex-grow: 1;
   width: 100%;
   height: 100%;
+  padding-top: 10px;
   margin: 0 auto;
 
   &Medium {
@@ -73,6 +74,5 @@
 
   &BackToMain {
     max-width: 150px;
-    margin-top: 10px;
   }
 }

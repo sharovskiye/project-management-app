@@ -11,6 +11,7 @@ import { Layout } from '../Layout';
 import { BoardContainer } from '../BoardContainer';
 import { setAuthorized } from '../../store/usersSlice';
 import { EditProfileFormContainer } from '../Form/EditProfileFormContainer';
+import { NotFoudPage } from '../pages/NotFoudPage';
 
 interface ILocalStorage {
   token: string;
@@ -68,6 +69,7 @@ export function App() {
             }
           />
         </Route>
+        <Route path="*" element={<NotFoudPage />} />
       </Routes>
     </>
   );
