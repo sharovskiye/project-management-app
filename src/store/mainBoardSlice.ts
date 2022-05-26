@@ -102,7 +102,7 @@ export const fetchGetFullBoards = createAsyncThunk<IGetBoard[]>(
 );
 
 const initialState: IMainBoard = {
-  modal: false,
+  isModalOpen: false,
   boardCollection: [
     {
       id: '',
@@ -110,7 +110,7 @@ const initialState: IMainBoard = {
       description: '',
     },
   ],
-  taskId: '',
+  idDeletedBoard: '',
   loading: 'idle',
   errorMessage: '',
 };
@@ -119,11 +119,11 @@ export const mainBoardSlice = createSlice({
   name: 'mainBoard',
   initialState,
   reducers: {
-    changeModal(state) {
-      state.modal = !state.modal;
+    toggleModalVisible(state) {
+      state.isModalOpen = !state.isModalOpen;
     },
-    deleteId(state, action: PayloadAction<string>) {
-      state.taskId = action.payload;
+    setIdDeletedBoard(state, action: PayloadAction<string>) {
+      state.idDeletedBoard = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -160,6 +160,6 @@ export const mainBoardSlice = createSlice({
   },
 });
 
-export const { changeModal, deleteId } = mainBoardSlice.actions;
+export const { toggleModalVisible, setIdDeletedBoard } = mainBoardSlice.actions;
 
 export const mainBoardReducers = mainBoardSlice.reducer;

@@ -24,6 +24,7 @@ interface IBoardState {
   isOpenModal: boolean;
   users: IGetPerson[];
   isError: boolean;
+  is404: boolean;
   errorMessage: string;
   authorized: boolean;
 }
@@ -37,6 +38,7 @@ const initialState: IBoardState = {
   isError: false,
   errorMessage: '',
   authorized: false,
+  is404: false,
 };
 
 export const fetchBoard = createAsyncThunk<IBoard, string>(
@@ -58,6 +60,9 @@ export const fetchBoard = createAsyncThunk<IBoard, string>(
       if (!res.ok) {
         if (res.status === 401) {
           dispatch(setAuthorized(false));
+        }
+        if (res.status === 404) {
+          dispatch(set404(true));
         }
         throw new Error(parsed.message);
       }
@@ -277,6 +282,9 @@ export const boardSlice = createSlice({
     setAuthorized: (state, action: PayloadAction<boolean>) => {
       state.authorized = action.payload;
     },
+    set404: (state, action: PayloadAction<boolean>) => {
+      state.is404 = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -353,7 +361,7 @@ export const boardSlice = createSlice({
   },
 });
 
-export const { setBoardId, setIsOpenModal, setAuthorized } = boardSlice.actions;
+export const { setBoardId, setIsOpenModal, setAuthorized, set404 } = boardSlice.actions;
 
 export const boardSelector = (state: IRootState) => state.board;
 export const columnsSelector = (state: IRootState) => state.board.columns;

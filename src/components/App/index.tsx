@@ -12,6 +12,7 @@ import { BoardContainer } from '../BoardContainer';
 import { setAuthorized } from '../../store/boardSlice';
 
 import styles from './styles.module.scss';
+import { Error } from '../pages/Error';
 
 interface ILocalStorage {
   token: string;
@@ -60,6 +61,7 @@ export function App() {
               </AccessToPages>
             }
           />
+          <Route path="*" element={<Error />} />
         </Route>
       </Routes>
     </div>

@@ -5,13 +5,13 @@ import { SwitchTheme } from '../../SwitchTheme';
 
 import styles from '../styles.module.scss';
 import { useAppDispatch } from '../../../store/hooks';
-import { changeModal } from '../../../store/mainBoardSlice';
+import { toggleModalVisible } from '../../../store/mainBoardSlice';
 
 export const Header = () => {
   const dispatch = useAppDispatch();
 
   const buttonHandler = () => {
-    dispatch(changeModal());
+    dispatch(toggleModalVisible());
   };
 
   return (

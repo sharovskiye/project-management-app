@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 
 import { FormTextField } from '../../FormTextField';
 import { useAppDispatch } from '../../../store/hooks';
-import { changeModal, fetchCreateBoard } from '../../../store/mainBoardSlice';
+import { toggleModalVisible, fetchCreateBoard } from '../../../store/mainBoardSlice';
 
 import styles from './styles.module.scss';
 
@@ -23,7 +23,7 @@ export const CreateBoardModal = () => {
     },
     onSubmit: (values) => {
       const dataBoard = { ...values };
-      dispatch(changeModal());
+      dispatch(toggleModalVisible());
       dispatch(fetchCreateBoard(dataBoard));
       formik.resetForm();
     },

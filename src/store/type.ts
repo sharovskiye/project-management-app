@@ -11,9 +11,9 @@ export type ISignInUpInitState = {
 };
 
 export type IMainBoard = {
-  modal: boolean;
+  isModalOpen: boolean;
   boardCollection: IGetBoard[];
-  taskId: string;
+  idDeletedBoard: string;
   loading: 'idle' | 'pending' | 'succeeded' | 'error';
   errorMessage: string;
 };
