@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, Grid } from '@mui/material';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 import { IGetPerson } from '../../../../services/type';
 import { useToggle } from '../../../../utils/CustomHook';
@@ -12,7 +13,6 @@ import { getTokenWithLocalStorage, getUserData } from '../../../../store/signInU
 import { FormTextField } from '../../../FormTextField';
 import { ConfirmModalWindow } from '../../../Modal/ConfirmModal';
 import { setAuthorized } from '../../../../store/usersSlice';
-import { BackButton } from '../../../BackButton';
 
 import styles from '../styles.module.scss';
 
@@ -74,7 +74,12 @@ export const EditProfileForm = ({ currentUser }: EditProfileFormPropsType) => {
         }}
       >
         <div className={styles.btnWrapper}>
-          <BackButton title={'Back to main'} backTo={backToMain} />
+          <button onClick={backToMain} className={`${styles.btn} ${styles.btnBackToMain}`}>
+            <span>
+              <ArrowBackIosIcon className={styles.iconAdd} />
+            </span>
+            Back to main
+          </button>
         </div>
         <form onSubmit={formik.handleSubmit}>
           <Grid
