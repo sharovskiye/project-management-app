@@ -15,6 +15,7 @@ import { ConfirmModalWindow } from '../../../Modal/ConfirmModal';
 import { setAuthorized } from '../../../../store/usersSlice';
 
 import styles from '../styles.module.scss';
+import { BackButton } from '../../../BackButton';
 
 const signUpSchema = Yup.object().shape({
   name: Yup.string().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
@@ -74,12 +75,7 @@ export const EditProfileForm = ({ currentUser }: EditProfileFormPropsType) => {
         }}
       >
         <div className={styles.btnWrapper}>
-          <button onClick={backToMain} className={`${styles.btn} ${styles.btnBackToMain}`}>
-            <span>
-              <ArrowBackIosIcon className={styles.iconAdd} />
-            </span>
-            Back to main
-          </button>
+          <BackButton backTo={backToMain} title={'Back to main'} />
         </div>
         <form onSubmit={formik.handleSubmit}>
           <Grid

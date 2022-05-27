@@ -13,7 +13,8 @@ export const Layout = () => {
   const { token } = useAppSelector(getDataUserSelector);
   const refHeader = useRef<HTMLDivElement>(null);
   const stickyHeader = token ? styles.stickyHeader : '';
-  const layoutWithStandartHeader = location.pathname !== '/' && location.pathname !== '/form';
+  const layoutWithStandartHeader =
+    location.pathname !== '/' && location.pathname !== '/form' && token;
 
   useEffect(() => {
     const isSticky = () => {

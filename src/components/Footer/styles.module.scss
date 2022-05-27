@@ -24,6 +24,10 @@
     
     &GithubBlock {
         display: flex;
+
+        @media screen and (max-width: 768px){
+            font-size: var(--font-size-small);
+        }
     }
 
     &Link {
@@ -38,11 +42,19 @@
     &Year {
         color: var(--main-background-color);
 
+        @media screen and (max-width: 768px){
+            font-size: var(--font-size-small);
+        }
     }
 
     &RssCourse {
         width: 65px;
         height: 25px;
+
+        @media screen and (max-width: 768px){
+            width: 50px;
+            height: 20px;
+        }
     }
     
     &Logo {

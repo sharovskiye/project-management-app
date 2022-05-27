@@ -19,7 +19,7 @@ const initialState: IUsersState = {
 
 export const fetchUsers = createAsyncThunk<IGetPerson[], unknown>(
   'users/fetchUsers',
-  async (_, { rejectWithValue, getState }) => {
+  async (_, { rejectWithValue, getState, dispatch }) => {
     const {
       signInUp: { token },
     } = getState() as IRootState;
@@ -35,6 +35,9 @@ export const fetchUsers = createAsyncThunk<IGetPerson[], unknown>(
       const res = await fetch(url, { headers });
       const parsed = await res.json();
       if (!res.ok) {
+        if (res.status === 401) {
+          dispatch(setAuthorized(false));
+        }
         throw new Error(parsed.message);
       }
 

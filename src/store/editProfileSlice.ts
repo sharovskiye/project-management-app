@@ -43,14 +43,14 @@ export const fetchEditProfile = createAsyncThunk<unknown, IGetPersonForEdit>(
 
     try {
       const res = await fetch(url, { headers, body, method: 'PUT' });
+      dispatch(fetchUsers(''));
       const parsed = await res.json();
       if (!res.ok) {
-        if (res.status === 401) {
+        if (res.status === 401 || res.status === 404) {
           dispatch(setAuthorized(false));
         }
         throw new Error(parsed.message);
       }
-      dispatch(fetchUsers(''));
       return;
     } catch (error) {
       return rejectWithValue((error as Error).message);
