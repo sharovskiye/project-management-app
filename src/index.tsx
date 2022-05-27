@@ -2,13 +2,14 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { SnackbarProvider } from 'notistack';
 import ThemeContextWrapper from './providers';
+import { HashRouter } from 'react-router-dom';
+import './i18n';
+
 import { App } from './components/App';
 import { store } from './store';
 
 import './index.scss';
-
 import './style/variables.css';
-import { HashRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(

@@ -1,20 +1,21 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './styles.module.scss';
 
 export const CustomSelect = () => {
-  const [language, setLanguage] = useState('RU');
+  const { i18n } = useTranslation();
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setLanguage(event.target.value);
+    i18n.changeLanguage(event.target.value);
   };
 
   return (
-    <select className={styles.select} value={language} onChange={handleChange}>
-      <option className={styles.option} value="RU">
+    <select className={styles.select} value={i18n.language} onChange={handleChange}>
+      <option className={styles.option} value="ru">
         RU
       </option>
-      <option className={styles.option} value="EN">
+      <option className={styles.option} value="en">
         EN
       </option>
     </select>
