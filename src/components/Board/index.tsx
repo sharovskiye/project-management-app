@@ -25,6 +25,7 @@ import { FormTextField } from '../FormTextField';
 import { getMessage } from '../../utils/getMessage';
 import { getTokenWithLocalStorage } from '../../store/signInUpSlice';
 import { INewColumn } from './interface';
+import { authorizedSelector } from '../../store/usersSlice';
 
 import styles from './styles.module.scss';
 
@@ -38,8 +39,8 @@ const signUpSchema = Yup.object().shape({
 
 export const Board = memo(({ id }: IBoardProps) => {
   const dispatch = useAppDispatch();
-  const { columns, isLoadingOnBoard, errorMessage, authorized, isError } =
-    useAppSelector(boardSelector);
+  const { columns, isLoadingOnBoard, errorMessage, isError } = useAppSelector(boardSelector);
+  const authorized = useAppSelector(authorizedSelector);
   const { isModalOpen, onOpenModal, onCloseModal } = useChangeOpenModalBoard();
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
@@ -191,7 +192,7 @@ export const Board = memo(({ id }: IBoardProps) => {
   };
 
   return (
-    <div className={`${styles.container} ${styles.containerMedium} `}>
+    <div className={`${styles.container} ${styles.containerMedium}`}>
       {isLoadingOnBoard && <Spinner />}
       <button onClick={backToMain} className={`${styles.btn} ${styles.btnBackToMain}`}>
         <span>

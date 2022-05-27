@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { createNewPerson, signIn } from '../services/api';
 import { IGetPerson, IPerson } from '../services/type';
-import { setAuthorized } from './boardSlice';
 import { ISignInUpInitState } from './type';
+import { setAuthorized } from './usersSlice';
 
 const initialState: ISignInUpInitState = {
   token: '',

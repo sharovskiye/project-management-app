@@ -8,12 +8,13 @@ import { Autocomplete, Button, TextField } from '@mui/material';
 import { Task } from '../Task';
 import { ColumnHeader } from './Header';
 import { ModalWindow } from '../../Modal';
-import { fetchCreateTask, usersSelector } from '../../../store/boardSlice';
+import { fetchCreateTask } from '../../../store/boardSlice';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { useChangeOpenModalBoard } from '../../../utils/CustomHook';
 import { FormTextField } from '../../FormTextField';
 import { loginSelector } from '../../../store/selectors';
 import { IColumn, INewTask } from '../interface';
+import { usersSelector } from '../../../store/usersSlice';
 
 import styles from './styles.module.scss';
 

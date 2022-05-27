@@ -1,46 +1,72 @@
-@import '../style/scss/variables';
+.container {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+
+    &Big {
+        max-width: var(--container-width-big);
+    }
+
+    &Medium {
+        max-width: var(--container-width-medium);
+    }
+}
+
 
 .footer {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 1400px;
-  height: 80px;
-  margin: 0 auto;
-  font-size: $font-size-medium;
-  font-weight: bold;
-
-  &GithubBlock {
+    position: relative;
     display: flex;
-  }
-
-  &Link {
-    display: block;
-    padding: 0 $padding-base;
-    line-height: 36px;
-    text-decoration: none;
-    cursor: pointer;
-    border: none;
-    border-radius: 3px;
-    transition: 0.5s;
-
-    &:hover {
-      background-color: $color-column-button;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    font-size: var(--font-size-medium);
+    font-weight: bold;
+    
+    &GithubBlock {
+        display: flex;
     }
 
-    &:active {
-      background-color: $text-column-color;
+    &Link {
+        display: block;
+        padding: 0 var(--padding-base);
+        line-height: 36px;
+        color: var(--main-background-color);
+        text-decoration: none;
+        border: none;
     }
-  }
 
-  &Logo {
-    width: 70px;
-    height: 33px;
-    background-image: url('https://rs.school/images/rs_school_js.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-  }
+    &Year {
+        color: var(--main-background-color);
+
+    }
+
+    &RssCourse {
+        width: 65px;
+        height: 25px;
+    }
+    
+    &Logo {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-image: url('../../images/rss-logo.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+    &Link , &Logo {
+        cursor: pointer;
+        border-radius: 3px;
+        transition: 0.5s;
+
+        &:hover {
+            background-color: var(--color-column-button);
+        }
+
+        &:active {
+            background-color: var(--text-column-color);
+        }
+    }
 }
+

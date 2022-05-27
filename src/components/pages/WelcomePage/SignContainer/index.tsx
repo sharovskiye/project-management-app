@@ -9,7 +9,6 @@ import styles from './styles.module.scss';
 
 export const SignContainer = () => {
   const { token } = useAppSelector(getDataUserSelector);
-
   return (
     <>
       {token ? (

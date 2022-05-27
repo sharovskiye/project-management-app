@@ -1,10 +1,8 @@
-@import '../../../style/scss/variables';
-
 .wrapper {
   column-gap: 10px;
   width: 280px;
   margin: 0 auto;
-  color: $text-color;
+  color: var(--text-color);
   background-color: #f7f7f7;
   border-radius: 5px;
   box-shadow: 0 5px 10px 2px #223c5033;

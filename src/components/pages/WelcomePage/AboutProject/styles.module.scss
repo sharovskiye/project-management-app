@@ -1,8 +1,6 @@
-@import '../../../style/scss/variables';
-
 .title {
   margin: 30px 0;
-  color: $text-color;
+  color: var(--details-background-color);
   text-align: center;
 }
 
@@ -13,6 +11,6 @@
 }
 
 .subtitle {
-  color: $text-color;
+  color: var(--details-background-color);
   letter-spacing: 0.03em;
 }

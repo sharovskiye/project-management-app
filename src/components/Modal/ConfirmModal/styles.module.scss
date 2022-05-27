@@ -1,5 +1,3 @@
-@import '../../style/scss/variables';
-
 .modal {
   position: absolute;
   top: 50%;
@@ -8,10 +6,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: $width-column;
+  width: var(--width-column);
   height: 150px;
-  padding: $padding-base;
-  background-color: $color-text-white;
+  padding: var(--padding-base);
+  background-color: var(--color-text-white);
   border: 2px solid #000000;
   border-radius: 5px;
   box-shadow: rgb(38 57 77) 0 20px 30px -10px;
@@ -21,7 +19,7 @@
 .buttons {
   display: flex;
   justify-content: space-between;
-  width: calc(100% - #{$padding-base * 2});
+  width: calc(100% - #{var(--padding-base)} * 2);
 }
 
 .textButton {
@@ -29,8 +27,8 @@
 }
 
 .textContent {
-  padding: $padding-base;
-  font-size: $font-size-large;
+  padding: var(--padding-base);
+  font-size: var(--font-size-large);
   text-align: center;
 }
 
@@ -44,12 +42,12 @@
     width: 100%;
     height: 1px;
     content: '';
-    background-color: $text-column-color;
+    background-color: var(--text-column-color);
   }
 }
 
 .btnDelete {
-  margin-right: $padding-base;
+  margin-right: var(--padding-base);
   background-color: #b04632;
   filter: contrast(0.8);
 
@@ -61,7 +59,7 @@
 .btn {
   width: 100%;
   height: 30px;
-  color: $color-text-white;
+  color: var(--color-text-white);
   cursor: pointer;
   border: none;
   border-radius: 5px;
@@ -73,9 +71,9 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: $color-column-button;
+  background-color: var(--color-column-button);
 
   &:hover {
-    color: $color-cancel;
+    color: var(--color-cancel);
   }
 }

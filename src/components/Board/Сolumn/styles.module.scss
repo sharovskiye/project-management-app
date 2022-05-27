@@ -1,15 +1,13 @@
-@import '../../style/scss/variables';
-
 .column {
   position: relative;
   width: 100%;
-  min-width: $width-column;
-  max-width: $width-column;
+  min-width: var(--width-column);
+  max-width: var(--width-column);
   height: 70vh;
-  padding: $padding-base;
+  padding: var(--padding-base);
   margin: 0 20px;
-  background-color: $main-bg-dark;
-  border-radius: $padding-base;
+  background-color: var(--details-background-color);
+  border-radius: var(--padding-base);
 }
 
 .taskList {
@@ -18,7 +16,7 @@
 }
 
 .iconAdd {
-  max-height: $font-size-large;
+  max-height: var(--font-size-large);
   padding-top: 4px;
   padding-right: 10px;
 }
@@ -29,17 +27,17 @@
   justify-content: flex-start;
   width: 100%;
   height: 100%;
-  font-size: $font-size-medium;
-  color: $color-text-white;
+  font-size: var(--font-size-medium);
+  color: var(--color-text-white);
   text-align: center;
   cursor: pointer;
-  background-color: $color-column-button;
+  background-color: var(--color-column-button);
   border: none;
   border-radius: 10px;
   transition: 0.5s;
 
   &:hover {
-    color: $color-submit;
+    color: var(--color-submit);
   }
 }
 
@@ -54,11 +52,11 @@
   width: 20%;
   height: 20px;
   margin: 0 auto 10px;
-  background-color: $color-column-button;
+  background-color: var(--color-column-button);
   border-radius: 5px;
   transition: 0.5s;
 
   &:hover {
-    background-color: $main-bg-light;
+    background-color: var(--main-background-color);
   }
 }

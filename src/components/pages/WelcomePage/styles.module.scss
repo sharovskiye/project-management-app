@@ -1,12 +1,11 @@
-@import '../../style/scss/variables';
-
 .wrapper {
   display: grid;
   flex-grow: 1;
   grid-template-rows: 80px 1fr;
+  color: var(--details-background-color);
 
   &Container {
-    max-width: $container-width-medium;
+    max-width: var(--container-width-medium);
     margin: 0 auto;
   }
 
@@ -14,6 +13,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 100px;
   }
 }
 
@@ -24,15 +24,15 @@
 }
 
 .header {
-  background-color: $main-bg-dark;
+  background-color: var(--main-background-color);
 
   &Title {
-    color: $color-text-white;
+    color: var(--details-background-color);
   }
 }
 
 .main {
-  background-color: $main-bg-light;
+  background-color: var(--main-background-color);
 }
 
 .regContainer {

@@ -9,9 +9,8 @@ import { RequireAuth } from '../../hoc/RequireAuth';
 import { AccessToPages } from '../../hoc/AccessToPages';
 import { Layout } from '../Layout';
 import { BoardContainer } from '../BoardContainer';
-import { setAuthorized } from '../../store/boardSlice';
-
-import styles from './styles.module.scss';
+import { setAuthorized } from '../../store/usersSlice';
+import { EditProfileFormContainer } from '../Form/EditProfileFormContainer';
 
 interface ILocalStorage {
   token: string;
@@ -31,7 +30,7 @@ export function App() {
   }
 
   return (
-    <div className={styles.wrapper}>
+    <>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<WelcomePage />} />
@@ -60,8 +59,16 @@ export function App() {
               </AccessToPages>
             }
           />
+          <Route
+            path="/profile"
+            element={
+              <AccessToPages>
+                <EditProfileFormContainer />
+              </AccessToPages>
+            }
+          />
         </Route>
       </Routes>
-    </div>
+    </>
   );
 }

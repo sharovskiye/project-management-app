@@ -1,11 +1,6 @@
-@import '../style/scss/variables';
-
-.wrapper {
-  background-color: $main-bg-light;
-}
-
 .container {
   display: flex;
   align-items: center;
   height: calc(100vh - 80px);
+  background-color: var(--main-background-color);
 }
