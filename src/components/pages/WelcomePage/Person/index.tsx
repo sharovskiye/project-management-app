@@ -1,4 +1,6 @@
 import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './styles.module.scss';
 
 export type IPerson = {
@@ -10,13 +12,15 @@ export type IPerson = {
 };
 
 export const Person = memo(({ src, name, description, github, role }: IPerson) => {
+  const { t } = useTranslation();
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.imgContainer}>
         <img className={styles.image} src={src} alt={name} />
       </div>
       <div className={styles.wrapperContainer}>
-        <h4 className={styles.title}>{name}</h4>
+        <h4 className={styles.title}>{t(`welcome page.${name}`)}</h4>
         <div className={styles.roleContainer}>
           <span className={styles.roleContainerTitle}>{role}</span>
           <a

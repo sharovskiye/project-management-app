@@ -1,6 +1,15 @@
 {
-  "About Course": "тест",
   "welcome page": {
-    "About Course": "О курсе"
+    "About Course": "О курсе",
+    "This is a reaction course designed for RS School students of the 2021Q3 set who have passed RS School stage #2, as well as for new students who have knowledge and practical experience in using the following technologies and tools:": "Курс предназначен для студентов RS School набора 2021Q3 , которые прошли RS School stage #2, а также для новых студентов, которые имеют знания и практический опыт использования следующих технологий и инструментов:",
+    "Git, GitHub (clone, add, commit, push, pull, merge, rebase, work with Pull Request)": "Git, GitHub (clone, add, commit, push, pull, merge, rebase, работа с Pull Request)",
+    "During the course the work with class components, react-router v6, hooks, forms, api, custom app state and redux was studied.": "В ходе курса была изучена работа с классовыми компонентами, react-router v6, хуками, формами, api, custom app state и redux.",
+    "About project": "О проекте",
+    "an application that helps an individual in a team or group of developers achieve their objectives.": "приложение помогающее достичь поставленные задачи отдельному человеку в команде или группе разработчиков.",
+    "We have tried to develop a convenient and multifunctional application that will help you control your tasks. The application is localized in two languages.": "Мы постарались разработать удобное и многофункциональное приложение, которое поможет вам контролировать свои задачи. Приложение локализовано на двух языках.",
+    "About team": "О команде",
+    "Yevhenii Sharovskyi": "Евгений Шаровский",
+    "Nadezhda Novikova": "Надежда Новикова",
+    "Bogdan Samonov": "Богдан Самонов"
   }
 }
