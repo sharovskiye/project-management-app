@@ -1,25 +1,21 @@
 import { memo, MouseEvent, useCallback, useMemo, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
-import { Autocomplete, Button, TextField } from '@mui/material';
 import { Draggable } from 'react-beautiful-dnd';
+import { Autocomplete, Button, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { useChangeOpenModalBoard, useToggle } from '../../../utils/CustomHook';
 import { ConfirmModalWindow } from '../../Modal/ConfirmModal';
-import {
-  fetchDeleteTask,
-  fetchUpdateTask,
-  loginsSelector,
-  usersSelector,
-} from '../../../store/boardSlice';
+import { fetchDeleteTask, fetchUpdateTask, loginsSelector } from '../../../store/boardSlice';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { ModalWindow } from '../../Modal';
 import { FormTextField } from '../../FormTextField';
 import { ITask } from '../interface';
 
 import styles from './styles.module.scss';
+import { usersSelector } from '../../../store/usersSlice';
 
 interface ITaskProps {
   task: ITask;
