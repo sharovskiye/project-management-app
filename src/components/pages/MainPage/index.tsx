@@ -13,7 +13,6 @@ import { boardSelector } from '../../../store/selectors';
 import { getTokenWithLocalStorage } from '../../../store/signInUpSlice';
 import { useToggle } from '../../../utils/CustomHook';
 import { getMessage } from '../../../utils/getMessage';
-import { Header } from '../../Design/Header';
 import { ConfirmModalWindow } from '../../Modal/ConfirmModal';
 import { CreateBoardModal } from '../../Modal/CreateBoardModal';
 import { Spinner } from '../../Spinner';
@@ -98,7 +97,6 @@ export const MainPage = () => {
 
   return (
     <>
-      <Header />
       <main className={styles.main}>
         <div className={styles.wrapper}>
           <div className={styles.boardsContainer}>{boardCollection[0].id && boards}</div>

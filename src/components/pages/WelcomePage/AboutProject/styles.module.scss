@@ -1,17 +1,16 @@
-@import '../../../style/scss/variables';
-
 .title {
   margin: 30px 0;
-  color: $text-color;
+  color: var(--details-background-color);
   text-align: center;
 }
 
 .wrapper {
-  width: 80%;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
 .subtitle {
-  color: $text-color;
+  color: var(--details-background-color);
   letter-spacing: 0.03em;
 }

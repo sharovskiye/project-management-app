@@ -9,10 +9,9 @@ import { RequireAuth } from '../../hoc/RequireAuth';
 import { AccessToPages } from '../../hoc/AccessToPages';
 import { Layout } from '../Layout';
 import { BoardContainer } from '../BoardContainer';
-import { setAuthorized } from '../../store/boardSlice';
-
-import styles from './styles.module.scss';
-import { Error } from '../pages/Error';
+import { setAuthorized } from '../../store/usersSlice';
+import { EditProfileFormContainer } from '../Form/EditProfileFormContainer';
+import { NotFoundPage } from '../pages/NotFoundPage';
 
 interface ILocalStorage {
   token: string;
@@ -32,7 +31,7 @@ export function App() {
   }
 
   return (
-    <div className={styles.wrapper}>
+    <>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<WelcomePage />} />
@@ -52,7 +51,7 @@ export function App() {
               </RequireAuth>
             }
           />
-          {/* test: /boards/1b481050-6177-4f95-b814-b232837a0726 */}
+          {/* test: /boards/6d755762-8c91-4aef-bc25-9b2486691a72 */}
           <Route
             path="/boards/:boardId"
             element={
@@ -61,9 +60,17 @@ export function App() {
               </AccessToPages>
             }
           />
-          <Route path="*" element={<Error />} />
+          <Route
+            path="/profile"
+            element={
+              <AccessToPages>
+                <EditProfileFormContainer />
+              </AccessToPages>
+            }
+          />
         </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
-    </div>
+    </>
   );
 }

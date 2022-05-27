@@ -1,0 +1,84 @@
+.container {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+
+    &Big {
+        max-width: var(--container-width-big);
+    }
+}
+
+.header{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    font-size: var(--font-size-large);
+    font-weight: bold;
+
+    &SettingsBlock {
+        display: flex;
+    }
+
+   .selectWrapper {
+        width: 70px;
+        height: 37px;
+        color: var(--details-background-color);
+    }
+
+    &ButtonGroup {
+        display: flex;
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    &Button {
+        margin-right: 20px;
+        color: var(--details-background-color);
+    }
+
+    .line {
+        position: absolute;
+        bottom: 0;
+        display: block;
+        width: 100%;
+        height: 2px;
+        content: '';
+        background-color: var(--details-background-color);
+    }
+    
+    
+    .dropdown {
+        display: block;
+    }
+    
+    .dropdownContent {
+        position: absolute;
+        z-index: 1;
+        display: none;
+        min-width: 160px;
+        background-color: var(--details-background-color);
+    }
+    
+    .dropdownContent a {
+        display: block;
+        padding: 12px 16px;
+        color: var(--main-background-color);
+        text-decoration: none;
+        transition: var(--transition-base);
+    }
+    
+    .dropdownContent a:hover {
+        background-color: var(--text-column-color);
+    }
+    
+    .dropdown:hover .dropdownContent {
+        display: block;
+    }
+    
+}
+
+
+
+

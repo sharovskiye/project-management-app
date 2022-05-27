@@ -5,8 +5,17 @@ import * as Yup from 'yup';
 import { useSnackbar } from 'notistack';
 import { Button } from '@mui/material';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 
-import { boardSelector, fetchBoard, fetchCreateColumn } from '../../store/boardSlice';
+import {
+  boardSelector,
+  fetchBoard,
+  fetchCreateColumn,
+  fetchUpdateColumn,
+  fetchUpdateTaskOrder,
+  setColumns,
+} from '../../store/boardSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { Column } from './Сolumn';
 import { useChangeOpenModalBoard } from '../../utils/CustomHook';
@@ -16,6 +25,7 @@ import { FormTextField } from '../FormTextField';
 import { getMessage } from '../../utils/getMessage';
 import { getTokenWithLocalStorage } from '../../store/signInUpSlice';
 import { INewColumn } from './interface';
+import { authorizedSelector } from '../../store/usersSlice';
 
 import styles from './styles.module.scss';
 
@@ -29,8 +39,8 @@ const signUpSchema = Yup.object().shape({
 
 export const Board = memo(({ id }: IBoardProps) => {
   const dispatch = useAppDispatch();
-  const { columns, isLoadingOnBoard, errorMessage, authorized, isError } =
-    useAppSelector(boardSelector);
+  const { columns, isLoadingOnBoard, errorMessage, isError } = useAppSelector(boardSelector);
+  const authorized = useAppSelector(authorizedSelector);
   const { isModalOpen, onOpenModal, onCloseModal } = useChangeOpenModalBoard();
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
@@ -54,18 +64,12 @@ export const Board = memo(({ id }: IBoardProps) => {
   }, [isError, errorMessage, enqueueSnackbar]);
 
   const memoizedColumns = useMemo(() => {
+    // console.log(columns);
+
     return [...columns]
       .sort((a, b) => a.order - b.order)
-      .map((column) => (
-        <div className={styles.boardColumnList} key={column.id}>
-          <Column boardId={id} column={column} />
-        </div>
-      ));
+      .map((column) => <Column boardId={id} column={column} key={column.id} />);
   }, [columns, id]);
-
-  const findMaxOrderColumn = useCallback(() => {
-    return columns.reduce((prev, { order }) => (prev > order ? prev : order), 0);
-  }, [columns]);
 
   const formik = useFormik({
     initialValues: {
@@ -74,7 +78,6 @@ export const Board = memo(({ id }: IBoardProps) => {
     onSubmit: (values) => {
       const newColumn: INewColumn = {
         title: values.title,
-        order: findMaxOrderColumn() + 1,
         boardId: id,
       };
       dispatch(fetchCreateColumn(newColumn));
@@ -115,21 +118,109 @@ export const Board = memo(({ id }: IBoardProps) => {
     isModalOpen,
   ]);
 
+  const onDragEnd = useCallback(
+    (result: DropResult) => {
+      const { destination, draggableId, source } = result;
+
+      if (!destination?.droppableId) {
+        return;
+      }
+
+      if (destination?.droppableId === 'columns' && destination.index !== source.index) {
+        const column = columns.find((column) => column.id === draggableId);
+        if (column) {
+          const copyColumns = [...columns].sort((a, b) => a.order - b.order);
+          const [reorderedColumn] = copyColumns.splice(source.index - 1, 1);
+          copyColumns.splice(destination.index - 1, 0, reorderedColumn);
+          dispatch(
+            setColumns(copyColumns.map((column, index) => ({ ...column, order: index + 1 })))
+          );
+          dispatch(fetchUpdateColumn({ ...column, order: destination.index }));
+        }
+        return;
+      }
+
+      if (destination?.droppableId !== source?.droppableId || destination.index !== source.index) {
+        const copyColumns = [...columns];
+        const oldColumnOrder = columns.findIndex((column) => column.id === source?.droppableId);
+        const newColumnOrder = columns.findIndex(
+          (column) => column.id === destination?.droppableId
+        );
+
+        const copyOldColumn = copyColumns[oldColumnOrder];
+
+        const copyNewColumn = copyColumns[newColumnOrder];
+
+        const oldTasks = [...copyOldColumn.tasks].sort((a, b) => a.order - b.order);
+
+        const [reorderedTask] = oldTasks.splice(source.index - 1, 1);
+
+        if (destination?.droppableId !== source?.droppableId) {
+          const newTasks = [...copyNewColumn.tasks].sort((a, b) => a.order - b.order);
+          newTasks.splice(destination.index - 1, 0, reorderedTask);
+          const orderedNewTask = newTasks.map((task, index) => ({
+            ...task,
+            order: index + 1,
+          }));
+
+          copyColumns.splice(newColumnOrder, 1, { ...copyNewColumn, tasks: orderedNewTask });
+        } else {
+          oldTasks.splice(destination.index - 1, 0, reorderedTask);
+        }
+        const orderedOldTask = oldTasks.map((task, index) => ({
+          ...task,
+          order: index + 1,
+        }));
+        copyColumns.splice(oldColumnOrder, 1, { ...copyOldColumn, tasks: orderedOldTask });
+
+        dispatch(setColumns(copyColumns));
+        const augmentedTask = {
+          ...reorderedTask,
+          order: destination.index ? destination.index : 1,
+          columnId: destination?.droppableId,
+          oldColumnId: source?.droppableId,
+        };
+        dispatch(fetchUpdateTaskOrder(augmentedTask));
+        return;
+      }
+    },
+    [dispatch, columns]
+  );
+
+  const backToMain = () => {
+    navigate('/main');
+  };
+
   return (
-    <div className={`${styles.container} ${styles.containerMedium} `}>
+    <div className={`${styles.container} ${styles.containerMedium}`}>
       {isLoadingOnBoard && <Spinner />}
+      <button onClick={backToMain} className={`${styles.btn} ${styles.btnBackToMain}`}>
+        <span>
+          <ArrowBackIosIcon className={styles.iconAdd} />
+        </span>
+        Back to main
+      </button>
       <div className={styles.main}>
-        <>{memoizedColumns}</>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable direction="horizontal" droppableId="columns">
+            {(provided) => (
+              <div className={styles.columns} ref={provided.innerRef} {...provided.droppableProps}>
+                {memoizedColumns}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
         <div className={styles.boardNewColumn}>
           <div className={styles.buttonWrapper}>
-            <button onClick={onOpenModal} className={styles.btnAddColumn}>
+            <button onClick={onOpenModal} className={styles.btn}>
               <span>
                 <AddCircleOutlineOutlinedIcon className={styles.iconAdd} />
               </span>
               Add new column
             </button>
           </div>
-          <>{modal}</>
+          {modal}
         </div>
       </div>
     </div>

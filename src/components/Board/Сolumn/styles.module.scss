@@ -1,23 +1,22 @@
-@import '../../style/scss/variables';
-
 .column {
   position: relative;
   width: 100%;
-  max-width: $width-column;
-  height: 68vh;
-  max-height: 68vh;
-  padding: $padding-base;
-  background-color: $main-bg-dark;
-  border-radius: $padding-base;
+  min-width: var(--width-column);
+  max-width: var(--width-column);
+  height: 70vh;
+  padding: var(--padding-base);
+  margin: 0 20px;
+  background-color: var(--details-background-color);
+  border-radius: var(--padding-base);
 }
 
-.taskListScroll {
-  max-height: 90%;
-  overflow-y: scroll;
+.taskList {
+  height: 100%;
+  overflow-y: auto;
 }
 
 .iconAdd {
-  max-height: $font-size-large;
+  max-height: var(--font-size-large);
   padding-top: 4px;
   padding-right: 10px;
 }
@@ -28,16 +27,36 @@
   justify-content: flex-start;
   width: 100%;
   height: 100%;
-  font-size: $font-size-medium;
-  color: $color-text-white;
+  font-size: var(--font-size-medium);
+  color: var(--color-text-white);
   text-align: center;
   cursor: pointer;
-  background-color: $color-column-button;
+  background-color: var(--color-column-button);
   border: none;
+  border-radius: 10px;
+  transition: 0.5s;
+
+  &:hover {
+    color: var(--color-submit);
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 88%;
+}
+
+.draggable {
+  width: 20%;
+  height: 20px;
+  margin: 0 auto 10px;
+  background-color: var(--color-column-button);
   border-radius: 5px;
   transition: 0.5s;
 
   &:hover {
-    color: $color-submit;
+    background-color: var(--main-background-color);
   }
 }

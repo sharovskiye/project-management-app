@@ -1,13 +1,11 @@
-@import '../../../style/scss/variables';
-
 .header {
   display: flex;
   justify-content: space-between;
   width: 100%;
   height: 30px;
-  margin-bottom: $padding-base;
-  font-size: $font-size-small;
+  margin-bottom: var(--padding-base);
+  font-size: var(--font-size-small);
   font-weight: bold;
-  color: $title-color-dark;
+  color: var(--title-color-dark);
   border-radius: 5px;
 }

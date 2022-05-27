@@ -1,70 +1,42 @@
-@import '../style/scss/variables';
+.wrapper {
+    position: relative;
+    background-color: var(--main-background-color);
 
-.darkTheme {
-    background-color: $main-bg-dark;
-
-    & .link {
-        color: $title-color-light ;
+    .mainWrapperBig {
+        min-height: calc(100vh - 80px);;
     }
 
-    & .footerWrapper {
-        color: $main-bg-dark;
-        background-color: $main-bg-light;
-    }
-
-    & .footerLink {
-        color: $main-bg-dark;
+    .mainWrapperMedium {
+        min-height: calc(100vh - 180px);;
     }
     
-    & .line {
-        background-color: $title-color-light;
+    .footerWrapper {
+        background-color: var(--details-background-color);
     }
 
-
-    & .button {
-        color: $title-color-light ;
-        border-color: $title-color-light ;
-    }
-
-    & .column{
-        background-color: $main-bg-light;
-    }
-
-    & .selectWrapper {
-        color: $title-color-light ;
-    }
-}
-
-.lightTheme {
-    background-color: $main-bg-light;
-
-    & .link {
-        color: $title-color-dark ;
+    .stickyHeader {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        width: 100%;
     }
     
-    & .footerWrapper {
-        color: $main-bg-light;
-        background-color: $main-bg-dark;
+    .scroll {
+        background-color: var(--main-background-color);
+        filter: contrast(70%);
+    }
+    
+    .scroll::after {
+        position: absolute;
+        bottom: 0;
+        display: block;
+        width: 100%;
+        height: 2px;
+        content: '';
+        background-color: var(--details-background-color);
     }
 
-    & .footerLink {
-        color: $main-bg-light;
-    }
-
-    & .line {
-        background-color: $title-color-dark;
-    }
-
-    & .button {
-        color: $title-color-dark ;
-        border-color: $title-color-dark ;
-    }
-
-    & .column{
-        background-color: $main-bg-dark;
-    }
-
-    & .selectWrapper  {
-        color: $title-color-dark;
-    }
 }
+    
+
+

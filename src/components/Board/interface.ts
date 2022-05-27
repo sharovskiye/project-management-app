@@ -11,6 +11,7 @@ export interface ITask {
   userId: string;
   boardId: string;
   columnId: string;
+  oldColumnId?: string;
   files?: IFileForTask[];
 }
 
@@ -29,7 +30,6 @@ export interface IBoard {
 
 export interface INewTask {
   title: string;
-  order: number;
   description: string;
   userId: string;
   boardId: string;
@@ -38,7 +38,6 @@ export interface INewTask {
 
 export interface INewColumn {
   title: string;
-  order: number;
   boardId: string;
 }
 

@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 
-import { boardSelector, fetchUsers, setBoardId } from '../../store/boardSlice';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { setBoardId } from '../../store/boardSlice';
+import { fetchUsers } from '../../store/usersSlice';
+import { useAppDispatch } from '../../store/hooks';
 import { Board } from '../Board';
 
 export const BoardContainer = () => {
