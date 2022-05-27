@@ -9,8 +9,8 @@ import { toggleModalVisible, fetchCreateBoard } from '../../../store/mainBoardSl
 import styles from './styles.module.scss';
 
 const createBoardSchema = Yup.object().shape({
-  title: Yup.string().trim().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
-  description: Yup.string().trim().min(5, 'Too Short!').max(1000, 'Too Long!').required('required'),
+  title: Yup.string().trim().max(30).required('required'),
+  description: Yup.string().trim().required('required'),
 });
 
 export const CreateBoardModal = () => {
