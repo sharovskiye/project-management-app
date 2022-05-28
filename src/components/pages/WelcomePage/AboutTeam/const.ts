@@ -9,7 +9,7 @@ export const teamMembers = [
     role: 'Team leader, Frontend developer',
     github: 'https://github.com/sharovskiye',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      'Did basic project setup, CI/CD, localization and board management page with drag and drop logic.',
   },
   {
     src: img2,
@@ -17,7 +17,7 @@ export const teamMembers = [
     role: 'Frontend developer',
     github: 'https://github.com/nnadeysha',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      'Developed the overall design, reusable components, header, footer, user management and adaptive.',
   },
   {
     src: img3,
@@ -25,6 +25,6 @@ export const teamMembers = [
     role: 'Frontend developer',
     github: 'https://github.com/Bogdan-VS',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      'Developed the welcome and main pages, as well as the authorization page with the token processing logic.',
   },
 ];

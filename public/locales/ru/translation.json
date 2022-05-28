@@ -9,8 +9,11 @@
     "We have tried to develop a convenient and multifunctional application that will help you control your tasks. The application is localized in two languages.": "Мы постарались разработать удобное и многофункциональное приложение, которое поможет вам контролировать свои задачи. Приложение локализовано на двух языках.",
     "About team": "О команде",
     "Yevhenii Sharovskyi": "Евгений Шаровский",
+    "Did basic project setup, CI/CD, localization and board management page with drag and drop logic.": "Сделал базовую настройку проекта, CI/CD, локализацию и страницу управления бордом с  логикой перетаскивания.",
     "Nadezhda Novikova": "Надежда Новикова",
-    "Bogdan Samonov": "Богдан Самонов"
+    "Developed the overall design, reusable components, header, footer, user management and adaptive.": "Разработала общий дизайн, переиспользуемые компоненты, header, footer, управление пользователем и адаптив.",
+    "Bogdan Samonov": "Богдан Самонов",
+    "Developed the welcome and main pages, as well as the authorization page with the token processing logic.": "Разработал приветственную и главную  страницы, а также страницу авторизации с логикой обработки токенов."
   },
   "Sign In": "Войти",
   "Sign Up": "Зарегистрироваться",

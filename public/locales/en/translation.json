@@ -9,8 +9,11 @@
     "We have tried to develop a convenient and multifunctional application that will help you control your tasks. The application is localized in two languages.": "We have tried to develop a convenient and multifunctional application that will help you control your tasks. The application is localized in two languages.",
     "About team": "About team",
     "Yevhenii Sharovskyi": "Yevhenii Sharovskyi",
+    "Did basic project setup, CI/CD, localization and board management page with drag and drop logic.": "Did basic project setup, CI/CD, localization and board management page with drag and drop logic.",
     "Nadezhda Novikova": "Nadezhda Novikova",
-    "Bogdan Samonov": "Bogdan Samonov"
+    "Developed the overall design, reusable components, header, footer, user management and adaptive.": "Developed the overall design, reusable components, header, footer, user management and adaptive.",
+    "Bogdan Samonov": "Bogdan Samonov",
+    "Developed the welcome and main pages, as well as the authorization page with the token processing logic.": "Developed the welcome and main pages, as well as the authorization page with the token processing logic."
   },
   "Sign In": "Sign In",
   "Sign Up": "Sign Up",
