@@ -1,9 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useToggle } from '../../utils/CustomHook';
 import { CustomSelect } from '../Inputs/CustomSelect';
 import { DropDownButton } from './DropDownButton';
 import { Theme } from './Theme';
+import { useAppDispatch } from '../../store/hooks';
+import { toggleModalVisible } from '../../store/mainBoardSlice';
 
 import styles from './styles.module.scss';
 
@@ -18,6 +20,13 @@ export const Header = () => {
   const buttonsGroupStyle = opened
     ? `${styles.headerButtonGroup} ${styles.open}`
     : styles.headerButtonGroup;
+
+  const dispatch = useAppDispatch();
+
+  const createNewBoard = useCallback(() => {
+    dispatch(toggleModalVisible());
+  }, [dispatch]);
+
   useEffect(() => {
     const onBurgerMenu = () => {
       const windowWidth = window.innerWidth;
@@ -51,7 +60,10 @@ export const Header = () => {
             <div className={menuContentStyle}>
               <DropDownButton isBurger={isBurgerMenu} />
               <div className={styles.headerButton}>
-                <a className={isBurgerMenu ? styles.link : styles.outlinedButton}>
+                <a
+                  className={isBurgerMenu ? styles.link : styles.outlinedButton}
+                  onClick={createNewBoard}
+                >
                   Create new board
                 </a>
               </div>

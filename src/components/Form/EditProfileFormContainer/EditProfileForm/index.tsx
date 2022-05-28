@@ -13,9 +13,9 @@ import { getTokenWithLocalStorage, getUserData } from '../../../../store/signInU
 import { FormTextField } from '../../../FormTextField';
 import { ConfirmModalWindow } from '../../../Modal/ConfirmModal';
 import { setAuthorized } from '../../../../store/usersSlice';
+import { BackButton } from '../../../BackButton';
 
 import styles from '../styles.module.scss';
-import { BackButton } from '../../../BackButton';
 
 const signUpSchema = Yup.object().shape({
   name: Yup.string().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),

@@ -5,14 +5,14 @@ import { apiBase } from '../const/const';
 import { IGetPerson } from '../services/type';
 import { fetchUsers, setAuthorized } from './usersSlice';
 
-enum Path {
+export enum Path {
   boards = 'boards',
   columns = 'columns',
   tasks = 'tasks',
   users = 'users',
 }
 
-enum Method {
+export enum Method {
   POST = 'POST',
   DELETE = 'DELETE',
   PUT = 'PUT',
@@ -20,10 +20,12 @@ enum Method {
 
 interface IBoardState {
   boardId: string;
+  boardTitle: string;
   columns: IColumn[];
   isLoadingOnBoard: boolean;
   isOpenModal: boolean;
   isError: boolean;
+  is404: boolean;
   errorMessage: string;
   users: IGetPerson[];
 }
@@ -31,11 +33,13 @@ interface IBoardState {
 const initialState: IBoardState = {
   boardId: '',
   columns: [],
+  boardTitle: '',
   isLoadingOnBoard: true,
   isOpenModal: false,
+  users: [],
+  is404: false,
   isError: false,
   errorMessage: '',
-  users: [],
 };
 
 export const fetchBoard = createAsyncThunk<IBoard, string>(
@@ -58,8 +62,13 @@ export const fetchBoard = createAsyncThunk<IBoard, string>(
         if (res.status === 401) {
           dispatch(setAuthorized(false));
         }
+
+        dispatch(setIs404(true));
+
         throw new Error(parsed.message);
       }
+
+      dispatch(setBoardTitle(parsed.title));
 
       return parsed;
     } catch (error) {
@@ -319,6 +328,12 @@ export const boardSlice = createSlice({
     setBoardId: (state, action: PayloadAction<string>) => {
       state.boardId = action.payload;
     },
+    setIs404: (state, action: PayloadAction<boolean>) => {
+      state.is404 = action.payload;
+    },
+    setBoardTitle: (state, action: PayloadAction<string>) => {
+      state.boardTitle = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -410,7 +425,8 @@ export const boardSlice = createSlice({
   },
 });
 
-export const { setBoardId, setIsOpenModal, setColumns } = boardSlice.actions;
+export const { setBoardId, setIsOpenModal, setColumns, setIs404, setBoardTitle } =
+  boardSlice.actions;
 
 export const boardSelector = (state: IRootState) => state.board;
 export const columnsSelector = (state: IRootState) => state.board.columns;

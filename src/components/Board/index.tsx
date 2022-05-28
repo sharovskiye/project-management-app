@@ -39,7 +39,8 @@ const signUpSchema = Yup.object().shape({
 
 export const Board = memo(({ id }: IBoardProps) => {
   const dispatch = useAppDispatch();
-  const { columns, isLoadingOnBoard, errorMessage, isError } = useAppSelector(boardSelector);
+  const { columns, isLoadingOnBoard, errorMessage, isError, boardTitle } =
+    useAppSelector(boardSelector);
   const authorized = useAppSelector(authorizedSelector);
   const { isModalOpen, onOpenModal, onCloseModal } = useChangeOpenModalBoard();
   const { enqueueSnackbar } = useSnackbar();
@@ -64,8 +65,6 @@ export const Board = memo(({ id }: IBoardProps) => {
   }, [isError, errorMessage, enqueueSnackbar]);
 
   const memoizedColumns = useMemo(() => {
-    // console.log(columns);
-
     return [...columns]
       .sort((a, b) => a.order - b.order)
       .map((column) => <Column boardId={id} column={column} key={column.id} />);
@@ -194,12 +193,15 @@ export const Board = memo(({ id }: IBoardProps) => {
   return (
     <div className={`${styles.container} ${styles.containerMedium}`}>
       {isLoadingOnBoard && <Spinner />}
-      <button onClick={backToMain} className={`${styles.btn} ${styles.btnBackToMain}`}>
-        <span>
-          <ArrowBackIosIcon className={styles.iconAdd} />
-        </span>
-        Back to main
-      </button>
+      <div className={styles.titleContainer}>
+        <button onClick={backToMain} className={`${styles.btn} ${styles.btnBackToMain}`}>
+          <span>
+            <ArrowBackIosIcon className={styles.iconAdd} />
+          </span>
+          Back to main
+        </button>
+        <h3 className={styles.titleContainerTitle}>{boardTitle}</h3>
+      </div>
       <div className={styles.main}>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable direction="horizontal" droppableId="columns">

@@ -53,6 +53,16 @@
   display: flex;
 }
 
+.titleContainer {
+  display: flex;
+  column-gap: 20px;
+  align-items: flex-end;
+
+  &Title {
+    margin: 0;
+  }
+}
+
 .btn {
   display: flex;
   align-items: center;
