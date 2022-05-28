@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { ICreateBoard, IGetBoard, IMainBoard } from './type';
+import { IChangeBoard, ICreateBoard, IGetBoard, IMainBoard } from './type';
 import { IRootState } from './index';
 import { apiBase } from '../const/const';
-import { Method, Path } from './boardSlice';
+import { Method, Path } from './enum';
 import { setAuthorized } from './usersSlice';
 
 export const fetchCreateBoard = createAsyncThunk<IGetBoard, ICreateBoard>(
@@ -23,6 +23,9 @@ export const fetchCreateBoard = createAsyncThunk<IGetBoard, ICreateBoard>(
 
     try {
       const res = await fetch(url, { method: Method.POST, body, headers });
+
+      dispatch(fetchGetFullBoards());
+
       const parsed = await res.json();
       if (!res.ok) {
         if (res.status === 401) {
@@ -55,6 +58,9 @@ export const fetchChangeBoard = createAsyncThunk<unknown, IGetBoard>(
 
     try {
       const res = await fetch(url, { method: Method.PUT, body, headers });
+
+      dispatch(fetchGetFullBoards());
+
       const parsed = await res.json();
       if (!res.ok) {
         if (res.status === 401) {
@@ -62,7 +68,6 @@ export const fetchChangeBoard = createAsyncThunk<unknown, IGetBoard>(
         }
         throw new Error(parsed.message);
       }
-      dispatch(fetchGetFullBoards());
 
       return;
     } catch (error) {
@@ -137,13 +142,12 @@ export const fetchGetFullBoards = createAsyncThunk<IGetBoard[]>(
 
 const initialState: IMainBoard = {
   isModalOpen: false,
-  boardCollection: [
-    {
-      id: '',
-      title: '',
-      description: '',
-    },
-  ],
+  boardCollection: [],
+  changeBoard: {
+    id: '',
+    title: '',
+    description: '',
+  },
   idChangedBoard: '',
   idDeletedBoard: '',
   loading: 'idle',
@@ -160,8 +164,8 @@ export const mainBoardSlice = createSlice({
     setIdDeletedBoard(state, action: PayloadAction<string>) {
       state.idDeletedBoard = action.payload;
     },
-    setIdChangedBoard(state, action: PayloadAction<string>) {
-      state.idChangedBoard = action.payload;
+    setChangeBoard(state, action: PayloadAction<IChangeBoard>) {
+      state.changeBoard = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -205,6 +209,6 @@ export const mainBoardSlice = createSlice({
   },
 });
 
-export const { toggleModalVisible, setIdDeletedBoard, setIdChangedBoard } = mainBoardSlice.actions;
+export const { toggleModalVisible, setIdDeletedBoard, setChangeBoard } = mainBoardSlice.actions;
 
 export const mainBoardReducers = mainBoardSlice.reducer;

@@ -1,10 +1,13 @@
 import { Button } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { ThemeContext, themes } from '../../providers';
-import { useAppDispatch } from '../../store/hooks';
+import { boardSelector } from '../../store/boardSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { toggleModalVisible } from '../../store/mainBoardSlice';
 import { CustomSelect } from '../Inputs/CustomSelect';
+import { CreateBoardModal } from '../Modal/CreateBoardModal';
 import { SwitchTheme } from '../SwitchTheme';
 import { DropDownButton } from './DropDownButton';
 
@@ -18,11 +21,20 @@ const getIsSwitchTheme = () => {
 export const Header = () => {
   const [isChecked, setIsChecked] = useState(getIsSwitchTheme);
 
+  const { boardId } = useAppSelector(boardSelector);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const dispatch = useAppDispatch();
 
   const createNewBoard = useCallback(() => {
+    if (location.pathname === `/boards/${boardId}`) {
+      navigate('/main');
+    }
+
     dispatch(toggleModalVisible());
-  }, [dispatch]);
+  }, [dispatch, boardId, location, navigate]);
 
   useEffect(() => {
     localStorage.setItem('isSwitchTheme', JSON.stringify(isChecked));
@@ -62,6 +74,7 @@ export const Header = () => {
         </div>
       </div>
       <span className={`${styles.line}`}></span>
+      <CreateBoardModal />
     </div>
   );
 };

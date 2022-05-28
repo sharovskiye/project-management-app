@@ -1,5 +1,5 @@
 .main {
-  min-height: calc(100vh - 180px);
+  // min-height: calc(100vh - 180px);
   background-color: var(--main-background-color);
 }
 
@@ -99,6 +99,7 @@
     margin: 0;
     overflow: auto;
     font-size: 14px;
+    overflow-wrap: break-word;
   }
 
   &Subtitle::-webkit-scrollbar {

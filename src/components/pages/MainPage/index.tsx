@@ -7,14 +7,13 @@ import {
   setIdDeletedBoard,
   fetchDeleteBoard,
   fetchGetFullBoards,
-  setIdChangedBoard,
+  setChangeBoard,
   toggleModalVisible,
 } from '../../../store/mainBoardSlice';
-import { boardSelector } from '../../../store/selectors';
+import { mainBoardSelector } from '../../../store/selectors';
 import { useToggle } from '../../../utils/CustomHook';
 import { getMessage } from '../../../utils/getMessage';
 import { ConfirmModalWindow } from '../../Modal/ConfirmModal';
-import { CreateBoardModal } from '../../Modal/CreateBoardModal';
 import { Spinner } from '../../Spinner';
 
 import styles from './styles.module.scss';
@@ -28,8 +27,8 @@ export const MainPage = () => {
 
   const { opened, onToggle } = useToggle();
 
-  const { isModalOpen, boardCollection, loading, idDeletedBoard, errorMessage } =
-    useAppSelector(boardSelector);
+  const { boardCollection, loading, idDeletedBoard, errorMessage } =
+    useAppSelector(mainBoardSelector);
 
   useEffect(() => {
     if (loading === 'error') {
@@ -37,7 +36,7 @@ export const MainPage = () => {
     }
   }, [loading, enqueueSnackbar, errorMessage]);
 
-  const handleSubmit = useCallback(
+  const onOpened = useCallback(
     (id: string) => {
       navigate(`/boards/${id}`);
     },
@@ -45,11 +44,19 @@ export const MainPage = () => {
   );
 
   const onChange = useCallback(
-    (id: string) => {
-      dispatch(setIdChangedBoard(id));
+    (id: string, title: string, description: string) => {
+      dispatch(setChangeBoard({ id, title, description }));
       dispatch(toggleModalVisible());
     },
     [dispatch]
+  );
+
+  const onDeleted = useCallback(
+    (id: string) => {
+      dispatch(setIdDeletedBoard(id));
+      onToggle();
+    },
+    [dispatch, onToggle]
   );
 
   const onDelete = useCallback(() => {
@@ -65,21 +72,20 @@ export const MainPage = () => {
       boardCollection.map(({ id, title, description }) => (
         <div key={id} className={styles.boardContainer}>
           <div className={styles.boardContainerTitle}>
-            <h4 className={styles.title}>Board: {title}</h4>
+            <h4 className={styles.title} title={title}>
+              Board: {title}
+            </h4>
             <div className={styles.buttonContainer}>
-              <button className={`${styles.open} ${styles.btn}`} onClick={() => handleSubmit(id)}>
+              <button className={`${styles.open} ${styles.btn}`} onClick={() => onOpened(id)}>
                 Open
               </button>
-              <button className={`${styles.change} ${styles.btn}`} onClick={() => onChange(id)}>
+              <button
+                className={`${styles.change} ${styles.btn}`}
+                onClick={() => onChange(id, title, description)}
+              >
                 Change
               </button>
-              <button
-                className={`${styles.delete} ${styles.btn}`}
-                onClick={() => {
-                  dispatch(setIdDeletedBoard(id));
-                  onToggle();
-                }}
-              >
+              <button className={`${styles.delete} ${styles.btn}`} onClick={() => onDeleted(id)}>
                 Delete
               </button>
             </div>
@@ -89,19 +95,16 @@ export const MainPage = () => {
           </div>
         </div>
       )),
-    [boardCollection, handleSubmit, onChange, dispatch, onToggle]
+    [boardCollection, onOpened, onChange, onDeleted]
   );
 
   return (
-    <>
-      <main className={styles.main}>
-        <div className={styles.wrapper}>
-          <div className={styles.boardsContainer}>{boardCollection[0].id && boards}</div>
-          <ConfirmModalWindow onDelete={onDelete} open={opened} handleClose={onToggle} />
-          {loading === 'pending' && <Spinner />}
-          {isModalOpen && <CreateBoardModal />}
-        </div>
-      </main>
-    </>
+    <main className={styles.main}>
+      <div className={styles.wrapper}>
+        <div className={styles.boardsContainer}>{boardCollection.length > 0 && boards}</div>
+        <ConfirmModalWindow onDelete={onDelete} open={opened} handleClose={onToggle} />
+        {loading === 'pending' && <Spinner />}
+      </div>
+    </main>
   );
 };

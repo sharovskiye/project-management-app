@@ -13,6 +13,7 @@ export type ISignInUpInitState = {
 export type IMainBoard = {
   isModalOpen: boolean;
   boardCollection: IGetBoard[];
+  changeBoard: IChangeBoard;
   idDeletedBoard: string;
   idChangedBoard: string;
   loading: 'idle' | 'pending' | 'succeeded' | 'error';
@@ -20,6 +21,12 @@ export type IMainBoard = {
 };
 
 export type IGetBoard = {
+  id: string;
+  title: string;
+  description: string;
+};
+
+export type IChangeBoard = {
   id: string;
   title: string;
   description: string;
