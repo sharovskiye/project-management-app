@@ -3,7 +3,8 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ICreateBoard, IGetBoard, IMainBoard } from './type';
 import { IRootState } from './index';
 import { apiBase } from '../const/const';
-import { Method, Path, setAuthorized } from './boardSlice';
+import { Method, Path } from './boardSlice';
+import { setAuthorized } from './usersSlice';
 
 export const fetchCreateBoard = createAsyncThunk<IGetBoard, ICreateBoard>(
   'mainBoard/fetchCreateBoard',
@@ -31,6 +32,39 @@ export const fetchCreateBoard = createAsyncThunk<IGetBoard, ICreateBoard>(
       }
 
       return parsed;
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
+    }
+  }
+);
+
+export const fetchChangeBoard = createAsyncThunk<unknown, IGetBoard>(
+  'mainBoard/fetchChangeBoard',
+  async (payload, { rejectWithValue, dispatch, getState }) => {
+    const {
+      signInUp: { token },
+    } = getState() as IRootState;
+
+    const headers = new Headers({
+      Authorization: `Bearer ${token}`,
+      accept: 'application/json',
+      'Content-Type': 'application/json',
+    });
+    const body = JSON.stringify({ title: payload.title, description: payload.description });
+    const url = `${apiBase}/${Path.boards}/${payload.id}`;
+
+    try {
+      const res = await fetch(url, { method: Method.PUT, body, headers });
+      const parsed = await res.json();
+      if (!res.ok) {
+        if (res.status === 401) {
+          dispatch(setAuthorized(false));
+        }
+        throw new Error(parsed.message);
+      }
+      dispatch(fetchGetFullBoards());
+
+      return;
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
@@ -110,6 +144,7 @@ const initialState: IMainBoard = {
       description: '',
     },
   ],
+  idChangedBoard: '',
   idDeletedBoard: '',
   loading: 'idle',
   errorMessage: '',
@@ -124,6 +159,9 @@ export const mainBoardSlice = createSlice({
     },
     setIdDeletedBoard(state, action: PayloadAction<string>) {
       state.idDeletedBoard = action.payload;
+    },
+    setIdChangedBoard(state, action: PayloadAction<string>) {
+      state.idChangedBoard = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -150,6 +188,13 @@ export const mainBoardSlice = createSlice({
         state.loading = 'error';
         state.errorMessage = action.payload as string;
       })
+      .addCase(fetchChangeBoard.pending, (state) => {
+        state.loading = 'pending';
+      })
+      .addCase(fetchChangeBoard.rejected, (state, action) => {
+        state.loading = 'error';
+        state.errorMessage = action.payload as string;
+      })
       .addCase(fetchDeleteBoard.pending, (state) => {
         state.loading = 'pending';
       })
@@ -160,6 +205,6 @@ export const mainBoardSlice = createSlice({
   },
 });
 
-export const { toggleModalVisible, setIdDeletedBoard } = mainBoardSlice.actions;
+export const { toggleModalVisible, setIdDeletedBoard, setIdChangedBoard } = mainBoardSlice.actions;
 
 export const mainBoardReducers = mainBoardSlice.reducer;

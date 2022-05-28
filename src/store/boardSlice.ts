@@ -20,6 +20,7 @@ export enum Method {
 
 interface IBoardState {
   boardId: string;
+  boardTitle: string;
   columns: IColumn[];
   isLoadingOnBoard: boolean;
   isOpenModal: boolean;
@@ -32,6 +33,7 @@ interface IBoardState {
 const initialState: IBoardState = {
   boardId: '',
   columns: [],
+  boardTitle: '',
   isLoadingOnBoard: true,
   isOpenModal: false,
   users: [],
@@ -60,11 +62,13 @@ export const fetchBoard = createAsyncThunk<IBoard, string>(
         if (res.status === 401) {
           dispatch(setAuthorized(false));
         }
-        if (res.status === 404) {
-          dispatch(set404(true));
-        }
+
+        dispatch(setIs404(true));
+
         throw new Error(parsed.message);
       }
+
+      dispatch(setBoardTitle(parsed.title));
 
       return parsed;
     } catch (error) {
@@ -324,8 +328,11 @@ export const boardSlice = createSlice({
     setBoardId: (state, action: PayloadAction<string>) => {
       state.boardId = action.payload;
     },
-    set404: (state, action: PayloadAction<boolean>) => {
+    setIs404: (state, action: PayloadAction<boolean>) => {
       state.is404 = action.payload;
+    },
+    setBoardTitle: (state, action: PayloadAction<string>) => {
+      state.boardTitle = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -418,7 +425,8 @@ export const boardSlice = createSlice({
   },
 });
 
-export const { setBoardId, setIsOpenModal, setColumns, set404 } = boardSlice.actions;
+export const { setBoardId, setIsOpenModal, setColumns, setIs404, setBoardTitle } =
+  boardSlice.actions;
 
 export const boardSelector = (state: IRootState) => state.board;
 export const columnsSelector = (state: IRootState) => state.board.columns;

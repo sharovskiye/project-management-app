@@ -14,6 +14,7 @@ export type IMainBoard = {
   isModalOpen: boolean;
   boardCollection: IGetBoard[];
   idDeletedBoard: string;
+  idChangedBoard: string;
   loading: 'idle' | 'pending' | 'succeeded' | 'error';
   errorMessage: string;
 };

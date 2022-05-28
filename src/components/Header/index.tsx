@@ -1,7 +1,9 @@
 import { Button } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { ThemeContext, themes } from '../../providers';
+import { useAppDispatch } from '../../store/hooks';
+import { toggleModalVisible } from '../../store/mainBoardSlice';
 import { CustomSelect } from '../Inputs/CustomSelect';
 import { SwitchTheme } from '../SwitchTheme';
 import { DropDownButton } from './DropDownButton';
@@ -16,6 +18,12 @@ const getIsSwitchTheme = () => {
 export const Header = () => {
   const [isChecked, setIsChecked] = useState(getIsSwitchTheme);
 
+  const dispatch = useAppDispatch();
+
+  const createNewBoard = useCallback(() => {
+    dispatch(toggleModalVisible());
+  }, [dispatch]);
+
   useEffect(() => {
     localStorage.setItem('isSwitchTheme', JSON.stringify(isChecked));
   }, [isChecked]);
@@ -25,7 +33,12 @@ export const Header = () => {
       <div className={styles.headerButtonGroup}>
         <DropDownButton />
         <div className={styles.headerButton}>
-          <Button variant="outlined" color="inherit" className={styles.button}>
+          <Button
+            variant="outlined"
+            color="inherit"
+            className={styles.button}
+            onClick={createNewBoard}
+          >
             Create new board
           </Button>
         </div>

@@ -1,26 +1,28 @@
-import { useEffect } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
-
-import { setBoardId } from '../../store/boardSlice';
+import { boardSelector, setBoardId, setIs404 } from '../../store/boardSlice';
 import { fetchUsers } from '../../store/usersSlice';
-import { useAppDispatch } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { Board } from '../Board';
+import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const BoardContainer = () => {
   const dispatch = useAppDispatch();
   const { boardId } = useParams();
   const id = String(boardId);
 
-  // const { is404 } = useAppSelector(boardSelector);
+  const navigate = useNavigate();
 
-  dispatch(fetchUsers(''));
-  dispatch(setBoardId(id));
+  const { is404 } = useAppSelector(boardSelector);
 
-  // useEffect(() => {
-  //   if (is404) {
-  //     return <Navigate to="*" />;
-  //   }
-  // }, [is404]);
+  useEffect(() => {
+    dispatch(fetchUsers(''));
+    dispatch(setBoardId(id));
+    dispatch(setIs404(false));
+
+    if (is404) {
+      navigate('*');
+    }
+  }, [is404, dispatch, navigate, id]);
 
   return <Board id={id} />;
 };

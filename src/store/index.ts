@@ -9,6 +9,7 @@ export const store = configureStore({
   reducer: {
     signInUp: signInUpReducer,
     board,
+    mainBoard: mainBoardReducers,
     users,
     editProfile,
   },

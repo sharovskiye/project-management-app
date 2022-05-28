@@ -1,16 +1,16 @@
 import { useSnackbar } from 'notistack';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { setAuthorized } from '../../../store/boardSlice';
 
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import {
   setIdDeletedBoard,
   fetchDeleteBoard,
   fetchGetFullBoards,
+  setIdChangedBoard,
+  toggleModalVisible,
 } from '../../../store/mainBoardSlice';
 import { boardSelector } from '../../../store/selectors';
-import { getTokenWithLocalStorage } from '../../../store/signInUpSlice';
 import { useToggle } from '../../../utils/CustomHook';
 import { getMessage } from '../../../utils/getMessage';
 import { ConfirmModalWindow } from '../../Modal/ConfirmModal';
@@ -44,9 +44,13 @@ export const MainPage = () => {
     [navigate]
   );
 
-  const onChange = useCallback((id: string) => {
-    console.log(id);
-  }, []);
+  const onChange = useCallback(
+    (id: string) => {
+      dispatch(setIdChangedBoard(id));
+      dispatch(toggleModalVisible());
+    },
+    [dispatch]
+  );
 
   const onDelete = useCallback(() => {
     dispatch(fetchDeleteBoard(idDeletedBoard));
@@ -87,13 +91,6 @@ export const MainPage = () => {
       )),
     [boardCollection, handleSubmit, onChange, dispatch, onToggle]
   );
-
-  const logOut = useCallback(() => {
-    localStorage.clear();
-    dispatch(setAuthorized(false));
-    dispatch(getTokenWithLocalStorage(''));
-    navigate('/');
-  }, [navigate, dispatch]);
 
   return (
     <>

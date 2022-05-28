@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { boardSelector } from '../store/boardSlice';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { getDataUserSelector } from '../store/selectors';
 import { getTokenWithLocalStorage } from '../store/signInUpSlice';
@@ -20,14 +19,8 @@ export const AccessToPages = ({ children }: React.PropsWithChildren<unknown>) =>
     }
   }, [authorized, navigate, dispatch]);
 
-  const { is404 } = useAppSelector(boardSelector);
-
   if (!token) {
     return <Navigate to="/" />;
-  }
-
-  if (is404) {
-    return <Navigate to="*" />;
   }
 
   return <>{children}</>;

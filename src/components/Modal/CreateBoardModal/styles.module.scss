@@ -21,6 +21,21 @@
   animation: board 0.5s ease forwards;
 }
 
+.closeBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  background-color: unset;
+  border: none;
+  opacity: 0.6;
+  transition: 0.5s;
+}
+
+.closeBtn:hover {
+  opacity: 1;
+}
+
 @keyframes board {
   0% {
     top: 0;

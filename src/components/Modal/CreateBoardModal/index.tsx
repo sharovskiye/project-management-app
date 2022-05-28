@@ -3,10 +3,17 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { FormTextField } from '../../FormTextField';
-import { useAppDispatch } from '../../../store/hooks';
-import { toggleModalVisible, fetchCreateBoard } from '../../../store/mainBoardSlice';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import {
+  toggleModalVisible,
+  fetchCreateBoard,
+  setIdChangedBoard,
+  fetchChangeBoard,
+} from '../../../store/mainBoardSlice';
 
 import styles from './styles.module.scss';
+import { useCallback } from 'react';
+import { boardSelector } from '../../../store/selectors';
 
 const createBoardSchema = Yup.object().shape({
   title: Yup.string().trim().max(30).required('required'),
@@ -16,6 +23,13 @@ const createBoardSchema = Yup.object().shape({
 export const CreateBoardModal = () => {
   const dispatch = useAppDispatch();
 
+  const { idChangedBoard } = useAppSelector(boardSelector);
+
+  const closeBtn = useCallback(() => {
+    dispatch(toggleModalVisible());
+    dispatch(setIdChangedBoard(''));
+  }, [dispatch]);
+
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -23,8 +37,16 @@ export const CreateBoardModal = () => {
     },
     onSubmit: (values) => {
       const dataBoard = { ...values };
+
+      if (idChangedBoard) {
+        const fullDataBoard = { ...dataBoard, id: idChangedBoard };
+
+        dispatch(fetchChangeBoard(fullDataBoard));
+      } else {
+        dispatch(fetchCreateBoard(dataBoard));
+      }
+
       dispatch(toggleModalVisible());
-      dispatch(fetchCreateBoard(dataBoard));
       formik.resetForm();
     },
     validationSchema: createBoardSchema,
@@ -51,6 +73,9 @@ export const CreateBoardModal = () => {
           error={formik.errors.description}
           value={formik.values.description}
         />
+        <button className={styles.closeBtn} onClick={closeBtn}>
+          ✖
+        </button>
         <Button type="submit" variant="outlined" disabled={!formik.isValid || !formik.dirty}>
           Apply
         </Button>

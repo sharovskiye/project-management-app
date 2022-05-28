@@ -1,12 +1,10 @@
-@import '../../style/scss/variables';
-
 .main {
   min-height: calc(100vh - 180px);
-  background-color: $main-bg-light;
+  background-color: var(--main-background-color);
 }
 
 .wrapper {
-  width: $container-width-medium;
+  width: var(--container-width-medium);
   padding: 15px 0;
   margin: 0 auto;
 }
@@ -40,7 +38,11 @@
 
   .title {
     padding: 3px 0;
+    width: 100%;
     margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .buttonContainer {
@@ -55,39 +57,39 @@
     }
 
     .open {
-      color: $color-add;
+      color: var(--color-add);
       background-color: #f7f7f7;
-      border: 1px solid $color-add;
+      border: 1px solid var(--color-add);
     }
 
     .open:hover {
       color: #ffffff;
-      background-color: $color-add;
-      border: 1px solid $color-add;
+      background-color: var(--color-add);
+      border: 1px solid var(--color-add);
     }
 
     .change {
-      color: $color-submit;
+      color: var(--color-submit);
       background-color: #f7f7f7;
-      border: 1px solid $color-submit;
+      border: 1px solid var(--color-submit);
     }
 
     .change:hover {
       color: #ffffff;
-      background-color: $color-submit;
-      border: 1px solid $color-submit;
+      background-color: var(--color-submit);
+      border: 1px solid var(--color-submit);
     }
 
     .delete {
-      color: $color-delete;
+      color: var(--color-delete);
       background-color: #f7f7f7;
-      border: 1px solid $color-delete;
+      border: 1px solid var(--color-delete);
     }
 
     .delete:hover {
       color: #ffffff;
-      background-color: $color-delete;
-      border: 1px solid $color-delete;
+      background-color: var(--color-delete);
+      border: 1px solid var(--color-delete);
     }
   }
 
@@ -105,7 +107,7 @@
   }
 
   &Subtitle::-webkit-scrollbar-thumb {
-    background-color: $text-color;
+    background-color: var(--text-color);
     border-radius: 4px;
   }
 
