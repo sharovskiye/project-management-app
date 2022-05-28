@@ -1,5 +1,6 @@
 import { useCallback, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { fetchUsers } from '../../../store/usersSlice';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
@@ -13,6 +14,7 @@ type DropDownButtonPropsType = {
   onClose: () => void;
 };
 export const DropDownButton = ({ isBurger, onClose }: DropDownButtonPropsType) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -37,10 +39,10 @@ export const DropDownButton = ({ isBurger, onClose }: DropDownButtonPropsType) =
       </div>
       <div className={styles.dropdownContent}>
         <Link to="/profile" onClick={onClose}>
-          Edit profile
+          {t('header.Edit profile')}
         </Link>
         <a href="#" onClick={logOut}>
-          Sign Out
+          {t('header.Sign Out')}
         </a>
       </div>
     </div>

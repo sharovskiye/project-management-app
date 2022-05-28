@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { useToggle } from '../../utils/CustomHook';
 import { CustomSelect } from '../Inputs/CustomSelect';
@@ -26,6 +27,7 @@ export const Header = () => {
   const createNewBoard = useCallback(() => {
     dispatch(toggleModalVisible());
   }, [dispatch]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const onBurgerMenu = () => {
@@ -68,7 +70,7 @@ export const Header = () => {
                     createNewBoard();
                   }}
                 >
-                  Create new board
+                  {t('header.Create new board')}
                 </a>
               </div>
             </div>

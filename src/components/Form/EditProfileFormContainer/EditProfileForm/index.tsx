@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, Grid } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import { IGetPerson } from '../../../../services/type';
 import { useToggle } from '../../../../utils/CustomHook';
@@ -16,15 +17,11 @@ import { BackButton } from '../../../BackButton';
 
 import styles from '../styles.module.scss';
 
-const signUpSchema = Yup.object().shape({
-  name: Yup.string().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
-  password: Yup.string().min(5, 'Too Short!').max(15, 'Too Long!').required('required'),
-});
-
 type EditProfileFormPropsType = {
   currentUser: IGetPerson;
 };
 export const EditProfileForm = ({ currentUser }: EditProfileFormPropsType) => {
+  const { t } = useTranslation();
   const { opened, onToggle } = useToggle();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -39,6 +36,19 @@ export const EditProfileForm = ({ currentUser }: EditProfileFormPropsType) => {
     }
   }, [dispatch, currentUser, navigate]);
 
+  const validationSchema = Yup.object().shape({
+    name: Yup.string()
+      .trim()
+      .min(2, t('form.Too Short!'))
+      .max(20, t('form.Too Long!'))
+      .required(t('form.required')),
+    password: Yup.string()
+      .trim()
+      .min(5, t('form.Too Short!'))
+      .max(15, t('form.Too Long!'))
+      .required(t('form.required')),
+  });
+
   const formik = useFormik({
     initialValues: {
       name: currentUser.name,
@@ -51,7 +61,7 @@ export const EditProfileForm = ({ currentUser }: EditProfileFormPropsType) => {
       dispatch(fetchEditProfile(currentData));
       dispatch(getUserData(values));
     },
-    validationSchema: signUpSchema,
+    validationSchema,
     enableReinitialize: true,
   });
 
@@ -74,7 +84,7 @@ export const EditProfileForm = ({ currentUser }: EditProfileFormPropsType) => {
         }}
       >
         <div>
-          <BackButton backTo={backToMain} title={'Back to main'} />
+          <BackButton backTo={backToMain} title={t('form.Back to main')} />
         </div>
         <form onSubmit={formik.handleSubmit}>
           <Grid
@@ -86,7 +96,7 @@ export const EditProfileForm = ({ currentUser }: EditProfileFormPropsType) => {
           >
             <FormTextField
               type="text"
-              label="Name"
+              label={t('form.Name')}
               name="name"
               onChange={formik.handleChange}
               error={formik.errors.name}
@@ -94,7 +104,7 @@ export const EditProfileForm = ({ currentUser }: EditProfileFormPropsType) => {
             />
             <FormTextField
               type="password"
-              label="Password"
+              label={t('form.Password')}
               name="password"
               onChange={formik.handleChange}
               error={formik.errors.password}
@@ -107,10 +117,10 @@ export const EditProfileForm = ({ currentUser }: EditProfileFormPropsType) => {
               disabled={!formik.isValid || !formik.dirty}
               sx={{ marginTop: '10px' }}
             >
-              Update
+              {t('form.Update')}
             </Button>
             <Button variant="outlined" color="error" sx={{ marginTop: '10px' }} onClick={onToggle}>
-              Delete user
+              {t('form.Delete user')}
             </Button>
           </Grid>
         </form>

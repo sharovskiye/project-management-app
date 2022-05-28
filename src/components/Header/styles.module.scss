@@ -1,11 +1,11 @@
 .container {
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
 
-    &Big {
-        max-width: var(--container-width-big);
-    }
+  &Big {
+    max-width: var(--container-width-big);
+  }
 }
 
 .dropdownContent {
@@ -40,9 +40,9 @@
     font-size: var(--font-size-large);
     font-weight: bold;
 
-    &SettingsBlock {
-        display: flex;
-    }
+  &SettingsBlock {
+    display: flex;
+  }
 
 
     & .selectWrapper {

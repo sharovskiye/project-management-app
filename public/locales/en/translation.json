@@ -1,0 +1,39 @@
+{
+  "welcome page": {
+    "About Course": "About Course",
+    "This is a reaction course designed for RS School students of the 2021Q3 set who have passed RS School stage #2, as well as for new students who have knowledge and practical experience in using the following technologies and tools:": "This is a reaction course designed for RS School students of the 2021Q3 set who have passed RS School stage #2, as well as for new students who have knowledge and practical experience in using the following technologies and tools:",
+    "Git, GitHub (clone, add, commit, push, pull, merge, rebase, work with Pull Request)": "Git, GitHub (clone, add, commit, push, pull, merge, rebase, work with Pull Request)",
+    "During the course the work with class components, react-router v6, hooks, forms, api, custom app state and redux was studied.": "During the course the work with class components, react-router v6, hooks, forms, api, custom app state and redux was studied.",
+    "About project": "About project",
+    "an application that helps an individual in a team or group of developers achieve their objectives.": "an application that helps an individual in a team or group of developers achieve their objectives.",
+    "We have tried to develop a convenient and multifunctional application that will help you control your tasks. The application is localized in two languages.": "We have tried to develop a convenient and multifunctional application that will help you control your tasks. The application is localized in two languages.",
+    "About team": "About team",
+    "Yevhenii Sharovskyi": "Yevhenii Sharovskyi",
+    "Nadezhda Novikova": "Nadezhda Novikova",
+    "Bogdan Samonov": "Bogdan Samonov"
+  },
+  "Sign In": "Sign In",
+  "Sign Up": "Sign Up",
+  "Go to main page": "Go to main page",
+  "header": {
+    "Create new board": "Create new board",
+    "Edit profile": "Edit profile",
+    "Sign Out": "Sign Out"
+  },
+  "form": {
+    "Back to main": "Back to main",
+    "Login": "Login",
+    "Name": "Name",
+    "Password": "Password",
+    "Update": "Update",
+    "Delete user": "Delete user",
+    "Too Short!": "Too Short!",
+    "Too Long!": "Too Long!",
+    "required": "required",
+    "Submit": "Submit"
+  },
+  "form container": {
+    "Sign In": "Sign In",
+    "Sign Up": "Sign Up"
+  }
+}
