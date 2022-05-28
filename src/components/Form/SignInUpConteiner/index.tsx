@@ -11,8 +11,6 @@ import { SignInForm } from '../SignInForm';
 import { SignUpForm } from '../SignUpForm';
 import { BackButton } from '../../BackButton';
 
-import styles from './styles.module.scss';
-
 export const SignInUpConteiner = () => {
   const { signConteiner } = useAppSelector(getDataUserSelector);
   const navigate = useNavigate();
