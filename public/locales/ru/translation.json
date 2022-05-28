@@ -15,13 +15,14 @@
   "Sign In": "Войти",
   "Sign Up": "Зарегистрироваться",
   "Go to main page": "Перейти на главную страницу",
+  "Back to main": "Вернуться на главную",
+  "Back to welcome page": "Вернуться на приветственную страницу",
   "header": {
     "Create new board": "Создать новую доску",
     "Edit profile": "Редактировать профиль",
     "Sign Out": "Выйти"
   },
   "form": {
-    "Back to main": "Вернуться на главную",
     "Login": "Логин",
     "Name": "Имя",
     "Password": "Пароль",
@@ -30,10 +31,21 @@
     "Too Short!": "Слишком короткий!",
     "Too Long!": "Слишком длинный!",
     "required": "обязательный",
-    "Submit": "Submit"
+    "Edit": "Редактировать"
   },
   "form container": {
     "Sign In": "Вход",
     "Sign Up": "Регистрация"
-  }
+  },
+  "board": {
+    "Add new column": "Добавить новую колонку",
+    "Add new task": "Добавить новую задачу",
+    "Change title": "Изменить заголовок",
+    "Delete column": "Удалить колонку",
+    "Task": "Задача"
+  },
+  "Create": "Создать",
+  "Title": "Заголовок",
+  "Description": "Описание",
+  "User": "Пользователь"
 }

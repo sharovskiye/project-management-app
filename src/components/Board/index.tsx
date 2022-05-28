@@ -28,16 +28,14 @@ import { INewColumn } from './interface';
 import { authorizedSelector } from '../../store/usersSlice';
 
 import styles from './styles.module.scss';
+import { useTranslation } from 'react-i18next';
 
 interface IBoardProps {
   id: string;
 }
 
-const signUpSchema = Yup.object().shape({
-  title: Yup.string().trim().required('required'),
-});
-
 export const Board = memo(({ id }: IBoardProps) => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { columns, isLoadingOnBoard, errorMessage, isError } = useAppSelector(boardSelector);
   const authorized = useAppSelector(authorizedSelector);
@@ -64,12 +62,14 @@ export const Board = memo(({ id }: IBoardProps) => {
   }, [isError, errorMessage, enqueueSnackbar]);
 
   const memoizedColumns = useMemo(() => {
-    // console.log(columns);
-
     return [...columns]
       .sort((a, b) => a.order - b.order)
       .map((column) => <Column boardId={id} column={column} key={column.id} />);
   }, [columns, id]);
+
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().trim().required(t('form.required')),
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -83,7 +83,7 @@ export const Board = memo(({ id }: IBoardProps) => {
       dispatch(fetchCreateColumn(newColumn));
       formik.resetForm();
     },
-    validationSchema: signUpSchema,
+    validationSchema,
   });
 
   const modal = useMemo(() => {
@@ -93,7 +93,7 @@ export const Board = memo(({ id }: IBoardProps) => {
           <form onSubmit={formik.handleSubmit}>
             <FormTextField
               type="text"
-              label="Title"
+              label={t('Title')}
               name="title"
               onChange={formik.handleChange}
               error={formik.errors.title}
@@ -101,7 +101,7 @@ export const Board = memo(({ id }: IBoardProps) => {
             />
 
             <Button type="submit" variant="outlined" disabled={!formik.isValid || !formik.dirty}>
-              Submit
+              {t('Create')}
             </Button>
           </form>
         </ModalWindow>
@@ -116,6 +116,7 @@ export const Board = memo(({ id }: IBoardProps) => {
     formik.values.title,
     onCloseModal,
     isModalOpen,
+    t,
   ]);
 
   const onDragEnd = useCallback(
@@ -198,7 +199,7 @@ export const Board = memo(({ id }: IBoardProps) => {
         <span>
           <ArrowBackIosIcon className={styles.iconAdd} />
         </span>
-        Back to main
+        {t('Back to main')}
       </button>
       <div className={styles.main}>
         <DragDropContext onDragEnd={onDragEnd}>
@@ -217,7 +218,7 @@ export const Board = memo(({ id }: IBoardProps) => {
               <span>
                 <AddCircleOutlineOutlinedIcon className={styles.iconAdd} />
               </span>
-              Add new column
+              {t('board.Add new column')}
             </button>
           </div>
           {modal}

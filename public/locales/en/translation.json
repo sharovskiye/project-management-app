@@ -15,13 +15,14 @@
   "Sign In": "Sign In",
   "Sign Up": "Sign Up",
   "Go to main page": "Go to main page",
+  "Back to main": "Back to main",
+  "Back to welcome page": "Back to welcome page",
   "header": {
     "Create new board": "Create new board",
     "Edit profile": "Edit profile",
     "Sign Out": "Sign Out"
   },
   "form": {
-    "Back to main": "Back to main",
     "Login": "Login",
     "Name": "Name",
     "Password": "Password",
@@ -30,10 +31,21 @@
     "Too Short!": "Too Short!",
     "Too Long!": "Too Long!",
     "required": "required",
-    "Submit": "Submit"
+    "Edit": "Edit"
   },
   "form container": {
     "Sign In": "Sign In",
     "Sign Up": "Sign Up"
-  }
+  },
+  "board": {
+    "Add new column": "Add new column",
+    "Add new task": "Add new task",
+    "Change title": "Change title",
+    "Delete column": "Delete column",
+    "Task": "Task"
+  },
+  "Create": "Create",
+  "Title": "Title",
+  "Description": "Description",
+  "User": "User"
 }
