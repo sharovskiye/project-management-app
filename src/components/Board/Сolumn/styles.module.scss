@@ -3,11 +3,18 @@
   width: 100%;
   min-width: var(--width-column);
   max-width: var(--width-column);
-  height: 70vh;
+  height: 69vh;
   padding: var(--padding-base);
-  margin: 0 20px;
+  margin: 0 20px 0 0;
   background-color: var(--details-background-color);
   border-radius: var(--padding-base);
+
+  @media screen and (max-width: 560px){
+    min-width: 250px;
+    max-width: 250px;
+    height: 66vh;
+  }
+
 }
 
 .taskList {

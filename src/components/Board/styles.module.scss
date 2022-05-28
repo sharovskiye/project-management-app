@@ -3,7 +3,6 @@
   flex-grow: 1;
   width: 100%;
   height: 100%;
-  padding-top: 10px;
   margin: 0 auto;
 
   &Medium {
@@ -11,14 +10,21 @@
   }
 }
 
+.backBtnWrapper {
+  width: 150px;
+}
+
 .main {
   display: flex;
   align-items: flex-start;
-  height: calc(100vh - 280px);
-  padding: 20px 0 40px;
+  padding: var(--padding-base) 0 0 0;
   overflow-x: scroll;
   overflow-y: hidden;
   font-size: var(--font-size-small);
+
+  @media screen and (max-width: 560px) {
+    padding: 0;
+  }
 }
 
 .icon {
@@ -42,6 +48,10 @@
     min-width: var(--width-column);
     height: 100%;
     margin: 0 20px;
+
+    @media screen and (max-width: 560px) {
+      min-width: 250px;
+    }
   }
 
   & .buttonWrapper {
@@ -57,9 +67,18 @@
   display: flex;
   column-gap: 20px;
   align-items: flex-end;
+  padding-top: 10px;
+
+  @media screen and (max-width: 560px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
   &Title {
     margin: 0;
+    font-size: var(--font-size-large);
+    line-height: 30px;
+    color: var(--details-background-color);
   }
 }
 
