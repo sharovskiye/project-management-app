@@ -47,5 +47,10 @@
   "Create": "Create",
   "Title": "Title",
   "Description": "Description",
-  "User": "User"
+  "User": "User",
+  "404": {
+    "Page not found": "Page not found",
+    "The page are you looking for doesn't exist or an other error occurred.": "The page are you looking for doesn't exist or an other error occurred.",
+    "Push back button or choose a new direction": "Push back button or choose a new direction"
+  }
 }

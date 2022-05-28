@@ -47,5 +47,10 @@
   "Create": "Создать",
   "Title": "Заголовок",
   "Description": "Описание",
-  "User": "Пользователь"
+  "User": "Пользователь",
+  "404": {
+    "Page not found": "Страница не найдена",
+    "The page are you looking for doesn't exist or an other error occurred.": "Страница, которую вы ищете, не существует или произошла другая ошибка.",
+    "Push back button or choose a new direction": "Нажмите кнопку возврата или выберите новое направление"
+  }
 }
