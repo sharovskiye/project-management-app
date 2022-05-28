@@ -8,11 +8,34 @@
     }
 }
 
+.dropdownContent {
+    position: absolute;
+    z-index: 1;
+    display: none;
+    min-width: 160px;
+    background-color: var(--details-background-color);
+    border-radius: 5px;
+}
+
+.dropdown {
+    display: block;
+}
+
+
+.dropdownContent a {
+    display: block;
+    padding: 12px 16px;
+    color: var(--main-background-color);
+    text-decoration: none;
+    transition: var(--transition-base);
+}
+
 .header{
     position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
     height: 100px;
     font-size: var(--font-size-large);
     font-weight: bold;
@@ -21,21 +44,40 @@
         display: flex;
     }
 
-   .selectWrapper {
+
+    & .selectWrapper {
         width: 70px;
         height: 37px;
         color: var(--details-background-color);
     }
 
     &ButtonGroup {
-        display: flex;
-        padding-left: 0;
-        margin-left: 0;
+        & .menuContent {
+            display: flex;
+        }
     }
 
-    &Button {
+    & .outlinedButton {
+        display: block;
+        padding: 0 10px;
         margin-right: 20px;
+        font-size: var(--font-size-medium);
+        font-weight: 400;
+        line-height: 37px;
         color: var(--details-background-color);
+        text-transform: uppercase;
+        cursor: pointer;
+        border: 1px var(--details-background-color) solid;
+        border-radius: 5px;
+        transition: linear var(--transition-base);
+
+        &:hover {
+            background-color: var(--color-header-button);
+        }
+
+        &:active {
+            background-color: var(--color-column-button);
+        }
     }
 
     .line {
@@ -48,37 +90,115 @@
         background-color: var(--details-background-color);
     }
     
-    
-    .dropdown {
-        display: block;
+}
+
+
+.burger {
+    display: block;
+    margin-left: 0;
+
+    & .dropdownContent {
+        background-color: var(--main-background-color);
     }
-    
-    .dropdownContent {
+
+    & .dropdownContent a {
+        color: var(--details-background-color);
+    }
+
+    & .headerButtonGroup.open {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 210px;
+        height: 180px;
+        margin-top: 140px;
+        background-color: var(--details-background-color);
+        border-radius: 5px;
+    }
+
+    & .headerButton {
+        margin-top: 10px;
+        margin-right: 20px;
+        color: var(--main-background-color);
+    }
+
+    & .burgerMenuContent {
         position: absolute;
         z-index: 1;
         display: none;
         min-width: 160px;
-        background-color: var(--details-background-color);
+
+        &.open {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
     }
-    
-    .dropdownContent a {
+
+    & .burgerMenuLine {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 37px;
+        height: 37px;
+        cursor: pointer;
+        transition: all .4s ease;
+
+        &:hover {
+            filter: opacity(50%);
+        }
+
+        & .burgerLine {
+            width: 35px;
+            height: 35px;
+            height: 2px;
+            background-color: var(--details-background-color);
+            transition: all .4s ease;
+
+
+            &:nth-child(2){
+                margin: 9px 0;
+            }
+
+            &:nth-child(1).open{
+                background-color: var(--main-background-color);
+                transform: rotate(-45deg) translate(-11px, 11px);
+            }
+
+            &:nth-child(2).open{
+                opacity: 0;
+            }
+
+            &:nth-child(3).open{
+                background-color: var(--main-background-color);
+                transform: rotate(45deg) translate(-10px, -11px);  
+            }
+        }
+    }
+
+    & .link{
         display: block;
-        padding: 12px 16px;
+        padding: var(--padding-base);
+        font-size: var(--font-size-medium);
         color: var(--main-background-color);
-        text-decoration: none;
-        transition: var(--transition-base);
+        text-transform: uppercase;
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--color-header-button);
+        }
+
+        &:active {
+            background-color: var(--color-column-button);
+        }
     }
-    
-    .dropdownContent a:hover {
-        background-color: var(--text-column-color);
-    }
-    
-    .dropdown:hover .dropdownContent {
-        display: block;
-    }
-    
+
+  }
+
+.dropdownContent a:hover {
+    background-color: var(--text-column-color);
 }
 
-
-
-
+.dropdown:hover .dropdownContent {
+    display: block;
+}

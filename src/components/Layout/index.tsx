@@ -13,7 +13,7 @@ export const Layout = () => {
   const { token } = useAppSelector(getDataUserSelector);
   const refHeader = useRef<HTMLDivElement>(null);
   const stickyHeader = token ? styles.stickyHeader : '';
-  const layoutWithStandartHeader =
+  const layoutWithStandardHeader =
     location.pathname !== '/' && location.pathname !== '/form' && token;
 
   useEffect(() => {
@@ -36,10 +36,10 @@ export const Layout = () => {
   return (
     <div className={styles.wrapper}>
       <header ref={refHeader} className={stickyHeader}>
-        {layoutWithStandartHeader && <Header />}
+        {layoutWithStandardHeader && <Header />}
       </header>
 
-      <main className={layoutWithStandartHeader ? styles.mainWrapperMedium : styles.mainWrapperBig}>
+      <main className={layoutWithStandardHeader ? styles.mainWrapperMedium : styles.mainWrapperBig}>
         <Outlet />
       </main>
 

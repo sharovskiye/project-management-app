@@ -1,4 +1,3 @@
-import { Button } from '@mui/material';
 import { useCallback, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -9,7 +8,10 @@ import { getTokenWithLocalStorage } from '../../../store/signInUpSlice';
 
 import styles from '../styles.module.scss';
 
-export const DropDownButton = () => {
+type DropDownButtonPropsType = {
+  isBurger: boolean;
+};
+export const DropDownButton = ({ isBurger }: DropDownButtonPropsType) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -17,6 +19,8 @@ export const DropDownButton = () => {
   }, [dispatch]);
 
   const userNameTitle = useAppSelector(userNameSelector);
+
+  const style = isBurger ? styles.link : styles.outlinedButton;
 
   const logOut = useCallback(() => {
     localStorage.clear();
@@ -28,9 +32,7 @@ export const DropDownButton = () => {
   return (
     <div className={styles.dropdown}>
       <div className={styles.headerButton}>
-        <Button variant="outlined" color="inherit">
-          {userNameTitle}
-        </Button>
+        <a className={style}>{userNameTitle}</a>
       </div>
       <div className={styles.dropdownContent}>
         <Link to="/profile">Edit profile</Link>

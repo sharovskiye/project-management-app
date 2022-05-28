@@ -1,54 +1,77 @@
 import { Button } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
+import { useToggle } from '../../utils/CustomHook';
 
-import { ThemeContext, themes } from '../../providers';
 import { CustomSelect } from '../Inputs/CustomSelect';
-import { SwitchTheme } from '../SwitchTheme';
 import { DropDownButton } from './DropDownButton';
 
 import styles from './styles.module.scss';
+import { Theme } from './Theme';
 
-const getIsSwitchTheme = () => {
-  const isSwitchLS = window?.localStorage?.getItem('isSwitchTheme');
-  const isSwitch = isSwitchLS !== null ? JSON.parse(isSwitchLS) : true;
-  return isSwitch;
-};
 export const Header = () => {
-  const [isChecked, setIsChecked] = useState(getIsSwitchTheme);
+  const { opened, onToggle } = useToggle();
+  const headerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    localStorage.setItem('isSwitchTheme', JSON.stringify(isChecked));
-  }, [isChecked]);
-
+    const isBurgerMenu = () => {
+      const windowWidth = window.innerWidth;
+      if (headerRef.current) {
+        const headerWidth = 768;
+        windowWidth <= headerWidth
+          ? headerRef.current.classList.add(styles.burger)
+          : headerRef.current.classList.remove(styles.burger);
+      }
+    };
+    window.addEventListener('resize', isBurgerMenu);
+    return () => {
+      window.removeEventListener('resize', isBurgerMenu);
+    };
+  }, []);
   return (
-    <div className={`${styles.container} ${styles.containerBig}  ${styles.header}`}>
-      <div className={styles.headerButtonGroup}>
-        <DropDownButton />
-        <div className={styles.headerButton}>
-          <Button variant="outlined" color="inherit" className={styles.button}>
-            Create new board
-          </Button>
+    <div className={`${styles.container} ${styles.containerBig}`}>
+      <div className={styles.header}>
+        <div ref={headerRef}>
+          <div
+            className={
+              opened ? `${styles.headerButtonGroup} ${styles.open}` : styles.headerButtonGroup
+            }
+          >
+            <div className={styles.burgerMenuLine} onClick={onToggle}>
+              <div
+                className={opened ? `${styles.burgerLine} ${styles.open}` : styles.burgerLine}
+              ></div>
+              <div
+                className={opened ? `${styles.burgerLine} ${styles.open}` : styles.burgerLine}
+              ></div>
+              <div
+                className={opened ? `${styles.burgerLine} ${styles.open}` : styles.burgerLine}
+              ></div>
+            </div>
+            <div
+              className={
+                opened
+                  ? `${styles.burgerMenuContent} ${styles.open} ${styles.menuContent}`
+                  : `${styles.burgerMenuContent} ${styles.menuContent}`
+              }
+            >
+              <DropDownButton isBurger={opened} />
+              <div className={styles.headerButton}>
+                <a className={opened ? styles.link : styles.outlinedButton}>Create new board</a>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div className={styles.headerSettingsBlock}>
-        <ThemeContext.Consumer>
-          {({ changeTheme }) => (
-            <SwitchTheme
-              onChangeTheme={() => {
-                const currentTheme = isChecked ? themes.light : themes.dark;
+        <div className={styles.headerSettingsBlock}>
+          <div className={styles.themeWrapper}>
+            <Theme />
+          </div>
+          <div className={styles.selectWrapper}>
+            <CustomSelect />
+          </div>
+        </div>
 
-                setIsChecked((prevValue: boolean) => !prevValue);
-                changeTheme(currentTheme);
-              }}
-              isChecked={isChecked}
-            />
-          )}
-        </ThemeContext.Consumer>
-        <div className={styles.selectWrapper}>
-          <CustomSelect />
-        </div>
+        <span className={`${styles.line}`}></span>
       </div>
-      <span className={`${styles.line}`}></span>
     </div>
   );
 };
