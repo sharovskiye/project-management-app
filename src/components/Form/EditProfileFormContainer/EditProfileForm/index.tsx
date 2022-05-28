@@ -73,7 +73,7 @@ export const EditProfileForm = ({ currentUser }: EditProfileFormPropsType) => {
           bgcolor: '#ffffff',
         }}
       >
-        <div className={styles.btnWrapper}>
+        <div>
           <BackButton backTo={backToMain} title={'Back to main'} />
         </div>
         <form onSubmit={formik.handleSubmit}>
