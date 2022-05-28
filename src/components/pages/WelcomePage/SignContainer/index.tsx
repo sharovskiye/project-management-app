@@ -6,7 +6,6 @@ import { getDataUserSelector } from '../../../../store/selectors';
 import { SignContainerPage } from '../../../../const/pageNumberSign';
 
 import styles from './styles.module.scss';
-import { CustomSelect } from '../../../Inputs/CustomSelect';
 
 export const SignContainer = () => {
   const { token } = useAppSelector(getDataUserSelector);
@@ -20,7 +19,6 @@ export const SignContainer = () => {
           <HeaderBtn name={NameBtn.SignUp} link={Pages.sign} signPage={SignContainerPage.signUp} />
         </>
       )}
-      <CustomSelect />
     </div>
   );
 };
