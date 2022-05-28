@@ -29,10 +29,10 @@ export const Header = () => {
 
   useEffect(() => {
     const onBurgerMenu = () => {
-      const windowWidth = window.innerWidth;
       if (headerRef.current) {
+        const headerCurrentWidth = window.innerWidth;
         const headerWidth = 768;
-        if (windowWidth <= headerWidth) {
+        if (headerCurrentWidth <= headerWidth) {
           headerRef.current.classList.add(styles.burger);
           setIsBurgerMenu(true);
         } else {
@@ -41,11 +41,12 @@ export const Header = () => {
         }
       }
     };
+    onBurgerMenu();
     window.addEventListener('resize', onBurgerMenu);
     return () => {
       window.removeEventListener('resize', onBurgerMenu);
     };
-  }, []);
+  }, [headerRef]);
 
   return (
     <div className={`${styles.container} ${styles.containerBig}`}>
@@ -58,11 +59,14 @@ export const Header = () => {
               <div className={burgerLineStyle}></div>
             </div>
             <div className={menuContentStyle}>
-              <DropDownButton isBurger={isBurgerMenu} />
+              <DropDownButton isBurger={isBurgerMenu} onClose={onToggle} />
               <div className={styles.headerButton}>
                 <a
                   className={isBurgerMenu ? styles.link : styles.outlinedButton}
-                  onClick={createNewBoard}
+                  onClick={() => {
+                    onToggle();
+                    createNewBoard();
+                  }}
                 >
                   Create new board
                 </a>

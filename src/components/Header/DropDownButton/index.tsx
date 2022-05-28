@@ -10,8 +10,9 @@ import styles from '../styles.module.scss';
 
 type DropDownButtonPropsType = {
   isBurger: boolean;
+  onClose: () => void;
 };
-export const DropDownButton = ({ isBurger }: DropDownButtonPropsType) => {
+export const DropDownButton = ({ isBurger, onClose }: DropDownButtonPropsType) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -35,7 +36,9 @@ export const DropDownButton = ({ isBurger }: DropDownButtonPropsType) => {
         <a className={style}>{userNameTitle}</a>
       </div>
       <div className={styles.dropdownContent}>
-        <Link to="/profile">Edit profile</Link>
+        <Link to="/profile" onClick={onClose}>
+          Edit profile
+        </Link>
         <a href="#" onClick={logOut}>
           Sign Out
         </a>

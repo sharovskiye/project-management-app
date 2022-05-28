@@ -37,9 +37,7 @@ export const Footer = () => {
           Nadezhda
         </a>
       </div>
-      <div className={styles.footerYear}>
-        <p>© 2022</p>
-      </div>
+      <div className={styles.footerYear}>© 2022</div>
     </div>
   );
 };

@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, Grid } from '@mui/material';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 import { IGetPerson } from '../../../../services/type';
 import { useToggle } from '../../../../utils/CustomHook';
@@ -61,10 +60,10 @@ export const EditProfileForm = ({ currentUser }: EditProfileFormPropsType) => {
   };
 
   return (
-    <div>
+    <div className={styles.formWrapper}>
       <Box
         sx={{
-          width: '300px',
+          width: '250px',
           height: 'fit-content',
           typography: 'body1',
           margin: '0 auto',

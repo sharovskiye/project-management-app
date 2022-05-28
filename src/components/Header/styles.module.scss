@@ -12,7 +12,7 @@
     position: absolute;
     z-index: 1;
     display: none;
-    min-width: 160px;
+    min-width: 150px;
     background-color: var(--details-background-color);
     border-radius: 5px;
 }
@@ -54,6 +54,14 @@
     &ButtonGroup {
         & .menuContent {
             display: flex;
+
+            & :first-child {
+                order: 0;
+              }
+          
+              & :last-child {
+                order: 1;
+              }
         }
     }
 
@@ -97,19 +105,11 @@
     display: block;
     margin-left: 0;
 
-    & .dropdownContent {
-        background-color: var(--main-background-color);
-    }
-
-    & .dropdownContent a {
-        color: var(--details-background-color);
-    }
-
     & .headerButtonGroup.open {
         position: relative;
         display: flex;
         flex-direction: column;
-        width: 210px;
+        width: 150px;
         height: 180px;
         margin-top: 140px;
         background-color: var(--details-background-color);
@@ -132,6 +132,14 @@
             position: relative;
             display: flex;
             flex-direction: column;
+
+            & :first-child {
+                order: 1;
+              }
+          
+              & :last-child {
+                order: 0;
+              }
         }
     }
 
@@ -179,7 +187,7 @@
     & .link{
         display: block;
         padding: var(--padding-base);
-        font-size: var(--font-size-medium);
+        font-size: var(--font-size-small);
         color: var(--main-background-color);
         text-transform: uppercase;
         cursor: pointer;

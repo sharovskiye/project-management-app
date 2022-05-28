@@ -56,6 +56,10 @@
 
   &Title {
     color: var(--main-background-color);
+
+    @media  screen and (max-width: 560px) {
+      font-size: 24px;
+    }
   }
 }
 
