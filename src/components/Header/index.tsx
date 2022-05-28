@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useToggle } from '../../utils/CustomHook';
 
 import { CustomSelect } from '../Inputs/CustomSelect';
@@ -10,53 +10,51 @@ import { Theme } from './Theme';
 
 export const Header = () => {
   const { opened, onToggle } = useToggle();
+  const [isBurgerMenu, setIsBurgerMenu] = useState(false);
   const headerRef = useRef<HTMLDivElement>(null);
-
+  const burgerLineStyle = opened ? `${styles.burgerLine} ${styles.open}` : styles.burgerLine;
+  const menuContentStyle = opened
+    ? `${styles.burgerMenuContent} ${styles.open} ${styles.menuContent}`
+    : `${styles.burgerMenuContent} ${styles.menuContent}`;
+  const buttonsGroupStyle = opened
+    ? `${styles.headerButtonGroup} ${styles.open}`
+    : styles.headerButtonGroup;
   useEffect(() => {
-    const isBurgerMenu = () => {
+    const onBurgerMenu = () => {
       const windowWidth = window.innerWidth;
       if (headerRef.current) {
         const headerWidth = 768;
-        windowWidth <= headerWidth
-          ? headerRef.current.classList.add(styles.burger)
-          : headerRef.current.classList.remove(styles.burger);
+        if (windowWidth <= headerWidth) {
+          headerRef.current.classList.add(styles.burger);
+          setIsBurgerMenu(true);
+        } else {
+          headerRef.current.classList.remove(styles.burger);
+          setIsBurgerMenu(false);
+        }
       }
     };
-    window.addEventListener('resize', isBurgerMenu);
+    window.addEventListener('resize', onBurgerMenu);
     return () => {
-      window.removeEventListener('resize', isBurgerMenu);
+      window.removeEventListener('resize', onBurgerMenu);
     };
   }, []);
+
   return (
     <div className={`${styles.container} ${styles.containerBig}`}>
       <div className={styles.header}>
         <div ref={headerRef}>
-          <div
-            className={
-              opened ? `${styles.headerButtonGroup} ${styles.open}` : styles.headerButtonGroup
-            }
-          >
+          <div className={buttonsGroupStyle}>
             <div className={styles.burgerMenuLine} onClick={onToggle}>
-              <div
-                className={opened ? `${styles.burgerLine} ${styles.open}` : styles.burgerLine}
-              ></div>
-              <div
-                className={opened ? `${styles.burgerLine} ${styles.open}` : styles.burgerLine}
-              ></div>
-              <div
-                className={opened ? `${styles.burgerLine} ${styles.open}` : styles.burgerLine}
-              ></div>
+              <div className={burgerLineStyle}></div>
+              <div className={burgerLineStyle}></div>
+              <div className={burgerLineStyle}></div>
             </div>
-            <div
-              className={
-                opened
-                  ? `${styles.burgerMenuContent} ${styles.open} ${styles.menuContent}`
-                  : `${styles.burgerMenuContent} ${styles.menuContent}`
-              }
-            >
-              <DropDownButton isBurger={opened} />
+            <div className={menuContentStyle}>
+              <DropDownButton isBurger={isBurgerMenu} />
               <div className={styles.headerButton}>
-                <a className={opened ? styles.link : styles.outlinedButton}>Create new board</a>
+                <a className={isBurgerMenu ? styles.link : styles.outlinedButton}>
+                  Create new board
+                </a>
               </div>
             </div>
           </div>
