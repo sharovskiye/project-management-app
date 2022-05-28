@@ -1,12 +1,11 @@
-import { Button } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
-import { useToggle } from '../../utils/CustomHook';
 
+import { useToggle } from '../../utils/CustomHook';
 import { CustomSelect } from '../Inputs/CustomSelect';
 import { DropDownButton } from './DropDownButton';
+import { Theme } from './Theme';
 
 import styles from './styles.module.scss';
-import { Theme } from './Theme';
 
 export const Header = () => {
   const { opened, onToggle } = useToggle();
