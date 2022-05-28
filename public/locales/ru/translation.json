@@ -11,5 +11,13 @@
     "Yevhenii Sharovskyi": "Евгений Шаровский",
     "Nadezhda Novikova": "Надежда Новикова",
     "Bogdan Samonov": "Богдан Самонов"
+  },
+  "header": {
+    "Go to main page": "Перейти на главную страницу",
+    "Sign In": "Войти",
+    "Sign Up": "Зарегистрироваться",
+    "Create new board": "Создать новую доску",
+    "Edit profile": "Редактировать профиль",
+    "Sign Out": "Выход"
   }
 }

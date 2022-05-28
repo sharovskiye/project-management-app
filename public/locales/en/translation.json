@@ -11,5 +11,13 @@
     "Yevhenii Sharovskyi": "Yevhenii Sharovskyi",
     "Nadezhda Novikova": "Nadezhda Novikova",
     "Bogdan Samonov": "Bogdan Samonov"
+  },
+  "header": {
+    "Go to main page": "Go to main page",
+    "Sign In": "Sign In",
+    "Sign Up": "Sign Up",
+    "Create new board": "Create new board",
+    "Edit profile": "Edit profile",
+    "Sign Out": "Sign Out"
   }
 }

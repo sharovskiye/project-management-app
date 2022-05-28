@@ -1,5 +1,7 @@
 import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+
 import { useAppDispatch } from '../../../../store/hooks';
 import { changeSignConteiner } from '../../../../store/signInUpSlice';
 
@@ -12,6 +14,7 @@ type IPropsHeaderBtn = {
 };
 
 export const HeaderBtn = ({ link, name, signPage }: IPropsHeaderBtn) => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
   const openSign = useCallback(
@@ -23,7 +26,7 @@ export const HeaderBtn = ({ link, name, signPage }: IPropsHeaderBtn) => {
 
   return (
     <Link to={link} onClick={() => (signPage ? openSign(signPage) : null)}>
-      <button className={styles.button}>{name}</button>
+      <button className={styles.button}>{t(`header.${name}`)}</button>
     </Link>
   );
 };

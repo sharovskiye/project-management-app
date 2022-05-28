@@ -1,5 +1,6 @@
 import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { ThemeContext, themes } from '../../providers';
 import { CustomSelect } from '../Inputs/CustomSelect';
@@ -14,6 +15,7 @@ const getIsSwitchTheme = () => {
   return isSwitch;
 };
 export const Header = () => {
+  const { t } = useTranslation();
   const [isChecked, setIsChecked] = useState(getIsSwitchTheme);
 
   useEffect(() => {
@@ -26,7 +28,7 @@ export const Header = () => {
         <DropDownButton />
         <div className={styles.headerButton}>
           <Button variant="outlined" color="inherit" className={styles.button}>
-            Create new board
+            {t('header.Create new board')}
           </Button>
         </div>
       </div>
