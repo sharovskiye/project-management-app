@@ -12,12 +12,28 @@
     "Nadezhda Novikova": "Надежда Новикова",
     "Bogdan Samonov": "Богдан Самонов"
   },
+  "Sign In": "Войти",
+  "Sign Up": "Зарегистрироваться",
+  "Go to main page": "Перейти на главную страницу",
   "header": {
-    "Go to main page": "Перейти на главную страницу",
-    "Sign In": "Войти",
-    "Sign Up": "Зарегистрироваться",
     "Create new board": "Создать новую доску",
     "Edit profile": "Редактировать профиль",
-    "Sign Out": "Выход"
+    "Sign Out": "Выйти"
+  },
+  "form": {
+    "Back to main": "Вернуться на главную",
+    "Login": "Логин",
+    "Name": "Имя",
+    "Password": "Пароль",
+    "Update": "Обновить",
+    "Delete user": "Удалить пользователя",
+    "Too Short!": "Слишком короткий!",
+    "Too Long!": "Слишком длинный!",
+    "required": "обязательный",
+    "Submit": "Submit"
+  },
+  "form container": {
+    "Sign In": "Вход",
+    "Sign Up": "Регистрация"
   }
 }

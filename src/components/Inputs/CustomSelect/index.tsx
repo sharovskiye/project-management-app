@@ -11,13 +11,15 @@ export const CustomSelect = () => {
   };
 
   return (
-    <select className={styles.select} value={i18n.language} onChange={handleChange}>
-      <option className={styles.option} value="ru">
-        RU
-      </option>
-      <option className={styles.option} value="en">
-        EN
-      </option>
-    </select>
+    <div className={styles.selectWrapper}>
+      <select className={styles.select} value={i18n.language} onChange={handleChange}>
+        <option className={styles.option} value="ru">
+          RU
+        </option>
+        <option className={styles.option} value="en">
+          EN
+        </option>
+      </select>
+    </div>
   );
 };

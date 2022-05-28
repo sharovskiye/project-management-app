@@ -12,12 +12,28 @@
     "Nadezhda Novikova": "Nadezhda Novikova",
     "Bogdan Samonov": "Bogdan Samonov"
   },
+  "Sign In": "Sign In",
+  "Sign Up": "Sign Up",
+  "Go to main page": "Go to main page",
   "header": {
-    "Go to main page": "Go to main page",
-    "Sign In": "Sign In",
-    "Sign Up": "Sign Up",
     "Create new board": "Create new board",
     "Edit profile": "Edit profile",
     "Sign Out": "Sign Out"
+  },
+  "form": {
+    "Back to main": "Back to main",
+    "Login": "Login",
+    "Name": "Name",
+    "Password": "Password",
+    "Update": "Update",
+    "Delete user": "Delete user",
+    "Too Short!": "Too Short!",
+    "Too Long!": "Too Long!",
+    "required": "required",
+    "Submit": "Submit"
+  },
+  "form container": {
+    "Sign In": "Sign In",
+    "Sign Up": "Sign Up"
   }
 }

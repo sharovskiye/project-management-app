@@ -46,11 +46,9 @@ export const Header = () => {
             />
           )}
         </ThemeContext.Consumer>
-        <div className={styles.selectWrapper}>
-          <CustomSelect />
-        </div>
+        <CustomSelect />
       </div>
-      <span className={`${styles.line}`}></span>
+      <span className={styles.line}></span>
     </div>
   );
 };

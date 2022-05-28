@@ -26,7 +26,7 @@ export const HeaderBtn = ({ link, name, signPage }: IPropsHeaderBtn) => {
 
   return (
     <Link to={link} onClick={() => (signPage ? openSign(signPage) : null)}>
-      <button className={styles.button}>{t(`header.${name}`)}</button>
+      <button className={styles.button}>{t(name)}</button>
     </Link>
   );
 };

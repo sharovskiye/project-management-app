@@ -2,6 +2,7 @@ import * as React from 'react';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
+import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { getDataUserSelector } from '../../../store/selectors';
@@ -10,6 +11,7 @@ import { SignInForm } from '../SignInForm';
 import { SignUpForm } from '../SignUpForm';
 
 export const SignInUpConteiner = () => {
+  const { t } = useTranslation();
   const { signConteiner } = useAppSelector(getDataUserSelector);
 
   const dispatch = useAppDispatch();
@@ -34,8 +36,8 @@ export const SignInUpConteiner = () => {
       <TabContext value={signConteiner}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
-            <Tab sx={{ width: '50%' }} label="SignIn" value="one" />
-            <Tab sx={{ width: '50%' }} label="SignUp" value="two" />
+            <Tab sx={{ width: '50%' }} label={t('form container.Sign In')} value="one" />
+            <Tab sx={{ width: '50%' }} label={t('form container.Sign Up')} value="two" />
           </TabList>
         </Box>
         <TabPanel value="one">

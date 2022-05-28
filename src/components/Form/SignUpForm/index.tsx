@@ -1,20 +1,34 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button, Grid } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import { IPerson } from '../../../services/type';
 import { fetchSignUp, getUserData } from '../../../store/signInUpSlice';
 import { useAppDispatch } from '../../../store/hooks';
 import { FormTextField } from '../../FormTextField';
 
-const signUpSchema = Yup.object().shape({
-  name: Yup.string().trim().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
-  login: Yup.string().trim().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
-  password: Yup.string().trim().min(5, 'Too Short!').max(15, 'Too Long!').required('required'),
-});
-
 export const SignUpForm = () => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
+
+  const validationSchema = Yup.object().shape({
+    name: Yup.string()
+      .trim()
+      .min(2, t('form.Too Short!'))
+      .max(20, t('form.Too Long!'))
+      .required(t('form.required')),
+    login: Yup.string()
+      .trim()
+      .min(2, t('form.Too Short!'))
+      .max(20, t('form.Too Long!'))
+      .required(t('form.required')),
+    password: Yup.string()
+      .trim()
+      .min(5, t('form.Too Short!'))
+      .max(15, t('form.Too Long!'))
+      .required(t('form.required')),
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -27,7 +41,7 @@ export const SignUpForm = () => {
       dispatch(getUserData(values));
       formik.resetForm();
     },
-    validationSchema: signUpSchema,
+    validationSchema,
   });
 
   return (
@@ -41,7 +55,7 @@ export const SignUpForm = () => {
       >
         <FormTextField
           type="text"
-          label="Name"
+          label={t('form.Name')}
           name="name"
           onChange={formik.handleChange}
           error={formik.errors.name}
@@ -49,7 +63,7 @@ export const SignUpForm = () => {
         />
         <FormTextField
           type="text"
-          label="Login"
+          label={t('form.Login')}
           name="login"
           onChange={formik.handleChange}
           error={formik.errors.login}
@@ -57,7 +71,7 @@ export const SignUpForm = () => {
         />
         <FormTextField
           type="password"
-          label="Password"
+          label={t('form.Password')}
           name="password"
           onChange={formik.handleChange}
           error={formik.errors.password}
@@ -69,7 +83,7 @@ export const SignUpForm = () => {
           disabled={!formik.isValid || !formik.dirty}
           sx={{ marginTop: '10px' }}
         >
-          Submit
+          {t('Sign Up')}
         </Button>
       </Grid>
     </form>

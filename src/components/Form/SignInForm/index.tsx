@@ -1,18 +1,28 @@
 import { Button, Grid } from '@mui/material';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 
 import { useAppDispatch } from '../../../store/hooks';
 import { fetchSignIn } from '../../../store/signInUpSlice';
 import { FormTextField } from '../../FormTextField';
 
-const signUpSchema = Yup.object().shape({
-  login: Yup.string().trim().min(2, 'Too Short!').max(20, 'Too Long!').required('required'),
-  password: Yup.string().trim().min(5, 'Too Short!').max(15, 'Too Long!').required('required'),
-});
-
 export const SignInForm = () => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
+
+  const validationSchema = Yup.object().shape({
+    login: Yup.string()
+      .trim()
+      .min(2, t('form.Too Short!'))
+      .max(20, t('form.Too Long!'))
+      .required(t('form.required')),
+    password: Yup.string()
+      .trim()
+      .min(5, t('form.Too Short!'))
+      .max(15, t('form.Too Long!'))
+      .required(t('form.required')),
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -23,7 +33,7 @@ export const SignInForm = () => {
       dispatch(fetchSignIn(values));
       formik.resetForm();
     },
-    validationSchema: signUpSchema,
+    validationSchema,
   });
 
   return (
@@ -37,7 +47,7 @@ export const SignInForm = () => {
       >
         <FormTextField
           type="text"
-          label="Login"
+          label={t('form.Login')}
           name="login"
           onChange={formik.handleChange}
           error={formik.errors.login}
@@ -45,14 +55,14 @@ export const SignInForm = () => {
         />
         <FormTextField
           type="password"
-          label="Password"
+          label={t('form.Password')}
           name="password"
           onChange={formik.handleChange}
           error={formik.errors.password}
           value={formik.values.password}
         />
         <Button type="submit" variant="outlined" disabled={!formik.isValid || !formik.dirty}>
-          Submit
+          {t('Sign In')}
         </Button>
       </Grid>
     </form>
