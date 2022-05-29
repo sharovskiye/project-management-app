@@ -35,9 +35,9 @@ export const DropDownButton = () => {
         </Button>
       </div>
       <div className={styles.dropdownContent}>
-        <Link to="/profile"> {t('header.Edit profile')}</Link>
+        <Link to="/profile"> {t('Edit profile')}</Link>
         <a href="#" onClick={logOut}>
-          {t('header.Sign Out')}
+          {t('Sign Out')}
         </a>
       </div>
     </div>

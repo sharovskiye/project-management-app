@@ -14,14 +14,14 @@ export const SignInForm = () => {
   const validationSchema = Yup.object().shape({
     login: Yup.string()
       .trim()
-      .min(2, t('form.Too Short!'))
-      .max(20, t('form.Too Long!'))
-      .required(t('form.required')),
+      .min(2, t('Too Short!'))
+      .max(20, t('Too Long!'))
+      .required(t('Required!')),
     password: Yup.string()
       .trim()
-      .min(5, t('form.Too Short!'))
-      .max(15, t('form.Too Long!'))
-      .required(t('form.required')),
+      .min(5, t('Too Short!'))
+      .max(15, t('Too Long!'))
+      .required(t('Required!')),
   });
 
   const formik = useFormik({
@@ -47,7 +47,7 @@ export const SignInForm = () => {
       >
         <FormTextField
           type="text"
-          label={t('form.Login')}
+          label={t('Login')}
           name="login"
           onChange={formik.handleChange}
           error={formik.errors.login}
@@ -55,7 +55,7 @@ export const SignInForm = () => {
         />
         <FormTextField
           type="password"
-          label={t('form.Password')}
+          label={t('Password')}
           name="password"
           onChange={formik.handleChange}
           error={formik.errors.password}

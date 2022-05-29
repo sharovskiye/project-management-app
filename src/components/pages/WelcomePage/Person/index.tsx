@@ -20,7 +20,7 @@ export const Person = memo(({ src, name, description, github, role }: IPerson) =
         <img className={styles.image} src={src} alt={name} />
       </div>
       <div className={styles.wrapperContainer}>
-        <h4 className={styles.title}>{t(`welcome page.${name}`)}</h4>
+        <h4 className={styles.title}>{t(name)}</h4>
         <div className={styles.roleContainer}>
           <span className={styles.roleContainerTitle}>{role}</span>
           <a
@@ -30,7 +30,7 @@ export const Person = memo(({ src, name, description, github, role }: IPerson) =
             rel="noopener noreferrer"
           ></a>
         </div>
-        <p>{t(`welcome page.${description}`)}</p>
+        <p>{t(description)}</p>
       </div>
     </div>
   );

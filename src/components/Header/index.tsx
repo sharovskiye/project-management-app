@@ -28,7 +28,7 @@ export const Header = () => {
         <DropDownButton />
         <div className={styles.headerButton}>
           <Button variant="outlined" color="inherit" className={styles.button}>
-            {t('header.Create new board')}
+            {t('Create new board')}
           </Button>
         </div>
       </div>

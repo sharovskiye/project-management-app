@@ -122,7 +122,7 @@ export const Task = memo(({ task }: ITaskProps) => {
             />
             {isEdit && (
               <Button type="submit" variant="outlined" disabled={!formik.isValid || !formik.dirty}>
-                {t('form.Update')}
+                {t('Update')}
               </Button>
             )}
           </form>
@@ -134,7 +134,7 @@ export const Task = memo(({ task }: ITaskProps) => {
                 }}
                 variant="outlined"
               >
-                {t('form.Edit')}
+                {t('Edit')}
               </Button>
             </div>
           )}
@@ -151,7 +151,7 @@ export const Task = memo(({ task }: ITaskProps) => {
           <div onClick={onShowDetails} className={styles.task}>
             <div className={styles.taskTitle}>
               <p title={title}>
-                {t('board.Task')} #{order}: {title}
+                {t('Task')} #{order}: {title}
               </p>
               <div className={styles.taskButtons}>
                 <button onClick={onShowEdit} className={`${styles.btn} ${styles.btnEdit}`}>

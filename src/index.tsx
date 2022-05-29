@@ -1,10 +1,10 @@
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { SnackbarProvider } from 'notistack';
-import ThemeContextWrapper from './providers';
 import { HashRouter } from 'react-router-dom';
 import './i18n';
 
+import ThemeContextWrapper from './providers';
 import { App } from './components/App';
 import { store } from './store';
 

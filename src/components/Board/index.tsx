@@ -7,6 +7,7 @@ import { Button } from '@mui/material';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
+import { useTranslation } from 'react-i18next';
 
 import {
   boardSelector,
@@ -28,7 +29,6 @@ import { INewColumn } from './interface';
 import { authorizedSelector } from '../../store/usersSlice';
 
 import styles from './styles.module.scss';
-import { useTranslation } from 'react-i18next';
 
 interface IBoardProps {
   id: string;
@@ -68,7 +68,7 @@ export const Board = memo(({ id }: IBoardProps) => {
   }, [columns, id]);
 
   const validationSchema = Yup.object().shape({
-    title: Yup.string().trim().required(t('form.required')),
+    title: Yup.string().trim().required(t('Required!')),
   });
 
   const formik = useFormik({
@@ -218,7 +218,7 @@ export const Board = memo(({ id }: IBoardProps) => {
               <span>
                 <AddCircleOutlineOutlinedIcon className={styles.iconAdd} />
               </span>
-              {t('board.Add new column')}
+              {t('Add new column')}
             </button>
           </div>
           {modal}
