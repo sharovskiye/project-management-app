@@ -41,13 +41,13 @@ export const SignInUpConteiner = () => {
       }}
     >
       <div>
-        <BackButton backTo={backToWelcomePage} title={'Back to welcome page'} />
+        <BackButton backTo={backToWelcomePage} title={t('Back to welcome page')} />
       </div>
       <TabContext value={signConteiner}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
-            <Tab sx={{ width: '50%' }} label={t('form container.Sign In')} value="one" />
-            <Tab sx={{ width: '50%' }} label={t('form container.Sign Up')} value="two" />
+            <Tab sx={{ width: '50%' }} label={t('Sign In')} value="one" />
+            <Tab sx={{ width: '50%' }} label={t('Sign Up')} value="two" />
           </TabList>
         </Box>
         <TabPanel value="one">

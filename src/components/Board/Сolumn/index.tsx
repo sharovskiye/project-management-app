@@ -41,9 +41,9 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
   }, [tasks, boardId, column.id]);
 
   const validationSchema = Yup.object().shape({
-    title: Yup.string().trim().required(t('form.required')),
-    description: Yup.string().trim().required(t('form.required')),
-    user: Yup.string().trim().required(t('form.required')),
+    title: Yup.string().trim().required(t('Required!')),
+    description: Yup.string().trim().required(t('Required!')),
+    user: Yup.string().trim().required(t('Required!')),
   });
 
   const formik = useFormik({
@@ -147,7 +147,7 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
                           <span>
                             <AddCircleOutlineOutlinedIcon className={styles.iconAdd} />
                           </span>
-                          {t('board.Add new task')}
+                          {t('Add new task')}
                         </button>
                       </div>
                     </div>

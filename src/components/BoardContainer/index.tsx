@@ -1,9 +1,10 @@
+import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+
 import { boardSelector, setBoardId, setIs404 } from '../../store/boardSlice';
 import { fetchUsers } from '../../store/usersSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { Board } from '../Board';
-import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 
 export const BoardContainer = () => {
   const dispatch = useAppDispatch();

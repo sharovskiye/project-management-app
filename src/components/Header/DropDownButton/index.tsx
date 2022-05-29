@@ -39,10 +39,10 @@ export const DropDownButton = ({ isBurger, onClose }: DropDownButtonPropsType) =
       </div>
       <div className={styles.dropdownContent}>
         <Link to="/profile" onClick={onClose}>
-          {t('header.Edit profile')}
+          {t('Edit profile')}
         </Link>
         <a href="#" onClick={logOut}>
-          {t('header.Sign Out')}
+          {t('Sign Out')}
         </a>
       </div>
     </div>

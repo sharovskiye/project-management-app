@@ -23,10 +23,10 @@ export const NotFoundPage = () => {
 
         <div className={styles.notFoundPageText}>
           <div className={styles.notFoundPageTitle}>404</div>
-          <div className={styles.notFoundPageSubtitle}>{t('404.Page not found')}</div>
+          <div className={styles.notFoundPageSubtitle}>{t('Page not found')}</div>
           <div>
-            <p>{t(`404.The page are you looking for doesn't exist or an other error occurred.`)}</p>
-            <p>{t('404.Push back button or choose a new direction')}</p>
+            <p>{t(`The page are you looking for doesn't exist or an other error occurred.`)}</p>
+            <p>{t('Push back button or choose a new direction')}</p>
           </div>
         </div>
         <div className={styles.btnWrapper}>

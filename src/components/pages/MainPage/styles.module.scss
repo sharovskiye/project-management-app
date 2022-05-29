@@ -119,6 +119,7 @@
     margin: 0;
     overflow: auto;
     font-size: 14px;
+    overflow-wrap: break-word;
   }
 
   &Subtitle::-webkit-scrollbar {

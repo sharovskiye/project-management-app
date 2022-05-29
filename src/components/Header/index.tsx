@@ -1,12 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { useToggle } from '../../utils/CustomHook';
+import { boardSelector } from '../../store/boardSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { toggleModalVisible } from '../../store/mainBoardSlice';
 import { CustomSelect } from '../Inputs/CustomSelect';
+import { CreateBoardModal } from '../Modal/CreateBoardModal';
+import { useToggle } from '../../utils/CustomHook';
 import { DropDownButton } from './DropDownButton';
 import { Theme } from './Theme';
-import { useAppDispatch } from '../../store/hooks';
-import { toggleModalVisible } from '../../store/mainBoardSlice';
 
 import styles from './styles.module.scss';
 
@@ -24,10 +27,20 @@ export const Header = () => {
 
   const dispatch = useAppDispatch();
 
-  const createNewBoard = useCallback(() => {
-    dispatch(toggleModalVisible());
-  }, [dispatch]);
   const { t } = useTranslation();
+
+  const { boardId } = useAppSelector(boardSelector);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const createNewBoard = useCallback(() => {
+    if (location.pathname === `/boards/${boardId}`) {
+      navigate('/main');
+    }
+
+    dispatch(toggleModalVisible());
+  }, [dispatch, boardId, location, navigate]);
 
   useEffect(() => {
     const onBurgerMenu = () => {
@@ -61,7 +74,7 @@ export const Header = () => {
                     createNewBoard();
                   }}
                 >
-                  {t('header.Create new board')}
+                  {t('Create new board')}
                 </a>
               </div>
             </div>
@@ -77,6 +90,7 @@ export const Header = () => {
         </div>
 
         <span className={`${styles.line}`}></span>
+        <CreateBoardModal />
       </div>
     </div>
   );

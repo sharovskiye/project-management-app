@@ -1,45 +1,46 @@
+import { useCallback } from 'react';
 import { Button } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 
 import { FormTextField } from '../../FormTextField';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import {
   toggleModalVisible,
   fetchCreateBoard,
-  setIdChangedBoard,
+  setChangeBoard,
   fetchChangeBoard,
 } from '../../../store/mainBoardSlice';
-
-import styles from './styles.module.scss';
-import { useCallback } from 'react';
-import { boardSelector } from '../../../store/selectors';
-
-const createBoardSchema = Yup.object().shape({
-  title: Yup.string().trim().max(30).required('required'),
-  description: Yup.string().trim().required('required'),
-});
+import { mainBoardSelector } from '../../../store/selectors';
+import { ModalWindow } from '..';
 
 export const CreateBoardModal = () => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
-  const { idChangedBoard } = useAppSelector(boardSelector);
+  const { changeBoard, isModalOpen } = useAppSelector(mainBoardSelector);
 
   const closeBtn = useCallback(() => {
     dispatch(toggleModalVisible());
-    dispatch(setIdChangedBoard(''));
+    dispatch(setChangeBoard({ id: '', title: '', description: '' }));
   }, [dispatch]);
+
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().trim().max(30, t('Too Long!')).required(t('Required!')),
+    description: Yup.string().trim().required(t('Required!')),
+  });
 
   const formik = useFormik({
     initialValues: {
-      title: '',
-      description: '',
+      title: changeBoard.title,
+      description: changeBoard.description,
     },
     onSubmit: (values) => {
       const dataBoard = { ...values };
 
-      if (idChangedBoard) {
-        const fullDataBoard = { ...dataBoard, id: idChangedBoard };
+      if (changeBoard.id) {
+        const fullDataBoard = { ...dataBoard, id: changeBoard.id };
 
         dispatch(fetchChangeBoard(fullDataBoard));
       } else {
@@ -47,17 +48,19 @@ export const CreateBoardModal = () => {
       }
 
       dispatch(toggleModalVisible());
+      dispatch(setChangeBoard({ id: '', title: '', description: '' }));
       formik.resetForm();
     },
-    validationSchema: createBoardSchema,
+    validationSchema,
+    enableReinitialize: true,
   });
 
   return (
-    <div className={styles.overlay}>
-      <form className={styles.form} onSubmit={formik.handleSubmit}>
+    <ModalWindow open={isModalOpen} handleClose={closeBtn}>
+      <form onSubmit={formik.handleSubmit}>
         <FormTextField
           type="text"
-          label="Title"
+          label={t('Title')}
           name="title"
           onChange={formik.handleChange}
           error={formik.errors.title}
@@ -65,7 +68,7 @@ export const CreateBoardModal = () => {
         />
         <FormTextField
           type="text"
-          label="Description"
+          label={t('Description')}
           name="description"
           multiline
           rows={4}
@@ -73,13 +76,10 @@ export const CreateBoardModal = () => {
           error={formik.errors.description}
           value={formik.values.description}
         />
-        <button className={styles.closeBtn} onClick={closeBtn}>
-          ✖
-        </button>
         <Button type="submit" variant="outlined" disabled={!formik.isValid || !formik.dirty}>
-          Apply
+          {t(changeBoard.id ? 'Update' : 'Create')}
         </Button>
       </form>
-    </div>
+    </ModalWindow>
   );
 };

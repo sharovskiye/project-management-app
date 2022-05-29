@@ -18,7 +18,7 @@ export const AboutTeam = () => {
 
   return (
     <>
-      <h2 className={styles.title}>{t('welcome page.About team')}</h2>
+      <h2 className={styles.title}>{t('About team')}</h2>
       <div className={styles.wrapper}>{team}</div>
     </>
   );

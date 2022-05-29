@@ -3,20 +3,8 @@ import type { IRootState } from '.';
 import { IBoard, IColumn, INewColumn, INewTask, ITask } from '../components/Board/interface';
 import { apiBase } from '../const/const';
 import { IGetPerson } from '../services/type';
+import { Method, Path } from './enum';
 import { fetchUsers, setAuthorized } from './usersSlice';
-
-export enum Path {
-  boards = 'boards',
-  columns = 'columns',
-  tasks = 'tasks',
-  users = 'users',
-}
-
-export enum Method {
-  POST = 'POST',
-  DELETE = 'DELETE',
-  PUT = 'PUT',
-}
 
 interface IBoardState {
   boardId: string;
@@ -67,8 +55,6 @@ export const fetchBoard = createAsyncThunk<IBoard, string>(
 
         throw new Error(parsed.message);
       }
-
-      dispatch(setBoardTitle(parsed.title));
 
       return parsed;
     } catch (error) {
@@ -331,9 +317,6 @@ export const boardSlice = createSlice({
     setIs404: (state, action: PayloadAction<boolean>) => {
       state.is404 = action.payload;
     },
-    setBoardTitle: (state, action: PayloadAction<string>) => {
-      state.boardTitle = action.payload;
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -345,6 +328,7 @@ export const boardSlice = createSlice({
         state.columns = action.payload.columns;
         state.isLoadingOnBoard = false;
         state.isOpenModal = false;
+        state.boardTitle = action.payload.title;
       })
       .addCase(fetchBoard.rejected, (state, action) => {
         state.isLoadingOnBoard = false;
@@ -425,8 +409,7 @@ export const boardSlice = createSlice({
   },
 });
 
-export const { setBoardId, setIsOpenModal, setColumns, setIs404, setBoardTitle } =
-  boardSlice.actions;
+export const { setBoardId, setIsOpenModal, setColumns, setIs404 } = boardSlice.actions;
 
 export const boardSelector = (state: IRootState) => state.board;
 export const columnsSelector = (state: IRootState) => state.board.columns;

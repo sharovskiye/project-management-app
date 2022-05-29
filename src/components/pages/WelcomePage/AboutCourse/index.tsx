@@ -7,19 +7,17 @@ export const AboutCourse = () => {
 
   return (
     <div className={styles.wrapper}>
-      <h2 className={styles.title}>{t('welcome page.About Course')}</h2>
+      <h2 className={styles.title}>{t('About Course')}</h2>
       <p className={styles.subTitle}>
         {t(
-          'welcome page.This is a reaction course designed for RS School students of the 2021Q3 set who have passed RS School stage #2, as well as for new students who have knowledge and practical experience in using the following technologies and tools:'
+          'This is a reaction course designed for RS School students of the 2021Q3 set who have passed RS School stage #2, as well as for new students who have knowledge and practical experience in using the following technologies and tools:'
         )}
       </p>
       <ul className={styles.listContainer}>
         <li>JavaScript</li>
         <li>TypeScript</li>
         <li>
-          {t(
-            'welcome page.Git, GitHub (clone, add, commit, push, pull, merge, rebase, work with Pull Request)'
-          )}
+          {t('Git, GitHub (clone, add, commit, push, pull, merge, rebase, work with Pull Request)')}
         </li>
         <li>NPM, Webpack</li>
         <li>CSS3 / HTML5</li>
@@ -27,7 +25,7 @@ export const AboutCourse = () => {
       </ul>
       <p className={styles.subTitle}>
         {t(
-          'welcome page.During the course the work with class components, react-router v6, hooks, forms, api, custom app state and redux was studied.'
+          'During the course the work with class components, react-router v6, hooks, forms, api, custom app state and redux was studied.'
         )}
       </p>
     </div>
