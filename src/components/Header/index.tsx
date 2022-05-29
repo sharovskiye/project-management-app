@@ -11,9 +11,9 @@ import { toggleModalVisible } from '../../store/mainBoardSlice';
 import styles from './styles.module.scss';
 
 export const Header = () => {
+  const SCREEN_WIDTH = 768;
   const { opened, onToggle } = useToggle();
-  const [isBurgerMenu, setIsBurgerMenu] = useState(false);
-  const headerRef = useRef<HTMLDivElement>(null);
+  const [isBurgerMenu, setIsBurgerMenu] = useState(window.innerWidth <= SCREEN_WIDTH);
   const burgerLineStyle = opened ? `${styles.burgerLine} ${styles.open}` : styles.burgerLine;
   const menuContentStyle = opened
     ? `${styles.burgerMenuContent} ${styles.open} ${styles.menuContent}`
@@ -31,29 +31,20 @@ export const Header = () => {
 
   useEffect(() => {
     const onBurgerMenu = () => {
-      if (headerRef.current) {
-        const headerCurrentWidth = window.innerWidth;
-        const headerWidth = 768;
-        if (headerCurrentWidth <= headerWidth) {
-          headerRef.current.classList.add(styles.burger);
-          setIsBurgerMenu(true);
-        } else {
-          headerRef.current.classList.remove(styles.burger);
-          setIsBurgerMenu(false);
-        }
-      }
+      const headerCurrentWidth = window.innerWidth;
+      headerCurrentWidth <= SCREEN_WIDTH ? setIsBurgerMenu(true) : setIsBurgerMenu(false);
     };
-    onBurgerMenu();
+
     window.addEventListener('resize', onBurgerMenu);
     return () => {
       window.removeEventListener('resize', onBurgerMenu);
     };
-  }, [headerRef]);
+  }, []);
 
   return (
     <div className={`${styles.container} ${styles.containerBig}`}>
       <div className={styles.header}>
-        <div ref={headerRef}>
+        <div className={isBurgerMenu ? styles.burger : ''}>
           <div className={buttonsGroupStyle}>
             <div className={styles.burgerMenuLine} onClick={onToggle}>
               <div className={burgerLineStyle}></div>
