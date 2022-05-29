@@ -41,5 +41,12 @@
   "User": "User",
   "Page not found": "Page not found",
   "The page are you looking for doesn't exist or an other error occurred.": "The page are you looking for doesn't exist or an other error occurred.",
-  "Push back button or choose a new direction": "Push back button or choose a new direction"
+  "Push back button or choose a new direction": "Push back button or choose a new direction",
+  "Board": "Board",
+  "Open": "Open",
+  "Change": "Change",
+  "Delete": "Delete",
+  "Confirm deletion": "Confirm deletion",
+  "Cancellation is not possible": "Cancellation is not possible",
+  "Cancel": "Cancel"
 }

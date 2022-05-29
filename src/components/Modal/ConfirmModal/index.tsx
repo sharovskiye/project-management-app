@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import Modal from '@mui/material/Modal/Modal';
+import { useTranslation } from 'react-i18next';
 
 import styles from './styles.module.scss';
 
@@ -10,6 +11,8 @@ export type ConfirmModalType = {
 };
 
 export const ConfirmModalWindow = memo(({ open, handleClose, onDelete }: ConfirmModalType) => {
+  const { t } = useTranslation();
+
   const onClickBtnDelete = () => {
     onDelete();
     handleClose();
@@ -19,16 +22,16 @@ export const ConfirmModalWindow = memo(({ open, handleClose, onDelete }: Confirm
     <Modal open={open}>
       <div className={`${styles.modal}`}>
         <div className={styles.title}>
-          <div className={styles.textContent}>Confirm deletion.</div>
+          <div className={styles.textContent}>{t('Confirm deletion')}</div>
         </div>
-        <div className={styles.textContent}>Cancellation is not possible.</div>
+        <div className={styles.textContent}>{t('Cancellation is not possible')}</div>
 
         <div className={styles.buttons}>
           <button onClick={onClickBtnDelete} className={`${styles.btn} ${styles.btnDelete}`}>
-            Delete
+            {t('Delete')}
           </button>
           <button onClick={handleClose} className={`${styles.btn} ${styles.btnCancel}`}>
-            Cancel
+            {t('Cancel')}
           </button>
         </div>
       </div>

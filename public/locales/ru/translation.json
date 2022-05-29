@@ -41,5 +41,12 @@
   "User": "Пользователь",
   "Page not found": "Страница не найдена",
   "The page are you looking for doesn't exist or an other error occurred.": "Страница, которую вы ищете, не существует или произошла другая ошибка.",
-  "Push back button or choose a new direction": "Нажмите кнопку возврата или выберите новое направление"
+  "Push back button or choose a new direction": "Нажмите кнопку возврата или выберите новое направление",
+  "Board": "Доска",
+  "Open": "Открыть",
+  "Change": "Изменить",
+  "Delete": "Удалить",
+  "Confirm deletion": "Подтвердить удаление",
+  "Cancellation is not possible": "Отмена невозможна",
+  "Cancel": "Отмена"
 }
