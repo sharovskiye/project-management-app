@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { Autocomplete, Button, TextField } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import { Task } from '../Task';
 import { ColumnHeader } from './Header';
@@ -23,13 +24,8 @@ interface IColumnProps {
   column: IColumn;
 }
 
-const validationSchema = Yup.object().shape({
-  title: Yup.string().trim().required('required'),
-  description: Yup.string().trim().required('required'),
-  user: Yup.string().trim().required('required'),
-});
-
 export const Column = memo(({ boardId, column }: IColumnProps) => {
+  const { t } = useTranslation();
   const { tasks } = column;
   const { isModalOpen, onOpenModal, onCloseModal } = useChangeOpenModalBoard();
   const dispatch = useAppDispatch();
@@ -43,6 +39,12 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
       .sort((a, b) => a.order - b.order)
       .map((task) => <Task task={task} key={task.id} />);
   }, [tasks, boardId, column.id]);
+
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().trim().required(t('Required!')),
+    description: Yup.string().trim().required(t('Required!')),
+    user: Yup.string().trim().required(t('Required!')),
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -73,7 +75,7 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
           <form onSubmit={formik.handleSubmit}>
             <FormTextField
               type="text"
-              label="Title"
+              label={t('Title')}
               name="title"
               onChange={formik.handleChange}
               error={formik.errors.title}
@@ -81,7 +83,7 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
             />
             <FormTextField
               type="text"
-              label="Description"
+              label={t('Description')}
               name="description"
               multiline
               rows={4}
@@ -102,20 +104,20 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
                 <TextField
                   {...params}
                   name="user"
-                  label="User"
+                  label={t('User')}
                   helperText={formik.errors.user || ' '}
                   error={Boolean(formik.errors.user)}
                 />
               )}
             />
             <Button type="submit" variant="outlined" disabled={!formik.isValid || !formik.dirty}>
-              Submit
+              {t('Create')}
             </Button>
           </form>
         </ModalWindow>
       )
     );
-  }, [formik, login, loginUsers, onCloseModal, isModalOpen]);
+  }, [formik, login, loginUsers, onCloseModal, isModalOpen, t]);
 
   return (
     <Draggable key={column.id} draggableId={column.id} index={column.order}>
@@ -145,7 +147,7 @@ export const Column = memo(({ boardId, column }: IColumnProps) => {
                           <span>
                             <AddCircleOutlineOutlinedIcon className={styles.iconAdd} />
                           </span>
-                          Add new task
+                          {t('Add new task')}
                         </button>
                       </div>
                     </div>

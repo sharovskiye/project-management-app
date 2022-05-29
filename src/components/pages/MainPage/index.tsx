@@ -1,5 +1,6 @@
 import { useSnackbar } from 'notistack';
 import { useCallback, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
@@ -19,6 +20,7 @@ import { Spinner } from '../../Spinner';
 import styles from './styles.module.scss';
 
 export const MainPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
@@ -73,20 +75,20 @@ export const MainPage = () => {
         <div key={id} className={styles.boardContainer}>
           <div className={styles.boardContainerTitle}>
             <h4 className={styles.title} title={title}>
-              Board: {title}
+              {t('Board')}: {title}
             </h4>
             <div className={styles.buttonContainer}>
               <button className={`${styles.open} ${styles.btn}`} onClick={() => onOpened(id)}>
-                Open
+                {t('Open')}
               </button>
               <button
                 className={`${styles.change} ${styles.btn}`}
                 onClick={() => onChange(id, title, description)}
               >
-                Change
+                {t('Change')}
               </button>
               <button className={`${styles.delete} ${styles.btn}`} onClick={() => onDeleted(id)}>
-                Delete
+                {t('Delete')}
               </button>
             </div>
           </div>
@@ -95,7 +97,7 @@ export const MainPage = () => {
           </div>
         </div>
       )),
-    [boardCollection, onOpened, onChange, onDeleted]
+    [boardCollection, onOpened, onChange, onDeleted, t]
   );
 
   return (

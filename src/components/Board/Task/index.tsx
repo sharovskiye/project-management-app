@@ -5,6 +5,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import { Autocomplete, Button, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 
 import { useChangeOpenModalBoard, useToggle } from '../../../utils/CustomHook';
 import { ConfirmModalWindow } from '../../Modal/ConfirmModal';
@@ -13,9 +14,9 @@ import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { ModalWindow } from '../../Modal';
 import { FormTextField } from '../../FormTextField';
 import { ITask } from '../interface';
+import { usersSelector } from '../../../store/usersSlice';
 
 import styles from './styles.module.scss';
-import { usersSelector } from '../../../store/usersSlice';
 
 interface ITaskProps {
   task: ITask;
@@ -28,6 +29,7 @@ const validationSchema = Yup.object().shape({
 });
 
 export const Task = memo(({ task }: ITaskProps) => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const [isEdit, setIsEdit] = useState(false);
   const { opened, onToggle } = useToggle();
@@ -80,7 +82,7 @@ export const Task = memo(({ task }: ITaskProps) => {
           <form onSubmit={formik.handleSubmit}>
             <FormTextField
               type="text"
-              label="Title"
+              label={t('Title')}
               name="title"
               disabled={!isEdit}
               onChange={formik.handleChange}
@@ -89,7 +91,7 @@ export const Task = memo(({ task }: ITaskProps) => {
             />
             <FormTextField
               type="text"
-              label="Description"
+              label={t('Description')}
               name="description"
               disabled={!isEdit}
               multiline
@@ -112,7 +114,7 @@ export const Task = memo(({ task }: ITaskProps) => {
                 <TextField
                   {...params}
                   name="user"
-                  label="User"
+                  label={t('User')}
                   helperText={formik.errors.user || ' '}
                   error={Boolean(formik.errors.user)}
                 />
@@ -120,7 +122,7 @@ export const Task = memo(({ task }: ITaskProps) => {
             />
             {isEdit && (
               <Button type="submit" variant="outlined" disabled={!formik.isValid || !formik.dirty}>
-                Update
+                {t('Update')}
               </Button>
             )}
           </form>
@@ -132,14 +134,14 @@ export const Task = memo(({ task }: ITaskProps) => {
                 }}
                 variant="outlined"
               >
-                Edit
+                {t('Edit')}
               </Button>
             </div>
           )}
         </ModalWindow>
       ),
 
-    [formik, onCloseModal, isModalOpen, loginUsers, isEdit]
+    [formik, onCloseModal, isModalOpen, loginUsers, isEdit, t]
   );
 
   return (
@@ -149,7 +151,7 @@ export const Task = memo(({ task }: ITaskProps) => {
           <div onClick={onShowDetails} className={styles.task}>
             <div className={styles.taskTitle}>
               <p title={title}>
-                Task #{order}: {title}
+                {t('Task')} #{order}: {title}
               </p>
               <div className={styles.taskButtons}>
                 <button onClick={onShowEdit} className={`${styles.btn} ${styles.btnEdit}`}>

@@ -7,6 +7,7 @@ import { Button } from '@mui/material';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
+import { useTranslation } from 'react-i18next';
 
 import {
   boardSelector,
@@ -33,11 +34,8 @@ interface IBoardProps {
   id: string;
 }
 
-const signUpSchema = Yup.object().shape({
-  title: Yup.string().trim().required('required'),
-});
-
 export const Board = memo(({ id }: IBoardProps) => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { columns, isLoadingOnBoard, errorMessage, isError, boardTitle } =
     useAppSelector(boardSelector);
@@ -70,6 +68,10 @@ export const Board = memo(({ id }: IBoardProps) => {
       .map((column) => <Column boardId={id} column={column} key={column.id} />);
   }, [columns, id]);
 
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().trim().required(t('Required!')),
+  });
+
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -82,7 +84,7 @@ export const Board = memo(({ id }: IBoardProps) => {
       dispatch(fetchCreateColumn(newColumn));
       formik.resetForm();
     },
-    validationSchema: signUpSchema,
+    validationSchema,
   });
 
   const modal = useMemo(() => {
@@ -92,7 +94,7 @@ export const Board = memo(({ id }: IBoardProps) => {
           <form onSubmit={formik.handleSubmit}>
             <FormTextField
               type="text"
-              label="Title"
+              label={t('Title')}
               name="title"
               onChange={formik.handleChange}
               error={formik.errors.title}
@@ -100,7 +102,7 @@ export const Board = memo(({ id }: IBoardProps) => {
             />
 
             <Button type="submit" variant="outlined" disabled={!formik.isValid || !formik.dirty}>
-              Submit
+              {t('Create')}
             </Button>
           </form>
         </ModalWindow>
@@ -115,6 +117,7 @@ export const Board = memo(({ id }: IBoardProps) => {
     formik.values.title,
     onCloseModal,
     isModalOpen,
+    t,
   ]);
 
   const onDragEnd = useCallback(
@@ -198,7 +201,7 @@ export const Board = memo(({ id }: IBoardProps) => {
           <span>
             <ArrowBackIosIcon className={styles.iconAdd} />
           </span>
-          Back to main
+          {t('Back to main')}
         </button>
         <h3 className={styles.titleContainerTitle}>{boardTitle}</h3>
       </div>
@@ -219,7 +222,7 @@ export const Board = memo(({ id }: IBoardProps) => {
               <span>
                 <AddCircleOutlineOutlinedIcon className={styles.iconAdd} />
               </span>
-              Add new column
+              {t('Add new column')}
             </button>
           </div>
           {modal}

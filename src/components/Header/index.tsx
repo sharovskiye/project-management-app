@@ -1,6 +1,7 @@
 import { Button } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { ThemeContext, themes } from '../../providers';
 import { boardSelector } from '../../store/boardSlice';
@@ -19,6 +20,7 @@ const getIsSwitchTheme = () => {
   return isSwitch;
 };
 export const Header = () => {
+  const { t } = useTranslation();
   const [isChecked, setIsChecked] = useState(getIsSwitchTheme);
 
   const { boardId } = useAppSelector(boardSelector);
@@ -51,7 +53,7 @@ export const Header = () => {
             className={styles.button}
             onClick={createNewBoard}
           >
-            Create new board
+            {t('Create new board')}
           </Button>
         </div>
       </div>
@@ -69,9 +71,7 @@ export const Header = () => {
             />
           )}
         </ThemeContext.Consumer>
-        <div className={styles.selectWrapper}>
-          <CustomSelect />
-        </div>
+        <CustomSelect />
       </div>
       <span className={`${styles.line}`}></span>
       <CreateBoardModal />

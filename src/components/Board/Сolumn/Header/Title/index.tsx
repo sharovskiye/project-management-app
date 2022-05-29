@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { Tooltip } from '@mui/material';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
+import { useTranslation } from 'react-i18next';
 
 import { ConfirmModalWindow } from '../../../../Modal/ConfirmModal';
 import { useAppDispatch } from '../../../../../store/hooks';
@@ -16,6 +17,7 @@ interface IColumnTitleProps {
 }
 
 export const Title = ({ openTitleEdit, column }: IColumnTitleProps) => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { opened, onToggle } = useToggle();
 
@@ -25,12 +27,12 @@ export const Title = ({ openTitleEdit, column }: IColumnTitleProps) => {
 
   return (
     <>
-      <Tooltip title="Change title" placement="top">
+      <Tooltip title={t('Change title')} placement="top">
         <div className={`${styles.title}`} onClick={openTitleEdit}>
           <p title={column.title}>{column.title}</p>
         </div>
       </Tooltip>
-      <Tooltip title="Delete column" placement="top">
+      <Tooltip title={t('Delete column')} placement="top">
         <div>
           <button onClick={onToggle} className={styles.btnDelete}>
             <span>

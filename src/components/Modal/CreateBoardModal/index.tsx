@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { Button } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 
 import { FormTextField } from '../../FormTextField';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
@@ -14,12 +15,8 @@ import {
 import { mainBoardSelector } from '../../../store/selectors';
 import { ModalWindow } from '..';
 
-const createBoardSchema = Yup.object().shape({
-  title: Yup.string().trim().max(30).required('required'),
-  description: Yup.string().trim().required('required'),
-});
-
 export const CreateBoardModal = () => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
   const { changeBoard, isModalOpen } = useAppSelector(mainBoardSelector);
@@ -28,6 +25,11 @@ export const CreateBoardModal = () => {
     dispatch(toggleModalVisible());
     dispatch(setChangeBoard({ id: '', title: '', description: '' }));
   }, [dispatch]);
+
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().trim().max(30, t('Too Long!')).required(t('Required!')),
+    description: Yup.string().trim().required(t('Required!')),
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -49,7 +51,7 @@ export const CreateBoardModal = () => {
       dispatch(setChangeBoard({ id: '', title: '', description: '' }));
       formik.resetForm();
     },
-    validationSchema: createBoardSchema,
+    validationSchema,
     enableReinitialize: true,
   });
 
@@ -58,7 +60,7 @@ export const CreateBoardModal = () => {
       <form onSubmit={formik.handleSubmit}>
         <FormTextField
           type="text"
-          label="Title"
+          label={t('Title')}
           name="title"
           onChange={formik.handleChange}
           error={formik.errors.title}
@@ -66,7 +68,7 @@ export const CreateBoardModal = () => {
         />
         <FormTextField
           type="text"
-          label="Description"
+          label={t('Description')}
           name="description"
           multiline
           rows={4}
@@ -75,7 +77,7 @@ export const CreateBoardModal = () => {
           value={formik.values.description}
         />
         <Button type="submit" variant="outlined" disabled={!formik.isValid || !formik.dirty}>
-          Apply
+          {t(changeBoard.id ? 'Update' : 'Create')}
         </Button>
       </form>
     </ModalWindow>
