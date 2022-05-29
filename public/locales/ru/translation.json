@@ -9,19 +9,23 @@
     "We have tried to develop a convenient and multifunctional application that will help you control your tasks. The application is localized in two languages.": "Мы постарались разработать удобное и многофункциональное приложение, которое поможет вам контролировать свои задачи. Приложение локализовано на двух языках.",
     "About team": "О команде",
     "Yevhenii Sharovskyi": "Евгений Шаровский",
+    "Did basic project setup, CI/CD, localization and board management page with drag and drop logic.": "Сделал базовую настройку проекта, CI/CD, локализацию и страницу управления бордом с  логикой перетаскивания.",
     "Nadezhda Novikova": "Надежда Новикова",
-    "Bogdan Samonov": "Богдан Самонов"
+    "Developed the overall design, reusable components, header, footer, user management and adaptive.": "Разработала общий дизайн, переиспользуемые компоненты, header, footer, управление пользователем и адаптив.",
+    "Bogdan Samonov": "Богдан Самонов",
+    "Developed the welcome and main pages, as well as the authorization page with the token processing logic.": "Разработал приветственную и главную  страницы, а также страницу авторизации с логикой обработки токенов."
   },
   "Sign In": "Войти",
   "Sign Up": "Зарегистрироваться",
   "Go to main page": "Перейти на главную страницу",
+  "Back to main": "Вернуться на главную",
+  "Back to welcome page": "Вернуться на приветственную страницу",
   "header": {
     "Create new board": "Создать новую доску",
     "Edit profile": "Редактировать профиль",
     "Sign Out": "Выйти"
   },
   "form": {
-    "Back to main": "Вернуться на главную",
     "Login": "Логин",
     "Name": "Имя",
     "Password": "Пароль",
@@ -30,10 +34,26 @@
     "Too Short!": "Слишком короткий!",
     "Too Long!": "Слишком длинный!",
     "required": "обязательный",
-    "Submit": "Submit"
+    "Edit": "Редактировать"
   },
   "form container": {
     "Sign In": "Вход",
     "Sign Up": "Регистрация"
+  },
+  "board": {
+    "Add new column": "Добавить новую колонку",
+    "Add new task": "Добавить новую задачу",
+    "Change title": "Изменить заголовок",
+    "Delete column": "Удалить колонку",
+    "Task": "Задача"
+  },
+  "Create": "Создать",
+  "Title": "Заголовок",
+  "Description": "Описание",
+  "User": "Пользователь",
+  "404": {
+    "Page not found": "Страница не найдена",
+    "The page are you looking for doesn't exist or an other error occurred.": "Страница, которую вы ищете, не существует или произошла другая ошибка.",
+    "Push back button or choose a new direction": "Нажмите кнопку возврата или выберите новое направление"
   }
 }

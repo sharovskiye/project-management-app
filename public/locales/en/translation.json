@@ -9,19 +9,23 @@
     "We have tried to develop a convenient and multifunctional application that will help you control your tasks. The application is localized in two languages.": "We have tried to develop a convenient and multifunctional application that will help you control your tasks. The application is localized in two languages.",
     "About team": "About team",
     "Yevhenii Sharovskyi": "Yevhenii Sharovskyi",
+    "Did basic project setup, CI/CD, localization and board management page with drag and drop logic.": "Did basic project setup, CI/CD, localization and board management page with drag and drop logic.",
     "Nadezhda Novikova": "Nadezhda Novikova",
-    "Bogdan Samonov": "Bogdan Samonov"
+    "Developed the overall design, reusable components, header, footer, user management and adaptive.": "Developed the overall design, reusable components, header, footer, user management and adaptive.",
+    "Bogdan Samonov": "Bogdan Samonov",
+    "Developed the welcome and main pages, as well as the authorization page with the token processing logic.": "Developed the welcome and main pages, as well as the authorization page with the token processing logic."
   },
   "Sign In": "Sign In",
   "Sign Up": "Sign Up",
   "Go to main page": "Go to main page",
+  "Back to main": "Back to main",
+  "Back to welcome page": "Back to welcome page",
   "header": {
     "Create new board": "Create new board",
     "Edit profile": "Edit profile",
     "Sign Out": "Sign Out"
   },
   "form": {
-    "Back to main": "Back to main",
     "Login": "Login",
     "Name": "Name",
     "Password": "Password",
@@ -30,10 +34,26 @@
     "Too Short!": "Too Short!",
     "Too Long!": "Too Long!",
     "required": "required",
-    "Submit": "Submit"
+    "Edit": "Edit"
   },
   "form container": {
     "Sign In": "Sign In",
     "Sign Up": "Sign Up"
+  },
+  "board": {
+    "Add new column": "Add new column",
+    "Add new task": "Add new task",
+    "Change title": "Change title",
+    "Delete column": "Delete column",
+    "Task": "Task"
+  },
+  "Create": "Create",
+  "Title": "Title",
+  "Description": "Description",
+  "User": "User",
+  "404": {
+    "Page not found": "Page not found",
+    "The page are you looking for doesn't exist or an other error occurred.": "The page are you looking for doesn't exist or an other error occurred.",
+    "Push back button or choose a new direction": "Push back button or choose a new direction"
   }
 }

@@ -26,6 +26,7 @@ import { getTokenWithLocalStorage } from '../../store/signInUpSlice';
 import { INewColumn } from './interface';
 import { authorizedSelector } from '../../store/usersSlice';
 import { BackButton } from '../BackButton';
+import { useTranslation } from 'react-i18next';
 
 import styles from './styles.module.scss';
 
@@ -38,6 +39,7 @@ const signUpSchema = Yup.object().shape({
 });
 
 export const Board = memo(({ id }: IBoardProps) => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { columns, isLoadingOnBoard, errorMessage, isError, boardTitle } =
     useAppSelector(boardSelector);
@@ -195,7 +197,7 @@ export const Board = memo(({ id }: IBoardProps) => {
       {isLoadingOnBoard && <Spinner />}
       <div className={styles.titleContainer}>
         <div className={styles.backBtnWrapper}>
-          <BackButton title={'Back to main'} backTo={backToMain} />
+          <BackButton title={t('Back to main')} backTo={backToMain} />
         </div>
 
         <h3 className={styles.titleContainerTitle}>Board: {boardTitle}</h3>

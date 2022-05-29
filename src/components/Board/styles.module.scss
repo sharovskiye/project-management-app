@@ -11,7 +11,12 @@
 }
 
 .backBtnWrapper {
-  width: 150px;
+  width: 220px;
+
+  @media screen and (max-width: 321px) {
+    width: 100%;;
+  }
+
 }
 
 .main {

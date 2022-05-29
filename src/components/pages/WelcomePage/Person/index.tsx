@@ -30,7 +30,7 @@ export const Person = memo(({ src, name, description, github, role }: IPerson) =
             rel="noopener noreferrer"
           ></a>
         </div>
-        <p>{description}</p>
+        <p>{t(`welcome page.${description}`)}</p>
       </div>
     </div>
   );

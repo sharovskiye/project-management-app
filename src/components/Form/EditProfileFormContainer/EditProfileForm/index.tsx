@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -20,7 +20,7 @@ import styles from '../styles.module.scss';
 type EditProfileFormPropsType = {
   currentUser: IGetPerson;
 };
-export const EditProfileForm = ({ currentUser }: EditProfileFormPropsType) => {
+export const EditProfileForm = memo(({ currentUser }: EditProfileFormPropsType) => {
   const { t } = useTranslation();
   const { opened, onToggle } = useToggle();
   const dispatch = useAppDispatch();
@@ -84,7 +84,7 @@ export const EditProfileForm = ({ currentUser }: EditProfileFormPropsType) => {
         }}
       >
         <div>
-          <BackButton backTo={backToMain} title={t('form.Back to main')} />
+          <BackButton backTo={backToMain} title={t('Back to main')} />
         </div>
         <form onSubmit={formik.handleSubmit}>
           <Grid
@@ -128,4 +128,4 @@ export const EditProfileForm = ({ currentUser }: EditProfileFormPropsType) => {
       <ConfirmModalWindow onDelete={onDelete} open={opened} handleClose={onToggle} />
     </div>
   );
-};
+});
