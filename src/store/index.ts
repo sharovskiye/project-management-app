@@ -3,11 +3,13 @@ import { users } from './usersSlice';
 import { configureStore } from '@reduxjs/toolkit';
 import { signInUpReducer } from './signInUpSlice';
 import board from './boardSlice';
+import { mainBoardReducers } from './mainBoardSlice';
 
 export const store = configureStore({
   reducer: {
     signInUp: signInUpReducer,
     board,
+    mainBoard: mainBoardReducers,
     users,
     editProfile,
   },

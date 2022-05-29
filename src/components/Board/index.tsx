@@ -37,7 +37,8 @@ interface IBoardProps {
 export const Board = memo(({ id }: IBoardProps) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { columns, isLoadingOnBoard, errorMessage, isError } = useAppSelector(boardSelector);
+  const { columns, isLoadingOnBoard, errorMessage, isError, boardTitle } =
+    useAppSelector(boardSelector);
   const authorized = useAppSelector(authorizedSelector);
   const { isModalOpen, onOpenModal, onCloseModal } = useChangeOpenModalBoard();
   const { enqueueSnackbar } = useSnackbar();
@@ -195,12 +196,15 @@ export const Board = memo(({ id }: IBoardProps) => {
   return (
     <div className={`${styles.container} ${styles.containerMedium}`}>
       {isLoadingOnBoard && <Spinner />}
-      <button onClick={backToMain} className={`${styles.btn} ${styles.btnBackToMain}`}>
-        <span>
-          <ArrowBackIosIcon className={styles.iconAdd} />
-        </span>
-        {t('Back to main')}
-      </button>
+      <div className={styles.titleContainer}>
+        <button onClick={backToMain} className={`${styles.btn} ${styles.btnBackToMain}`}>
+          <span>
+            <ArrowBackIosIcon className={styles.iconAdd} />
+          </span>
+          {t('Back to main')}
+        </button>
+        <h3 className={styles.titleContainerTitle}>{boardTitle}</h3>
+      </div>
       <div className={styles.main}>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable direction="horizontal" droppableId="columns">
