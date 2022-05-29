@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { SnackbarProvider } from 'notistack';
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import './i18n';
 
 import ThemeContextWrapper from './providers';
@@ -14,12 +14,12 @@ import './style/variables.css';
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <ThemeContextWrapper>
-    <HashRouter>
+    <BrowserRouter>
       <Provider store={store}>
         <SnackbarProvider maxSnack={3}>
           <App />
         </SnackbarProvider>
       </Provider>
-    </HashRouter>
+    </BrowserRouter>
   </ThemeContextWrapper>
 );
