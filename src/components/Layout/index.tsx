@@ -40,7 +40,7 @@ export const Layout = () => {
         {location.pathname === '/' && <HeaderWelcomePage />}
       </header>
 
-      <main className={layoutWithStandardHeader ? styles.mainWrapperMedium : styles.mainWrapperBig}>
+      <main className={!layoutWithStandardHeader ? styles.mainWrapperBig : ''}>
         <Outlet />
       </main>
 
