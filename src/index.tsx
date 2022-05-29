@@ -5,7 +5,6 @@ import { BrowserRouter } from 'react-router-dom';
 import './i18n';
 
 import ThemeContextWrapper from './providers';
-import { HashRouter } from 'react-router-dom';
 import './i18n';
 
 import { App } from './components/App';
