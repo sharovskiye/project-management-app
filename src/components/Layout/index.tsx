@@ -21,7 +21,7 @@ export const Layout = () => {
       const scrollTop = window.scrollY;
 
       if (refHeader.current && token) {
-        const headerHeight = 100;
+        const headerHeight = 20;
         scrollTop >= headerHeight
           ? refHeader.current.classList.add(styles.scroll)
           : refHeader.current.classList.remove(styles.scroll);
