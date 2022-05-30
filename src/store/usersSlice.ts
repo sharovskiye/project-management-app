@@ -77,4 +77,5 @@ export const { setAuthorized } = usersSlice.actions;
 export const usersSelector = (state: IRootState) => state.users.users;
 export const errorMessage = (state: IRootState) => state.users.errorMessage;
 export const authorizedSelector = (state: IRootState) => state.users.authorized;
+export const loginsSelector = (state: IRootState) => state.users.users.map((user) => user.login);
 export const users = usersSlice.reducer;

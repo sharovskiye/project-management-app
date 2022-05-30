@@ -9,12 +9,12 @@ import { useTranslation } from 'react-i18next';
 
 import { useChangeOpenModalBoard, useToggle } from '../../../utils/CustomHook';
 import { ConfirmModalWindow } from '../../Modal/ConfirmModal';
-import { fetchDeleteTask, fetchUpdateTask, loginsSelector } from '../../../store/boardSlice';
+import { fetchDeleteTask, fetchUpdateTask } from '../../../store/boardSlice';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { ModalWindow } from '../../Modal';
 import { FormTextField } from '../../FormTextField';
 import { ITask } from '../interface';
-import { usersSelector } from '../../../store/usersSlice';
+import { loginsSelector, usersSelector } from '../../../store/usersSlice';
 
 import styles from './styles.module.scss';
 
@@ -105,6 +105,7 @@ export const Task = memo(({ task }: ITaskProps) => {
               id="user"
               disabled={!isEdit}
               options={loginUsers}
+              defaultValue={currentUser?.login}
               value={formik.values.user}
               onChange={(e, value) => {
                 formik.setFieldValue('user', value || '');
@@ -141,7 +142,7 @@ export const Task = memo(({ task }: ITaskProps) => {
         </ModalWindow>
       ),
 
-    [formik, onCloseModal, isModalOpen, loginUsers, isEdit, t]
+    [formik, onCloseModal, isModalOpen, loginUsers, isEdit, t, currentUser?.login]
   );
 
   return (
