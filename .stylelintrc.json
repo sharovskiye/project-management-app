@@ -1,0 +1,24 @@
+{
+  "extends": [
+    "stylelint-config-standard-scss",
+    "stylelint-config-css-modules",
+    "stylelint-config-recess-order",
+    "stylelint-config-prettier-scss"
+  ],
+  "plugins": ["stylelint-scss"],
+  "customSyntax": "postcss-scss",
+  "rules": {
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": true,
+    "declaration-colon-newline-after": null,
+    "value-list-comma-newline-after": null,
+    "color-hex-length": "long",
+    "selector-class-pattern": "^[a-z][a-zA-Z0-9]+$"
+  },
+  "overrides": [
+    {
+      "files": ["*/.scss"],
+      "customSyntax": "postcss-scss"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+.notFoundPage {
+    &Wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: var(--main-background-color);
+    }
+
+    &Content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: var(--transition-base);
+    }
+
+    &Text {
+        color: var(--details-background-color);
+        text-align: center;
+    }
+
+    &Title {
+        margin: 50px 0;
+        font-size: 100px;
+
+        @media screen and (max-width: 760px) {
+            margin: 20px 0;
+            font-size: 50px;
+        }
+    }
+
+    &Subtitle {
+        font-size: 40px;
+
+        @media screen and (max-width: 760px) {
+            font-size: 24px;
+        }
+    }
+
+    &Icon {
+        min-width: 300px;
+        min-height: 300px;
+        color: var(--details-background-color);
+        transition: var(--transition-base);
+
+        @media screen and (max-width: 760px) {
+            min-width: 150px;
+            min-height: 150px;
+        }
+    }
+}
+
+.btnWrapper {
+    margin-top: 30px;
+}
