@@ -4,7 +4,6 @@ import { Pages } from '../../../../const/pages';
 import { NameBtn } from './const';
 import { getDataUserSelector } from '../../../../store/selectors';
 import { SignContainerPage } from '../../../../const/pageNumberSign';
-import { CustomSelect } from '../../../Inputs/CustomSelect';
 
 import styles from './styles.module.scss';
 
@@ -20,7 +19,6 @@ export const SignContainer = () => {
           <HeaderBtn name={NameBtn.SignUp} link={Pages.sign} signPage={SignContainerPage.signUp} />
         </>
       )}
-      <CustomSelect />
     </div>
   );
 };

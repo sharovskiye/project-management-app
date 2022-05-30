@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import { useNavigate } from 'react-router-dom';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { useTranslation } from 'react-i18next';
 
@@ -9,15 +10,21 @@ import { getDataUserSelector } from '../../../store/selectors';
 import { changeSignConteiner } from '../../../store/signInUpSlice';
 import { SignInForm } from '../SignInForm';
 import { SignUpForm } from '../SignUpForm';
+import { BackButton } from '../../BackButton';
 
 export const SignInUpConteiner = () => {
   const { t } = useTranslation();
   const { signConteiner } = useAppSelector(getDataUserSelector);
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     dispatch(changeSignConteiner(newValue));
+  };
+
+  const backToWelcomePage = () => {
+    navigate('/');
   };
 
   return (
@@ -33,6 +40,9 @@ export const SignInUpConteiner = () => {
         bgcolor: '#ffffff',
       }}
     >
+      <div>
+        <BackButton backTo={backToWelcomePage} title={t('Back to welcome page')} />
+      </div>
       <TabContext value={signConteiner}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">

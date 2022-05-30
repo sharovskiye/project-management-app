@@ -2,15 +2,24 @@
   margin: 30px 0;
   color: var(--details-background-color);
   text-align: center;
+
+  @media screen and (max-width: 560px) {
+    font-size: var(--font-size-large);
+  }
 }
 
 .wrapper {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+
+  @media screen and (max-width: 560px) {
+    font-size: var(--font-size-small);
+  }
 }
 
 .subtitle {
   color: var(--details-background-color);
   letter-spacing: 0.03em;
+
 }

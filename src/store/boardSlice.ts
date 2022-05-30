@@ -12,10 +12,10 @@ interface IBoardState {
   columns: IColumn[];
   isLoadingOnBoard: boolean;
   isOpenModal: boolean;
-  users: IGetPerson[];
   isError: boolean;
   is404: boolean;
   errorMessage: string;
+  users: IGetPerson[];
 }
 
 const initialState: IBoardState = {

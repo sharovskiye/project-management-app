@@ -12,8 +12,14 @@
   border: none;
   border-radius: 5px;
   transition: 0.5s;
+
+  @media screen and (max-width: 768px) {
+    font-size: var(--font-size-small);
+  }
 }
 
 .button:hover {
   color: var(--color-submit);
 }
+
+a {text-decoration: none;}

@@ -1,4 +1,3 @@
-import { Button } from '@mui/material';
 import { useCallback, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -10,7 +9,11 @@ import { getTokenWithLocalStorage } from '../../../store/signInUpSlice';
 
 import styles from '../styles.module.scss';
 
-export const DropDownButton = () => {
+type DropDownButtonPropsType = {
+  isBurger: boolean;
+  onClose: () => void;
+};
+export const DropDownButton = ({ isBurger, onClose }: DropDownButtonPropsType) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -19,6 +22,8 @@ export const DropDownButton = () => {
   }, [dispatch]);
 
   const userNameTitle = useAppSelector(userNameSelector);
+
+  const style = isBurger ? styles.link : styles.outlinedButton;
 
   const logOut = useCallback(() => {
     localStorage.clear();
@@ -30,12 +35,12 @@ export const DropDownButton = () => {
   return (
     <div className={styles.dropdown}>
       <div className={styles.headerButton}>
-        <Button variant="outlined" color="inherit">
-          {userNameTitle}
-        </Button>
+        <a className={style}>{userNameTitle}</a>
       </div>
       <div className={styles.dropdownContent}>
-        <Link to="/profile"> {t('Edit profile')}</Link>
+        <Link to="/profile" onClick={onClose}>
+          {t('Edit profile')}
+        </Link>
         <a href="#" onClick={logOut}>
           {t('Sign Out')}
         </a>

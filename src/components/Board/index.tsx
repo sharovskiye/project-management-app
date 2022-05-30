@@ -5,7 +5,6 @@ import * as Yup from 'yup';
 import { useSnackbar } from 'notistack';
 import { Button } from '@mui/material';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
 
@@ -27,6 +26,7 @@ import { getMessage } from '../../utils/getMessage';
 import { getTokenWithLocalStorage } from '../../store/signInUpSlice';
 import { INewColumn } from './interface';
 import { authorizedSelector } from '../../store/usersSlice';
+import { BackButton } from '../BackButton';
 
 import styles from './styles.module.scss';
 
@@ -197,12 +197,10 @@ export const Board = memo(({ id }: IBoardProps) => {
     <div className={`${styles.container} ${styles.containerMedium}`}>
       {isLoadingOnBoard && <Spinner />}
       <div className={styles.titleContainer}>
-        <button onClick={backToMain} className={`${styles.btn} ${styles.btnBackToMain}`}>
-          <span>
-            <ArrowBackIosIcon className={styles.iconAdd} />
-          </span>
-          {t('Back to main')}
-        </button>
+        <div className={styles.backBtnWrapper}>
+          <BackButton title={t('Back to main')} backTo={backToMain} />
+        </div>
+
         <h3 className={styles.titleContainerTitle}>{boardTitle}</h3>
       </div>
       <div className={styles.main}>

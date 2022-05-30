@@ -1,34 +1,38 @@
-import { Button } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { ThemeContext, themes } from '../../providers';
 import { boardSelector } from '../../store/boardSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { toggleModalVisible } from '../../store/mainBoardSlice';
 import { CustomSelect } from '../Inputs/CustomSelect';
 import { CreateBoardModal } from '../Modal/CreateBoardModal';
-import { SwitchTheme } from '../SwitchTheme';
+import { useToggle } from '../../utils/CustomHook';
 import { DropDownButton } from './DropDownButton';
+import { Theme } from './Theme';
 
 import styles from './styles.module.scss';
 
-const getIsSwitchTheme = () => {
-  const isSwitchLS = window?.localStorage?.getItem('isSwitchTheme');
-  const isSwitch = isSwitchLS !== null ? JSON.parse(isSwitchLS) : true;
-  return isSwitch;
-};
 export const Header = () => {
+  const SCREEN_WIDTH = 768;
+  const { opened, onToggle } = useToggle();
+  const [isBurgerMenu, setIsBurgerMenu] = useState(window.innerWidth <= SCREEN_WIDTH);
+  const burgerLineStyle = opened ? `${styles.burgerLine} ${styles.open}` : styles.burgerLine;
+  const menuContentStyle = opened
+    ? `${styles.burgerMenuContent} ${styles.open} ${styles.menuContent}`
+    : `${styles.burgerMenuContent} ${styles.menuContent}`;
+  const buttonsGroupStyle = opened
+    ? `${styles.headerButtonGroup} ${styles.open}`
+    : styles.headerButtonGroup;
+
+  const dispatch = useAppDispatch();
+
   const { t } = useTranslation();
-  const [isChecked, setIsChecked] = useState(getIsSwitchTheme);
 
   const { boardId } = useAppSelector(boardSelector);
 
   const location = useLocation();
   const navigate = useNavigate();
-
-  const dispatch = useAppDispatch();
 
   const createNewBoard = useCallback(() => {
     if (location.pathname === `/boards/${boardId}`) {
@@ -39,42 +43,55 @@ export const Header = () => {
   }, [dispatch, boardId, location, navigate]);
 
   useEffect(() => {
-    localStorage.setItem('isSwitchTheme', JSON.stringify(isChecked));
-  }, [isChecked]);
+    const onBurgerMenu = () => {
+      const headerCurrentWidth = window.innerWidth;
+      headerCurrentWidth <= SCREEN_WIDTH ? setIsBurgerMenu(true) : setIsBurgerMenu(false);
+    };
+
+    window.addEventListener('resize', onBurgerMenu);
+    return () => {
+      window.removeEventListener('resize', onBurgerMenu);
+    };
+  }, []);
 
   return (
-    <div className={`${styles.container} ${styles.containerBig}  ${styles.header}`}>
-      <div className={styles.headerButtonGroup}>
-        <DropDownButton />
-        <div className={styles.headerButton}>
-          <Button
-            variant="outlined"
-            color="inherit"
-            className={styles.button}
-            onClick={createNewBoard}
-          >
-            {t('Create new board')}
-          </Button>
+    <div className={`${styles.container} ${styles.containerBig}`}>
+      <div className={styles.header}>
+        <div className={isBurgerMenu ? styles.burger : ''}>
+          <div className={buttonsGroupStyle}>
+            <div className={styles.burgerMenuLine} onClick={onToggle}>
+              <div className={burgerLineStyle}></div>
+              <div className={burgerLineStyle}></div>
+              <div className={burgerLineStyle}></div>
+            </div>
+            <div className={menuContentStyle}>
+              <DropDownButton isBurger={isBurgerMenu} onClose={onToggle} />
+              <div className={styles.headerButton}>
+                <a
+                  className={isBurgerMenu ? styles.link : styles.outlinedButton}
+                  onClick={() => {
+                    onToggle();
+                    createNewBoard();
+                  }}
+                >
+                  {t('Create new board')}
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div className={styles.headerSettingsBlock}>
-        <ThemeContext.Consumer>
-          {({ changeTheme }) => (
-            <SwitchTheme
-              onChangeTheme={() => {
-                const currentTheme = isChecked ? themes.light : themes.dark;
+        <div className={styles.headerSettingsBlock}>
+          <div className={styles.themeWrapper}>
+            <Theme />
+          </div>
+          <div className={styles.selectWrapper}>
+            <CustomSelect />
+          </div>
+        </div>
 
-                setIsChecked((prevValue: boolean) => !prevValue);
-                changeTheme(currentTheme);
-              }}
-              isChecked={isChecked}
-            />
-          )}
-        </ThemeContext.Consumer>
-        <CustomSelect />
+        <span className={`${styles.line}`}></span>
+        <CreateBoardModal />
       </div>
-      <span className={`${styles.line}`}></span>
-      <CreateBoardModal />
     </div>
   );
 };

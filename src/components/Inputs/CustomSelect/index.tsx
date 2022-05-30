@@ -5,7 +5,6 @@ import styles from './styles.module.scss';
 
 export const CustomSelect = () => {
   const { i18n } = useTranslation();
-
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     i18n.changeLanguage(event.target.value);
   };

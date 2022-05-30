@@ -7,4 +7,13 @@
   height: calc(100vh - 180px);
   margin: 0 auto;
   background-color: var(--main-background-color);
+
+  @media screen and (max-width: 560px){
+    width: 300px;
+  }
+
+  & .formWrapper {
+    width: 300px;
+    max-width: 300px;
+  }
 }

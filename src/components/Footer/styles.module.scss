@@ -24,6 +24,12 @@
     
     &GithubBlock {
         display: flex;
+
+        @media screen and (max-width: 560px){
+            justify-content: space-between;
+            width: 100%;
+            font-size: var(--font-size-small);
+        }
     }
 
     &Link {
@@ -33,16 +39,34 @@
         color: var(--main-background-color);
         text-decoration: none;
         border: none;
+
+        @media screen and (max-width: 560px){
+            padding: 5px;
+        }
     }
 
     &Year {
         color: var(--main-background-color);
 
+        @media screen and (max-width: 560px){
+            position: absolute;
+            right: 5px;
+            bottom: 5px;
+            font-size: var(--font-size-small);
+        }
     }
 
     &RssCourse {
         width: 65px;
         height: 25px;
+
+        @media screen and (max-width: 560px){
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            width: 55px;
+            height: 20px;
+        }
     }
     
     &Logo {

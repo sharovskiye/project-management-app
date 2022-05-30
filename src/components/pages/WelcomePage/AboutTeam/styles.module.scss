@@ -10,4 +10,8 @@
   margin: 30px 0;
   color: var(--details-background-color);
   text-align: center;
+
+  @media screen and (max-width: 560px) {
+    font-size: var(--font-size-large);
+  }
 }
