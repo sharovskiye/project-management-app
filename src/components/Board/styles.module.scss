@@ -15,18 +15,33 @@
   width: 220px;
 
   @media screen and (max-width: 321px) {
-    width: 100%;;
+    width: 100%;
   }
-
 }
 
 .main {
   display: flex;
   align-items: flex-start;
-  padding: 10px 0;
+  height: calc(100vh - 280px);
+  padding: 20px 0 35px;
+  margin-bottom: 5px;
   overflow-x: scroll;
   overflow-y: hidden;
   font-size: var(--font-size-small);
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-column-button);
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text-column-color);
+  }
 
   @media screen and (max-width: 560px) {
     padding: 0;
