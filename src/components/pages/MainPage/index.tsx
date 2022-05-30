@@ -14,6 +14,7 @@ import {
 import { mainBoardSelector } from '../../../store/selectors';
 import { useToggle } from '../../../utils/CustomHook';
 import { getMessage } from '../../../utils/getMessage';
+import { BackButton } from '../../BackButton';
 import { ConfirmModalWindow } from '../../Modal/ConfirmModal';
 import { Spinner } from '../../Spinner';
 
@@ -31,6 +32,10 @@ export const MainPage = () => {
 
   const { boardCollection, loading, idDeletedBoard, errorMessage } =
     useAppSelector(mainBoardSelector);
+
+  const backTo = () => {
+    navigate('/');
+  };
 
   useEffect(() => {
     if (loading === 'error') {
@@ -101,12 +106,15 @@ export const MainPage = () => {
   );
 
   return (
-    <main className={styles.main}>
+    <div className={styles.main}>
       <div className={styles.wrapper}>
+        <div className={styles.backBtnWrapper}>
+          <BackButton title={t('Back to welcome page')} backTo={backTo} />
+        </div>
         <div className={styles.boardsContainer}>{boardCollection.length > 0 && boards}</div>
         <ConfirmModalWindow onDelete={onDelete} open={opened} handleClose={onToggle} />
         {loading === 'pending' && <Spinner />}
       </div>
-    </main>
+    </div>
   );
 };
