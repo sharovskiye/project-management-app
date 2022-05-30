@@ -147,7 +147,12 @@ export const Task = memo(({ task }: ITaskProps) => {
   return (
     <Draggable key={task.id} draggableId={task.id} index={task.order}>
       {(provided) => (
-        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+        <div
+          className={styles.taskContainer}
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
           <div onClick={onShowDetails} className={styles.task}>
             <div className={styles.taskTitle}>
               <p title={title}>
