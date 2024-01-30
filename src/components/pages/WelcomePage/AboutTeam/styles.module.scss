@@ -1,0 +1,17 @@
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px 15px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.title {
+  margin: 30px 0;
+  color: var(--details-background-color);
+  text-align: center;
+
+  @media screen and (max-width: 560px) {
+    font-size: var(--font-size-large);
+  }
+}

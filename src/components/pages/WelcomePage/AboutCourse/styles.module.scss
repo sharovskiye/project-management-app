@@ -1,0 +1,26 @@
+.wrapper {
+  width: 100%;
+  max-width: 1200px;
+  padding-bottom: 15px;
+  margin: 0 auto;
+  color: var(--details-background-color);
+}
+
+.title {
+  margin: 30px 0;
+  text-align: center;
+
+  @media screen and (max-width: 560px) {
+    font-size: var(--font-size-large);
+  }
+}
+
+.subtitle {
+  letter-spacing: 0.03em;
+}
+
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}

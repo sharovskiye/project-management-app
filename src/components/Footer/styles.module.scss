@@ -1,0 +1,96 @@
+.container {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+
+    &Big {
+        max-width: var(--container-width-big);
+    }
+
+    &Medium {
+        max-width: var(--container-width-medium);
+    }
+}
+
+
+.footer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    font-size: var(--font-size-medium);
+    font-weight: bold;
+    
+    &GithubBlock {
+        display: flex;
+
+        @media screen and (max-width: 560px){
+            justify-content: space-between;
+            width: 100%;
+            font-size: var(--font-size-small);
+        }
+    }
+
+    &Link {
+        display: block;
+        padding: 0 var(--padding-base);
+        line-height: 36px;
+        color: var(--main-background-color);
+        text-decoration: none;
+        border: none;
+
+        @media screen and (max-width: 560px){
+            padding: 5px;
+        }
+    }
+
+    &Year {
+        color: var(--main-background-color);
+
+        @media screen and (max-width: 560px){
+            position: absolute;
+            right: 5px;
+            bottom: 5px;
+            font-size: var(--font-size-small);
+        }
+    }
+
+    &RssCourse {
+        width: 65px;
+        height: 25px;
+
+        @media screen and (max-width: 560px){
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            width: 55px;
+            height: 20px;
+        }
+    }
+    
+    &Logo {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-image: url('../../images/rss-logo.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+    &Link , &Logo {
+        cursor: pointer;
+        border-radius: 3px;
+        transition: 0.5s;
+
+        &:hover {
+            background-color: var(--color-column-button);
+        }
+
+        &:active {
+            background-color: var(--text-column-color);
+        }
+    }
+}
+

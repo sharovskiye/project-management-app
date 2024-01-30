@@ -1,0 +1,54 @@
+.wrapper {
+  column-gap: 10px;
+  width: 280px;
+  margin: 0 auto;
+  color: var(--text-color);
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px 2px #223c5033;
+}
+
+.imgContainer {
+  display: flex;
+  align-items: center;
+  height: 280px;
+
+  & .image {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+}
+
+.roleContainer {
+  display: flex;
+  column-gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  &Title {
+    font-size: 14px;
+    opacity: 0.7;
+  }
+
+  &Link {
+    width: 20px;
+    height: 20px;
+    background: top 0 left 0 / 100% 100% url('https://www.svgrepo.com/show/332401/github.svg');
+    transition: 0.5s;
+  }
+
+  &Link:hover {
+    transform: scale(1.1);
+  }
+}
+
+.wrapperContainer {
+  padding: 10px;
+}
+
+.title {
+  margin: 8px 0;
+  text-align: center;
+}
