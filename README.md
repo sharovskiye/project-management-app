@@ -2,7 +2,7 @@
 
 ## Attention: Unsupported Project
 
-This project is no longer maintained and is provided for demonstration purposes only. Please note that it may contain outdated dependencies and does not receive updates since its release.
+This project is no longer actively supported. It serves as a demonstration of skills and technologies used during its development.
 
 ## Used Technologies
 
