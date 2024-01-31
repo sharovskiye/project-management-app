@@ -4,6 +4,10 @@
 
 This project is no longer actively supported. It serves as a demonstration of skills and technologies used during its development.
 
+## Project Overview
+
+The Project Management App is a web application designed to facilitate project collaboration, task management, and team coordination. It provides a user-friendly interface to help teams organize their work, track progress, and efficiently manage projects.
+
 ## Used Technologies
 
 The project utilizes the following technologies and libraries:
@@ -69,5 +73,3 @@ The project utilizes the following technologies and libraries:
   - Enables the deletion of tasks and modification of their structure.
   - Implements editing column headers and their deletion.
   - Ensures a user-friendly interface.
-
-This application provides powerful tools for project and task management, offering a user-friendly interface and effective interaction capabilities for users.
