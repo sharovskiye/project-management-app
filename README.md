@@ -11,6 +11,7 @@ The project utilizes the following technologies and libraries:
 - **React** - for building the user interface.
 - **Redux** and **@reduxjs/toolkit** - for state management.
 - **React Router** - for navigation between pages.
+- **TypeScript** - for enhancing code quality and development experience.
 - **Material-UI** - for pre-built components and styling.
 - **Formik** and **Yup** - for working with forms and data validation.
 - **i18next** - for localization of textual content.
